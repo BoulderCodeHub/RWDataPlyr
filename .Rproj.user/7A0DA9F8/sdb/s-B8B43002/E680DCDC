@@ -1,0 +1,16 @@
+{
+    "contents" : "# Written by Cameron Bracken - circa 2010\n\nread_rdf_header <- function(con,end){\n\t\n\t#assumes connection is already correctly positioned\n\t\n\tobj <- list()\n\t\n\trepeat{\n\t\tline <- readLines(con,n=1)\n\t\tif(line == end) break\n\n\t\tsplitLine <- strsplit(line,':')[[1]]\n\t\tname <- splitLine[1]\n\t\tif(length(splitLine) > 1){\n\t\t\tif(substr(splitLine[2],1,1) == ' ')\n\t\t\t\tsplitLine[2] <- substr(splitLine[2],2,nchar(splitLine[2]))\n\t\t\tcontents <- paste(splitLine[2:length(splitLine)],collapse=':')\n\t\t} else{\n\t\t\tcontents <- NA\n\t\t}\n\t\tobj[[name]] <- contents\n\t\t\n\t\tif(end == 1) break\n\t\t\n\t}\n\t\n\t#returns the object, but connection is advanced\n\treturn(obj)\n\t\n}\n\t\nread_rdf_meta <- function(rdf.con,rdf.obj){\n\t\n\trdf.obj[['meta']] <- read_rdf_header(rdf.con,'END_PACKAGE_PREAMBLE')\n\treturn(rdf.obj)\n\t\n}\n\nread_next_line_and_rewind <- function(con){\n\t\n\tstr <- readLines(con,n=1)\n\tseek(con,seek(con)-nchar(str)-2)\n\treturn(str)\n\t\n}\n\nread_rdf_run <- function(rdf.con,rdf.obj){\n\t\n\tthis.run <- length(rdf.obj$runs) + 1\n\trdf.obj$runs[[this.run]] <- read_rdf_header(rdf.con,'END_RUN_PREAMBLE')\n\t\n\t\t#time steps\n\tnts <- as.integer(rdf.obj$runs[[this.run]]$time_steps)\n\t\t#for non-mrm files\n\tif(length(nts) == 0) \n\t\tnts <- as.integer(rdf.obj$runs[[this.run]]$timesteps)\n\t\t\n\trdf.obj$runs[[this.run]][['times']] <- readLines(rdf.con,n=nts)\n\t\n\t\t#Series\n\tnob <- 0\n\trepeat{\n\t\t\n\t\tnob <- nob + 1\n\t\trdf.obj$runs[[this.run]][['objects']][[nob]] <- read_rdf_header(rdf.con,'END_SLOT_PREAMBLE')\n\t\t\n\t\t\t#name the objecst after their object.slot name\n\t\tobj.name <- rdf.obj$runs[[this.run]][['objects']][[nob]]$object_name\n\t\tslot.name <- rdf.obj$runs[[this.run]][['objects']][[nob]]$slot_name\n\t\tname <- paste(obj.name,slot.name,sep='.')\n\t\tnames(rdf.obj$runs[[this.run]][['objects']])[nob] <- name\n\t\t\n\t\t\t#read in the extr two header pieces\n\t\trdf.obj$runs[[this.run]][['objects']][[nob]]$units <- read_rdf_header(rdf.con,1)[[1]]\n\t\trdf.obj$runs[[this.run]][['objects']][[nob]]$scale <- read_rdf_header(rdf.con,1)[[1]]\n\n\t\trdf.obj$runs[[this.run]][['objects']][[nob]]$values <- as.numeric(readLines(rdf.con,n=nts))\n\t\t\n\t\t\t#END_COLUMN,END_SLOT, table slots need support here\n\t\tdummy <- readLines(rdf.con,n=2)\n\t\t\n\t\tif(read_next_line_and_rewind(rdf.con) == 'END_RUN'){\n\t\t\tdummy <- readLines(rdf.con,n=1)\n\t\t\tbreak\n\t\t}\n\t}\n\treturn(rdf.obj)\n\t\n}\n\nread.rdf <- function(file){\n\t\n\trdf.obj <- list()\n\trdf.con <- file(file,'r')\n\t\n\trdf.obj <- read_rdf_meta(rdf.con,rdf.obj)\n\tfor(i in 1:as.numeric(rdf.obj$meta$number_of_runs))\n\t\trdf.obj <- read_rdf_run(rdf.con,rdf.obj)\n\t\n\tclose(rdf.con)\n\t\n\treturn(rdf.obj)\n}",
+    "created" : 1410900879462.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2805069330",
+    "id" : "E680DCDC",
+    "lastKnownWriteTime" : 1410900917,
+    "path" : "C:/alan/RPackages/RWDataPlot/R/read.rdf.R",
+    "project_path" : "R/read.rdf.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

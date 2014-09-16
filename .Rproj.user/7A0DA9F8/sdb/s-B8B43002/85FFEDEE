@@ -1,0 +1,16 @@
+{
+    "contents" : "# -----------------------------------------------------------------------------\n# \t\t\t\t\t\t\t\tlistSlots\n# -----------------------------------------------------------------------------\n# list slots in an rdf file\nlistSlots <- function(rdf) \n{\n  r <- names(rdf$runs[[1]]$objects)\n  r\n}\n\n# ----------------------------------------------------------------------------\n# **************************  rdfSlotToMatrix  *******************************\n# ----------------------------------------------------------------------------\n\n# Takes a list created by read.rdf and converts the nested slot values over\n# multiple traces into a matrix with rows indexing through time and columns \n# indexing over runs\nrdfSlotToMatrix <- function(rdf, slot)\n{\n\tres = c()\n\tfor(i in 1:as.numeric(rdf$meta$number_of_runs)){\n\t\tres = cbind(res, rdf$runs[[i]]$objects[[slot]]$values)\n\t}\n\t\n\tres\n}\n\n# ----------------------------------------------------------------------------\n# **************************  sumMonth2Annual  *******************************\n# ----------------------------------------------------------------------------\n\nsumMonth2Annual <- function(matrixToSum, multFactor = 1)\n# the multiplying factor can be used if the matrix is in units of flow and the \n# result should be in units of volume, or to scale all results in another manor\n{\n\tnumTS = length(matrixToSum[,1])\n\tmySeq = seq(from = 0, to = numTS, by = 12)\n\tresMatrix = c()\n\tfor(i in 1:(numTS/12)){\n\t\tresMatrix = rbind(resMatrix, apply(as.matrix(matrixToSum[(mySeq[i]+1):mySeq[i+1],]), 2, sum) * multFactor)\n\t}\n\tresMatrix\n}\n\n",
+    "created" : 1410901337373.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1825687240",
+    "id" : "85FFEDEE",
+    "lastKnownWriteTime" : 1410901282,
+    "path" : "C:/alan/RPackages/RWDataPlot/R/rdf_helperFunctions.R",
+    "project_path" : "R/rdf_helperFunctions.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
