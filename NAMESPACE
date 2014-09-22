@@ -1,0 +1,3 @@
+export(read.rdf,
+       listSlots,
+       rdfSlotToMatrix)

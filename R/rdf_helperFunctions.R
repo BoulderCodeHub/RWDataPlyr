@@ -1,7 +1,12 @@
 # -----------------------------------------------------------------------------
 # 								listSlots
 # -----------------------------------------------------------------------------
-# list slots in an rdf file
+#' list all slots contained in an rdf file (list returned by read.rdf)
+#' @param rdf list returned by read.rdf
+#' @return A vector of strings.  Each string is a slot contained in the rdf list.
+#' @examples
+#' zz <- read.rdf('KeySlots.rdf')
+#' listSlots(zz)
 listSlots <- function(rdf) 
 {
   r <- names(rdf$runs[[1]]$objects)
