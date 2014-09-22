@@ -1,7 +1,7 @@
 # -----------------------------------------------------------------------------
 # 								listSlots
 # -----------------------------------------------------------------------------
-#' list all slots contained in an rdf file (list returned by read.rdf)
+#' List all slots contained in an rdf file (list returned by read.rdf)
 #' @param rdf list returned by read.rdf
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
@@ -33,7 +33,16 @@ rdfSlotToMatrix <- function(rdf, slot)
 # ----------------------------------------------------------------------------
 # **************************  sumMonth2Annual  *******************************
 # ----------------------------------------------------------------------------
-
+#' Sums monthly trace data into annual values.
+#' 
+#' @param matrixToSum The monthly trace data (months by traces) that will be summed.
+#' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
+#' @return The annual sums as a matrix (years by traces).
+#' @examples
+#' zz <- read.rdf('KeySlots.rdf')
+#' zz <- rdfSlotToMatrix(zz, 'Powell.Outflow')
+#' annualRelease <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
+#' annualRelease <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
 sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 # the multiplying factor can be used if the matrix is in units of flow and the 
 # result should be in units of volume, or to scale all results in another manor
