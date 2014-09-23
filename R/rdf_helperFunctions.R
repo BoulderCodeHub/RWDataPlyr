@@ -2,7 +2,7 @@
 # 								listSlots
 # -----------------------------------------------------------------------------
 #' List all slots contained in an rdf file (list returned by read.rdf)
-#' @param rdf list returned by read.rdf
+#' @param rdf list returned by \code{\link{read.rdf}}
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
 #' zz <- read.rdf('KeySlots.rdf')
@@ -17,12 +17,21 @@ listSlots <- function(rdf)
 # **************************  rdfSlotToMatrix  *******************************
 # ----------------------------------------------------------------------------
 
-# Takes a list created by read.rdf and converts the nested slot values over
-# multiple traces into a matrix with rows indexing through time and columns 
-# indexing over runs
+#' Takes a list created by \code{\link{read.rdf}} and converts the nested slot values over
+#' multiple traces into a matrix with rows indexing through time and columns 
+#' indexing over traces
+#' @param rdf list returned by \code{\link{read.rdf}}
+#' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
+#' @examples
+#' zz <- read.rdf('KeySlots.rdf')
+#' pe <- rdfSlotToMatrix(zz, 'Powell.Pool Elevation')
 rdfSlotToMatrix <- function(rdf, slot)
 {
 	res = c()
+  # check to see if the slot exists in the rdf, if it does not exit
+  if(!(slot %in% listSlots(rdf)))
+     stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
+     
 	for(i in 1:as.numeric(rdf$meta$number_of_runs)){
 		res = cbind(res, rdf$runs[[i]]$objects[[slot]]$values)
 	}

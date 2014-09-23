@@ -6,7 +6,7 @@
 listSlots(rdf)
 }
 \arguments{
-\item{rdf}{list returned by read.rdf}
+\item{rdf}{list returned by \code{\link{read.rdf}}}
 }
 \value{
 A vector of strings.  Each string is a slot contained in the rdf list.
