@@ -1,58 +1,46 @@
 ---
 title: "RWDataPlot"
-author: "Vignette Author"
+author: "R. Alan Butler"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    self_contained: no
+  
 vignette: >
   %\VignetteIndexEntry{rwdataplot}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+The RWDataPlot package provides a mechanism to import data from [RiverWare<sup>TM</sup>](http://riverware.org) simulations into R.  Starting with data in the form of RiverWare data  files (rdf), the data are read into R and can then be maniuplated.  The package is intended to compliment the RiverWare RiverSMART<sup>TM</sup> tool, which includes a plugin to run R code.  The package provides functionality to read in data from multiple scenarios, add common attributes, and provides common plotting functions utilizing 'ggplot2'. Many of the plotting functions are written so that figures that are commonly generated from results from the Bureau of Reclamation's Colorado River Simulation System (CRSS) can be automatically and quickly created, however; they can be utilized to plot any multi-trace simulation results.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+## Reading Data Into R
+1. 'read.rdf'
+1. 'rdfSlotToMatrix'
+1. 'listSlots'
 
-## Vignette Info
+```{r}
+library(RWDataPlot)
+rdf <- read.rdf(system.file('extdata/DNF,2007Dems,IG/KeySlots.rdf',package = 'RWDataPlot'))
+pe <- rdfSlotToMatrix(rdf, 'Powell.Pool Elevation')
+listSlots(rdf)
+```
 
-Note the various macros within the `vignette` setion of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
+### Manipulation and Aggregation Functions
 
-## Styles
+## "Long" Formatting and Adding Attributes
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+### Common Summary Functions
+1. End-of-Calendar Year
+1. Minimum Annual Value
+1. Annual Sum
+1. Exceedance and Non-Exceedance
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
+## Generating Common Figures
 
 ```{r, fig.show='hold'}
 plot(1:10)
 plot(10:1)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
-
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+## Utilizing RWDataPlot within RiverSMART<sup>TM</sup>
