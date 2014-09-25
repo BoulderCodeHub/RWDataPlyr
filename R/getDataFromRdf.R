@@ -1,5 +1,5 @@
 
-processSlots <- function(slotsAnnualize, rdf, rdfName, traceSpace)
+processSlots <- function(slotsAnnualize, rdf, rdfName)
 {
 	ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
@@ -59,13 +59,11 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, traceSpace)
 		stop('invalid ann variable')
 	}
 	
-	if(traceSpace){
-		colnames(slot) <- paste('Trace',1:ncol(slot))
-	} else{
-		colnames(slot) <- paste('Trace',1:ncol(slot),sep = '')
-	}
+	
+	colnames(slot) <- 1:ncol(slot)
+	
 	if(ann != 'Monthly'){
-		slot <- melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
+		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
 		slot <- cbind(slot, rep(paste(slotsAnnualize[1],ann,thresh,sep = '_'),nrow(slot)))
 		colnames(slot)[ncol(slot)] <- 'Variable'
 		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
@@ -81,7 +79,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, traceSpace)
 	slot
 }
 
-getSlots <- function(slotsAndRdf, scenPath, traceSpace)
+getSlots <- function(slotsAndRdf, scenPath)
 {
 	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize)
 	rdf <- slotsAndRdf$rdf
@@ -90,16 +88,16 @@ getSlots <- function(slotsAndRdf, scenPath, traceSpace)
 	#print(paste('padding first three months of',slot,
 			#'with January data to make Water Year based computation.\nPlease ensure this is an appropriate assumption'))
 	#flush.console()
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotsAndRdf$rdf, traceSpace)
+	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotsAndRdf$rdf)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
 
-getAndProcessAllSlots <- function(scenPath, slotsAndRdf, tags, traceSpace)
+getAndProcessAllSlots <- function(scenPath, slotsAndRdf, tags)
 {
 	sPath <- scenPath[1]
 	sName <- scenPath[2]
-	zz <- lapply(slotsAndRdf, getSlots, sPath, traceSpace)
+	zz <- lapply(slotsAndRdf, getSlots, sPath)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
 	nn = colnames(allRes)
@@ -110,13 +108,12 @@ getAndProcessAllSlots <- function(scenPath, slotsAndRdf, tags, traceSpace)
 	allRes
 }
 
-getDataForAllScens <- function(scenFolders, scenNames, slotsAndRdf, scenPath, oFile, 
-	traceSpace = TRUE)
+getDataForAllScens <- function(scenFolders, scenNames, slotsAndRdf, scenPath, oFile)
 {
 
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotsAndRdf, tags, traceSpace)
+	zz = apply(scen, 1, getAndProcessAllSlots, slotsAndRdf, tags)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
