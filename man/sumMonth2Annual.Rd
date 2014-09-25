@@ -14,7 +14,8 @@ sumMonth2Annual(matrixToSum, multFactor = 1)
 The annual sums as a matrix (years by traces).
 }
 \description{
-Sums monthly trace data into annual values.
+\code{sumMonth2Annual} takes a matrix containing monthly data (months by traces),
+sum the monthly data into annual data.  Returns a years by traces matrix.
 }
 \examples{
 zz <- read.rdf('KeySlots.rdf')

@@ -15,11 +15,12 @@ Description: Provides a tool to read data generated from RiverWare(TM)
     functions are written to expect "Scenario" based output, i.e., output that
     is saved in different scenario folders, such as those generated using
     RiverSMART(TM).
-Depends: 
+Depends:
     R (>= 3.1.0)
 License: CCO
 LazyData: true
-Imports: 
+Imports:
     reshape2
-Suggests: knitr
+Suggests:
+    knitr
 VignetteBuilder: knitr
