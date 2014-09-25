@@ -1,4 +1,13 @@
-
+#' Aggregate the slot data.
+#' 
+#' \code{processSlots} gets slot data from a rdf list and aggregates it as specified.
+#' 
+#' @param slotsAnnualize A string vector with three entries.  \code{slotsAnnualize[1]} is the
+#' slot to process. \code{slotsAnnualize[2]} is the aggregation method to use. 
+#' \code{slotsAnnualize[3]} is the threshold or scaling factor to use.
+#' @param rdf The rdf list returned by \code{\link{read.rdf}} to get the slot data from.  
+#' @param rdfName String of the rdf name.
+#' @return A data frame table with the aggregated slot data.
 processSlots <- function(slotsAnnualize, rdf, rdfName)
 {
 	ann <- slotsAnnualize[2]
@@ -56,7 +65,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot * 100
 		rownames(slot) <- yy
 	} else{
-		stop('invalid ann variable')
+		stop('Invalid aggregation method variable')
 	}
 	
 	
@@ -68,7 +77,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		colnames(slot)[ncol(slot)] <- 'Variable'
 		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
 	} else{
-		slot <- melt(slot, value.name = 'Value', varnames = c('Month','Trace'))
+		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Month','Trace'))
 		mm <- simplify2array(strsplit(as.character(slot$Month), '-'))
 		slot$Month <- mm[1,]
 		slot$Variable <- rep(paste(slotsAnnualize[1],ann,thresh,sep = '_'),nrow(slot))
@@ -79,6 +88,13 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	slot
 }
 
+#' Get and aggregate data from a single rdf file.
+#' 
+#' \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
+#' as specified by the summary functions in \code{slotsAndRdf}. 
+#' 
+#' @inheritParams getAndProcessAllSlots
+#' 
 getSlots <- function(slotsAndRdf, scenPath)
 {
 	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize)
@@ -93,7 +109,15 @@ getSlots <- function(slotsAndRdf, scenPath)
 	allSlots
 }
 
-getAndProcessAllSlots <- function(scenPath, slotsAndRdf, tags)
+#' Get and aggregate data from rdf file(s) for one scenario.
+#' 
+#' \code{getAndProcessAllSlots} gets data for a single scenario.  The slots from each
+#' rdf are processed and aggregated together.
+#' 
+#' @param scenPath A relative or absolute path to the scenario folder.
+#' @inheritParams getDataForAllScens
+#' @seealso \code{\link{getDataForAllScens}}
+getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
 {
 	sPath <- scenPath[1]
 	sName <- scenPath[2]
@@ -108,12 +132,29 @@ getAndProcessAllSlots <- function(scenPath, slotsAndRdf, tags)
 	allRes
 }
 
+#' Get data from an rdf file(s) for multiple scenarios and save it as a data table.
+#' 
+#' \code{getDataForAllScens} gets slot data from multiple rdf files and for multiple scenarios.
+#' The slot data can be aggregated in multiple ways (see \code{\link{createSlotAggList}}). Slot data is then converted to a molten data frame using \code{reshaphe2::melt}
+#' and saved as a txt file for later use.
+#' 
+#' @param scenFolders A string vector containing the folder names (scenarios) that the rdf files
+#' are saved in.
+#' @param scenNames A string vector containing the scenario names.  This should be the same length
+#' as \code{scenFolders}. The scenario names are used as attributes to the data in the "Scenario"
+#' column.
+#' @param slotsAndRdf A list containing the slots that will be imported and aggregated, the
+#' aggregation method(s) to use, and the rdf files that contain the slots.
+#' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
+#' @param oFile An absolute or relative path with the file name of the location the table will
+#' be saved to.
+#' @seealso \code{\link{createSlotAggList}}
 getDataForAllScens <- function(scenFolders, scenNames, slotsAndRdf, scenPath, oFile)
 {
 
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotsAndRdf, tags)
+	zz = apply(scen, 1, getAndProcessAllSlots, slotsAndRdf)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
