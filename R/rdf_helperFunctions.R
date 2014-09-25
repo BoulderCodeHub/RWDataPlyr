@@ -1,7 +1,10 @@
 # -----------------------------------------------------------------------------
 # 								listSlots
 # -----------------------------------------------------------------------------
-#' List all slots contained in an rdf file (list returned by read.rdf)
+#' List all slots contained in an rdf file.
+#' 
+#' \code{listSlots} returns a list of all of the slots contained within the rdf list.
+#' 
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
@@ -16,10 +19,12 @@ listSlots <- function(rdf)
 # ----------------------------------------------------------------------------
 # **************************  rdfSlotToMatrix  *******************************
 # ----------------------------------------------------------------------------
-
+#' Get one slot out of an rdf list and put it in matrix form.
+#' 
 #' Takes a list created by \code{\link{read.rdf}} and converts the nested slot values over
 #' multiple traces into a matrix with rows indexing through time and columns 
-#' indexing over traces
+#' indexing over traces.
+#' 
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
 #' @examples
@@ -43,6 +48,9 @@ rdfSlotToMatrix <- function(rdf, slot)
 # **************************  sumMonth2Annual  *******************************
 # ----------------------------------------------------------------------------
 #' Sums monthly trace data into annual values.
+#' 
+#' Given a matrix containing monthly data (months by traces), sum the monthly data into
+#' annual data.  Returns a years by traces matrix.
 #' 
 #' @param matrixToSum The monthly trace data (months by traces) that will be summed.
 #' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
