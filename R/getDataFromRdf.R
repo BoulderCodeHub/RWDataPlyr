@@ -40,7 +40,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		rownames(slot) <- yy
 	} else if(ann == 'AnnMax'){
 		slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
-		rownames(slot) <- yy
+		slot <- slot * thresh
+    rownames(slot) <- yy
 	} else if(ann == 'AnnualSum'){
 		slot <- sumMonth2Annual(slot,thresh)
 		rownames(slot) <- yy
