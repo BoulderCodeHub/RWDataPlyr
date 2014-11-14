@@ -4,7 +4,9 @@
 #' 
 #' @param slotsAnnualize A string vector with three entries.  \code{slotsAnnualize[1]} is the
 #' slot to process. \code{slotsAnnualize[2]} is the aggregation method to use. 
-#' \code{slotsAnnualize[3]} is the threshold or scaling factor to use.
+#' \code{slotsAnnualize[3]} is the threshold or scaling factor to use. \code{slotsAnnualize[4]}
+#' is the variable name to use. If \code{slotsAnnualize[4]} is \code{NA}, then the variable
+#' name is constructed as \code{slotsAnnualize[1]}_\code{slotsAnnualize[2]}_\code{slotsAnnualize[3]}.
 #' @param rdf The rdf list returned by \code{\link{read.rdf}} to get the slot data from.  
 #' @param rdfName String of the rdf name.
 #' @return A data frame table with the aggregated slot data.
@@ -74,14 +76,16 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	
 	if(ann != 'Monthly'){
 		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
-		slot <- cbind(slot, rep(paste(slotsAnnualize[1],ann,thresh,sep = '_'),nrow(slot)))
+		slot <- cbind(slot, rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+                                   slotsAnnualize[4]),nrow(slot)))
 		colnames(slot)[ncol(slot)] <- 'Variable'
 		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
 	} else{
 		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Month','Trace'))
 		mm <- simplify2array(strsplit(as.character(slot$Month), '-'))
 		slot$Month <- mm[1,]
-		slot$Variable <- rep(paste(slotsAnnualize[1],ann,thresh,sep = '_'),nrow(slot))
+		slot$Variable <- rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+                            slotsAnnualize[4]),nrow(slot))
 		slot$Year <- mm[2,]
 		#colnames(slot)[(ncol(slot)-1):ncol(slot)] <- c('Variable','Year')
 		slot <- subset(slot,select = c(Trace, Month, Year, Variable, Value))
@@ -98,7 +102,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' 
 getSlots <- function(slotsAndRdf, scenPath)
 {
-	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize)
+	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize, slotsAndRdf$varNames)
 	rdf <- slotsAndRdf$rdf
 	rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
 

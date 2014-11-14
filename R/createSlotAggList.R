@@ -2,33 +2,40 @@
 #' 
 #' \code{createSlotAggList} creates a list that specifies for each slot: which rdf file to find each slot in, 
 #' how to aggregate and process the slot data, and any thresholds or scaling factors. The function
-#' can either read in a csv file or start from an Nx4 string matrix.
+#' can either read in a csv file or start from an Nx4 or Nx5 string matrix (the 5th column is optional).
 #' 
-#' The csv file and the matrix should be in the form of an Nx4 matrix.  Each row is a single
+#' The csv file and the matrix should be in the form of an Nx4 or Nx5 matrix.  Each row is a single
 #' slot, aggregation, and threshold combination.  If you want to compare a single slot value to 
 #' multiple thresholds, it needs to have one row for each threshold. The first column is the 
 #' rdf the slot is found in.  The second column is the slot name.  The third column is the
 #' aggregation method that will be applied to the slot (see below for a list of the aggregation
-#' methods).  The fourth column is a scaling factor or threshold to compare the slot data to. 
+#' methods).  The fourth column is a scaling factor or threshold to compare the slot data to.
+#' The fifth column is an optional column; if specified, the 5th column will be used for the
+#' variable name for the data table created by \code{getDataForAllScens}. If it is not specified
+#' the variable name will be created by concatenating the slot, aggregation method, and 
+#' threshold/scaling factor using '_' to seperate the columns. 
 #' Below is an example table. All values should be strings except for \code{NA}.
 #' 
-#' \tabular{cccc}{
+#' \tabular{ccccc}{
 #' \strong{rdf} \tab \strong{Slot} \tab \strong{Aggregation Method} \tab 
-#' \strong{Threshold or Scaling Factor}\cr
-#' 'KeySlots.rdf' \tab 'Powell.Pool Elevation' \tab 'EOCY' \tab NA\cr
-#' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1100'\cr
-#' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1060'\cr
-#' 'Other.rdf' \tab 'Powell.Outflow' \tab 'AnnualSum' \tab '0.001'\cr
+#' \strong{Threshold or Scaling Factor} \tab \strong{Variable Name (optional)}\cr
+#' 'KeySlots.rdf' \tab 'Powell.Pool Elevation' \tab 'EOCY' \tab NA \tab Powell EOCY Elevation\cr
+#' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1100' \tab Mead < 1,100\cr
+#' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1060' \tab Mead < 1,060\cr
+#' 'Other.rdf' \tab 'Powell.Outflow' \tab 'AnnualSum' \tab '0.001' \tab Powell Annual Release\cr
 #' }
 #' 
-#' The above table lists each slot, the rdf the slot is saved in, the summary function, and 
-#' the threshold to be used to scale the data by or compare the data to. The threshold and
+#' The above table lists each slot, the rdf the slot is saved in, the summary function,  
+#' the threshold to be used to scale the data by or compare the data to, and an optional 
+#' specified variable name. The threshold and
 #' scaling factors are described in more detail below. For example, the first row will result
 #' in compiling all end-of-December values for Powell's pool elevation.  The data will not be 
 #' scaled, and is found in KeySlots.rdf. The second row will find the annual minimum Mead pool
 #' elevation and see if it is less than or equal to 1,100' feet in the second line and less
 #' than or equal to 1,060' feet in the third row. To scale the data by a value less than 1, 
-#' use decimals rather than fractions, as shown in the fourth row.
+#' use decimals rather than fractions, as shown in the fourth row. If the Variable Name column
+#' was not specified, the variable name for the first row would be \code{Powell.Pool Elevation_EOCY_1}
+#' as \code{NA} is replaced with a 1 when construcing the variable names.
 #' 
 #' The available aggregation methods are as follows. The behaviour of the "Threshold or scaling
 #' factor are described and a bold \strong{"Threshold"} or \strong{"Scaled"} indicate 
@@ -66,6 +73,9 @@ createSlotAggList <- function(iData)
     iData <- as.matrix(read.csv(iData,header = F))
   }
   
+  # check and see if alternative variable names have been added
+  altNames <- ncol(iData) == 5
+  
   sl <- list() #slot list
   # create one entry for each unique rdf
   rdfs <- levels(as.factor(iData[,1]))
@@ -76,6 +86,11 @@ createSlotAggList <- function(iData)
     sl[[i]]$rdf <- rdfs[i]
     sl[[i]]$slots <- tmp[,2]
     sl[[i]]$annualize <- matrix(t(tmp[,3:4]),nrow = 2)
+    if(altNames){
+      sl[[i]]$varNames <- tmp[,5]      
+    } else{
+      sl[[i]]$varNames <- rep(NA,nrow(tmp))
+    }
   }
   
   sl

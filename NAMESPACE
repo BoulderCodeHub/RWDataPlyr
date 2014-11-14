@@ -3,4 +3,5 @@ export(read.rdf,
        rdfSlotToMatrix,
        sumMonth2Annual,
        createSlotAggList,
-       getDataForAllScens)
+       getDataForAllScens,
+       getMinAnnValue)

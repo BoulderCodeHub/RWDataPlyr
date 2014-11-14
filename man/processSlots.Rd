@@ -8,7 +8,9 @@ processSlots(slotsAnnualize, rdf, rdfName)
 \arguments{
 \item{slotsAnnualize}{A string vector with three entries.  \code{slotsAnnualize[1]} is the
 slot to process. \code{slotsAnnualize[2]} is the aggregation method to use.
-\code{slotsAnnualize[3]} is the threshold or scaling factor to use.}
+\code{slotsAnnualize[3]} is the threshold or scaling factor to use. \code{slotsAnnualize[4]}
+is the variable name to use. If \code{slotsAnnualize[4]} is \code{NA}, then the variable
+name is constructed as \code{slotsAnnualize[1]}_\code{slotsAnnualize[2]}_\code{slotsAnnualize[3]}.}
 
 \item{rdf}{The rdf list returned by \code{\link{read.rdf}} to get the slot data from.}
 
