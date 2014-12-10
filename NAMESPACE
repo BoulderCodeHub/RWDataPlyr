@@ -4,4 +4,6 @@ export(read.rdf,
        sumMonth2Annual,
        createSlotAggList,
        getDataForAllScens,
-       getMinAnnValue)
+       getMinAnnValue,
+       getMaxAnnValue,
+       flowWeightedAvgAnnConc)
