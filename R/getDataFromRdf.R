@@ -148,18 +148,19 @@ getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
 #' @param scenNames A string vector containing the scenario names.  This should be the same length
 #' as \code{scenFolders}. The scenario names are used as attributes to the data in the "Scenario"
 #' column.
-#' @param slotsAndRdf A list containing the slots that will be imported and aggregated, the
-#' aggregation method(s) to use, and the rdf files that contain the slots.
+#' @param slotAggList The slot aggregation list. A list containing the slots that will be 
+#' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
+#' contain the slots. See \code{\link{createSlotAggList}}.
 #' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
 #' @param oFile An absolute or relative path with the file name of the location the table will
 #' be saved to.
 #' @seealso \code{\link{createSlotAggList}}
-getDataForAllScens <- function(scenFolders, scenNames, slotsAndRdf, scenPath, oFile)
+getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile)
 {
 
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotsAndRdf)
+	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
