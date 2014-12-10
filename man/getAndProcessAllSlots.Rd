@@ -7,9 +7,6 @@ getAndProcessAllSlots(scenPath, slotsAndRdf)
 }
 \arguments{
 \item{scenPath}{A relative or absolute path to the scenario folder.}
-
-\item{slotsAndRdf}{A list containing the slots that will be imported and aggregated, the
-aggregation method(s) to use, and the rdf files that contain the slots.}
 }
 \description{
 \code{getAndProcessAllSlots} gets data for a single scenario.  The slots from each

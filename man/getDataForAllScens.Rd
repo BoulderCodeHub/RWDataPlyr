@@ -3,7 +3,7 @@
 \alias{getDataForAllScens}
 \title{Get data from an rdf file(s) for multiple scenarios and save it as a data table.}
 \usage{
-getDataForAllScens(scenFolders, scenNames, slotsAndRdf, scenPath, oFile)
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios) that the rdf files
@@ -13,8 +13,9 @@ are saved in.}
 as \code{scenFolders}. The scenario names are used as attributes to the data in the "Scenario"
 column.}
 
-\item{slotsAndRdf}{A list containing the slots that will be imported and aggregated, the
-aggregation method(s) to use, and the rdf files that contain the slots.}
+\item{slotAggList}{The slot aggregation list. A list containing the slots that will be
+imported and aggregated, the aggregation method(s) to use, and the rdf files that
+contain the slots. See \code{\link{createSlotAggList}}.}
 
 \item{scenPath}{An absolute or relative path to the folder containing \code{scenFolders}.}
 
