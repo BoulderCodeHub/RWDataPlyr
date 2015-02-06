@@ -1,5 +1,5 @@
 ---
-title: "RWDataPlot"
+title: "RWDataPlot-DRAFT"
 author: "R. Alan Butler"
 date: "`r Sys.Date()`"
 output: 
@@ -11,6 +11,8 @@ vignette: >
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
+
+The vignette is a working draft and the package is under current development, thus documentation and functionality may be changing.
 
 The RWDataPlot package provides a mechanism to import data from [RiverWare<sup>TM</sup>](http://riverware.org) simulations into R.  Starting with data in the form of RiverWare data  files (rdf), the data are read into R and can then be maniuplated.  The package is intended to compliment the RiverWare RiverSMART<sup>TM</sup> tool, which includes a plugin to run R code.  The package provides functionality to read in data from multiple scenarios, add common attributes, and provides common plotting functions utilizing `ggplot2`. Many of the plotting functions are written so that figures that are commonly generated from results from the Bureau of Reclamation's Colorado River Simulation System (CRSS) can be automatically and quickly created, however; they can be utilized to plot any multi-trace simulation results.
 
