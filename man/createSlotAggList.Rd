@@ -59,7 +59,7 @@ the data.
  \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. Any values that are NaNs are changed
  to 0s.}
  \item{'AnnMax'}{Returns the maximum annual \strong{scaled} value.}
- \item{'AnnSum'}{Returns the annual \strong{scaled} sum.}
+ \item{'AnnualSum'}{Returns the annual \strong{scaled} sum.}
  \item{'AnnMinLTE'}{Checks to see if the annual minimum value is less than or equal to a
  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
  otherwise.}
