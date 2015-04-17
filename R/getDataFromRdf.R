@@ -67,6 +67,9 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot[slot > thresh] <- 0
 		slot <- slot * 100
 		rownames(slot) <- yy
+	} else if(ann == 'AnnualRaw'){
+    rownames(slot) <- yy
+    slot <- slot*thresh
 	} else{
 		stop('Invalid aggregation method variable')
 	}
