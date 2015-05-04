@@ -56,19 +56,24 @@ factor are described and a bold \strong{"Threshold"} or \strong{"Scaled"} indica
 which is used by the aggregation method. For scaling factors, a value of "NA" will not scale
 the data.
 \describe{
- \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. Any values that are NaNs are changed
- to 0s.}
  \item{'AnnMax'}{Returns the maximum annual \strong{scaled} value.}
  \item{'AnnualSum'}{Returns the annual \strong{scaled} sum.}
  \item{'AnnMinLTE'}{Checks to see if the annual minimum value is less than or equal to a
  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
  otherwise.}
+ \item{'AnnualRaw'}{Returns the annual \strong{scaled} data. This aggregation method should
+ only be used if the rdf file contains only annual data. For rdf files that include
+ monthly data and only an annual value is desired, the EOCY aggregation method should be
+ used. This differs from the Monthly aggregation method, only in the timestep naming.}
+ \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. Any values that are NaNs are changed
+ to 0s.}
+ \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than or equal to a
  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
  otherwise. The water year is defined as October through September of the next year. For the
  first year, only January through September are evaluated as RiveWare does not typcially
  export pre-simulation data.}
- \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
+
 }
 }
 \examples{
