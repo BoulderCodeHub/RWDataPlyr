@@ -42,6 +42,7 @@
 #' which is used by the aggregation method. For scaling factors, a value of "NA" will not scale
 #' the data.
 #' \describe{
+#'  \item{'AnnMin'}{Returns the minimum annual \strong{scaled} value.}
 #'  \item{'AnnMax'}{Returns the maximum annual \strong{scaled} value.}
 #'  \item{'AnnualSum'}{Returns the annual \strong{scaled} sum.}
 #'  \item{'AnnMinLTE'}{Checks to see if the annual minimum value is less than or equal to a 
