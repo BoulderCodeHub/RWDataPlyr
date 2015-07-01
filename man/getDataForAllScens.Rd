@@ -4,7 +4,8 @@
 \alias{getDataForAllScens}
 \title{Get data from an rdf file(s) for multiple scenarios and save it as a data table.}
 \usage{
-getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile,
+  retFile = FALSE)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios) that the rdf files
@@ -22,6 +23,12 @@ contain the slots. See \code{\link{createSlotAggList}}.}
 
 \item{oFile}{An absolute or relative path with the file name of the location the table will
 be saved to.}
+
+\item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned.
+If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
+}
+\value{
+If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
 }
 \description{
 \code{getDataForAllScens} gets slot data from multiple rdf files and for multiple scenarios.

@@ -157,8 +157,12 @@ getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
 #' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
 #' @param oFile An absolute or relative path with the file name of the location the table will
 #' be saved to.
+#' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
+#' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
+#' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
+#' 
 #' @seealso \code{\link{createSlotAggList}}
-getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile)
+getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
 
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
@@ -167,5 +171,8 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oF
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	if(retFile){
+	  zz
+	}
 }
 
