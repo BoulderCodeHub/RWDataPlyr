@@ -1,6 +1,8 @@
 # RStudio Folder
-*.RData
-*.Rhistory
+.RData
+.Rhistory
+**.Rproj
+.Rproj.user
 
 # Windows image file caches
 Thumbs.db
