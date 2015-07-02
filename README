@@ -1,4 +1,0 @@
-RWDataPlot:
-Contains R Code to read, manipulate, and plot data from RiverWareTM (riverware.org), that is saved as rdf (RiverWare data format) files.  
-
-2014-09-16: working to created an R Package from existing code.
