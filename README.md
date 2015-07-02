@@ -13,5 +13,5 @@ devtools::install_github('rabutler/RWDataPlot')
 ```
 
 ## Log:
-2015-07-01: version 0.2 available
-2014-09-16: working to creat an R Package from existing code.
+* 2015-07-01: version 0.2 available
+* 2014-09-16: working to creat an R Package from existing code.
