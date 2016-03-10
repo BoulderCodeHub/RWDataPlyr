@@ -1,0 +1,23 @@
+Function							Parent Code (where definition is made)				
+
+changeDataFile						modifyDataTable.R
+createSlotAggList					createSlotAggList.R					
+flowWeightedAvgAnnConc				aggregations.R
+getAndProcessAllSlots				getDataFromRdf.R
+getDataForAllScens					getDataFromRdf.R
+getMaxAnnValue						aggregations.R
+getMinAnnValue						aggregations.R
+getSlots							getDataFromRdf.R
+listSlots							rdf_helperFunctions.R
+myBoxStatsMinMax					plot_helperFunctions.R
+myBoxStats1090						plot_helperFunctions.R
+processSlots						getDataFromRdf.R
+read_next_line_and_rewind			read.rdf.R
+read.rdf							read.rdf.R
+read_rdf_header						read.rdf.R
+read_rdf_meta						read.rdf.R
+read_rdf_run						read.rdf.R
+returnMaxAnn						aggregations.R
+returnMinAnn						aggregations.R
+rdfSlotToMatrix						rdf_helperFunctions.R
+sumMonth2Annual						rdf_helperFunctions.R

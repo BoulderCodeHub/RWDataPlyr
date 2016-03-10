@@ -39,7 +39,7 @@ returnMinAnn <- function(traceVal)
 	return(tmp)
 }
 
-#' Find the minimum annual value for al years and traces.
+#' Find the minimum annual value for all years and traces.
 #' 
 #' @param xx A matrix (months by traces) such as that returned by \code{\link{rdfSlotToMatrix}}.
 #' Will error if the number of rows in xx is not divisible by 12, i.e., the data must be monthly

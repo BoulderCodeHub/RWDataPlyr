@@ -41,9 +41,9 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot * thresh
 		rownames(slot) <- yy
 	} else if(ann == 'AnnMax'){
-		slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
+		slot <- apply(slot, 2, returnMaxAnn) # maximum annual value
 		slot <- slot * thresh
-    rownames(slot) <- yy
+		rownames(slot) <- yy
 	} else if(ann == 'AnnualSum'){
 		slot <- sumMonth2Annual(slot,thresh)
 		rownames(slot) <- yy
@@ -67,9 +67,23 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot[slot > thresh] <- 0
 		slot <- slot * 100
 		rownames(slot) <- yy
+	} else if(ann == 'EOCYLTE'){
+		slot <- slot[seq(12, nrow(slot), 12),]
+		slot[is.nan(slot)] <- 0
+		slot[slot <= thresh] <- 1
+		slot[slot > thresh] <- 0
+		slot <- slot*100
+		rownames(slot) <- yy
+	} else if(ann == 'EOCYGTE'){
+		slot <- slot[seq(12, nrow(slot), 12),]
+		slot[is.nan(slot)] <- 0
+		slot[slot >= thresh] <- 1 
+		slot[slot > thresh] <- 0
+		slot <- slot*100
+		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
-    rownames(slot) <- yy
-    slot <- slot*thresh
+		rownames(slot) <- yy
+		slot <- slot*thresh
 	} else{
 		stop('Invalid aggregation method variable')
 	}
