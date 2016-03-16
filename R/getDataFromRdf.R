@@ -78,7 +78,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot[seq(12, nrow(slot), 12),]
 		slot[is.nan(slot)] <- 0
 		slot[slot >= thresh] <- 1 
-		slot[slot > thresh] <- 0
+		slot[slot < thresh] <- 0
 		slot <- slot*100
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
