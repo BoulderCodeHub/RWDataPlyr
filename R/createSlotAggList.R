@@ -54,6 +54,12 @@
 #'  used. This differs from the Monthly aggregation method, only in the timestep naming.}
 #'  \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. Any values that are NaNs are changed
 #'  to 0s.}
+#'  \item{'EOCYGTE'}{Checks to see if the end-of-calendar year values are greater than or equal
+#'  to a \strong{threshold}. Returns 100 if it is greater than or equal to the \strong{threshold} and
+#'  0 otherwise.}
+#'  \item{'EOCYLTE'}{Checks to see if the end-of-calendar year values are less than or equal
+#'  to a \strong{threshold}. Returns 100 if it is less than or equal to the \strong{threshold} and
+#'  0 otherwise.}
 #'  \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
 #'  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than or equal to a 
 #'  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
