@@ -1,6 +1,7 @@
 export(read.rdf,
        listSlots,
        rdfSlotToMatrix,
+       rdfSlotToXTS,
        sumMonth2Annual,
        createSlotAggList,
        getDataForAllScens,
