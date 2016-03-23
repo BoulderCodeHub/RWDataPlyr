@@ -32,14 +32,12 @@ listSlots <- function(rdf)
 #' pe <- rdfSlotToMatrix(zz, 'Powell.Pool Elevation')
 rdfSlotToMatrix <- function(rdf, slot)
 {
-	res = c()
-  # check to see if the slot exists in the rdf, if it does not exit
+  # check to see if the slot exists in the rdf, if it does not exit error out
   if(!(slot %in% listSlots(rdf)))
      stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
      
-	for(i in 1:as.numeric(rdf$meta$number_of_runs)){
-		res = cbind(res, rdf$runs[[i]]$objects[[slot]]$values)
-	}
+	nn <- as.numeric(rdf$meta$number_of_runs)
+	res <- do.call(cbind, lapply(1:nn, function(xx) rdf$runs[[xx]]$objects[[slot]]$values))
 	
 	res
 }
