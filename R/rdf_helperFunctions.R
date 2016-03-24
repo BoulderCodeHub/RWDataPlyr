@@ -32,14 +32,12 @@ listSlots <- function(rdf)
 #' pe <- rdfSlotToMatrix(zz, 'Powell.Pool Elevation')
 rdfSlotToMatrix <- function(rdf, slot)
 {
-	res = c()
-  # check to see if the slot exists in the rdf, if it does not exit
+  # check to see if the slot exists in the rdf, if it does not exit error out
   if(!(slot %in% listSlots(rdf)))
      stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
      
-	for(i in 1:as.numeric(rdf$meta$number_of_runs)){
-		res = cbind(res, rdf$runs[[i]]$objects[[slot]]$values)
-	}
+	nn <- as.numeric(rdf$meta$number_of_runs)
+	res <- do.call(cbind, lapply(1:nn, function(xx) rdf$runs[[xx]]$objects[[slot]]$values))
 	
 	res
 }
@@ -64,12 +62,9 @@ sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 # the multiplying factor can be used if the matrix is in units of flow and the 
 # result should be in units of volume, or to scale all results in another manor
 {
-	numTS = length(matrixToSum[,1])
-	mySeq = seq(from = 0, to = numTS, by = 12)
-	resMatrix = c()
-	for(i in 1:(numTS/12)){
-		resMatrix = rbind(resMatrix, apply(as.matrix(matrixToSum[(mySeq[i]+1):mySeq[i+1],]), 2, sum) * multFactor)
-	}
-	resMatrix
+  # take each column, make it a matrix of years by 
+  res <- do.call(cbind, lapply(1:ncol(matrixToSum), 
+                               function(xx) apply(matrix(matrixToSum[,xx],ncol = 12, byrow = T), 1, sum)))
+  
+  res * multFactor
 }
-
