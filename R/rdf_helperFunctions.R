@@ -62,12 +62,9 @@ sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 # the multiplying factor can be used if the matrix is in units of flow and the 
 # result should be in units of volume, or to scale all results in another manor
 {
-	numTS = length(matrixToSum[,1])
-	mySeq = seq(from = 0, to = numTS, by = 12)
-	resMatrix = c()
-	for(i in 1:(numTS/12)){
-		resMatrix = rbind(resMatrix, apply(as.matrix(matrixToSum[(mySeq[i]+1):mySeq[i+1],]), 2, sum) * multFactor)
-	}
-	resMatrix
+  # take each column, make it a matrix of years by 
+  res <- do.call(cbind, lapply(1:ncol(matrixToSum), 
+                               function(xx) apply(matrix(matrixToSum[,xx],ncol = 12, byrow = T), 1, sum)))
+  
+  res * multFactor
 }
-
