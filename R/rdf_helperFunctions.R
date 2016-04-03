@@ -103,5 +103,10 @@ rdfSlotToXTS <- function(rdf, slot)
   # 6. Storage.mode() - convert char values in the XTS matrix to numeric
   rdfXTS <- as.xts(read.zoo(data.frame(cbind(tArray,rdfSlotToMatrix(rdf, slot)))))
   storage.mode(rdfXTS) <- "numeric"
+  runNames <- c()
+  for (ithRun in c(1:as.numeric(rdf$meta$number_of_runs))){
+    runNames <- c(runNames, paste('Trace',ithRun,sep=""))
+  }
+  names(rdfXTS) <- runNames
   rdfXTS
 }

@@ -1,72 +1,107 @@
 
+########################################################################################
 
-# RETURNS THE VALUES FOR THE ENTIRE ARRAY AT DEFINED EXCEEDANCE LEVELS
+# RETURNS XTS WATER YEAR ENDPOINTS FOR AGGREGATION CALCULATIONS
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
-# pctlLevels <- c(0.10, 0.50, 0.90) for the 10-50-90 exceedance levels
-getArrayPercentilesByMonth <- function(rdfXTS, pctlLevels)
+getWyEndpoints <- function(rdfXTS)
 {
-  # DEFINE PERCENTILE VALUES OF INTEREST
-  toPctls <- function(rdfXTS) quantile(rdfXTS, pctlLevels)
-  # GET PERCENTILE VALUES OF ENTIRE ARRAY BY MONTH
-  montPctlXts <- apply.monthly(rdfXTS,toPctls)
-  return(montPctlXts)
+  tVals <- index(rdfXTS[.indexmon(rdfXTS) %in% 8]) 
+  ep <-  c(0, which(index(rdfXTS) %in% tVals)) 
+  return(ep)
 }
 
-# RETURNS THE EOCY VALUE FOR THE ENTIRE ARRAY AT DEFINED EXCEEDANCE LEVELS
+# RETURNS XTS CALENDAR YEAR ENDPOINTS FOR AGGREGATION CALCULATIONS
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
-# pctlLevels <- c(0.10, 0.50, 0.90) for the 10-50-90 exceedance levels
-getArrayPercentilesByEOCY <- function(rdfXTS, pctlLevels)
+getCyEndpoints <- function(rdfXTS)
 {
-  # DEFINE PERCENTILE VALUES OF INTEREST
-  toPctls <- function(rdfXTS) quantile(rdfXTS, pctlLevels)
-  # GET PERCENTILE VALUES OF ENTIRE ARRAY BY EOCY
-  eocyPctlXts <- apply.yearly(rdfXTS[endpoints(rdfXTS, on="years", k=1)],toPctls)
-  return(eocyPctlXts)
+  tVals <- index(rdfXTS[.indexmon(rdfXTS) %in% 11]) 
+  ep <-  c(0, which(index(rdfXTS) %in% tVals)) 
+  return(ep)
 }
 
 # RETURNS VALUES FOR A MONTH FOR EACH TRACE
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
 # month <- desired month from 1 to 12
-getTraceValuesByMonth <- function(rdfXTS, month)
+getTraceMonthVal <- function(rdfXTS, month)
 {
   # CHECK FOR A VALID MONTH
   if (month <= 0 || month > 12)
     stop(paste(month, " is not a valid month. Use a month from 1 to 12", sep=""))
   # GET VALUES OF EACH TRACE BY MONTH INDEX
-  traceValsXts <- rdfXTS[.indexmon(rdfXTS) == (month - 1)]
-  return(traceValsXts)
+  outXTS <- rdfXTS[.indexmon(rdfXTS) == (month - 1)]
+  return(outXTS)
 }
 
 # RETURNS THE AVERAGE ANNUAL VALUE FOR EACH TRACE
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
-getTraceAnnualAvgByCY <- function(rdfXTS)
+# yearType <- 'WY' or 'CY' for Water Year (Oct-1 to Sep-30) or Calendar Year (Jan-1 to Dec-31)
+getTraceAvg <- function(rdfXTS, yearType)
 {
+  if (yearType == "WY")
+    ep <- getWyEndpoints(rdfXTS)
+  else
+    ep <- getCyEndpoints(rdfXTS)
   # GET CY ANNUAL AVERAGE BY TRACE 
-  annlSumsXts <- apply.yearly(rdfXTS,mean)*12
-  return(annlSumsXts)
+  outXTS <- period.apply(rdfXTS, ep, mean)
+  return(outXTS)
 }
 
 # RETURNS THE ANNUAL SUM FOR EACH TRACE
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
-getTraceAnnualSumsByCY <- function(rdfXTS)
+# yearType <- 'WY' or 'CY' for Water Year (Oct-1 to Sep-30) or Calendar Year (Jan-1 to Dec-31)
+getTraceSum <- function(rdfXTS, yearType)
 {
+  if (yearType == "WY")
+    ep <- getWyEndpoints(rdfXTS)
+  else
+    ep <- getCyEndpoints(rdfXTS)
   # GET CY ANNUAL SUMS BY TRACE 
-  annlSumsXts <- apply.yearly(rdfXTS,colSums)
-  return(annlSumsXts)
+  outXTS <- period.apply(rdfXTS, ep, colSums)
+  return(outXTS)
 }
 
-# RETURNS ENTIRE ARRAY'S ANNUAL SUM FOR EACH TRACE AT DEFINED EXCEEDANCE LEVELS
+# RETURNS THE ANNUAL MIN FOR EACH TRACE
+# rdfXTS <- xts array returned by rdfSlotToMatrix()
+# yearType <- 'WY' or 'CY' for Water Year (Oct-1 to Sep-30) or Calendar Year (Jan-1 to Dec-31)
+getTraceMin <- function(rdfXTS, yearType)
+{
+  if (yearType == "WY")
+    ep <- getWyEndpoints(rdfXTS)
+  else
+    ep <- getCyEndpoints(rdfXTS)
+  # GET CY ANNUAL MIN BY TRACE 
+  outXTS <- period.apply(rdfXTS, ep, function(x) apply(x, 2, min))
+  return(outXTS)
+}
+
+# RETURNS THE ANNUAL MAX FOR EACH TRACE
+# rdfXTS <- xts array returned by rdfSlotToMatrix()
+# yearType <- 'WY' or 'CY' for Water Year (Oct-1 to Sep-30) or Calendar Year (Jan-1 to Dec-31)
+getTraceMax <- function(rdfXTS, yearType)
+{
+  if (yearType == "WY")
+    ep <- getWyEndpoints(rdfXTS)
+  else
+    ep <- getCyEndpoints(rdfXTS)
+  # GET CY ANNUAL MAX BY TRACE 
+  outXTS <- apply.yearly(rdfXTS, ep, function(x) apply(x, 2, max))
+  return(outXTS)
+}
+
+# RETURNS THE VALUES FOR THE ENTIRE ARRAY AT DEFINED EXCEEDANCE LEVELS
 # rdfXTS <- xts array returned by rdfSlotToMatrix()
 # pctlLevels <- c(0.10, 0.50, 0.90) for the 10-50-90 exceedance levels
-getArrayPercentilesByAnnualSumsByEOCY <- function(rdfXTS, pctlLevels)
+getArrayPctl <- function(rdfXTS, pctlLevels)
 {
   # DEFINE PERCENTILE VALUES OF INTEREST
   toPctls <- function(rdfXTS) quantile(rdfXTS, pctlLevels)
-  # GET CY ANNUAL SUMS BY TRACE 
-  annlSumsXts <- getTraceAnnualSumsByCY(rdfXTS)
-  # GET PERCENTILE VALUES OF ENTIRE ARRAY BY CY ANNUAL SUMS 
-  annlSumsPctlXts <- apply.yearly(annlSumsXts,toPctls)
-  return(annlSumsPctlXts)
+  # DEFINE TIME STEP OF THE INPUT DATA
+  tStep <- paste(periodicity(rdfXTS)$label,"s",sep="")
+  # GET DATA INDICES
+  ep <- endpoints(rdfXTS,tStep)
+  # PERFORM STATS
+  outXTS <- period.apply(rdfXTS, ep, toPctls)
+  return(outXTS)
 }
 
 # RETURNS A PERCENT OF TRACES THAT MEET A CONDITION FOR THE ENTIRE ARRAY
