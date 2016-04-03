@@ -76,7 +76,7 @@ sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 # ----------------------------------------------------------------------------
 # **************************  rdfSlotToXTS  **********************************
 # ----------------------------------------------------------------------------
-#' Get one slot out of an rdf list and put it in an XTS array.
+#' Get one slot out of an rdf list and put it in an XTS object
 #' 
 #' \code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
 #' the nested slot values over the multiple traces into an XTS array 
@@ -84,6 +84,7 @@ sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 #' 
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
+#' @return an XTS object with the selected slot data
 #' @examples
 #' zz <- read.rdf('KeySlots.rdf')
 #' pe <- rdfSlotToXTS(zz, 'Powell.Pool Elevation')

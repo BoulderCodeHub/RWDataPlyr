@@ -1,10 +1,12 @@
 export(read.rdf,
        listSlots,
        rdfSlotToMatrix,
-       rdfSlotToXTS,
        sumMonth2Annual,
        createSlotAggList,
        getDataForAllScens,
        getMinAnnValue,
        getMaxAnnValue,
-       flowWeightedAvgAnnConc)
+       flowWeightedAvgAnnConc,
+       rdfSlotToXTS,
+       getTraceMonthVal, getTraceAvg, getTraceMin, getTraceMax, getTraceSum, 
+       getArrayPctl, getArrayThresholdExceedance)
