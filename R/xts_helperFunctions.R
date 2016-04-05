@@ -117,7 +117,7 @@ getTraceMax <- function(rdfXTS, yearType)
   else
     ep <- getCyEndpoints(rdfXTS)
   # GET CY ANNUAL MAX BY TRACE 
-  outXTS <- apply.yearly(rdfXTS, ep, function(x) apply(x, 2, max))
+  outXTS <- period.apply(rdfXTS, ep, function(x) apply(x, 2, max))
   return(outXTS)
 }
 
