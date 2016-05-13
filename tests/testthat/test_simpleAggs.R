@@ -21,3 +21,14 @@ test_that("sumMonth2Annual returns corect values", {
   expect_equal(sumMonth2Annual(pe), rbind(apply(pe[1:12,],2,sum), apply(pe[13:24,],2,sum), 
                                          apply(pe[25:36,],2,sum)))
 })
+
+flow <- rep(c(700,800,800,900,750,900),2)*1000
+saltMass <- c(25,30,35,25,25,22,35,47,21,45,34,23)*1000
+
+test_that("Flow weighted annual average concentration returns correct Values", {
+  expect_equal(round(flowWeightedAvgAnnConc(saltMass, flow),5),27.82642)
+  expect_error(flowWeightedAvgAnnConc(saltMass[1:11],flow), 
+               'Data passed to flowWeightedAvgAnnConc is not divisible by 12')
+  expect_error(flowWeightedAvgAnnConc(saltMass,flow[1:11]), 
+               'Data passed to flowWeightedAvgAnnConc is not divisible by 12')
+})
