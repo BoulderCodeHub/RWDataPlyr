@@ -85,7 +85,7 @@ the data.
 }
 }
 \examples{
-createSlotAggList('test.csv')
+createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
 }
 \seealso{
 \code{\link{getDataForAllScens}}

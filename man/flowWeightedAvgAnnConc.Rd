@@ -12,7 +12,7 @@ flowWeightedAvgAnnConc(mass, flow)
 \item{flow}{A vector of one trace worth of data, or one year of one trace. Units should be in acre-ft/month.}
 }
 \value{
-A victor of yearly data of the flow-weighted average annual concentration. Units will
+A vector of yearly data of the flow-weighted average annual concentration. Units will
 be mg/L.
 }
 \description{
