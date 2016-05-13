@@ -7,7 +7,7 @@
 #' 
 #' @param mass A vector of one trace worth of data, or one year of one trace. Units should be in tons.
 #' @param flow A vector of one trace worth of data, or one year of one trace. Units should be in acre-ft/month.
-#' @return A victor of yearly data of the flow-weighted average annual concentration. Units will
+#' @return A vector of yearly data of the flow-weighted average annual concentration. Units will
 #' be mg/L.
 #' @examples
 #' flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
