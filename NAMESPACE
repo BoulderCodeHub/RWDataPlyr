@@ -6,4 +6,5 @@ export(read.rdf,
        getDataForAllScens,
        getMinAnnValue,
        getMaxAnnValue,
+       getSlotsInRdf,
        flowWeightedAvgAnnConc)

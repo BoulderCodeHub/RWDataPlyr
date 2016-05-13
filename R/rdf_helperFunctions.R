@@ -8,12 +8,28 @@
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
-#' zz <- read.rdf('KeySlots.rdf')
-#' listSlots(zz)
+#' listSlots(keyRdf)
 listSlots <- function(rdf) 
 {
+  warning('listSlots is depreciated. Use getSlotsInRdf instead.')
   r <- names(rdf$runs[[1]]$objects)
   r
+}
+
+# -----------------------------------------------------------------------------
+# 								getSlotsInRdf
+# -----------------------------------------------------------------------------
+#' Returns all slots contained in an rdf file.
+#' 
+#' \code{getSlotsInRdf} returns a list of all of the slots contained within the rdf list.
+#' 
+#' @param rdf list returned by \code{\link{read.rdf}}
+#' @return A vector of strings.  Each string is a slot contained in the rdf list.
+#' @examples
+#' getSlotsInRdf(keyRdf)
+getSlotsInRdf <- function(rdf)
+{
+  names(rdf$runs[[1]]$objects)
 }
 
 # ----------------------------------------------------------------------------
