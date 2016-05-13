@@ -2,7 +2,11 @@
 
 Contains R package to read, manipulate, and plot data from RiverWareTM (riverware.org), that are saved as rdf (RiverWare data format) files.  
 
-Package can be installed from GitHub:
+[![Travis-CI Build Status](https://travis-ci.org/rabutler/RWDataPlot.svg?branch=master)](https://travis-ci.org/rabutler/RWDataPlot)
+
+## Installation
+
+Package can only be installed from GitHub:
 
 ```
 if(!require(devtools)){
