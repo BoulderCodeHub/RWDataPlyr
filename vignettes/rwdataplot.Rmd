@@ -52,8 +52,7 @@ The steps below show an example of reading an rdf file into R, looking at the av
 
 ```{r}
 library(RWDataPlot)
-rdf <- read.rdf(system.file('extdata/Scenario/DNF,2007Dems,IG/KeySlots.rdf',package = 'RWDataPlot'))
-listSlots(rdf)
+rdf <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlot'))
 pe <- rdfSlotToMatrix(rdf, 'Powell.Pool Elevation')
 ```
 
@@ -134,10 +133,10 @@ After creating the slot aggregation table, either as an R matrix or as an extern
 
 
 ```{r,eval=TRUE}
-scenPath <- system.file('extdata/Scenario/',package = 'RWDataPlot')
-scenFolders <- c('DNF,2007Dems,IG/','VIC,2007Dems,IG/') # two scenario folders that exist in scenPath
-scenNames <- c('Observed','Climate Change') # scenarios names
-slotAggList <- createSlotAggList(system.file('extdata/SlotAggTable.csv',package = 'RWDataPlot'))
+scenPath <- system.file('extdata','Scenario',package = 'RWDataPlot')
+scenFolders <- c('DNF,CT,IG/','DNF,CT,IG,Ops1/') # two scenario folders that exist in scenPath
+scenNames <- c('Observed Hydrology','Observed Hydrology w/Options') # scenarios names
+slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
 oFile <- 'allScenariosProcessed.txt'
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
 ```
