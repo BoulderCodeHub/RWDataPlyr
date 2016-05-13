@@ -78,11 +78,21 @@
 createSlotAggList <- function(iData)
 {
   if(!is.matrix(iData)){
-    if(!file.exists(iData)){
+    if(length(iData) > 1){
+      if(length(iData) %% 4 == 0){
+        warning("Attempting to coerce i data to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        iData <- matrix(iData, ncol = 4, byrow = T)
+      } else if (length(iData) %% 5 == 0){
+        warning("Attempting to coerce i data to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        iData <- matrix(iData, ncol = 5, byrow = T)
+      } else{
+        
+      }
+    } else if(!file.exists(iData)){
       stop(paste(iData,'does not exist.'))
+    } else{
+      iData <- as.matrix(read.csv(iData,header = F))
     }
-    
-    iData <- as.matrix(read.csv(iData,header = F))
   }
   
   # check and see if alternative variable names have been added
