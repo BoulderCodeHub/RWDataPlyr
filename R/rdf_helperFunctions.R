@@ -49,7 +49,7 @@ getSlotsInRdf <- function(rdf)
 rdfSlotToMatrix <- function(rdf, slot)
 {
   # check to see if the slot exists in the rdf, if it does not exit error out
-  if(!(slot %in% listSlots(rdf)))
+  if(!(slot %in% getSlotsInRdf(rdf)))
      stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
      
 	nn <- as.numeric(rdf$meta$number_of_runs)
