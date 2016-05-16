@@ -19,9 +19,8 @@ The annual sums as a matrix (years by traces).
 sum the monthly data into annual data.  Returns a years by traces matrix.
 }
 \examples{
-zz <- read.rdf('KeySlots.rdf')
-zz <- rdfSlotToMatrix(zz, 'Powell.Outflow')
-annualRelease <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
-annualRelease <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
+zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
+annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
+annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
 }
 

@@ -22,9 +22,11 @@ or for one year of one trace. Expect flow to be in acre-ft/month and mass to be 
 Return value will be in mg/L
 }
 \examples{
+\dontrun{
 flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
 mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
 fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
+}
 }
 \seealso{
 \code{\link{rdfSlotToMatrix}}

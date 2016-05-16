@@ -18,7 +18,7 @@ A matrix (years by traces) with the maximum annual value for each year and trace
 Find the maximum annual value for all years and traces.
 }
 \examples{
-pe <- rdfSlotToMatrix(rdf,'Powell.Pool Elevation')
+pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
 peMax <- getMaxAnnValue(pe)
 }
 \seealso{

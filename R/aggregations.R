@@ -10,9 +10,11 @@
 #' @return A vector of yearly data of the flow-weighted average annual concentration. Units will
 #' be mg/L.
 #' @examples
+#' \dontrun{
 #' flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
 #' mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
 #' fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
+#' }
 #' @seealso
 #' \code{\link{rdfSlotToMatrix}}
 flowWeightedAvgAnnConc <- function(mass, flow)
@@ -46,7 +48,7 @@ returnMinAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(rdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
 #' peMax <- getMinAnnValue(pe)
 #' @seealso
 #' \code{\link{getMaxAnnValue}}
@@ -71,7 +73,7 @@ returnMaxAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(rdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
 #' peMax <- getMaxAnnValue(pe)
 #' @seealso
 #' \code{\link{getMinAnnValue}}
@@ -94,10 +96,9 @@ getMaxAnnValue <- function(xx)
 #' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
 #' @return The annual sums as a matrix (years by traces).
 #' @examples
-#' zz <- read.rdf('KeySlots.rdf')
-#' zz <- rdfSlotToMatrix(zz, 'Powell.Outflow')
-#' annualRelease <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
-#' annualRelease <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
+#' zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
+#' annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
+#' annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
 sumMonth2Annual <- function(matrixToSum, multFactor = 1)
   # the multiplying factor can be used if the matrix is in units of flow and the 
   # result should be in units of volume, or to scale all results in another manor
