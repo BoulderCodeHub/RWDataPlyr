@@ -113,20 +113,20 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' Get and aggregate data from a single rdf file.
 #' 
 #' \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
-#' as specified by the summary functions in \code{slotsAndRdf}. 
-#' 
-#' @inheritParams getAndProcessAllSlots
-#' 
-getSlots <- function(slotsAndRdf, scenPath)
+#' as specified by the summary functions in \code{slotAggList}. 
+
+#' @param slotAggList The slot aggregation list. A list containing the slots that will be 
+#' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
+#' contain the slots. See \code{\link{createSlotAggList}}.
+#' @param scenPath A relative or absolute path to the scenario folder.
+ 
+getSlots <- function(slotAggList, scenPath)
 {
-	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize, slotsAndRdf$varNames)
-	rdf <- slotsAndRdf$rdf
+	slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
+	rdf <- slotAggList$rdf
 	rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
 
-	#print(paste('padding first three months of',slot,
-			#'with January data to make Water Year based computation.\nPlease ensure this is an appropriate assumption'))
-	#flush.console()
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotsAndRdf$rdf)
+	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
@@ -139,11 +139,11 @@ getSlots <- function(slotsAndRdf, scenPath)
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' @inheritParams getDataForAllScens
 #' @seealso \code{\link{getDataForAllScens}}
-getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
+getAndProcessAllSlots <- function(scenPath, slotAggList)
 {
 	sPath <- scenPath[1]
 	sName <- scenPath[2]
-	zz <- lapply(slotsAndRdf, getSlots, sPath)
+	zz <- lapply(slotAggList, getSlots, sPath)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
 	nn = colnames(allRes)

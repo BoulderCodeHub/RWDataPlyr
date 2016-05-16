@@ -44,8 +44,7 @@ getSlotsInRdf <- function(rdf)
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
 #' @examples
-#' zz <- read.rdf('KeySlots.rdf')
-#' pe <- rdfSlotToMatrix(zz, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')
 rdfSlotToMatrix <- function(rdf, slot)
 {
   # check to see if the slot exists in the rdf, if it does not exit error out
