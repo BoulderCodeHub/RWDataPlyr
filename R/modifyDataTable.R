@@ -1,7 +1,7 @@
 # takes an existing data file, and edits it
 changeDataFile <- function(iFile, varName, newVarName = varName, oldVals, newVals)
 {
-  zz = read.table(iFile, header = T)
+  zz = utils::read.table(iFile, header = T)
   tmp = as.matrix(subset(zz, select = varName))
   for(i in 1:length(oldVals)){
     tmp[tmp == oldVals[i]] = newVals[i]
@@ -10,7 +10,7 @@ changeDataFile <- function(iFile, varName, newVarName = varName, oldVals, newVal
   ii = match(varName, colnames(zz))
   colnames(zz)[ii] = newVarName
   zz[,ii] = tmp
-  write.table(as.matrix(zz), iFile, row.names = F, sep = '\t')
+  utils::write.table(as.matrix(zz), iFile, row.names = F, sep = '\t')
 } 
 
 # todo: create general function for adding attributes based on arbitrary functions

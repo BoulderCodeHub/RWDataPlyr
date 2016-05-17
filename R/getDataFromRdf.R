@@ -187,7 +187,7 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oF
 	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
-	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
 	if(retFile){
 	  zz
 	}

@@ -94,7 +94,7 @@ createSlotAggList <- function(iData)
     } else if(!file.exists(iData)){
       stop(paste(iData,'does not exist.'))
     } else{
-      iData <- as.matrix(read.csv(iData,header = F))
+      iData <- as.matrix(utils::read.csv(iData,header = F))
     }
   }
   

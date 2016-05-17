@@ -20,7 +20,8 @@ Depends:
 License: CC0
 LazyData: true
 Imports:
-    reshape2
+    reshape2,
+    utils
 Suggests:
     knitr,
     rmarkdown,
