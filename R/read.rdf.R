@@ -99,6 +99,8 @@ read_rdf_run <- function(rdf.con,rdf.obj){
 #' @return A multi-level list containing all metadata and slot data in the original rdf file.
 #' @examples
 #' zz <- read.rdf(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlot"))
+#' 
+#' @export
 
 read.rdf <- function(file){
 	

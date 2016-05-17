@@ -17,6 +17,9 @@
 #' }
 #' @seealso
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 flowWeightedAvgAnnConc <- function(mass, flow)
 {
 	if(length(mass)%%12 != 0 | length(flow)%%12 != 0)
@@ -53,6 +56,9 @@ returnMinAnn <- function(traceVal)
 #' @seealso
 #' \code{\link{getMaxAnnValue}}
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 getMinAnnValue <- function(xx)
 {
 	minAnn <- apply(xx, 2, returnMinAnn)
@@ -78,6 +84,9 @@ returnMaxAnn <- function(traceVal)
 #' @seealso
 #' \code{\link{getMinAnnValue}}
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 getMaxAnnValue <- function(xx)
 {
 	maxAnn <- apply(xx, 2, returnMaxAnn)
@@ -99,6 +108,9 @@ getMaxAnnValue <- function(xx)
 #' zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
 #' annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
 #' annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
+#' 
+#' @export
+#' 
 sumMonth2Annual <- function(matrixToSum, multFactor = 1)
   # the multiplying factor can be used if the matrix is in units of flow and the 
   # result should be in units of volume, or to scale all results in another manor

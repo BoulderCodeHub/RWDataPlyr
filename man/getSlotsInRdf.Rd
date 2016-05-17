@@ -17,5 +17,6 @@ A vector of strings.  Each string is a slot contained in the rdf list.
 }
 \examples{
 getSlotsInRdf(keyRdf)
+
 }
 

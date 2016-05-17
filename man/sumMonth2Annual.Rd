@@ -22,5 +22,6 @@ sum the monthly data into annual data.  Returns a years by traces matrix.
 zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
 annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
 annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
+
 }
 

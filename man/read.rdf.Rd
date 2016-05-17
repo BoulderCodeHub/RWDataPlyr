@@ -19,5 +19,6 @@ and are documented in the \href{http://riverware.org/PDF/RiverWare/documentation
 }
 \examples{
 zz <- read.rdf(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlot"))
+
 }
 

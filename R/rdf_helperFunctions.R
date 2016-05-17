@@ -9,6 +9,9 @@
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
 #' listSlots(keyRdf)
+#' 
+#' @export
+#' 
 listSlots <- function(rdf) 
 {
   warning('listSlots is depreciated. Use getSlotsInRdf instead.')
@@ -27,6 +30,9 @@ listSlots <- function(rdf)
 #' @return A vector of strings.  Each string is a slot contained in the rdf list.
 #' @examples
 #' getSlotsInRdf(keyRdf)
+#' 
+#' @export
+#' 
 getSlotsInRdf <- function(rdf)
 {
   names(rdf$runs[[1]]$objects)
@@ -45,6 +51,9 @@ getSlotsInRdf <- function(rdf)
 #' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
 #' @examples
 #' pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')
+#' 
+#' @export
+#' 
 rdfSlotToMatrix <- function(rdf, slot)
 {
   # check to see if the slot exists in the rdf, if it does not exit error out

@@ -75,6 +75,9 @@
 #' @examples
 #' createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
 #' @seealso \code{\link{getDataForAllScens}}
+#' 
+#' @export
+#' 
 createSlotAggList <- function(iData)
 {
   if(!is.matrix(iData)){

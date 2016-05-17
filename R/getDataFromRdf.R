@@ -176,6 +176,9 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
 #' 
 #' @seealso \code{\link{createSlotAggList}}
+#' 
+#' @export
+#' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
 

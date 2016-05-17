@@ -18,5 +18,6 @@ indexing over traces.
 }
 \examples{
 pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')
+
 }
 
