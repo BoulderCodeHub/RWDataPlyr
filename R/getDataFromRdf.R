@@ -23,10 +23,23 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
 	
-	startData <- strsplit(rdf$runs[[1]]$start, '-')[[1]]
-	endData <- strsplit(rdf$runs[[1]]$end, '-')[[1]]
+	startData <- strsplit(rdf$runs[[1]]$start, '-')[[1]] # start year
+	endData <- strsplit(rdf$runs[[1]]$end, '-')[[1]] # end year
 
 	yy <- seq(as.numeric(startData[1]), as.numeric(endData[1]), 1)
+	
+	tsUnit <- rdf$runs[[1]]$time_step_unit # should either be 'year' or 'month'
+	if(!(tsUnit %in% c('month','year'))){
+	  stop(paste('rdf:', rdfName,'contains data that is on a timestep other than year or month.\n',
+	             'Currently, RWDataPlot can only handle monthly and annual rdf data.'))
+	}
+	
+	if(tsUnit == 'year' & ann != 'AnnualRaw'){
+	  # data is annual, so none of the aggregation methods besides annualRaw make sense
+	  warning(paste('rdf contains annual data, but the aggregation method is not "AnnualRaw".\n',
+	                'Processing using "AnnualRaw" instead. Edit the slotAggList and call getDataForAllScens again, if necessary. '))
+	  ann = 'AnnualRaw'
+	}
 	
 	# XXX
 	# Need to add other summerization methods to this area
@@ -82,8 +95,20 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot*100
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
-		rownames(slot) <- yy
-		slot <- slot*thresh
+		if(tsUnit == 'month'){
+		  # data is monthly, so will use EOCY
+		  warning(paste('User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
+		          'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
+		          'edit the slot agg list and call getDataForAllScens again.'))
+		  slot <- slot[seq(12, nrow(slot), 12),] 
+		  slot[is.nan(slot)] <- 0
+		  slot <- slot * thresh
+		  rownames(slot) <- yy
+		} else{
+	    # data is annual
+		  rownames(slot) <- yy
+		  slot <- slot*thresh
+		}
 	} else{
 		stop('Invalid aggregation method variable')
 	}
