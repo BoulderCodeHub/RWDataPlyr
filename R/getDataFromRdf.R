@@ -189,13 +189,35 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' column.
 #' @param slotAggList The slot aggregation list. A list containing the slots that will be 
 #' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
-#' contain the slots. See \code{\link{createSlotAggList}}.
+#' contain the slots. Either created by calling \code{\link{createSlotAggList}} with a specified
+#' set of slots, or a list of lists with each entry containing an rdf file and the keyword 
+#' 'all' for the slots, e.g., \code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}, which will
+#' return all of the slots found in an rdf file. If this option is used, the code will return
+#' monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
+#' file. 
 #' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
 #' @param oFile An absolute or relative path with the file name of the location the table will
 #' be saved to.
 #' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 #' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
+#' 
+#' @examples 
+#' # get a specified set of slots and apply some aggregation method to them
+#' scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
+#' scenNames <- scenFolders
+#' # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
+#' slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
+#' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
+#' oFile <- 'tmp.txt'
+#' retFile <- TRUE # return the data, instead of only save it as a text file
+#' keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+#' 
+#' # get all of the data from the KeySlots rdf file
+#' scenFolders <- scenNames <- scenNames[1] # only one scenario
+#' slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
+#' # will return monthly data for all slots in KeySlots.rdf
+#' allData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
 #' 
 #' @seealso \code{\link{createSlotAggList}}
 #' 
