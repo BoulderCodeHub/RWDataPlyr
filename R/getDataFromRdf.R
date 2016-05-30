@@ -18,7 +18,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	# then multiply by 1.
 	slot <- slotsAnnualize[1]
 
-	if(!(slot %in% listSlots(rdf))){
+	if(!(slot %in% getSlotsInRdf(rdf))){
 		stop(paste("slot:", slot, "not found in rdf:", rdfName))
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
@@ -122,9 +122,31 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
  
 getSlots <- function(slotAggList, scenPath)
 {
-	slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
-	rdf <- slotAggList$rdf
-	rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
+  rdf <- slotAggList$rdf
+  rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
+  
+  if(slotAggList$slots[1] == 'all'){
+	  # if slots is all, then need to create the slotAggList from createSlotAggList
+	  # after reading in all the slot names
+    slots <- RWDataPlot::getSlotsInRdf(rdf)
+    nSlots <- length(slots)
+    if(rdf$runs[[1]]$time_step_unit == 'month'){
+      aggMeth <- 'Monthly'
+    } else if (rdf$runs[[1]]$time_step_unit == 'year'){
+      aggMeth <- 'AnnualRaw'
+    } else{
+      stop(paste('The', slotAggList$rdf, 'contains data of an unexpected timestep.'))
+    }
+    
+    slotAggList <- RWDataPlot::createSlotAggList(cbind(rep(slotAggList$rdf,nSlots),
+                                                       slots,
+                                                       rep(aggMeth, nSlots),
+                                                       rep(NA,nSlots)))
+    slotAggList <- slotAggList[[1]] # go in one level into the list as that is what happens when
+    # this function is called if using the normal slotAggList structure
+	}
+  
+  slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
 
 	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
