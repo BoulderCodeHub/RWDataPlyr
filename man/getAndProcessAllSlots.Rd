@@ -11,7 +11,12 @@ getAndProcessAllSlots(scenPath, slotAggList)
 
 \item{slotAggList}{The slot aggregation list. A list containing the slots that will be 
 imported and aggregated, the aggregation method(s) to use, and the rdf files that 
-contain the slots. See \code{\link{createSlotAggList}}.}
+contain the slots. Either created by calling \code{\link{createSlotAggList}} with a specified
+set of slots, or a list of lists with each entry containing an rdf file and the keyword 
+'all' for the slots, e.g., \code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}, which will
+return all of the slots found in an rdf file. If this option is used, the code will return
+monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
+file.}
 }
 \description{
 \code{getAndProcessAllSlots} gets data for a single scenario.  The slots from each

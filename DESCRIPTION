@@ -23,6 +23,7 @@ Imports:
     reshape2,
     utils
 Suggests:
+    dplyr,
     knitr,
     rmarkdown,
     testthat
