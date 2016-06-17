@@ -35,8 +35,13 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	if(ann == 'AnnMin'){
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
 		rownames(slot) <- yy
+	} else if(ann == 'EOWY'){
+	  slot <- slot[seq(9, nrow(slot), 12),] # 9 is september
+	  slot[is.nan(slot)] <- 0
+	  slot <- slot * thresh
+	  rownames(slot) <- yy
 	} else if(ann == 'EOCY'){
-		slot <- slot[seq(12, nrow(slot), 12),] 
+	  slot <- slot[seq(12, nrow(slot), 12),] 
 		slot[is.nan(slot)] <- 0
 		slot <- slot * thresh
 		rownames(slot) <- yy
