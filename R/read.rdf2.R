@@ -107,7 +107,7 @@ read.rdf2 <- function(iFile)
 {
   rdf.obj <- list()
   # read entire file into memory
-  rdf.mat <- data.table::fread(iFile, sep = '\t', header = FALSE, data.table = FALSE)
+  rdf.mat <- as.matrix(data.table::fread(iFile, sep = '\t', header = FALSE, data.table = FALSE))
   rdf.obj$position <- 1 # initialize where to read from
   rdf.obj <- read_rdf_meta2(rdf.mat,rdf.obj)
   
