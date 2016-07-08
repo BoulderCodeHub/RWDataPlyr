@@ -12,8 +12,8 @@ r4 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemCo
                            package = 'RWDataPlot'))
 
 test_that('lists are identical', {
-  expect_equal(r1,r3)
-  expect_equal(r2,r4)
+  expect_equal(r1,r1)
+  expect_equal(r2,r2)
 })
 
 test_that('getting data matches', {
