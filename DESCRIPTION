@@ -20,6 +20,7 @@ Depends:
 License: CC0
 LazyData: true
 Imports:
+    feather,
     reshape2,
     utils
 Suggests:

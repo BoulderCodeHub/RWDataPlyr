@@ -230,13 +230,30 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
-
+  # determine file type to save data as:
+  oFile <- gsub('\\', '/', oFile, fixed = TRUE)
+  fName <- tail(strsplit(oFile,'/', fixed = T)[[1]],1)
+  fExt <- tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
+  if(!(fExt %in% c('txt', 'csv', 'feather'))){
+    stop(paste0('oFile has an invalid file exention.\n',
+                'getDataForAllScens does not know how to handle ".', fExt,
+                '" extensions.'))
+  }
+  
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
 	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
-	utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	
+	if(fExt == 'txt'){
+	  utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	} else if(fExt == 'csv'){
+	  utils::write.csv(as.matrix(zz), oFile, row.names = F)
+	} else if(fExt == 'feather'){
+	  feather::write_feather(zz, oFile)
+	}
+	
 	if(retFile){
 	  zz
 	}
