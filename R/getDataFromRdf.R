@@ -227,6 +227,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' @seealso \code{\link{createSlotAggList}}
 #' 
 #' @export
+#' @importFrom feather write_feather
 #' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
