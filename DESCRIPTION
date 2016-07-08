@@ -20,6 +20,7 @@ Depends:
 License: CC0
 LazyData: true
 Imports:
+    data.table,
     reshape2,
     utils
 Suggests:

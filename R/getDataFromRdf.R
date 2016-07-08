@@ -153,7 +153,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 getSlots <- function(slotAggList, scenPath)
 {
   rdf <- slotAggList$rdf
-  rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
+  rdf <- read.rdf2(paste(scenPath,'/',rdf,sep = ''))
   
   if(slotAggList$slots[1] == 'all'){
 	  # if slots is all, then need to create the slotAggList from createSlotAggList
