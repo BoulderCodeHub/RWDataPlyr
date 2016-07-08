@@ -232,8 +232,8 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oF
 {
   # determine file type to save data as:
   oFile <- gsub('\\', '/', oFile, fixed = TRUE)
-  fName <- tail(strsplit(oFile,'/', fixed = T)[[1]],1)
-  fExt <- tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
+  fName <- utils::tail(strsplit(oFile,'/', fixed = T)[[1]],1)
+  fExt <- utils::tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
   if(!(fExt %in% c('txt', 'csv', 'feather'))){
     stop(paste0('oFile has an invalid file exention.\n',
                 'getDataForAllScens does not know how to handle ".', fExt,
