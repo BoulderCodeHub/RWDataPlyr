@@ -1,7 +1,7 @@
 Package: RWDataPlot
 Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
-    is saved as rdf (RiverWare data format) files.
-Version: 0.3
+    is saved as rdf (RiverWare data format) files
+Version: 0.4
 Authors@R: as.person(c(
     "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
     "Cameron Bracken <> [aut]"
@@ -17,11 +17,17 @@ Description: Provides a tool to read data generated from RiverWare(TM)
     RiverSMART(TM).
 Depends:
     R (>= 3.1.0)
-License: CCO
+License: CC0
 LazyData: true
 Imports:
-    reshape2
+    data.table,
+    reshape2,
+    utils,
+    feather
 Suggests:
-    knitr
+    dplyr,
+    knitr,
+    rmarkdown,
+    testthat
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1

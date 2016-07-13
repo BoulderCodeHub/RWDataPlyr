@@ -4,10 +4,17 @@
 \alias{getSlots}
 \title{Get and aggregate data from a single rdf file.}
 \usage{
-getSlots(slotsAndRdf, scenPath)
+getSlots(slotAggList, scenPath)
+}
+\arguments{
+\item{slotAggList}{The slot aggregation list. A list containing the slots that will be 
+imported and aggregated, the aggregation method(s) to use, and the rdf files that 
+contain the slots. See \code{\link{createSlotAggList}}.}
+
+\item{scenPath}{A relative or absolute path to the scenario folder.}
 }
 \description{
 \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
-as specified by the summary functions in \code{slotsAndRdf}.
+as specified by the summary functions in \code{slotAggList}.
 }
 

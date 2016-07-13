@@ -37,3 +37,9 @@ inst/doc
 *.RData
 .Rhistory
 .Rproj.user/7A0DA9F8/sdb/prop/INDEX
+.Rproj.user/*
+*.Rproj.user
+.Rproj.user
+
+# files created by tests
+tests/testthat/tmp.txt

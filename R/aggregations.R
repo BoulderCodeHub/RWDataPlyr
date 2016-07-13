@@ -7,14 +7,19 @@
 #' 
 #' @param mass A vector of one trace worth of data, or one year of one trace. Units should be in tons.
 #' @param flow A vector of one trace worth of data, or one year of one trace. Units should be in acre-ft/month.
-#' @return A victor of yearly data of the flow-weighted average annual concentration. Units will
+#' @return A vector of yearly data of the flow-weighted average annual concentration. Units will
 #' be mg/L.
 #' @examples
+#' \dontrun{
 #' flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
 #' mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
 #' fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
+#' }
 #' @seealso
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 flowWeightedAvgAnnConc <- function(mass, flow)
 {
 	if(length(mass)%%12 != 0 | length(flow)%%12 != 0)
@@ -46,11 +51,14 @@ returnMinAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(rdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
 #' peMax <- getMinAnnValue(pe)
 #' @seealso
 #' \code{\link{getMaxAnnValue}}
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 getMinAnnValue <- function(xx)
 {
 	minAnn <- apply(xx, 2, returnMinAnn)
@@ -71,17 +79,45 @@ returnMaxAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(rdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
 #' peMax <- getMaxAnnValue(pe)
 #' @seealso
 #' \code{\link{getMinAnnValue}}
 #' \code{\link{rdfSlotToMatrix}}
+#' 
+#' @export
+#' 
 getMaxAnnValue <- function(xx)
 {
 	maxAnn <- apply(xx, 2, returnMaxAnn)
 	return(maxAnn)
 }
 
-
-
-
+# ----------------------------------------------------------------------------
+# **************************  sumMonth2Annual  *******************************
+# ----------------------------------------------------------------------------
+#' Sums monthly trace data into annual values.
+#' 
+#' \code{sumMonth2Annual} takes a matrix containing monthly data (months by traces), 
+#' sum the monthly data into annual data.  Returns a years by traces matrix.
+#' 
+#' @param matrixToSum The monthly trace data (months by traces) that will be summed.
+#' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
+#' @return The annual sums as a matrix (years by traces).
+#' @examples
+#' zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
+#' annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
+#' annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
+#' 
+#' @export
+#' 
+sumMonth2Annual <- function(matrixToSum, multFactor = 1)
+  # the multiplying factor can be used if the matrix is in units of flow and the 
+  # result should be in units of volume, or to scale all results in another manor
+{
+  # take each column, make it a matrix of years by 
+  res <- do.call(cbind, lapply(1:ncol(matrixToSum), 
+                               function(xx) apply(matrix(matrixToSum[,xx],ncol = 12, byrow = T), 1, sum)))
+  
+  res * multFactor
+}

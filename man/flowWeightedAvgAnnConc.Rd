@@ -12,7 +12,7 @@ flowWeightedAvgAnnConc(mass, flow)
 \item{flow}{A vector of one trace worth of data, or one year of one trace. Units should be in acre-ft/month.}
 }
 \value{
-A victor of yearly data of the flow-weighted average annual concentration. Units will
+A vector of yearly data of the flow-weighted average annual concentration. Units will
 be mg/L.
 }
 \description{
@@ -22,9 +22,11 @@ or for one year of one trace. Expect flow to be in acre-ft/month and mass to be 
 Return value will be in mg/L
 }
 \examples{
+\dontrun{
 flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
 mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
 fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
+}
 }
 \seealso{
 \code{\link{rdfSlotToMatrix}}

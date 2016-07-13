@@ -16,7 +16,7 @@ A vector of strings.  Each string is a slot contained in the rdf list.
 \code{listSlots} returns a list of all of the slots contained within the rdf list.
 }
 \examples{
-zz <- read.rdf('KeySlots.rdf')
-listSlots(zz)
+listSlots(keyRdf)
+
 }
 

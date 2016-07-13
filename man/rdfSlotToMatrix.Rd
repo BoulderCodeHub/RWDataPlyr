@@ -17,7 +17,7 @@ multiple traces into a matrix with rows indexing through time and columns
 indexing over traces.
 }
 \examples{
-zz <- read.rdf('KeySlots.rdf')
-pe <- rdfSlotToMatrix(zz, 'Powell.Pool Elevation')
+pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')
+
 }
 

@@ -18,15 +18,28 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	# then multiply by 1.
 	slot <- slotsAnnualize[1]
 
-	if(!(slot %in% listSlots(rdf))){
+	if(!(slot %in% getSlotsInRdf(rdf))){
 		stop(paste("slot:", slot, "not found in rdf:", rdfName))
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
 	
-	startData <- strsplit(rdf$runs[[1]]$start, '-')[[1]]
-	endData <- strsplit(rdf$runs[[1]]$end, '-')[[1]]
+	startData <- strsplit(rdf$runs[[1]]$start, '-')[[1]] # start year
+	endData <- strsplit(rdf$runs[[1]]$end, '-')[[1]] # end year
 
 	yy <- seq(as.numeric(startData[1]), as.numeric(endData[1]), 1)
+	
+	tsUnit <- rdf$runs[[1]]$time_step_unit # should either be 'year' or 'month'
+	if(!(tsUnit %in% c('month','year'))){
+	  stop(paste('rdf:', rdfName,'contains data that is on a timestep other than year or month.\n',
+	             'Currently, RWDataPlot can only handle monthly and annual rdf data.'))
+	}
+	
+	if(tsUnit == 'year' & ann != 'AnnualRaw'){
+	  # data is annual, so none of the aggregation methods besides annualRaw make sense
+	  warning(paste('rdf contains annual data, but the aggregation method is not "AnnualRaw".\n',
+	                'Processing using "AnnualRaw" instead. Edit the slotAggList and call getDataForAllScens again, if necessary. '))
+	  ann = 'AnnualRaw'
+	}
 	
 	# XXX
 	# Need to add other summerization methods to this area
@@ -35,8 +48,13 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	if(ann == 'AnnMin'){
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
 		rownames(slot) <- yy
+	} else if(ann == 'EOWY'){
+	  slot <- slot[seq(9, nrow(slot), 12),] # 9 is september
+	  slot[is.nan(slot)] <- 0
+	  slot <- slot * thresh
+	  rownames(slot) <- yy
 	} else if(ann == 'EOCY'){
-		slot <- slot[seq(12, nrow(slot), 12),] 
+	  slot <- slot[seq(12, nrow(slot), 12),] 
 		slot[is.nan(slot)] <- 0
 		slot <- slot * thresh
 		rownames(slot) <- yy
@@ -82,8 +100,20 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot*100
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
-		rownames(slot) <- yy
-		slot <- slot*thresh
+		if(tsUnit == 'month'){
+		  # data is monthly, so will use EOCY
+		  warning(paste('User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
+		          'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
+		          'edit the slot agg list and call getDataForAllScens again.'))
+		  slot <- slot[seq(12, nrow(slot), 12),] 
+		  slot[is.nan(slot)] <- 0
+		  slot <- slot * thresh
+		  rownames(slot) <- yy
+		} else{
+	    # data is annual
+		  rownames(slot) <- yy
+		  slot <- slot*thresh
+		}
 	} else{
 		stop('Invalid aggregation method variable')
 	}
@@ -113,20 +143,42 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' Get and aggregate data from a single rdf file.
 #' 
 #' \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
-#' as specified by the summary functions in \code{slotsAndRdf}. 
-#' 
-#' @inheritParams getAndProcessAllSlots
-#' 
-getSlots <- function(slotsAndRdf, scenPath)
-{
-	slotsAnnualize <- rbind(slotsAndRdf$slots, slotsAndRdf$annualize, slotsAndRdf$varNames)
-	rdf <- slotsAndRdf$rdf
-	rdf <- read.rdf(paste(scenPath,'/',rdf,sep = ''))
+#' as specified by the summary functions in \code{slotAggList}. 
 
-	#print(paste('padding first three months of',slot,
-			#'with January data to make Water Year based computation.\nPlease ensure this is an appropriate assumption'))
-	#flush.console()
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotsAndRdf$rdf)
+#' @param slotAggList The slot aggregation list. A list containing the slots that will be 
+#' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
+#' contain the slots. See \code{\link{createSlotAggList}}.
+#' @param scenPath A relative or absolute path to the scenario folder.
+ 
+getSlots <- function(slotAggList, scenPath)
+{
+  rdf <- slotAggList$rdf
+  rdf <- read.rdf2(paste(scenPath,'/',rdf,sep = ''))
+  
+  if(slotAggList$slots[1] == 'all'){
+	  # if slots is all, then need to create the slotAggList from createSlotAggList
+	  # after reading in all the slot names
+    slots <- RWDataPlot::getSlotsInRdf(rdf)
+    nSlots <- length(slots)
+    if(rdf$runs[[1]]$time_step_unit == 'month'){
+      aggMeth <- 'Monthly'
+    } else if (rdf$runs[[1]]$time_step_unit == 'year'){
+      aggMeth <- 'AnnualRaw'
+    } else{
+      stop(paste('The', slotAggList$rdf, 'contains data of an unexpected timestep.'))
+    }
+    
+    slotAggList <- RWDataPlot::createSlotAggList(cbind(rep(slotAggList$rdf,nSlots),
+                                                       slots,
+                                                       rep(aggMeth, nSlots),
+                                                       rep(NA,nSlots)))
+    slotAggList <- slotAggList[[1]] # go in one level into the list as that is what happens when
+    # this function is called if using the normal slotAggList structure
+	}
+  
+  slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
+
+	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
@@ -139,11 +191,11 @@ getSlots <- function(slotsAndRdf, scenPath)
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' @inheritParams getDataForAllScens
 #' @seealso \code{\link{getDataForAllScens}}
-getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
+getAndProcessAllSlots <- function(scenPath, slotAggList)
 {
 	sPath <- scenPath[1]
 	sName <- scenPath[2]
-	zz <- lapply(slotsAndRdf, getSlots, sPath)
+	zz <- lapply(slotAggList, getSlots, sPath)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
 	nn = colnames(allRes)
@@ -167,24 +219,66 @@ getAndProcessAllSlots <- function(scenPath, slotsAndRdf)
 #' column.
 #' @param slotAggList The slot aggregation list. A list containing the slots that will be 
 #' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
-#' contain the slots. See \code{\link{createSlotAggList}}.
+#' contain the slots. Either created by calling \code{\link{createSlotAggList}} with a specified
+#' set of slots, or a list of lists with each entry containing an rdf file and the keyword 
+#' 'all' for the slots, e.g., \code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}, which will
+#' return all of the slots found in an rdf file. If this option is used, the code will return
+#' monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
+#' file. 
 #' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
 #' @param oFile An absolute or relative path with the file name of the location the table will
-#' be saved to.
+#' be saved to. Valid file types are .csv, .txt, or .feather. 
 #' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 #' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
 #' 
+#' @examples 
+#' # get a specified set of slots and apply some aggregation method to them
+#' scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
+#' scenNames <- scenFolders
+#' # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
+#' slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
+#' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
+#' oFile <- 'tmp.feather'
+#' retFile <- TRUE # return the data, instead of only save it as a text file
+#' keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+#' 
+#' # get all of the data from the KeySlots rdf file
+#' scenFolders <- scenNames <- scenNames[1] # only one scenario
+#' slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
+#' # will return monthly data for all slots in KeySlots.rdf
+#' allData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+#' 
 #' @seealso \code{\link{createSlotAggList}}
+#' 
+#' @export
+#' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
-
+  # determine file type to save data as:
+  oFile <- gsub('\\', '/', oFile, fixed = TRUE)
+  fName <- utils::tail(strsplit(oFile,'/', fixed = T)[[1]],1)
+  fExt <- utils::tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
+  if(!(fExt %in% c('txt', 'csv', 'feather'))){
+    stop(paste0('oFile has an invalid file exention.\n',
+                'getDataForAllScens does not know how to handle ".', fExt,
+                '" extensions.'))
+  }
+  
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
 	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
-	write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	
+	if(fExt == 'txt'){
+	  utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	} else if(fExt == 'csv'){
+	  utils::write.csv(as.matrix(zz), oFile, row.names = F)
+	} else if(fExt == 'feather'){
+	  feather::write_feather(zz, oFile)
+	}
+	
 	if(retFile){
 	  zz
 	}
