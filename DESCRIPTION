@@ -22,7 +22,8 @@ LazyData: true
 Imports:
     data.table,
     reshape2,
-    utils
+    utils,
+    feather
 Suggests:
     dplyr,
     knitr,

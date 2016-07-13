@@ -227,7 +227,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' file. 
 #' @param scenPath An absolute or relative path to the folder containing \code{scenFolders}.
 #' @param oFile An absolute or relative path with the file name of the location the table will
-#' be saved to.
+#' be saved to. Valid file types are .csv, .txt, or .feather. 
 #' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 #' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
@@ -239,7 +239,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
 #' slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
 #' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
-#' oFile <- 'tmp.txt'
+#' oFile <- 'tmp.feather'
 #' retFile <- TRUE # return the data, instead of only save it as a text file
 #' keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
 #' 
@@ -255,13 +255,30 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
 {
-
+  # determine file type to save data as:
+  oFile <- gsub('\\', '/', oFile, fixed = TRUE)
+  fName <- utils::tail(strsplit(oFile,'/', fixed = T)[[1]],1)
+  fExt <- utils::tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
+  if(!(fExt %in% c('txt', 'csv', 'feather'))){
+    stop(paste0('oFile has an invalid file exention.\n',
+                'getDataForAllScens does not know how to handle ".', fExt,
+                '" extensions.'))
+  }
+  
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
 	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
-	utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	
+	if(fExt == 'txt'){
+	  utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	} else if(fExt == 'csv'){
+	  utils::write.csv(as.matrix(zz), oFile, row.names = F)
+	} else if(fExt == 'feather'){
+	  feather::write_feather(zz, oFile)
+	}
+	
 	if(retFile){
 	  zz
 	}

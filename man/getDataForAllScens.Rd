@@ -27,7 +27,7 @@ file.}
 \item{scenPath}{An absolute or relative path to the folder containing \code{scenFolders}.}
 
 \item{oFile}{An absolute or relative path with the file name of the location the table will
-be saved to.}
+be saved to. Valid file types are .csv, .txt, or .feather.}
 
 \item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
@@ -47,7 +47,7 @@ scenNames <- scenFolders
 # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
 slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
-oFile <- 'tmp.txt'
+oFile <- 'tmp.feather'
 retFile <- TRUE # return the data, instead of only save it as a text file
 keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
 
