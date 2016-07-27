@@ -58,6 +58,11 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot[is.nan(slot)] <- 0
 		slot <- slot * thresh
 		rownames(slot) <- yy
+	} else if(ann == 'BOCY'){
+	  slot <- slot[seq(1, nrow(slot), 12),] 
+	  slot[is.nan(slot)] <- 0
+	  slot <- slot * thresh
+	  rownames(slot) <- yy
 	} else if(ann == 'AnnMax'){
 		slot <- apply(slot, 2, returnMaxAnn) # maximum annual value
 		slot <- slot * thresh

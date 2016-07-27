@@ -67,8 +67,10 @@ the data.
  only be used if the rdf file contains only annual data. For rdf files that include 
  monthly data and only an annual value is desired, the EOCY aggregation method should be 
  used. This differs from the Monthly aggregation method, only in the timestep naming.}
- \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. Any values that are NaNs are changed
- to 0s.}
+ \item{'BOCY'}{Beginning-of-calendar year values are reported and \strong{scaled}.
+ Any values that are NaNs are changed to 0s.}
+ \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. 
+ Any values that are NaNs are changed to 0s.}
  \item{'EOCYGTE'}{Checks to see if the end-of-calendar year values are greater than or equal
  to a \strong{threshold}. Returns 100 if it is greater than or equal to the \strong{threshold} and
  0 otherwise.}
