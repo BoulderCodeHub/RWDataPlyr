@@ -1,7 +1,7 @@
 Package: RWDataPlot
 Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
     is saved as rdf (RiverWare data format) files
-Version: 0.4.0.9000
+Version: 0.4.0.9001
 Authors@R: as.person(c(
     "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
     "Cameron Bracken <> [aut]"
