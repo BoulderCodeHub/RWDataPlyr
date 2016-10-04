@@ -1,7 +1,7 @@
 Package: RWDataPlot
 Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
     is saved as rdf (RiverWare data format) files
-Version: 0.4.0.9001
+Version: 0.4.0.9002
 Authors@R: as.person(c(
     "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
     "Cameron Bracken <> [aut]"
@@ -16,7 +16,7 @@ Description: Provides a tool to read data generated from RiverWare(TM)
     is saved in different scenario folders, such as those generated using
     RiverSMART(TM).
 Depends:
-    R (>= 3.1.0)
+    R (>= 3.3.0)
 License: CC0
 LazyData: true
 Imports:
