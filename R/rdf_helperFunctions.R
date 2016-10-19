@@ -66,3 +66,22 @@ rdfSlotToMatrix <- function(rdf, slot)
 	res
 }
 
+# ----------------------------------------------------------------------------
+# **************************  getTimeSpan  *******************************
+# ----------------------------------------------------------------------------
+#' Returns the run period from an rdf. 
+#' 
+#' \code{getTimeSpan} Takes a list created by \code{\link{read.rdf}} and returns
+#' the run period from the
+#' 
+#' @param rdf list returned by \code{\link{read.rdf}}
+#' @return A string with the start and end year and month of the simulation.
+#' @examples
+#' getTimeSpan(keyRdf)
+#' 
+#' @export
+
+getTimeSpan <- function(rdf)
+{
+  paste(rdf$runs[[1]]$start, rdf$runs[[1]]$end, sep = ' - ')
+}
