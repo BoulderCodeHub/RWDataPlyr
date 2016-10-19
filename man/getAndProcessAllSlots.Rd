@@ -25,4 +25,5 @@ rdf are processed and aggregated together.
 \seealso{
 \code{\link{getDataForAllScens}}
 }
+\keyword{internal}
 

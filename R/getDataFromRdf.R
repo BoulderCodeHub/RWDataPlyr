@@ -10,6 +10,7 @@
 #' @param rdf The rdf list returned by \code{\link{read.rdf}} to get the slot data from.  
 #' @param rdfName String of the rdf name.
 #' @return A data frame table with the aggregated slot data.
+#' @keywords internal
 processSlots <- function(slotsAnnualize, rdf, rdfName)
 {
 	ann <- slotsAnnualize[2]
@@ -154,6 +155,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' imported and aggregated, the aggregation method(s) to use, and the rdf files that 
 #' contain the slots. See \code{\link{createSlotAggList}}.
 #' @param scenPath A relative or absolute path to the scenario folder.
+#' @keywords internal
  
 getSlots <- function(slotAggList, scenPath)
 {
@@ -196,6 +198,8 @@ getSlots <- function(slotAggList, scenPath)
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' @inheritParams getDataForAllScens
 #' @seealso \code{\link{getDataForAllScens}}
+#' @keywords internal
+#' 
 getAndProcessAllSlots <- function(scenPath, slotAggList)
 {
 	sPath <- scenPath[1]
