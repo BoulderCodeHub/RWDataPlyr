@@ -25,8 +25,10 @@ test_that('list components match', {
 test_that('getting data matches', {
   expect_equal(rdfSlotToMatrix(r1, 'Mead.Pool Elevation'), 
                rdfSlotToMatrix(r3, 'Mead.Pool Elevation'))
-  expect_equal(rdfSlotToMatrix(r1, "SummaryOutputData.UpperBalancingAbove823"), 
-               rdfSlotToMatrix(r3, "SummaryOutputData.UpperBalancingAbove823"))
+  expect_equal(rdfSlotToMatrix(r1, 'Powell.Outflow'), 
+               rdfSlotToMatrix(r3, 'Powell.Outflow'))
+  expect_equal(rdfSlotToMatrix(r2, "SummaryOutputData.UpperBalancingAbove823"), 
+               rdfSlotToMatrix(r4, "SummaryOutputData.UpperBalancingAbove823"))
   expect_equal(rdfSlotToMatrix(r2, "SummaryOutputData.LBShortageStep2"), 
                rdfSlotToMatrix(r4, "SummaryOutputData.LBShortageStep2"))
 })
