@@ -1,23 +1,3 @@
-# -----------------------------------------------------------------------------
-# 								listSlots
-# -----------------------------------------------------------------------------
-#' List all slots contained in an rdf file.
-#' 
-#' \code{listSlots} returns a list of all of the slots contained within the rdf list.
-#' 
-#' @param rdf list returned by \code{\link{read.rdf}}
-#' @return A vector of strings.  Each string is a slot contained in the rdf list.
-#' @examples
-#' listSlots(keyRdf)
-#' 
-#' @export
-#' 
-listSlots <- function(rdf) 
-{
-  warning('listSlots is depreciated. Use getSlotsInRdf instead.')
-  r <- names(rdf$runs[[1]]$objects)
-  r
-}
 
 # -----------------------------------------------------------------------------
 # 								getSlotsInRdf

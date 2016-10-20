@@ -22,6 +22,5 @@ exptSlots <- c('Powell.Pool Elevation', 'Mead.Pool Elevation', 'Powell.Outflow')
 test_that('slots in rdf are those that are expected (getSlotsinRdf)', {
   expect_equal(length(getSlotsInRdf(keyRdf)),length(exptSlots))
   expect_equal(sum(getSlotsInRdf(keyRdf) %in% exptSlots), length(getSlotsInRdf(keyRdf)))
-  expect_equal(listSlots(sysRdf), getSlotsInRdf(sysRdf))
 })
 
