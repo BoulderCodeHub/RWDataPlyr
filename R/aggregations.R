@@ -105,7 +105,7 @@ getMaxAnnValue <- function(xx)
 #' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
 #' @return The annual sums as a matrix (years by traces).
 #' @examples
-#' zz <- rdfSlotToMatrix(keyRdf, 'TotVal.Powell')
+#' zz <- rdfSlotToMatrix(keyRdf, 'Powell.Outflow')
 #' annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
 #' annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
 #' 

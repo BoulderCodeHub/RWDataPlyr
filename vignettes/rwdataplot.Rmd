@@ -52,7 +52,7 @@ The steps below show an example of reading an rdf file into R, looking at the av
 
 ```{r}
 library(RWDataPlot)
-rdf <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlot'))
+rdf <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlot'))
 pe <- rdfSlotToMatrix(rdf, 'Powell.Pool Elevation')
 ```
 

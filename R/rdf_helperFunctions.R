@@ -1,23 +1,3 @@
-# -----------------------------------------------------------------------------
-# 								listSlots
-# -----------------------------------------------------------------------------
-#' List all slots contained in an rdf file.
-#' 
-#' \code{listSlots} returns a list of all of the slots contained within the rdf list.
-#' 
-#' @param rdf list returned by \code{\link{read.rdf}}
-#' @return A vector of strings.  Each string is a slot contained in the rdf list.
-#' @examples
-#' listSlots(keyRdf)
-#' 
-#' @export
-#' 
-listSlots <- function(rdf) 
-{
-  warning('listSlots is depreciated. Use getSlotsInRdf instead.')
-  r <- names(rdf$runs[[1]]$objects)
-  r
-}
 
 # -----------------------------------------------------------------------------
 # 								getSlotsInRdf
@@ -66,3 +46,24 @@ rdfSlotToMatrix <- function(rdf, slot)
 	res
 }
 
+# ----------------------------------------------------------------------------
+# **************************  getTimeSpan  *******************************
+# ----------------------------------------------------------------------------
+#' Returns the run period from an rdf. 
+#' 
+#' \code{getTimeSpan} Takes a list created by \code{\link{read.rdf}} and returns
+#' the run period from the
+#' 
+#' @param rdf list returned by \code{\link{read.rdf}}
+#' @return A named string vector with two elements. The first element, named 'start',
+#' includes the start date of the simulation. The second element, named 'end',
+#' includes the end date of the simulation.
+#' @examples
+#' getTimeSpan(keyRdf)
+#' 
+#' @export
+
+getTimeSpan <- function(rdf)
+{
+  c('start' = rdf$runs[[1]]$start, 'end' = rdf$runs[[1]]$end)
+}

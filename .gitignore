@@ -3,11 +3,9 @@
 .Rhistory
 **.Rproj
 .Rproj.user
-
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
-
 # Folder config file
 Desktop.ini
 # Recycle Bin used on file shares
@@ -40,6 +38,6 @@ inst/doc
 .Rproj.user/*
 *.Rproj.user
 .Rproj.user
-
 # files created by tests
 tests/testthat/tmp.txt
+tmp.feather

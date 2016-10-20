@@ -17,4 +17,5 @@ contain the slots. See \code{\link{createSlotAggList}}.}
 \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
 as specified by the summary functions in \code{slotAggList}.
 }
+\keyword{internal}
 
