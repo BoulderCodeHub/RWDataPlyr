@@ -75,7 +75,9 @@ rdfSlotToMatrix <- function(rdf, slot)
 #' the run period from the
 #' 
 #' @param rdf list returned by \code{\link{read.rdf}}
-#' @return A string with the start and end year and month of the simulation.
+#' @return A named string vector with two elements. The first element, named 'start',
+#' includes the start date of the simulation. The second element, named 'end',
+#' includes the end date of the simulation.
 #' @examples
 #' getTimeSpan(keyRdf)
 #' 
@@ -83,5 +85,5 @@ rdfSlotToMatrix <- function(rdf, slot)
 
 getTimeSpan <- function(rdf)
 {
-  paste(rdf$runs[[1]]$start, rdf$runs[[1]]$end, sep = ' - ')
+  c('start' = rdf$runs[[1]]$start, 'end' = rdf$runs[[1]]$end)
 }

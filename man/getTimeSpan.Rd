@@ -10,7 +10,9 @@ getTimeSpan(rdf)
 \item{rdf}{list returned by \code{\link{read.rdf}}}
 }
 \value{
-A string with the start and end year and month of the simulation.
+A named string vector with two elements. The first element, named 'start',
+includes the start date of the simulation. The second element, named 'end',
+includes the end date of the simulation.
 }
 \description{
 \code{getTimeSpan} Takes a list created by \code{\link{read.rdf}} and returns
