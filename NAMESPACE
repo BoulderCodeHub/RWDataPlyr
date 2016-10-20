@@ -6,4 +6,7 @@ export(read.rdf,
        getDataForAllScens,
        getMinAnnValue,
        getMaxAnnValue,
-       flowWeightedAvgAnnConc)
+       flowWeightedAvgAnnConc,
+       rdfSlotToXTS,
+       getTraceMonthVal, getTraceAvg, getTraceMin, getTraceMax, getTraceSum, 
+       getArrayPctl, getArrayThresholdExceedance)

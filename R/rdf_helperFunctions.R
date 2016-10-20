@@ -73,3 +73,41 @@ sumMonth2Annual <- function(matrixToSum, multFactor = 1)
 	resMatrix
 }
 
+# ----------------------------------------------------------------------------
+# **************************  rdfSlotToXTS  **********************************
+# ----------------------------------------------------------------------------
+#' Get one slot out of an rdf list and put it in an XTS object
+#' 
+#' \code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
+#' the nested slot values over the multiple traces into an XTS array 
+#' indexing over traces.
+#' 
+#' @param rdf list returned by \code{\link{read.rdf}}
+#' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
+#' @return an XTS object with the selected slot data
+#' @examples
+#' zz <- read.rdf('KeySlots.rdf')
+#' pe <- rdfSlotToXTS(zz, 'Powell.Pool Elevation')
+rdfSlotToXTS <- function(rdf, slot)
+{
+  # check to see if the slot exists in the rdf, if it does not exit
+  if(!(slot %in% listSlots(rdf)))
+    stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
+  # Get date-times from rdf
+  tArray <- rdf$runs[[1]]$times
+  # OPERATIONS IN ORDER OF EXECUTION
+  # 1. rdfSlotToMatrix - read data for 'slot' string given 'rdf' file
+  # 2. cbind - combine datetime and data arrays
+  # 3. data.frame - define R dataframe for conversion to XTS
+  # 4. read.zoo - convert dataframe to zoo matrix
+  # 5. as.xts - convert zoo matrix to XTS
+  # 6. Storage.mode() - convert char values in the XTS matrix to numeric
+  rdfXTS <- as.xts(read.zoo(data.frame(cbind(tArray,rdfSlotToMatrix(rdf, slot)))))
+  storage.mode(rdfXTS) <- "numeric"
+  runNames <- c()
+  for (ithRun in c(1:as.numeric(rdf$meta$number_of_runs))){
+    runNames <- c(runNames, paste('Trace',ithRun,sep=""))
+  }
+  names(rdfXTS) <- runNames
+  rdfXTS
+}
