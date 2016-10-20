@@ -17,6 +17,7 @@ devtools::install_github('rabutler/RWDataPlot')
 ```
 
 ## Log:
+* 2016-10-20: version 0.4.1 available
 * 2016-07-13: version 0.4 available
 * 2016-03-22: version 0.3 available
 * 2015-07-01: version 0.2 available
