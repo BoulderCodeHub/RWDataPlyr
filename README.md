@@ -1,6 +1,6 @@
 ## RWDataPlyr
 
-Contains R package to read and manipulate data from RiverWareTM (riverware.org) that are saved as rdf (RiverWare data format) files.  
+Contains R package to read and manipulate data from RiverWareTM ([riverware.org](http://www.riverware.org)) that are saved as rdf (RiverWare data format) files.  
 
 [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr)
 
