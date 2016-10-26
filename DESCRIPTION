@@ -1,4 +1,4 @@
-Package: RWDataPlot
+Package: RWDataPlyr
 Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
     is saved as rdf (RiverWare data format) files
 Version: 0.4.1
