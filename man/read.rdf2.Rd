@@ -23,7 +23,7 @@ to read in the file. Two versions will be maintained for a while to ensure they
 behave identically.
 }
 \examples{
-zz <- read.rdf2(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlot"))
+zz <- read.rdf2(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlyr"))
 
 }
 

@@ -1,15 +1,15 @@
-library(RWDataPlot)
+library(RWDataPlyr)
 context('check read.rdf2 matches read.rdf')
 
 r1 <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 r2 <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemConditions.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 
 r3 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 r4 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemConditions.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 
 test_that('list components match', {
   expect_equal(r1$meta, r3$meta)

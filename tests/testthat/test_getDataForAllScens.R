@@ -1,11 +1,11 @@
-library(RWDataPlot)
+library(RWDataPlyr)
 context('check that getDataForAllScens works')
 
 # get a specified set of slots and apply some aggregation method to them
 scenNames <- scenFolders <- c('DNF,CT,IG') 
 
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
-scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
+slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.txt'
 retFile <- TRUE # return the data, instead of only save it as a text file
 keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)

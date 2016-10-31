@@ -32,7 +32,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	tsUnit <- rdf$runs[[1]]$time_step_unit # should either be 'year' or 'month'
 	if(!(tsUnit %in% c('month','year'))){
 	  stop(paste('rdf:', rdfName,'contains data that is on a timestep other than year or month.\n',
-	             'Currently, RWDataPlot can only handle monthly and annual rdf data.'))
+	             'Currently, RWDataPlyr can only handle monthly and annual rdf data.'))
 	}
 	
 	if(tsUnit == 'year' & ann != 'AnnualRaw'){
@@ -165,7 +165,7 @@ getSlots <- function(slotAggList, scenPath)
   if(slotAggList$slots[1] == 'all'){
 	  # if slots is all, then need to create the slotAggList from createSlotAggList
 	  # after reading in all the slot names
-    slots <- RWDataPlot::getSlotsInRdf(rdf)
+    slots <- RWDataPlyr::getSlotsInRdf(rdf)
     nSlots <- length(slots)
     if(rdf$runs[[1]]$time_step_unit == 'month'){
       aggMeth <- 'Monthly'
@@ -175,7 +175,7 @@ getSlots <- function(slotAggList, scenPath)
       stop(paste('The', slotAggList$rdf, 'contains data of an unexpected timestep.'))
     }
     
-    slotAggList <- RWDataPlot::createSlotAggList(cbind(rep(slotAggList$rdf,nSlots),
+    slotAggList <- RWDataPlyr::createSlotAggList(cbind(rep(slotAggList$rdf,nSlots),
                                                        slots,
                                                        rep(aggMeth, nSlots),
                                                        rep(NA,nSlots)))
@@ -246,8 +246,8 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
 #' scenNames <- scenFolders
 #' # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
-#' slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
-#' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
+#' slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+#' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 #' oFile <- 'tmp.feather'
 #' retFile <- TRUE # return the data, instead of only save it as a text file
 #' keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)

@@ -1,4 +1,4 @@
-library(RWDataPlot)
+library(RWDataPlyr)
 context('check rdf helper functions')
 
 test_that("rdfSlotToMatrix gets correct dimensions for matrix", {

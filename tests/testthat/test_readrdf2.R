@@ -1,10 +1,10 @@
-library(RWDataPlot)
+library(RWDataPlyr)
 context('check read.rdf2')
 
 r1 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 r2 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemConditions.rdf'),
-                           package = 'RWDataPlot'))
+                           package = 'RWDataPlyr'))
 
 test_that('read.rdf data are as expected', {
   expect_equal(rdfSlotToMatrix(r1, 'Powell.Pool Elevation'),
