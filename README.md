@@ -17,6 +17,7 @@ devtools::install_github('BoulderCodeHub/RWDataPlyr')
 ```
 
 ## Log:
+* 2016-11-01: version 0.4.1.1 available. The package is now actually called RWDataPlyr.
 * 2016-10-20: version 0.4.1 available
 * Previous versions were originally available as the `RWDataPlot` package
   * 2016-07-13: version 0.4 available
