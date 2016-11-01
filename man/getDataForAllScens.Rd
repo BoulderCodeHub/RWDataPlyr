@@ -45,8 +45,8 @@ and saved as a txt file for later use.
 scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
 scenNames <- scenFolders
 # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
-scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlot')
+slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.feather'
 retFile <- TRUE # return the data, instead of only save it as a text file
 keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)

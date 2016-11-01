@@ -1,4 +1,4 @@
 library(testthat)
-library(RWDataPlot)
+library(RWDataPlyr)
 
-test_check("RWDataPlot")
+test_check("RWDataPlyr")

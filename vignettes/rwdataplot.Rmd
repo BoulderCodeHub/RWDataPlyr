@@ -1,5 +1,5 @@
 ---
-title: "RWDataPlot-DRAFT"
+title: "RWDataPlyr-DRAFT"
 author: "R. Alan Butler"
 date: "`r Sys.Date()`"
 output: 
@@ -7,14 +7,14 @@ output:
     self_contained: no
   
 vignette: >
-  %\VignetteIndexEntry{rwdataplot}
+  %\VignetteIndexEntry{rwdataplyr}
   %\VignetteEngine{knitr::rmarkdown}
   %\usepackage[utf8]{inputenc}
 ---
 
 The vignette is a working draft and the package is under current development, thus documentation and functionality may be changing.
 
-The RWDataPlot package provides a mechanism to import data from [RiverWare<sup>TM</sup>](http://riverware.org) simulations into R.  Starting with data in the form of RiverWare data  files (rdf), the data are read into R and can then be maniuplated.  The package is intended to compliment the RiverWare RiverSMART<sup>TM</sup> tool, which includes a plugin to run R code.  The package provides functionality to read in data from multiple scenarios, add common attributes, and provides common plotting functions utilizing `ggplot2`. Many of the plotting functions are written so that figures that are commonly generated from results from the Bureau of Reclamation's Colorado River Simulation System (CRSS) can be automatically and quickly created, however; they can be utilized to plot any multi-trace simulation results.
+The RWDataPlyr package provides a mechanism to import data from [RiverWare<sup>TM</sup>](http://riverware.org) simulations into R.  Starting with data in the form of RiverWare data  files (rdf), the data are read into R and can then be maniuplated.  The package is intended to compliment the RiverWare RiverSMART<sup>TM</sup> tool, which includes a plugin to run R code.  The package provides functionality to read in data from multiple scenarios, add common attributes, and provides common plotting functions utilizing `ggplot2`. Many of the plotting functions are written so that figures that are commonly generated from results from the Bureau of Reclamation's Colorado River Simulation System (CRSS) can be automatically and quickly created, however; they can be utilized to plot any multi-trace simulation results.
 
 ## Current Implicit Assumptions in Package
 * Monthly data.
@@ -26,11 +26,11 @@ January 2014 through December 2060.
 
 Recent and ongoing enhancements to [RiverWare<sup>TM</sup>](http://riverware.org), including the development of the RiverWare RiverSMART<sup>TM</sup> tool have made it increasingly easy to generate large amounts of data from RiverWare simulations. As the many data sets become increasingly large, it R becomes a more appealing analysis tools over Excel. RiverWare natively creates ASCII text files called rdf, or RiverWare data files, that are commonly converted to Excel files for analsyis purposes. This package provides a tool to read those same rdf files into R. RiverWare stores simulation results in various "slots", or variables representing different reservoir or reach specific results. RiverWare is also commonly used in a "multiple run" mode, where many unique realizations, or traces, of hypothetical operations can be simulated. A suite of traces represents a single scenario, and it is common to want to compare results of different scenarios against each other. The simulation of many scenarios is handled by RiverSMART, as is the analysis of these many scenarios.
 
-The `RWDataPlot` package provides documentation for the steps the Bureau of Reclamation takes when computing many of the common statistics on future simulations that are reported to Stakeholders. Hopefully, it will also alow for a more widespread utilization of existing analysis code currently maintained by various Reclamation employees. 
+The `RWDataPlyr` package provides documentation for the steps the Bureau of Reclamation takes when computing many of the common statistics on future simulations that are reported to Stakeholders. Hopefully, it will also alow for a more widespread utilization of existing analysis code currently maintained by various Reclamation employees. 
 
 ## Manipulating RDFs in R
 
-The `RWDataPlot` package provides fucntionality to (1) read rdf data into R, (2) format the data as a simple matrix, and (3) aggregate rdf data from many scenarios into a single data frame.
+The `RWDataPlyr` package provides fucntionality to (1) read rdf data into R, (2) format the data as a simple matrix, and (3) aggregate rdf data from many scenarios into a single data frame.
 
 ### Reading RDF Into R
 
@@ -51,8 +51,8 @@ To allow the user to see the slots that are included in the rdf file once it is 
 The steps below show an example of reading an rdf file into R, looking at the available slots, and then coverting one of the slots to a matrix.
 
 ```{r}
-library(RWDataPlot)
-rdf <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlot'))
+library(RWDataPlyr)
+rdf <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlyr'))
 pe <- rdfSlotToMatrix(rdf, 'Powell.Pool Elevation')
 ```
 
@@ -83,7 +83,7 @@ peMin[1:2,1:2]
 The help pages provide more details on the other aggregation functions.
 
 ## Aggregating Multiple Scenarios
-While the functionality provided by `read.rdf`, `rdfSlotToMatrix`, and the few simple aggregation methods is useful when a user needs to interactively explore the data, the real utility in the `RWDataPlot` package is in combining results from many scenarios into a single data frame. The data frame can then be utilized for further analysis or easily plotted using `ggplot2`. 
+While the functionality provided by `read.rdf`, `rdfSlotToMatrix`, and the few simple aggregation methods is useful when a user needs to interactively explore the data, the real utility in the `RWDataPlyr` package is in combining results from many scenarios into a single data frame. The data frame can then be utilized for further analysis or easily plotted using `ggplot2`. 
 
 Because the monthly data is typically annualized in some manner, and because storing all monthly values is somewhat inefficient, the scenario data can be aggregated in many ways before it is combined. The package provides several common functions that can be applied to the monthly data, prior to combining scenario results.
 
@@ -133,10 +133,10 @@ After creating the slot aggregation table, either as an R matrix or as an extern
 
 
 ```{r,eval=TRUE}
-scenPath <- system.file('extdata','Scenario',package = 'RWDataPlot')
+scenPath <- system.file('extdata','Scenario',package = 'RWDataPlyr')
 scenFolders <- c('DNF,CT,IG/','DNF,CT,IG,Ops1/') # two scenario folders that exist in scenPath
 scenNames <- c('Observed Hydrology','Observed Hydrology w/Options') # scenarios names
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
+slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 oFile <- 'allScenariosProcessed.txt'
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
 ```
@@ -148,4 +148,4 @@ plot(1:10)
 plot(10:1)
 ```
 
-## Utilizing RWDataPlot within RiverSMART<sup>TM</sup>
+## Utilizing RWDataPlyr within RiverSMART<sup>TM</sup>

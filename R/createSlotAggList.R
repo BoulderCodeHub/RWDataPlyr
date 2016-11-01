@@ -77,7 +77,7 @@
 #' file.
 #' @return A multi level list.
 #' @examples
-#' createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlot'))
+#' createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 #' @seealso \code{\link{getDataForAllScens}}
 #' 
 #' @export

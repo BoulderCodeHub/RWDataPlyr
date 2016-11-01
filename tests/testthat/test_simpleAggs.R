@@ -1,4 +1,4 @@
-library(RWDataPlot)
+library(RWDataPlyr)
 context('check simple aggregation methods')
 
 simpMat <- matrix(1:48, ncol = 2)
