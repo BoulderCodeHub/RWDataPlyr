@@ -91,7 +91,15 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot[slot > thresh] <- 0
 		slot <- slot * 100
 		rownames(slot) <- yy
-	} else if(ann == 'EOCYLTE'){
+	} else if(ann == 'WYMaxLTE'){
+	  slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
+	  slot <- slot[1:(nrow(slot)-3),]
+	  slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
+	  slot[slot <= thresh] <- 1
+	  slot[slot > thresh] <- 0
+	  slot <- slot * 100
+	  rownames(slot) <- yy
+	}	else if(ann == 'EOCYLTE'){
 		slot <- slot[seq(12, nrow(slot), 12),,drop = FALSE]
 		slot[is.nan(slot)] <- 0
 		slot[slot <= thresh] <- 1
