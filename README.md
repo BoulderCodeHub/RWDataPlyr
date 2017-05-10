@@ -1,4 +1,4 @@
-## RWDataPlyr
+# RWDataPlyr
 
 Contains R package to read and manipulate data from RiverWareTM ([riverware.org](http://www.riverware.org)) that are saved as rdf (RiverWare data format) files.  
 
@@ -14,6 +14,14 @@ if(!require(devtools)){
 	library(devtools)
 }
 devtools::install_github('BoulderCodeHub/RWDataPlyr', build_vignettes = TRUE)
+```
+
+## Usage
+
+Check out the vignette:
+
+```
+vignette("rwdataplyr", package = "RWDataPlyr")
 ```
 
 ## Log:
