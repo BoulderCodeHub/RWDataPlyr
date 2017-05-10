@@ -6,14 +6,14 @@ Contains R package to read and manipulate data from RiverWareTM ([riverware.org]
 
 ## Installation
 
-Package can be installed from GitHub:
+Package can be installed from GitHub, and we suggest building the vignette. 
 
 ```
 if(!require(devtools)){
 	install.packages('devtools')
 	library(devtools)
 }
-devtools::install_github('BoulderCodeHub/RWDataPlyr')
+devtools::install_github('BoulderCodeHub/RWDataPlyr', build_vignettes = TRUE)
 ```
 
 ## Log:
