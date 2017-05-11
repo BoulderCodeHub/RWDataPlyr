@@ -1,6 +1,12 @@
 library(RWDataPlyr)
 context('check creation of slot aggregation list')
 
+samFail <- matrix(c(
+  "KeySlots.rdf", "Powell.Pool Elevation", "Monthly", 10, "powellMothly10",
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadMonthly001"),
+  ncol = 5, byrow = TRUE
+)
+
 test_that("createSlotAggList returns proper errors", {
   expect_error(createSlotAggList(matrix(1:6, ncol = 3)), 
                "iData is a matrix with 3 columns. There should either be 4 or 5 columns.")
@@ -20,6 +26,9 @@ test_that("createSlotAggList returns proper errors", {
                  "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
   expect_error(createSlotAggList(file.path("some", "crazy", "file.txt")),
                paste(file.path("some", "crazy", "file.txt"),'does not exist.'))
+  expect_error(createSlotAggList(samFail),
+               paste0("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
+                    "Please create a seperate slot aggregation list with only the monthly data."))
 })
 
 

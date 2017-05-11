@@ -114,6 +114,14 @@ createSlotAggList <- function(iData)
     }
   }
   
+  # check and see if the "monthly" aggregation method exists, if it does, it 
+  # should be the only aggregation method
+  # this is contained in column 3
+  if("Monthly" %in% iData[,3] & !all(iData[,3] == "Monthly")) {
+    stop("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
+         "Please create a seperate slot aggregation list with only the monthly data.")
+  }
+  
   # check and see if alternative variable names have been added
   altNames <- ncol(iData) == 5
   
