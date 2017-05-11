@@ -20,4 +20,3 @@ flow, and flags. Use this with \link{getSlotsInRdf} or
 \link{rdfSlotToMatrix} to use the data.
 }
 \keyword{datasets}
-

@@ -23,4 +23,3 @@ by \code{getDataForAllScens} is in a format to easily plot in \code{ggplot2}.
 To learn more about RWDataPlyr, start with the vignette:
 \code{browseVignettes(package = 'RWDataPlot')}
 }
-

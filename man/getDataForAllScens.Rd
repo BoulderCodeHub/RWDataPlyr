@@ -61,4 +61,3 @@ allData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFi
 \seealso{
 \code{\link{createSlotAggList}}
 }
-

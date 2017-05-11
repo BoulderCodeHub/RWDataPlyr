@@ -23,4 +23,3 @@ pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 peWY <- getTraceMin(pe, 'WY')
 }
 }
-

@@ -100,4 +100,3 @@ createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr
 \seealso{
 \code{\link{getDataForAllScens}}
 }
-

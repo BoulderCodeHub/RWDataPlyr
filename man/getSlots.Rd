@@ -18,4 +18,3 @@ contain the slots. See \code{\link{createSlotAggList}}.}
 as specified by the summary functions in \code{slotAggList}.
 }
 \keyword{internal}
-

@@ -26,4 +26,3 @@ behave identically.
 zz <- read.rdf2(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlyr"))
 
 }
-

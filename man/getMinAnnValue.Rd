@@ -25,4 +25,3 @@ peMax <- getMinAnnValue(pe)
 \code{\link{getMaxAnnValue}}
 \code{\link{rdfSlotToMatrix}}
 }
-

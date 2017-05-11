@@ -24,4 +24,3 @@ indexing over traces.
 pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 }
 }
-
