@@ -39,3 +39,5 @@ test_that('file extension is checked', {
                       'getDataForAllScens does not know how to handle ".', 'cvs',
                       '" extensions.'))
 })
+
+on.exit(file.remove("tmp.txt"))
