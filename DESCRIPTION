@@ -30,6 +30,7 @@ Suggests:
     dplyr,
     knitr,
     rmarkdown,
-    testthat
+    testthat,
+    tidyr
 VignetteBuilder: knitr
 RoxygenNote: 5.0.1
