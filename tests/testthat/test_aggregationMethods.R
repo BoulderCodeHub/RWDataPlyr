@@ -12,7 +12,7 @@ colnames(mEocy) <- 1:ncol(mEocy)
 
 # **** create a sam that tests every one of the agg methods
 sal <- createSlotAggList(matrix(c(
-  "KeySlots.Rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe"
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe"
 ), ncol = 5))
 
 zz <- getDataForAllScens(
