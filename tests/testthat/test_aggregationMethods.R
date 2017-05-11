@@ -4,8 +4,7 @@ library(tidyr)
 
 context('check RWDataPlyr:::processSlots aggregation computations')
 
-keyRdf <- read.rdf2(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", 
-                                package = "RWDataPlyr"))
+# keyRdf exists as data in package
 mEocy <- rdfSlotToMatrix(keyRdf, "Mead.Pool Elevation")
 mEocy <- as.data.frame(mEocy[seq(12,nrow(mEocy), 12),])
 colnames(mEocy) <- 1:ncol(mEocy)
