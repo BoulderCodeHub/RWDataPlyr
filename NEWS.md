@@ -4,3 +4,4 @@
 * Added a `NEWS.md` file to track changes to the package.
 * Better error messages in `createSlotAggList()` (#45)
 * Improved tests for `createSlotAggList()`
+* Added tests for `RWDataPlyr:::processSlots()`
