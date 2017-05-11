@@ -9,9 +9,11 @@ context('check RWDataPlyr:::processSlots aggregation computations')
 # keyRdf exists as data in package
 mReg <- rdfSlotToMatrix(keyRdf, "Mead.Pool Elevation")
 pReg <- rdfSlotToMatrix(keyRdf, "Powell.Pool Elevation")
+lbShort <- as.data.frame(rdfSlotToMatrix(sysRdf, "SummaryOutputData.LBShortageConditions"))
 cNames <- 1:ncol(mReg)
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
+colnames(lbShort) <- cNames
 
 mEocy <- as.data.frame(mReg[seq(12,nrow(mReg), 12),])
 pMin <- as.data.frame(getMinAnnValue(pReg))
@@ -55,7 +57,9 @@ sal <- createSlotAggList(matrix(c(
   "KeySlots.rdf", "Powell.Pool Elevation", "WYMinLTE", 3525, "powellLt3525",
   "KeySlots.rdf", "Powell.Pool Elevation", "WYMaxLTE", 3800, "powellLt3800",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCYLTE", 1050, "meadLt1050",
-  "KeySlots.rdf", "Mead.Pool Elevation", "EOCYGTE", 1100, "meadGt1100"), 
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCYGTE", 1100, "meadGt1100",
+  "KeySlots.rdf", "Mead.Pool Elevation", "AnnualRaw", NA, "meadPe2",
+  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw", NA, "lbShort"), 
   ncol = 5, byrow = TRUE
 ))
 
@@ -99,6 +103,9 @@ test_that("processSlots monthly to annual aggregation methods work", {
   expect_equal(filterVarToMatrix(zz, "meadLt1050"), m1050)
   expect_equal(filterVarToMatrix(zz, "meadGt1100"), m1100)
   expect_equal(filterVarToMatrix(zz, "powellMin"), pMin)
+  expect_equal(filterVarToMatrix(zz, "meadPe2"), mEocy)
+  expect_equal(filterVarToMatrix(zz, "meadPe2"), filterVarToMatrix(zz, "meadPe"))
+  expect_equal(filterVarToMatrix(zz, "lbShort"), lbShort)
   expect_equal({
     zzMonthly %>% 
       filter(Variable == "powellMothly10", Scenario == "DNF,CT,IG") %>%
