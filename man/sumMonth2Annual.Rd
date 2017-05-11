@@ -9,7 +9,8 @@ sumMonth2Annual(matrixToSum, multFactor = 1)
 \arguments{
 \item{matrixToSum}{The monthly trace data (months by traces) that will be summed.}
 
-\item{multFactor}{A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.}
+\item{multFactor}{A factor the annual sum will be multiplied by.  Can be used to 
+convert from flow to volume,  or to scale all results in another manor.}
 }
 \value{
 The annual sums as a matrix (years by traces).
