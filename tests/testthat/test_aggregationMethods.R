@@ -21,16 +21,16 @@ pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),])
 mMax <- as.data.frame(getMaxAnnValue(mReg))
 mSum <- as.data.frame(sumMonth2Annual(mReg))
-p3575 <- as.data.frame((getMinAnnValue(pReg) <= 3575) * 100)
+p3575 <- as.data.frame((getMinAnnValue(pReg) <= 3575) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),]
-p3525 <- as.data.frame((getMinAnnValue(pPad) <= 3525) * 100)
+p3525 <- as.data.frame((getMinAnnValue(pPad) <= 3525) * 1)
 
-p3800 <- as.data.frame((getMaxAnnValue(pPad) <= 3800) * 100)
+p3800 <- as.data.frame((getMaxAnnValue(pPad) <= 3800) * 1)
 
-m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] <= 1050) * 100)
+m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] <= 1050) * 1)
 
-m1100 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] >= 1100) * 100)
+m1100 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] >= 1100) * 1)
 
 
 filterVarToMatrix <- function(zz, var, scen = "DNF,CT,IG") {
