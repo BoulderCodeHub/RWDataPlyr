@@ -16,19 +16,39 @@ test_that("createSlotAggList returns proper errors", {
                "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
   expect_error(createSlotAggList(1:17),
                "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
-  expect_warning(createSlotAggList(1:8),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','AnnMax',NA, 'KeySlots.rdf','Powell.Pool Elevation','AnnMin',NA)),
                  "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(1:4),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA)),
                  "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(1:15),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
                  "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(1:5),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
                  "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
   expect_error(createSlotAggList(file.path("some", "crazy", "file.txt")),
                paste(file.path("some", "crazy", "file.txt"),'does not exist.'))
   expect_error(createSlotAggList(samFail),
                paste0("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
                     "Please create a seperate slot aggregation list with only the monthly data."))
+  expect_error(
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','Weird',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
+                             nrow = 2, byrow = TRUE)),
+    paste0("Invalid aggregation methods:\n    ", 
+           paste(c("Weird", "TooWeird"), collapse = ", "), "\n  ",
+           paste("Fix the", 2, "aggregation method(s) and try again.")), 
+    fixed = TRUE
+  )
+  expect_error(
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
+                             nrow = 2, byrow = TRUE)),
+    paste0("Invalid aggregation methods:\n    ", 
+           paste(c("TooWeird"), collapse = ", "), "\n  ",
+           paste("Fix the", 1, "aggregation method(s) and try again.")), 
+    fixed = TRUE
+  )
 })
 
 

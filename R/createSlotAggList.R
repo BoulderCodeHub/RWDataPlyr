@@ -122,6 +122,14 @@ createSlotAggList <- function(iData)
          "Please create a seperate slot aggregation list with only the monthly data.")
   }
   
+  # make sure that all of the slot agg methods are valid
+  if(!all(iData[,3] %in% slotAggMethods())) {
+    tmp <- iData[!(iData[,3] %in% slotAggMethods()),3]
+    stop(paste0("Invalid aggregation methods:\n    ", 
+         paste(tmp, collapse = ", "), "\n  ",
+         paste("Fix the", length(tmp), "aggregation method(s) and try again.")))
+  }
+  
   # check and see if alternative variable names have been added
   altNames <- ncol(iData) == 5
   
@@ -143,4 +151,10 @@ createSlotAggList <- function(iData)
   }
   
   sl
+}
+
+#' @keywords internal 
+slotAggMethods <- function() {
+  c("AnnMin", "AnnMax", "AnnualSum", "AnnMinLTE", "AnnualRaw", "BOCY", 
+    "EOCY", "EOCYGTE", "EOCYLTE", "EOWY", "Monthly", "WYMaxLTE", "WYMinLTE")
 }
