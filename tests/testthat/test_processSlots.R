@@ -47,18 +47,21 @@ test_that('results match regardless of variable name', {
   expect_equal(df1$Value, df2$Value)
 })
 
-sla <- createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation',
-                                  'Weird',NA),nrow = 1))[[1]]
-sla <- rbind(sla$slots, sla$annualize, sla$varNames)
-
 sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Something.Pool Elevation',
                                   'EOCY',NA),nrow = 1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 
+# if somehow an invalid aggregation method is passed to process slots, it will still
+# get caught
+sla <- sla2
+sla[2,1] <- "Weird"
+sla[1,1] <- "Powell.Pool Elevation"
+
 # test 5 and 6
 test_that('process slots stops as expected', {
   expect_error(RWDataPlyr:::processSlots(sla, keyRdf, 'KeySlots.rdf'),
-               'Invalid aggregation method variable')
+               paste0("'", "Weird", "'", " is an invalid aggregation method.\n",
+                      "  Fix the slot aggregation list and try again."))
   expect_error(RWDataPlyr:::processSlots(sla2, keyRdf, 'KeySlots.rdf'),
                'slot: Something.Pool Elevation not found in rdf: KeySlots.rdf')
 })

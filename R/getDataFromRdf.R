@@ -124,7 +124,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		  slot <- slot*thresh
 		}
 	} else{
-		stop('Invalid aggregation method variable')
+		stop(paste0("'",ann, "'", " is an invalid aggregation method.\n",
+		            "  Fix the slot aggregation list and try again."))
 	}
 	
 	
