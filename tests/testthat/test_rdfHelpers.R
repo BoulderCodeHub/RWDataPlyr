@@ -1,9 +1,14 @@
 library(RWDataPlyr)
 context('check rdf helper functions')
 
+key <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
+sys <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
+
 test_that("rdfSlotToMatrix gets correct dimensions for matrix", {
   expect_equal(dim(rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')),c(240,25))
   expect_equal(dim(rdfSlotToMatrix(sysRdf,'SummaryOutputData.LBShortageConditions')),c(20,25))
+  expect_equal(dim(rdfSlotToMatrix(key,'Powell.Pool Elevation')),c(240,1))
+  expect_equal(dim(rdfSlotToMatrix(sys,'SummaryOutputData.LBShortageConditions')),c(20,1))
 })
 
 test_that('getTimeSpan returns expected dates', {

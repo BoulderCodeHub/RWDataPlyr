@@ -84,14 +84,14 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot*thresh
 	} else if(ann == 'WYMinLTE'){
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
-		slot <- slot[1:(nrow(slot)-3),]
+		slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
 		slot[slot <= thresh] <- 1
 		slot[slot > thresh] <- 0
 		rownames(slot) <- yy
 	} else if(ann == 'WYMaxLTE'){
 	  slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
-	  slot <- slot[1:(nrow(slot)-3),]
+	  slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
 	  slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
 	  slot[slot <= thresh] <- 1
 	  slot[slot > thresh] <- 0
@@ -114,7 +114,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		  warning(paste('User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
 		          'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
 		          'edit the slot agg list and call getDataForAllScens again.'))
-		  slot <- slot[seq(12, nrow(slot), 12),] 
+		  slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE] 
 		  slot[is.nan(slot)] <- 0
 		  slot <- slot * thresh
 		  rownames(slot) <- yy
