@@ -11,3 +11,4 @@
 * ensured that `getDataForAllScens()` (and interal function `processSlots()`) work with rdf files that only include one trace of data (#40)
     * improved tests for this case
 * new function: `makeAllScenNames()`
+* new function: `getWYFromYearmon()`
