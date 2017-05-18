@@ -32,3 +32,11 @@ vignette("rwdataplyr", package = "RWDataPlyr")
   * 2016-03-22: version 0.3 available
   * 2015-07-01: version 0.2 available
   * 2014-09-16: working to create an R Package from existing code.
+  
+## Disclaimer
+
+This software is in the public domain because it contains materials that originally came from the U.S. Bureau of Reclamation, an agency of the United States Department of Interior. 
+
+Although this code has been used by the Reclamation, no warranty, expressed or implied, is made by Reclamation or the U.S. Government as to the accuracy and functioning of the program and related program material nor shall the fact of distribution constitute any such warranty, and no responsibility is assumed by Reclamation in connection therewith.
+
+This software is provided "AS IS."
