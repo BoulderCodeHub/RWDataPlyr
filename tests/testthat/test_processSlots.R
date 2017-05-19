@@ -66,6 +66,16 @@ test_that('process slots stops as expected', {
                'slot: Something.Pool Elevation not found in rdf: KeySlots.rdf')
 })
 
-
+sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Something.Pool Elevation',
+                                   'EOCY',NA,"tst"),nrow = 1))[[1]]
+sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
+df <- RWDataPlyr:::processSlots(sla2, keyRdf, "KeySlots.rdf", findAllSlots = FALSE)
+test_that("data is returned when findAllSlots is FALSE", {
+  expect_equal(dim(df), c(1,4))
+  expect_equal(as.character(df$Variable), "tst")
+  expect_equal(df$Trace, -99)
+  expect_equal(df$Year, -99)
+  expect_equal(df$Value, -99)
+})
 
 
