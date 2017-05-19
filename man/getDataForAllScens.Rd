@@ -5,7 +5,7 @@
 \title{Get data from an rdf file(s) for multiple scenarios and save it as a data table.}
 \usage{
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile,
-  retFile = FALSE)
+  retFile = FALSE, findAllSlots = TRUE)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios) that the rdf files
@@ -31,6 +31,11 @@ be saved to. Valid file types are .csv, .txt, or .feather.}
 
 \item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
+
+\item{findAllSlots}{Boolean; if \code{TRUE} (default), then the function will
+abort if it cannot find a particular slot. If \code{FALSE}, then the function
+will continue, even if a slot cannot be found. If a slot is not found, then the
+function will return \code{-99} for the Trace, Year, and Value.}
 }
 \value{
 If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.

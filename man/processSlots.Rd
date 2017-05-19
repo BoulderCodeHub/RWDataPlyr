@@ -4,7 +4,7 @@
 \alias{processSlots}
 \title{Aggregate the slot data.}
 \usage{
-processSlots(slotsAnnualize, rdf, rdfName)
+processSlots(slotsAnnualize, rdf, rdfName, findAllSlots)
 }
 \arguments{
 \item{slotsAnnualize}{A string vector with three entries.  \code{slotsAnnualize[1]} is the

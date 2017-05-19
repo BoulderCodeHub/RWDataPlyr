@@ -11,7 +11,7 @@
 #' @param rdfName String of the rdf name.
 #' @return A data frame table with the aggregated slot data.
 #' @keywords internal
-processSlots <- function(slotsAnnualize, rdf, rdfName)
+processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 {
 	ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
@@ -20,7 +20,22 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	slot <- slotsAnnualize[1]
 
 	if(!(slot %in% getSlotsInRdf(rdf))){
-		stop(paste("slot:", slot, "not found in rdf:", rdfName))
+	  if(findAllSlots) {
+		  stop(paste("slot:", slot, "not found in rdf:", rdfName))
+	  } else {
+	    # Trace Year                     Variable   Value
+	    # construct a df indicating the slot couldn't be found, and return it
+	    zz <- data.frame(
+	      Trace = -99,
+	      Year = -99,
+	      Variable = ifelse(
+	        is.na(slotsAnnualize[4]),
+	        paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+	        slotsAnnualize[4]
+	      ),
+	      Value = -99
+	    )
+	  }
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
 	
@@ -133,8 +148,17 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	
 	if(ann != 'Monthly'){
 		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
-		slot <- cbind(slot, rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
-                                   slotsAnnualize[4]),nrow(slot)))
+		slot <- cbind(
+		  slot, 
+		  rep(
+		    ifelse(
+		      is.na(slotsAnnualize[4]),
+		      paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+          slotsAnnualize[4]
+		    ),
+		    nrow(slot)
+		  )
+		)
 		colnames(slot)[ncol(slot)] <- 'Variable'
 		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
 	} else{
@@ -161,7 +185,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' @keywords internal
  
-getSlots <- function(slotAggList, scenPath)
+getSlots <- function(slotAggList, scenPath, findAllSlots)
 {
   rdf <- slotAggList$rdf
   rdf <- read.rdf2(paste(scenPath,'/',rdf,sep = ''))
@@ -189,7 +213,7 @@ getSlots <- function(slotAggList, scenPath)
   
   slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
 
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf)
+	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf, findAllSlots)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
@@ -204,11 +228,11 @@ getSlots <- function(slotAggList, scenPath)
 #' @seealso \code{\link{getDataForAllScens}}
 #' @keywords internal
 #' 
-getAndProcessAllSlots <- function(scenPath, slotAggList)
+getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 {
 	sPath <- scenPath[1]
 	sName <- scenPath[2]
-	zz <- lapply(slotAggList, getSlots, sPath)
+	zz <- lapply(slotAggList, getSlots, sPath, findAllSlots)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
 	nn = colnames(allRes)
@@ -243,6 +267,10 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' be saved to. Valid file types are .csv, .txt, or .feather. 
 #' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 #' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
+#' @param findAllSlots Boolean; if \code{TRUE} (default), then the function will
+#' abort if it cannot find a particular slot. If \code{FALSE}, then the function
+#' will continue, even if a slot cannot be found. If a slot is not found, then the
+#' function will return \code{-99} for the Trace, Year, and Value.
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
 #' 
 #' @examples 
@@ -266,7 +294,8 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' 
 #' @export
 #' 
-getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
+getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, 
+                               oFile, retFile = FALSE, findAllSlots = TRUE)
 {
   # determine file type to save data as:
   oFile <- gsub('\\', '/', oFile, fixed = TRUE)
@@ -280,7 +309,7 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oF
   
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
+	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList, findAllSlots)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	
