@@ -35,6 +35,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	      ),
 	      Value = -99
 	    )
+	    return(zz)
 	  }
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
