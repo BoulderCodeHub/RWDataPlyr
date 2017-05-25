@@ -168,10 +168,11 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		slot$Month <- mm[1,]
 		slot$Variable <- rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
                             slotsAnnualize[4]),nrow(slot))
-		slot$Year <- mm[2,]
+		slot$Year <- as.numeric(mm[2,])
 		#colnames(slot)[(ncol(slot)-1):ncol(slot)] <- c('Variable','Year')
 		slot <- subset(slot,select = c(Trace, Month, Year, Variable, Value))
 	}
+	slot$Variable <- as.character(slot$Variable)
 	slot
 }
 
