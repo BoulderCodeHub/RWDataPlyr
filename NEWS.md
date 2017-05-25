@@ -12,3 +12,5 @@
     * improved tests for this case
 * new function: `makeAllScenNames()`
 * new function: `getWYFromYearmon()`
+* Added `findAllSlots` boolean parameter to `getDataForAllScens()`
+    * If this is `TRUE` an error will post if one or more of the slots cannot be found. If it is `FALSE`, then it will fill in the data frame with `-99`, but not fail. (#38)
