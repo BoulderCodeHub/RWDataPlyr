@@ -231,7 +231,7 @@ getSlots <- function(slotAggList, scenPath, findAllSlots)
 #' 
 getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 {
-	sPath <- scenPath[1]
+  sPath <- scenPath[1]
 	sName <- scenPath[2]
 	zz <- lapply(slotAggList, getSlots, sPath, findAllSlots)
 
@@ -315,9 +315,9 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath,
 	
 	
 	if(fExt == 'txt'){
-	  utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	  data.table::fwrite(zz, file = oFile, row.names = F, sep = '\t')
 	} else if(fExt == 'csv'){
-	  utils::write.csv(as.matrix(zz), oFile, row.names = F)
+	  data.table::fwrite(zz, oFile, row.names = F, sep = ",")
 	} else if(fExt == 'feather'){
 	  feather::write_feather(zz, oFile)
 	}
