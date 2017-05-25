@@ -93,9 +93,6 @@ getMaxAnnValue <- function(xx)
 	return(maxAnn)
 }
 
-# ----------------------------------------------------------------------------
-# **************************  sumMonth2Annual  *******************************
-# ----------------------------------------------------------------------------
 #' Sums monthly trace data into annual values.
 #' 
 #' \code{sumMonth2Annual} takes a matrix containing monthly data (months by traces), 
