@@ -14,3 +14,4 @@
 * new function: `getWYFromYearmon()`
 * Added `findAllSlots` boolean parameter to `getDataForAllScens()`
     * If this is `TRUE` an error will post if one or more of the slots cannot be found. If it is `FALSE`, then it will fill in the data frame with `-99`, but not fail. (#38)
+* `getDataForAllScens()` through `processSlots()` now returns the same type/class for Year and Variable columns for both annual and monthly data. Year is a numeric and Variable is always a character. This could affect code that does not read the data frame back in and assumes that Variable is a factor. (#54)
