@@ -8,7 +8,7 @@ slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',packag
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.txt'
 retFile <- TRUE # return the data, instead of only save it as a text file
-keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp2.txt", retFile)
 
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 # will return monthly data for all slots in KeySlots.rdf
@@ -40,4 +40,23 @@ test_that('file extension is checked', {
                       '" extensions.'))
 })
 
-on.exit(file.remove("tmp.txt"))
+# a .txt already exists, create .csv and .feather
+# monthly
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp.feather", FALSE)
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp.csv", FALSE)
+# annual (keyData)
+slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp2.feather", FALSE)
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp2.csv", FALSE)
+
+test_that("data matches regardless of file extension", {
+  expect_equal(keyData, data.table::fread("tmp2.txt", data.table = FALSE))
+  expect_equal(allData, data.table::fread("tmp.txt", data.table = FALSE))
+  expect_equal(keyData, data.table::fread("tmp2.csv", data.table = FALSE))
+  expect_equal(allData, data.table::fread("tmp.csv", data.table = FALSE))
+  expect_equal(keyData, as.data.frame(feather::read_feather("tmp2.feather")))
+  expect_equal(allData, as.data.frame(feather::read_feather("tmp.feather")))
+})
+
+on.exit(file.remove(c("tmp.txt", "tmp.feather", "tmp.csv", "tmp2.txt", 
+                      "tmp2.feather", "tmp2.csv")))
