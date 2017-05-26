@@ -6,14 +6,8 @@ Authors@R: as.person(c(
     "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
     "Cameron Bracken <> [aut]"
     ))
-Description: Provides a tool to read data generated from RiverWare(TM)
-    (riverware.org) in the form of rdf files into R.  Common aggregation
-    functions, e.g., annual minimum values, are included.  Additionally,
-    creating standard 'long' format data tables with common "scenario"
-    attributes for the Bureau of Reclamation's CRSS results are provided.
-    The get and tag data functions are written to expect "Scenario" based 
-    output, i.e., output that is saved in different scenario folders, such as 
-    those generated using RiverSMART(TM).
+Description: A tool to read and manipulate data generated from RiverWare(TM) 
+    simulations. 
 Depends:
     R (>= 3.3.0)
 License: CC0
