@@ -25,7 +25,7 @@ getWYFromYearmon <- function(ym)
   if(!(class(ym) == "yearmon")) {
     warning("ym, is not a yearmon object. attempting to convert to yearmon...")
     ym <- zoo::as.yearmon(ym)
-    if(is.null(ym)) 
+    if(is.na(ym)) 
       stop("could not convert ym to yearmon")
   }
   
