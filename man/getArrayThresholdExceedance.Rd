@@ -25,4 +25,3 @@ pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 peLT3575 <- getArrayThresholdExceedance(pe, 3575, 'LT')
 }
 }
-

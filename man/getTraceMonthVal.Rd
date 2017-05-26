@@ -24,4 +24,3 @@ peJanFeb <- getTraceMonthVal(pe, c(1, 2))
 }
 
 }
-

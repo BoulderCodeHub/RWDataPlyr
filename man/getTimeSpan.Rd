@@ -22,4 +22,3 @@ the run period from the
 getTimeSpan(keyRdf)
 
 }
-

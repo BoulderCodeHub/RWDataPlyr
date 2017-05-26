@@ -80,6 +80,12 @@ the data.
  \item{'EOWY'}{End-of-water year values are reported and \strong{scaled}. 
  Any values that are NaNs are changed to 0s.}
  \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
+ \item{'WYMaxLTE'}{Checks to see if the maximum water year value is less than or equal to a 
+ \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
+ otherwise. This can be used to determine if an entire water year is below 
+ a \strong{threshold}. The water year is defined as October through September 
+ of the next year. For the first year, only January through September are 
+ evaluated as RiveWare does not typcially export pre-simulation data.}
  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than or equal to a 
  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
  otherwise. The water year is defined as October through September of the next year. For the
@@ -94,4 +100,3 @@ createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr
 \seealso{
 \code{\link{getDataForAllScens}}
 }
-

@@ -23,4 +23,3 @@ pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 pe105090 <- getTraceMax(pe, c(0.1, 0.5, 0.9))
 }
 }
-

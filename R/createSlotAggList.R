@@ -65,6 +65,12 @@
 #'  \item{'EOWY'}{End-of-water year values are reported and \strong{scaled}. 
 #'  Any values that are NaNs are changed to 0s.}
 #'  \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
+#'  \item{'WYMaxLTE'}{Checks to see if the maximum water year value is less than or equal to a 
+#'  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
+#'  otherwise. This can be used to determine if an entire water year is below 
+#'  a \strong{threshold}. The water year is defined as October through September 
+#'  of the next year. For the first year, only January through September are 
+#'  evaluated as RiveWare does not typcially export pre-simulation data.}
 #'  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than or equal to a 
 #'  \strong{threshold.} Returns 100 if it is less than or equal to the \strong{threshold} and 0
 #'  otherwise. The water year is defined as October through September of the next year. For the
@@ -87,19 +93,41 @@ createSlotAggList <- function(iData)
   if(!is.matrix(iData)){
     if(length(iData) > 1){
       if(length(iData) %% 4 == 0){
-        warning("Attempting to coerce i data to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        warning("Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
         iData <- matrix(iData, ncol = 4, byrow = T)
       } else if (length(iData) %% 5 == 0){
-        warning("Attempting to coerce i data to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        warning("Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
         iData <- matrix(iData, ncol = 5, byrow = T)
       } else{
-        
+        stop("iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
       }
     } else if(!file.exists(iData)){
       stop(paste(iData,'does not exist.'))
     } else{
       iData <- as.matrix(utils::read.csv(iData,header = F))
     }
+  } else{
+    # it is a matrix
+    # if it is a matrix, make sure it has 4 or 5 columns
+    if(ncol(iData) != 4 & ncol(iData) != 5) {
+      stop("iData is a matrix with ", ncol(iData), " columns. There should either be 4 or 5 columns.")
+    }
+  }
+  
+  # check and see if the "monthly" aggregation method exists, if it does, it 
+  # should be the only aggregation method
+  # this is contained in column 3
+  if("Monthly" %in% iData[,3] & !all(iData[,3] == "Monthly")) {
+    stop("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
+         "Please create a seperate slot aggregation list with only the monthly data.")
+  }
+  
+  # make sure that all of the slot agg methods are valid
+  if(!all(iData[,3] %in% slotAggMethods())) {
+    tmp <- iData[!(iData[,3] %in% slotAggMethods()),3]
+    stop(paste0("Invalid aggregation methods:\n    ", 
+         paste(tmp, collapse = ", "), "\n  ",
+         paste("Fix the", length(tmp), "aggregation method(s) and try again.")))
   }
   
   # check and see if alternative variable names have been added
@@ -123,4 +151,10 @@ createSlotAggList <- function(iData)
   }
   
   sl
+}
+
+#' @keywords internal 
+slotAggMethods <- function() {
+  c("AnnMin", "AnnMax", "AnnualSum", "AnnMinLTE", "AnnualRaw", "BOCY", 
+    "EOCY", "EOCYGTE", "EOCYLTE", "EOWY", "Monthly", "WYMaxLTE", "WYMinLTE")
 }

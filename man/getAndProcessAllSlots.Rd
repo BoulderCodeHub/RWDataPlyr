@@ -4,7 +4,7 @@
 \alias{getAndProcessAllSlots}
 \title{Get and aggregate data from rdf file(s) for one scenario.}
 \usage{
-getAndProcessAllSlots(scenPath, slotAggList)
+getAndProcessAllSlots(scenPath, slotAggList, findAllSlots)
 }
 \arguments{
 \item{scenPath}{A relative or absolute path to the scenario folder.}
@@ -17,6 +17,11 @@ set of slots, or a list of lists with each entry containing an rdf file and the 
 return all of the slots found in an rdf file. If this option is used, the code will return
 monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
 file.}
+
+\item{findAllSlots}{Boolean; if \code{TRUE} (default), then the function will
+abort if it cannot find a particular slot. If \code{FALSE}, then the function
+will continue, even if a slot cannot be found. If a slot is not found, then the
+function will return \code{-99} for the Trace, Year, and Value.}
 }
 \description{
 \code{getAndProcessAllSlots} gets data for a single scenario.  The slots from each
@@ -26,4 +31,3 @@ rdf are processed and aggregated together.
 \code{\link{getDataForAllScens}}
 }
 \keyword{internal}
-

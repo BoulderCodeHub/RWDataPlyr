@@ -31,4 +31,3 @@ fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
 \seealso{
 \code{\link{rdfSlotToMatrix}}
 }
-

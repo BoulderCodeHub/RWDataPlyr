@@ -1,0 +1,85 @@
+library(RWDataPlyr)
+context('check creation of slot aggregation list')
+
+samFail <- matrix(c(
+  "KeySlots.rdf", "Powell.Pool Elevation", "Monthly", 10, "powellMothly10",
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadMonthly001"),
+  ncol = 5, byrow = TRUE
+)
+
+test_that("createSlotAggList returns proper errors", {
+  expect_error(createSlotAggList(matrix(1:6, ncol = 3)), 
+               "iData is a matrix with 3 columns. There should either be 4 or 5 columns.")
+  expect_error(createSlotAggList(matrix(1:6, ncol = 6)), 
+               "iData is a matrix with 6 columns. There should either be 4 or 5 columns.")
+  expect_error(createSlotAggList(1:3), 
+               "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
+  expect_error(createSlotAggList(1:17),
+               "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','AnnMax',NA, 'KeySlots.rdf','Powell.Pool Elevation','AnnMin',NA)),
+                 "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA)),
+                 "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
+                 "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
+                 "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+  expect_error(createSlotAggList(file.path("some", "crazy", "file.txt")),
+               paste(file.path("some", "crazy", "file.txt"),'does not exist.'))
+  expect_error(createSlotAggList(samFail),
+               paste0("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
+                    "Please create a seperate slot aggregation list with only the monthly data."))
+  expect_error(
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','Weird',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
+                             nrow = 2, byrow = TRUE)),
+    paste0("Invalid aggregation methods:\n    ", 
+           paste(c("Weird", "TooWeird"), collapse = ", "), "\n  ",
+           paste("Fix the", 2, "aggregation method(s) and try again.")), 
+    fixed = TRUE
+  )
+  expect_error(
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
+                             nrow = 2, byrow = TRUE)),
+    paste0("Invalid aggregation methods:\n    ", 
+           paste(c("TooWeird"), collapse = ", "), "\n  ",
+           paste("Fix the", 1, "aggregation method(s) and try again.")), 
+    fixed = TRUE
+  )
+})
+
+
+sal <- createSlotAggList(system.file("extdata", "SlotAggTable.csv", package = "RWDataPlyr"))
+sam <- matrix(c(
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe",
+  "SystemConditions.rdf", "Shortage.ShortageFlag", "AnnualRaw", 100, "lbShort",
+  "KeySlots.rdf", "Powell.Pool Elevation", "EOCY", NA, "powellPe"
+), ncol = 5, byrow = TRUE)
+sal2 <- createSlotAggList(sam)
+
+test_that("format of createSlotAggList is correct", {
+  expect_equal(length(sal), 1)
+  expect_equal(length(sal[[1]]$rdf), 1)
+  expect_equal(length(sal[[1]]$slots), 4)
+  expect_equal(nrow(sal[[1]]$annualize), 2)
+  expect_equal(ncol(sal[[1]]$annualize), 4)
+  expect_equal(length(sal[[1]]$varNames), 4)
+  expect_true(all(is.na(sal[[1]]$varNames)))
+  
+  expect_equal(length(sal2), 2)
+  expect_equal(length(sal2[[1]]$rdf), 1)
+  expect_equal(length(sal2[[1]]$slots), 2)
+  expect_equal(nrow(sal2[[1]]$annualize), 2)
+  expect_equal(ncol(sal2[[1]]$annualize), 2)
+  expect_equal(length(sal2[[1]]$varNames), 2)
+  expect_false(all(is.na(sal2[[1]]$varNames)))
+  expect_equal(length(sal2[[2]]$rdf), 1)
+  expect_equal(length(sal2[[2]]$slots), 1)
+  expect_equal(nrow(sal2[[2]]$annualize), 2)
+  expect_equal(ncol(sal2[[2]]$annualize), 1)
+  expect_equal(length(sal2[[2]]$varNames), 1)
+  expect_false(all(is.na(sal2[[2]]$varNames)))
+})

@@ -93,16 +93,14 @@ getMaxAnnValue <- function(xx)
 	return(maxAnn)
 }
 
-# ----------------------------------------------------------------------------
-# **************************  sumMonth2Annual  *******************************
-# ----------------------------------------------------------------------------
 #' Sums monthly trace data into annual values.
 #' 
 #' \code{sumMonth2Annual} takes a matrix containing monthly data (months by traces), 
 #' sum the monthly data into annual data.  Returns a years by traces matrix.
 #' 
 #' @param matrixToSum The monthly trace data (months by traces) that will be summed.
-#' @param multFactor A factor the annual sum will be multiplied by.  Can be used to convert from flow to volume.
+#' @param multFactor A factor the annual sum will be multiplied by.  Can be used to 
+#' convert from flow to volume,  or to scale all results in another manor.
 #' @return The annual sums as a matrix (years by traces).
 #' @examples
 #' zz <- rdfSlotToMatrix(keyRdf, 'Powell.Outflow')
@@ -111,13 +109,15 @@ getMaxAnnValue <- function(xx)
 #' 
 #' @export
 #' 
-sumMonth2Annual <- function(matrixToSum, multFactor = 1)
-  # the multiplying factor can be used if the matrix is in units of flow and the 
-  # result should be in units of volume, or to scale all results in another manor
-{
+sumMonth2Annual <- function(matrixToSum, multFactor = 1) {
   # take each column, make it a matrix of years by 
-  res <- do.call(cbind, lapply(1:ncol(matrixToSum), 
-                               function(xx) apply(matrix(matrixToSum[,xx],ncol = 12, byrow = T), 1, sum)))
-  
+  res <- do.call(
+    cbind, 
+    lapply(
+      1:ncol(matrixToSum), 
+      function(xx) apply(matrix(matrixToSum[,xx],ncol = 12, byrow = T), 1, sum)
+    )
+  )
+  colnames(res) <- colnames(matrixToSum)
   res * multFactor
 }

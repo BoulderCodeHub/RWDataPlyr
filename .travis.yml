@@ -4,6 +4,8 @@ language: r
 warnings_are_errors: true
 sudo: required
 
+dist: trusty
+
 addons:
   apt:
     sources:
@@ -17,3 +19,9 @@ before_install: |
   cat <<EOF > ~/.R/Makevars
   CXX1X=g++-4.9
   CXX1XSTD=-std=c++11
+  
+r_packages:
+  - covr
+  
+after_success:
+  - Rscript -e 'library(covr); codecov()'

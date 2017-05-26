@@ -11,7 +11,7 @@
 #' @param rdfName String of the rdf name.
 #' @return A data frame table with the aggregated slot data.
 #' @keywords internal
-processSlots <- function(slotsAnnualize, rdf, rdfName)
+processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 {
 	ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
@@ -20,7 +20,23 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	slot <- slotsAnnualize[1]
 
 	if(!(slot %in% getSlotsInRdf(rdf))){
-		stop(paste("slot:", slot, "not found in rdf:", rdfName))
+	  if(findAllSlots) {
+		  stop(paste("slot:", slot, "not found in rdf:", rdfName))
+	  } else {
+	    # Trace Year                     Variable   Value
+	    # construct a df indicating the slot couldn't be found, and return it
+	    zz <- data.frame(
+	      Trace = -99,
+	      Year = -99,
+	      Variable = ifelse(
+	        is.na(slotsAnnualize[4]),
+	        paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+	        slotsAnnualize[4]
+	      ),
+	      Value = -99
+	    )
+	    return(zz)
+	  }
 	}
 	slot <- rdfSlotToMatrix(rdf, slot)
 	
@@ -75,7 +91,6 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
 		slot[slot <= thresh] <- 1
 		slot[slot > thresh] <- 0
-		slot <- slot * 100
 		rownames(slot) <- yy
 	} else if(ann == 'Monthly'){
 		# XXX
@@ -85,25 +100,29 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot <- slot*thresh
 	} else if(ann == 'WYMinLTE'){
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
-		slot <- slot[1:(nrow(slot)-3),]
+		slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
 		slot[slot <= thresh] <- 1
 		slot[slot > thresh] <- 0
-		slot <- slot * 100
 		rownames(slot) <- yy
-	} else if(ann == 'EOCYLTE'){
+	} else if(ann == 'WYMaxLTE'){
+	  slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
+	  slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
+	  slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
+	  slot[slot <= thresh] <- 1
+	  slot[slot > thresh] <- 0
+	  rownames(slot) <- yy
+	}	else if(ann == 'EOCYLTE'){
 		slot <- slot[seq(12, nrow(slot), 12),,drop = FALSE]
 		slot[is.nan(slot)] <- 0
 		slot[slot <= thresh] <- 1
 		slot[slot > thresh] <- 0
-		slot <- slot*100
 		rownames(slot) <- yy
 	} else if(ann == 'EOCYGTE'){
 		slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE]
 		slot[is.nan(slot)] <- 0
 		slot[slot < thresh] <- 0
 		slot[slot >= thresh] <- 1 
-		slot <- slot*100
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
 		if(tsUnit == 'month'){
@@ -111,7 +130,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		  warning(paste('User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
 		          'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
 		          'edit the slot agg list and call getDataForAllScens again.'))
-		  slot <- slot[seq(12, nrow(slot), 12),] 
+		  slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE] 
 		  slot[is.nan(slot)] <- 0
 		  slot <- slot * thresh
 		  rownames(slot) <- yy
@@ -121,7 +140,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		  slot <- slot*thresh
 		}
 	} else{
-		stop('Invalid aggregation method variable')
+		stop(paste0("'",ann, "'", " is an invalid aggregation method.\n",
+		            "  Fix the slot aggregation list and try again."))
 	}
 	
 	
@@ -129,8 +149,17 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 	
 	if(ann != 'Monthly'){
 		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
-		slot <- cbind(slot, rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
-                                   slotsAnnualize[4]),nrow(slot)))
+		slot <- cbind(
+		  slot, 
+		  rep(
+		    ifelse(
+		      is.na(slotsAnnualize[4]),
+		      paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+          slotsAnnualize[4]
+		    ),
+		    nrow(slot)
+		  )
+		)
 		colnames(slot)[ncol(slot)] <- 'Variable'
 		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
 	} else{
@@ -139,10 +168,11 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 		slot$Month <- mm[1,]
 		slot$Variable <- rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
                             slotsAnnualize[4]),nrow(slot))
-		slot$Year <- mm[2,]
+		slot$Year <- as.numeric(mm[2,])
 		#colnames(slot)[(ncol(slot)-1):ncol(slot)] <- c('Variable','Year')
 		slot <- subset(slot,select = c(Trace, Month, Year, Variable, Value))
 	}
+	slot$Variable <- as.character(slot$Variable)
 	slot
 }
 
@@ -157,7 +187,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName)
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' @keywords internal
  
-getSlots <- function(slotAggList, scenPath)
+getSlots <- function(slotAggList, scenPath, findAllSlots)
 {
   rdf <- slotAggList$rdf
   rdf <- read.rdf2(paste(scenPath,'/',rdf,sep = ''))
@@ -185,7 +215,7 @@ getSlots <- function(slotAggList, scenPath)
   
   slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
 
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf)
+	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf, findAllSlots)
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
@@ -200,11 +230,11 @@ getSlots <- function(slotAggList, scenPath)
 #' @seealso \code{\link{getDataForAllScens}}
 #' @keywords internal
 #' 
-getAndProcessAllSlots <- function(scenPath, slotAggList)
+getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 {
-	sPath <- scenPath[1]
+  sPath <- scenPath[1]
 	sName <- scenPath[2]
-	zz <- lapply(slotAggList, getSlots, sPath)
+	zz <- lapply(slotAggList, getSlots, sPath, findAllSlots)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
 	nn = colnames(allRes)
@@ -239,6 +269,10 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' be saved to. Valid file types are .csv, .txt, or .feather. 
 #' @param retFile If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
 #' If \code{FALSE}, the data frame will only be saved to \code{oFile}.
+#' @param findAllSlots Boolean; if \code{TRUE} (default), then the function will
+#' abort if it cannot find a particular slot. If \code{FALSE}, then the function
+#' will continue, even if a slot cannot be found. If a slot is not found, then the
+#' function will return \code{-99} for the Trace, Year, and Value.
 #' @return If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
 #' 
 #' @examples 
@@ -262,7 +296,8 @@ getAndProcessAllSlots <- function(scenPath, slotAggList)
 #' 
 #' @export
 #' 
-getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile = FALSE)
+getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, 
+                               oFile, retFile = FALSE, findAllSlots = TRUE)
 {
   # determine file type to save data as:
   oFile <- gsub('\\', '/', oFile, fixed = TRUE)
@@ -276,14 +311,14 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, oF
   
 	scenPath = paste(scenPath,'/',scenFolders,sep = '')
 	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList)
+	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList, findAllSlots)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	
 	if(fExt == 'txt'){
-	  utils::write.table(as.matrix(zz), oFile, row.names = F, sep = '\t')
+	  data.table::fwrite(zz, file = oFile, row.names = F, sep = '\t')
 	} else if(fExt == 'csv'){
-	  utils::write.csv(as.matrix(zz), oFile, row.names = F)
+	  data.table::fwrite(zz, oFile, row.names = F, sep = ",")
 	} else if(fExt == 'feather'){
 	  feather::write_feather(zz, oFile)
 	}

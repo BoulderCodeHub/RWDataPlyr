@@ -4,7 +4,7 @@
 \alias{getSlots}
 \title{Get and aggregate data from a single rdf file.}
 \usage{
-getSlots(slotAggList, scenPath)
+getSlots(slotAggList, scenPath, findAllSlots)
 }
 \arguments{
 \item{slotAggList}{The slot aggregation list. A list containing the slots that will be 
@@ -18,4 +18,3 @@ contain the slots. See \code{\link{createSlotAggList}}.}
 as specified by the summary functions in \code{slotAggList}.
 }
 \keyword{internal}
-

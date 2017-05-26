@@ -4,7 +4,7 @@
 \alias{processSlots}
 \title{Aggregate the slot data.}
 \usage{
-processSlots(slotsAnnualize, rdf, rdfName)
+processSlots(slotsAnnualize, rdf, rdfName, findAllSlots)
 }
 \arguments{
 \item{slotsAnnualize}{A string vector with three entries.  \code{slotsAnnualize[1]} is the
@@ -24,4 +24,3 @@ A data frame table with the aggregated slot data.
 \code{processSlots} gets slot data from a rdf list and aggregates it as specified.
 }
 \keyword{internal}
-
