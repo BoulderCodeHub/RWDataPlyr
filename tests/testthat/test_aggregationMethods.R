@@ -68,15 +68,6 @@ salMonthly <- createSlotAggList(matrix(c(
   ncol = 5, byrow = TRUE
 ))
 
-zz <- getDataForAllScens(
-  scenFolders = "DNF,CT,IG", 
-  scenNames = "DNF,CT,IG", 
-  slotAggList = sal, 
-  scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-  oFile = "tmp.feather",
-  retFile = TRUE
-) 
-
 zzMonthly <- getDataForAllScens(
   scenFolders = "DNF,CT,IG", 
   scenNames = "DNF,CT,IG", 
@@ -90,6 +81,16 @@ zzMonthly <- getDataForAllScens(
 # compare the results computed by getDataForAllScen -> processSlots
 # to those computed by hand using rdfSlotToMatrix
 test_that("processSlots monthly to annual aggregation methods work", {
+  expect_warning(
+    zz <- getDataForAllScens(
+      scenFolders = "DNF,CT,IG", 
+      scenNames = "DNF,CT,IG", 
+      slotAggList = sal, 
+      scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
+      oFile = "tmp.feather",
+      retFile = TRUE
+    )
+  )
   expect_equal(filterVarToMatrix(zz, "powellMin"), pMin)
   expect_equal(filterVarToMatrix(zz, "powellEowy"), pEowy)
   expect_equal(filterVarToMatrix(zz, "meadPe"), mEocy)
@@ -158,15 +159,6 @@ m1100 <- as.data.frame((mReg[seq(12,nrow(mReg),12),, drop = FALSE] >= 1100) * 1)
 
 stScen <- "T13,CT,IG"
 
-zz <- getDataForAllScens(
-  scenFolders = stScen, 
-  scenNames = stScen, 
-  slotAggList = sal, 
-  scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-  oFile = "tmp2.feather",
-  retFile = TRUE
-) 
-
 zzMonthly <- getDataForAllScens(
   scenFolders = stScen, 
   scenNames = stScen, 
@@ -178,6 +170,16 @@ zzMonthly <- getDataForAllScens(
   mutate(monthNum = match(Month, month.abb))
 
 test_that("processSlots monthly to annual aggregation methods work for rdf with only 1 trace", {
+  expect_warning(
+    zz <- getDataForAllScens(
+      scenFolders = stScen, 
+      scenNames = stScen, 
+      slotAggList = sal, 
+      scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
+      oFile = "tmp2.feather",
+      retFile = TRUE
+    )
+  )
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "powellEowy", stScen), pEowy)
   expect_equal(filterVarToMatrix(zz, "meadPe", stScen), mEocy)
