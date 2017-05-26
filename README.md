@@ -1,8 +1,10 @@
 # RWDataPlyr
 
-Contains R package to read and manipulate data from RiverWareTM ([riverware.org](http://www.riverware.org)) that are saved as rdf (RiverWare data format) files.  
-
 [![Travis-CI Build Status](https://travis-ci.org/rabutler/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler/RWDataPlyr) [![codecov](https://codecov.io/gh/rabutler/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/rabutler/RWDataPlyr)
+
+## Overview
+
+RWDataPlyr is a tool to read and manipulate data generated from RiverWare(TM)  ([riverware.org](http://www.riverware.org)) simulations. It provides functions to gather data from multiple "scenarios", and aggregate the data in some manner. Common aggregation functions, e.g., annual minimum values, are included.  
 
 ## Installation
 
