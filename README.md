@@ -2,7 +2,7 @@
 
 Contains R package to read and manipulate data from RiverWareTM ([riverware.org](http://www.riverware.org)) that are saved as rdf (RiverWare data format) files.  
 
-[![Travis-CI Build Status](https://travis-ci.org/rabutler/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler/RWDataPlyr) [![codecov](https://codecov.io/gh/rabutler/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/rabutler/RWDataPlyr)
+[![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr)
 
 ## Installation
 
