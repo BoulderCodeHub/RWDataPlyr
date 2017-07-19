@@ -121,7 +121,7 @@ test_that("processSlots monthly to annual aggregation methods work", {
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
       select(-Year, -monthNum)
-  }, as.data.frame(mReg / 1000))
+  }, as.data.frame(mReg * 0.001))
 })
 
 
@@ -210,7 +210,7 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
       select(-Year, -monthNum)
-  }, as.data.frame(mReg / 1000))
+  }, as.data.frame(mReg * 0.001))
 })
 
 on.exit(file.remove(c("tmp.feather","tmp2.feather")))
