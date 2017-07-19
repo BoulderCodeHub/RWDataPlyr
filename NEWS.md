@@ -1,5 +1,7 @@
 # RWDataPlyr 0.5.0.9000
 
+* Thresholds < 1 will now work for aggregation methods that compute <=/>=. (#14)
+
 # RWDataPlyr 0.5.0
 
 *Released May 26, 2017*
