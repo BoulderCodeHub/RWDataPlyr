@@ -89,8 +89,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		rownames(slot) <- yy
 	} else if(ann == 'AnnMinLTE'){
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
-		slot[slot <= thresh] <- 1
-		slot[slot > thresh] <- 0
+		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'Monthly'){
 		# XXX
@@ -102,27 +101,23 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
 		slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
-		slot[slot <= thresh] <- 1
-		slot[slot > thresh] <- 0
+		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'WYMaxLTE'){
 	  slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
 	  slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
 	  slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
-	  slot[slot <= thresh] <- 1
-	  slot[slot > thresh] <- 0
+	  slot <- (slot <= thresh) * 1 # convert to numeric
 	  rownames(slot) <- yy
 	}	else if(ann == 'EOCYLTE'){
 		slot <- slot[seq(12, nrow(slot), 12),,drop = FALSE]
 		slot[is.nan(slot)] <- 0
-		slot[slot <= thresh] <- 1
-		slot[slot > thresh] <- 0
+		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'EOCYGTE'){
 		slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE]
 		slot[is.nan(slot)] <- 0
-		slot[slot < thresh] <- 0
-		slot[slot >= thresh] <- 1 
+		slot <- (slot >= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualRaw'){
 		if(tsUnit == 'month'){
