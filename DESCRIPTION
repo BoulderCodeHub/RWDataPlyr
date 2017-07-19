@@ -1,17 +1,16 @@
 Package: RWDataPlyr
-Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
-    is saved as rdf (RiverWare data format) files
 Version: 0.5.0.9000
-Authors@R: as.person(c(
-    "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
-    "Cameron Bracken <> [aut]"
-    ))
+Title: Read and manipulate data from RiverWareTM 
 Description: A tool to read and manipulate data generated from RiverWare(TM) 
-    simulations. 
+    (riverware.org) simulations. RiverWare generates data in "rdf" format. This
+    package provides an interface to read, combine data from multiple
+    scenarios, and summarize the data.
+Authors@R: c(
+    person("Alan","Butler", ,"r.alan.butler@gmail.com", c("aut","cre")),
+    person("Cameron","Bracken", role = "aut")
+    )
 Depends:
     R (>= 3.3.0)
-License: CC0
-LazyData: true
 Imports:
     data.table (>= 1.10.0),
     reshape2,
@@ -26,5 +25,7 @@ Suggests:
     rmarkdown,
     testthat,
     tidyr
+License: CC0
+LazyData: true
 VignetteBuilder: knitr
 RoxygenNote: 6.0.1
