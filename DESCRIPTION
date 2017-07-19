@@ -13,18 +13,18 @@ Depends:
     R (>= 3.3.0)
 Imports:
     data.table (>= 1.10.0),
-    reshape2,
+    dplyr (>= 0.7.0),
     stats,
+    tibble,
+    tidyr,
     utils,
     feather,
     xts,
     zoo
 Suggests:
-    dplyr,
     knitr,
     rmarkdown,
-    testthat,
-    tidyr
+    testthat
 License: CC0
 LazyData: true
 VignetteBuilder: knitr
