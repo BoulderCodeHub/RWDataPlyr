@@ -11,6 +11,7 @@
 #' @param rdfName String of the rdf name.
 #' @return A data frame table with the aggregated slot data.
 #' @keywords internal
+#' @importFrom dplyr %>%
 processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 {
 	ann <- slotsAnnualize[2]
@@ -141,33 +142,46 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	
 	
 	colnames(slot) <- 1:ncol(slot)
-	
+
 	if(ann != 'Monthly'){
-		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Year','Trace'))
-		slot <- cbind(
-		  slot, 
-		  rep(
-		    ifelse(
+		slot <- tidyr::gather(
+		  tibble::rownames_to_column(as.data.frame(slot), var = "Year"), 
+		  Trace, 
+		  Value, 
+		  -Year
+		) %>%
+		  dplyr::mutate(
+		    Year = as.numeric(Year),
+		    Trace = as.integer(Trace),
+		    Variable = dplyr::if_else(
 		      is.na(slotsAnnualize[4]),
 		      paste(slotsAnnualize[1],ann,thresh,sep = '_'),
-          slotsAnnualize[4]
-		    ),
-		    nrow(slot)
-		  )
-		)
-		colnames(slot)[ncol(slot)] <- 'Variable'
-		slot <- subset(slot,select = c(Trace, Year, Variable, Value))
+		      slotsAnnualize[4]
+		    )
+		  ) %>%
+		  dplyr::select(Trace, Year, Variable, Value)
+		
 	} else{
-		slot <- reshape2::melt(slot, value.name = 'Value', varnames = c('Month','Trace'))
-		mm <- simplify2array(strsplit(as.character(slot$Month), '-'))
-		slot$Month <- mm[1,]
-		slot$Variable <- rep(ifelse(is.na(slotsAnnualize[4]),paste(slotsAnnualize[1],ann,thresh,sep = '_'),
-                            slotsAnnualize[4]),nrow(slot))
-		slot$Year <- as.numeric(mm[2,])
-		#colnames(slot)[(ncol(slot)-1):ncol(slot)] <- c('Variable','Year')
-		slot <- subset(slot,select = c(Trace, Month, Year, Variable, Value))
+		slot <- tidyr::gather(
+		  tibble::rownames_to_column(as.data.frame(slot), var = "Month"), 
+		  Trace, 
+		  Value, 
+		  -Month
+		) %>%
+		  dplyr::mutate(
+		    Year = as.numeric(simplify2array(strsplit(Month, '-'))[2,]),
+		    Month = simplify2array(strsplit(Month, "-"))[1,],
+		    Trace = as.integer(Trace),
+		    Variable = dplyr::if_else(
+		      is.na(slotsAnnualize[4]),
+		      paste(slotsAnnualize[1],ann,thresh,sep = '_'),
+		      slotsAnnualize[4]
+		    )
+		  ) %>%
+		  dplyr::select(Trace, Month, Year, Variable, Value)
+		
 	}
-	slot$Variable <- as.character(slot$Variable)
+	
 	slot
 }
 
