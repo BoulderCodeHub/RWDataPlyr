@@ -34,7 +34,7 @@ The `RWDataPlyr` package provides fucntionality to (1) read rdf data into R, (2)
 
 ### Reading RDF Into R
 
-The `read.rdf()` function will read rdf data into R. The function returns a multi-level list that contains all meta data embedded in an rdf file, including the start and end timesteps, the number of traces, units of each slot, and RiverWare object type for each slot. However, the list returned by `read.rdf` is not in a form that is particularly easy to manipulate. Since each rdf file can include data for many slots, data for a single trace and single slot are embedded in the list in `rdfList$runs[[1]]$objects$'Powell.Pool Elevation'$values`, where `rdfList` is a list returned by `read.rdf`, 1 is the trace number, and Powell.Pool Elevation is the slot.  
+The `read.rdf()` function will read rdf data into R. The function returns a multi-level list that contains all meta data embedded in an rdf file, including the start and end timesteps, the number of traces, units of each slot, and RiverWare object type for each slot. However, the list returned by `read.rdf` is not in a form that is particularly easy to manipulate. Since each rdf file can include data for many slots, data for a single trace and single slot are embedded in the list in `rdfList$runs[[1]]$objects$'Mead.Pool Elevation'$values`, where `rdfList` is a list returned by `read.rdf`, 1 is the trace number, and Mead.Pool Elevation is the slot.  
 
 The function `rdfSlotToMatrix` will create a time by trace matrix for a single slot so that the data are in a form that is easier to manipulate in R, as shown in the table below.
 
@@ -52,8 +52,8 @@ The steps below show an example of reading an rdf file into R, looking at the av
 
 ```{r}
 library(RWDataPlyr)
-rdf <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),package = 'RWDataPlyr'))
-pe <- rdfSlotToMatrix(rdf, 'Powell.Pool Elevation')
+rdf <- read.rdf2(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,2002','KeySlots.rdf'),package = 'RWDataPlyr'))
+pe <- rdfSlotToMatrix(rdf, 'Mead.Pool Elevation')
 ```
 
 ### Manipulation and Aggregation Functions
@@ -118,12 +118,12 @@ The slot aggregation table can either be created in R, or read in from an extern
 
 |rdf| Slot | Aggregation Method |Threshold or Scaling Factor| Variable Name (optional)|
 |:-------------:|:----------------------:|:---------:|:----------:|:---------------:|
-|'KeySlots.rdf' | 'Powell.Pool Elevation' | 'EOCY' | NA | Powell EOCY Elevation |
+|'KeySlots.rdf' | 'Mead.Pool Elevation' | 'EOCY' | NA | Mead EOCY Elevation |
 |'KeySlots.rdf' | 'Mead.Pool Elevation' | 'AnnMinLTE' | '1100' | Mead < 1,100 |
 |'KeySlots.rdf' | 'Mead.Pool Elevation' | 'AnnMinLTE' | '1060' | Mead < 1,060 |
 |'Other.rdf' | 'Powell.Outflow' |  'AnnualSum' | '0.001' | Powell Annual Release |
 
-The above table lists each slot, the rdf the slot is saved in, the summary function, the threshold to be used to scale the data by or compare the data to, and an optional specified variable name. The previous section describes which aggregation methods use a threshold and which use a scaling factor. For example, the first row will result in compiling all end-of-December values for Powell's pool elevation. The data will not be scaled, and is found in KeySlots.rdf. The second row will find the annual minimum Mead pool elevation and see if it is less than or equal to 1,100' feet in the second line and less than or equal to 1,060' feet in the third row. To scale the data by a value less than 1, use decimals rather than fractions, as shown in the fourth row. If the "Variable Name column"" was not specified, the variable name for the first row would be Powell.Pool Elevation\_EOCY\_1 as NA is replaced with a 1 when construcing the variable names.
+The above table lists each slot, the rdf the slot is saved in, the summary function, the threshold to be used to scale the data by or compare the data to, and an optional specified variable name. The previous section describes which aggregation methods use a threshold and which use a scaling factor. For example, the first row will result in compiling all end-of-December values for Mead's pool elevation. The data will not be scaled, and is found in KeySlots.rdf. The second row will find the annual minimum Mead pool elevation and see if it is less than or equal to 1,100' feet in the second line and less than or equal to 1,060' feet in the third row. To scale the data by a value less than 1, use decimals rather than fractions, as shown in the fourth row. If the "Variable Name column"" was not specified, the variable name for the first row would be Mead.Pool Elevation\_EOCY\_1 as NA is replaced with a 1 when construcing the variable names.
 
 The data will be processed for each row, for all scenarios.
 
@@ -134,7 +134,8 @@ After creating the slot aggregation table, either as an R matrix or as an extern
 
 ```{r,eval=TRUE}
 scenPath <- system.file('extdata','Scenario',package = 'RWDataPlyr')
-scenFolders <- c('DNF,CT,IG/','DNF,CT,IG,Ops1/') # two scenario folders that exist in scenPath
+# two scenario folders that exist in scenPath
+scenFolders <- c('ISM1988_2014,2007Dems,IG,Most','ISM1988_2014,2007Dems,IG,2002') 
 scenNames <- c('Observed Hydrology','Observed Hydrology w/Options') # scenarios names
 slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 oFile <- 'allScenariosProcessed.txt'
