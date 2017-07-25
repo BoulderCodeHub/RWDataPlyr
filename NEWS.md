@@ -1,6 +1,7 @@
 # RWDataPlyr 0.5.0.9000
 
 * Thresholds < 1 will now work for aggregation methods that compute <=/>=. (#14)
+* For monthly data, `getDataForAllScens()` will use full month name in the `Month` column. This change could break existing code if there are checks for particular months. (#20)
 
 # RWDataPlyr 0.5.0
 
