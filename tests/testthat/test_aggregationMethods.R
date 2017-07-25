@@ -76,7 +76,7 @@ zzMonthly <- getDataForAllScens(
   oFile = "tmp.feather",
   retFile = TRUE
 ) %>%
-  mutate(monthNum = match(Month, month.abb))
+  mutate(monthNum = match(Month, month.name))
 
 # compare the results computed by getDataForAllScen -> processSlots
 # to those computed by hand using rdfSlotToMatrix
@@ -167,7 +167,7 @@ zzMonthly <- getDataForAllScens(
   oFile = "tmp.feather",
   retFile = TRUE
 ) %>%
-  mutate(monthNum = match(Month, month.abb))
+  mutate(monthNum = match(Month, month.name))
 
 test_that("processSlots monthly to annual aggregation methods work for rdf with only 1 trace", {
   expect_warning(

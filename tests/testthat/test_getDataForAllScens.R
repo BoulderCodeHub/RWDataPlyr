@@ -22,9 +22,9 @@ test_that("getting all slot data from RDF does actually return all slots", {
 
 test_that("getting all slot data is the same as using a pre-configured slotAggList", {
   expect_equal(dplyr::filter(keyData, Variable == 'Powell.Pool Elevation_EOCY_1')$Value,
-               dplyr::filter(allData, Variable == 'Powell.Pool Elevation_Monthly_1', Month == 'Dec')$Value)
+               dplyr::filter(allData, Variable == 'Powell.Pool Elevation_Monthly_1', Month == 'December')$Value)
   expect_equal(dplyr::filter(keyData, Variable == 'Mead.Pool Elevation_EOCY_1')$Value,
-             dplyr::filter(allData, Variable == 'Mead.Pool Elevation_Monthly_1', Month == 'Dec')$Value)
+             dplyr::filter(allData, Variable == 'Mead.Pool Elevation_Monthly_1', Month == 'December')$Value)
 })
 
 test_that('file extension is checked', {
