@@ -47,7 +47,8 @@ and saved as a txt file for later use.
 }
 \examples{
 # get a specified set of slots and apply some aggregation method to them
-scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
+# get the data from two scenarios
+scenFolders <- c('ISM1988_2014,2007Dems,IG,Most', 'ISM1988_2014,2007Dems,IG,2002') 
 scenNames <- scenFolders
 # slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
 slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))

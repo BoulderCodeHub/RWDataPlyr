@@ -51,7 +51,7 @@ returnMinAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')
 #' peMax <- getMinAnnValue(pe)
 #' @seealso
 #' \code{\link{getMaxAnnValue}}
@@ -79,7 +79,7 @@ returnMaxAnn <- function(traceVal)
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf,'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')
 #' peMax <- getMaxAnnValue(pe)
 #' @seealso
 #' \code{\link{getMinAnnValue}}
