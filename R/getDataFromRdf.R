@@ -14,7 +14,7 @@
 #' @importFrom dplyr %>%
 processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 {
-	ann <- slotsAnnualize[2]
+  ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
 	thresh[is.na(thresh)] = 1 # can use thresh as a scale also.  If it is not specified,
 	# then multiply by 1.
@@ -93,10 +93,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'Monthly'){
-		# XXX
-		# need to update to use time series from zoo library
-		yy <- matrix(t(matrix(rep(yy, 12),ncol = 12, byrow = F)), ncol = 1, byrow = F)
-		rownames(slot) <- paste(rep(month.abb, nrow(slot)/12),yy,sep = '-')
+		rownames(slot) <- as.character(zoo::as.yearmon(yy[1] + seq(0, (length(yy) * 12)-1)/12))
 		slot <- slot*thresh
 	} else if(ann == 'WYMinLTE'){
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
@@ -169,8 +166,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		  -Month
 		) %>%
 		  dplyr::mutate(
-		    Year = as.numeric(simplify2array(strsplit(Month, '-'))[2,]),
-		    Month = simplify2array(strsplit(Month, "-"))[1,],
+		    Year = as.numeric(simplify2array(strsplit(Month, ' '))[2,]),
+		    Month = month.name[match(simplify2array(strsplit(Month, " "))[1,], month.abb)],
 		    Trace = as.integer(Trace),
 		    Variable = dplyr::if_else(
 		      is.na(slotsAnnualize[4]),
