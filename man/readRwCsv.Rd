@@ -4,13 +4,11 @@
 \alias{readRwCsv}
 \title{Read in RiverWare Data}
 \usage{
-readRwCsv(file, ...)
+readRwCsv(file)
 }
 \arguments{
 \item{file}{The name of the file which the data are to be read from. Either an
 absolute or relative path.}
-
-\item{...}{Other options that will be passed to \code{data.table::\link[data.table]{fread}()}.}
 }
 \value{
 A data frame (\code{\link[base]{data.frame}}) containing a 
@@ -31,8 +29,8 @@ section of the
 for more information on the other optional column names.
 
 This function uses \code{data.table::\link[data.table]{fread}()} to read in 
-the CSV file, so any options that can be passed to \code{fread()} can be 
-passed to this function.
+the CSV file, and forces it to expect a CSV file, expect headers, and return
+a \code{data.frame}.
 }
 \examples{
 zz <- readRwCsv(system.file(

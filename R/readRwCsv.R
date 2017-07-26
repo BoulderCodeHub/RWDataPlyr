@@ -26,12 +26,11 @@ rwCsvOptionalCols <- function() {
 #' for more information on the other optional column names.
 #' 
 #' This function uses \code{data.table::\link[data.table]{fread}()} to read in 
-#' the CSV file, so any options that can be passed to \code{fread()} can be 
-#' passed to this function.
+#' the CSV file, and forces it to expect a CSV file, expect headers, and return
+#' a \code{data.frame}.
 #' 
 #' @param file The name of the file which the data are to be read from. Either an
 #' absolute or relative path.
-#' @param ... Other options that will be passed to \code{data.table::\link[data.table]{fread}()}.
 #' 
 #' @return A data frame (\code{\link[base]{data.frame}}) containing a 
 #' representation of the data in the file.
@@ -47,9 +46,9 @@ rwCsvOptionalCols <- function() {
 #' 
 #' @export
 
-readRwCsv <- function(file, ...) {
+readRwCsv <- function(file) {
   # read in the file
-  zz <- data.table::fread(file, sep = ',', header = TRUE, data.table = FALSE, ...)
+  zz <- data.table::fread(file, sep = ',', header = TRUE, data.table = FALSE)
   
   # check column names
   reqColumns <- c("Run Number", "Trace Number", "Object.Slot", "Timestep", "Slot Value")
