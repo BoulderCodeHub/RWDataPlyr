@@ -1,7 +1,7 @@
-# reqColumns <- c("Run Number", "Trace Number", "Object.Slot", "Timestep", "Slot Value")
-# c("Object Name", "Object Type", "Slot Name", "Slot Name with Unit", "Unit", 
-#   "Timestep Size", "Year", "Month", "Model Name", "Ruleset File Name", 
-#   "Input DMI Name", "MRM Config Name", "MRM Descriptors")
+
+#' create a data frame from one of the objects in one trace of the rdf list
+#' 
+#' @noRd
 
 rdfObjectToTbl <- function(rdfObject, timeSteps)
 {
@@ -27,7 +27,12 @@ rdfObjectToTbl <- function(rdfObject, timeSteps)
 }
 
 
-# for a single run/trace, take the list and create a data frame from it
+#' for a single run/trace, take the list and create a data frame from it
+
+#' "loop" through all objects within 1 trace of data
+#' @noRd
+#' @importFrom rlang "!!"
+
 rdfTraceToTbl <- function(rdfTrace, traceNum) 
 {
   trace <- as.integer(rdfTrace$idx_sequential)
@@ -49,11 +54,34 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
       TraceNumber = traceNum, 
       RulesetFileName = ruleSet, 
       InputDMIName = slotSet,
-      Timestep = as.character(Timestep)
+      Timestep = as.character(!!rlang::quo("Timestep"))
     )
   
   tbl
 }
+
+#' Convert RDF to a Tibble
+#' 
+#' \code{rdfToTbl} converts an rdf list to a tibble (data.frame).
+#' 
+#' The rdf list is converted to a "long" data frame, and then converted to a 
+#' \code{\link[tibble]{tibble}}. All of the \code{meta} entries into the rdf list
+#' are stored as attribures in the returned tibble. 
+#' 
+#' @param rdf An rdf list returned from \code{\link{read.rdf2}}.
+#' @param scenario An optional parameter, that if it is not \code{NULL} (default)
+#' will be added to the tibble as another variable. Typically a string, but it is
+#' not coerced to a string.
+#' 
+#' @return A tibble with additional attributes from the rdf list
+#' 
+#' @examples 
+#' t1 <- rdfToTbl(keyRdf)
+#' t2 <- rdfToTbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
+#' 
+#' @seealso \code{\link{read.rdf2}}, \code{\link{read.rdf}}
+#' 
+#' @export
 
 rdfToTbl <- function(rdf, scenario = NULL)
 {
