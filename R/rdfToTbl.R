@@ -13,7 +13,7 @@ rdfObjectToTbl <- function(rdfObject, timeSteps)
   scale <- as.numeric(rdfObject$scale)
   value <- rdfObject$values * scale
   
-  df <- data.frame("Timestep" = timeSteps) %>%
+  tbl <- data.frame("Timestep" = timeSteps) %>%
     mutate(
       ObjectName = on,
       SlotName = sn,
@@ -23,7 +23,7 @@ rdfObjectToTbl <- function(rdfObject, timeSteps)
       Unit = units
     )
 
-  df
+  tbl
 }
 
 
@@ -41,12 +41,12 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
   # ***
   
   # for all objects, call getObjectData for rdfTrace$objects
-  df <- do.call(
+  tbl <- do.call(
     rbind, 
     lapply(rdfTrace$objects, rdfObjectToTbl, timeSteps = timeSteps)
   ) %>%
     mutate(TraceNumber = traceNum, RulesetFileName = ruleSet, InputDMIName = slotSet)
-  df
+  tbl
 }
 
 rdfToTbl <- function(rdf, scenario = NULL)
@@ -56,19 +56,19 @@ rdfToTbl <- function(rdf, scenario = NULL)
   atts <- rdf[[1]]
   nRun <- as.integer(rdf[[1]]$number_of_runs)
   
-  df <- do.call(
+  tbl <- do.call(
     rbind, 
     lapply(1:nRun, function(x) rdfTraceToTbl(rdf[[2]][[x]], traceNum = x))
   )
   
   if(!is.null(scenario))
-    df$Scenario <- scenario
+    tbl$Scenario <- scenario
   
-  attr(df, "MRMName") <- atts$name
-  attr(df, "owner") <- atts$owner
-  attr(df, "description") <- atts$description
-  attr(df, "createDate") <- atts$create_date
-  attr(df, "numberOfTraces") <- atts$number_of_runs
+  attr(tbl, "MRMName") <- atts$name
+  attr(tbl, "owner") <- atts$owner
+  attr(tbl, "description") <- atts$description
+  attr(tbl, "createDate") <- atts$create_date
+  attr(tbl, "numberOfTraces") <- atts$number_of_runs
   
-  df
+  tbl
 }
