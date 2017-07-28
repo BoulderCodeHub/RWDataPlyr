@@ -31,7 +31,6 @@ rdfObjectToTbl <- function(rdfObject, timeSteps)
 
 #' "loop" through all objects within 1 trace of data
 #' @noRd
-#' @importFrom rlang "!!"
 
 rdfTraceToTbl <- function(rdfTrace, traceNum) 
 {
