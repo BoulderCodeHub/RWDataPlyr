@@ -65,7 +65,7 @@ rdfToTbl <- function(rdf, scenario = NULL)
     tbl$Scenario <- scenario
   
   structure(
-    tbl,
+    tibble::as_tibble(tbl),
     "MRMName" = atts$name,
     "owner" = atts$owner,
     "description" = atts$description,
