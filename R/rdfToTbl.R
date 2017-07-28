@@ -53,9 +53,9 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
     dplyr::mutate(
       TraceNumber = traceNum, 
       RulesetFileName = ruleSet, 
-      InputDMIName = slotSet,
-      Timestep = as.character(!!rlang::quo("Timestep"))
-    )
+      InputDMIName = slotSet
+    ) %>%
+    dplyr::mutate_at(.vars = "Timestep", .funs = as.character)
   
   tbl
 }
