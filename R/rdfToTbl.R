@@ -45,7 +45,13 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
     rbind, 
     lapply(rdfTrace$objects, rdfObjectToTbl, timeSteps = timeSteps)
   ) %>%
-    dplyr::mutate(TraceNumber = traceNum, RulesetFileName = ruleSet, InputDMIName = slotSet)
+    dplyr::mutate(
+      TraceNumber = traceNum, 
+      RulesetFileName = ruleSet, 
+      InputDMIName = slotSet,
+      Timestep = as.character(Timestep)
+    )
+  
   tbl
 }
 
