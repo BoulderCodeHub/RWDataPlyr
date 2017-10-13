@@ -30,7 +30,7 @@ getSlotsInRdf <- function(rdf)
 #' @param rdf list returned by \code{\link{read.rdf}}
 #' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToMatrix(keyRdf, 'Mead.Pool Elevation')
 #' 
 #' @export
 #' 
@@ -82,7 +82,7 @@ getTimeSpan <- function(rdf)
 #' @return an XTS object with the selected slot data
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' }
 
 rdfSlotToXTS <- function(rdf, slot)

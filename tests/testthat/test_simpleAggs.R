@@ -2,7 +2,7 @@ library(RWDataPlyr)
 context('check simple aggregation methods')
 
 simpMat <- matrix(1:48, ncol = 2)
-pe <- rdfSlotToMatrix(keyRdf, 'Powell.Pool Elevation')[1:36,1:4]
+pe <- rdfSlotToMatrix(keyRdf, 'Mead.Pool Elevation')[1:36,1:4]
 
 test_that("getMinAnnValue returns corect values", {
   expect_equal(getMinAnnValue(simpMat), matrix(c(1,13,25,37),ncol=2))

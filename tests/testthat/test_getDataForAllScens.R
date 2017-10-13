@@ -2,7 +2,7 @@ library(RWDataPlyr)
 context('check that getDataForAllScens works')
 
 # get a specified set of slots and apply some aggregation method to them
-scenNames <- scenFolders <- c('DNF,CT,IG') 
+scenNames <- scenFolders <- c('ISM1988_2014,2007Dems,IG,Most') 
 
 slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
@@ -21,10 +21,10 @@ test_that("getting all slot data from RDF does actually return all slots", {
 })
 
 test_that("getting all slot data is the same as using a pre-configured slotAggList", {
-  expect_equal(dplyr::filter(keyData, Variable == 'Powell.Pool Elevation_EOCY_1')$Value,
-               dplyr::filter(allData, Variable == 'Powell.Pool Elevation_Monthly_1', Month == 'Dec')$Value)
+  expect_equal(dplyr::filter(keyData, Variable == 'Powell.Outflow_EOCY_0.001')$Value,
+               (dplyr::filter(allData, Variable == 'Powell.Outflow_Monthly_1', Month == 'December')$Value) * 0.001)
   expect_equal(dplyr::filter(keyData, Variable == 'Mead.Pool Elevation_EOCY_1')$Value,
-             dplyr::filter(allData, Variable == 'Mead.Pool Elevation_Monthly_1', Month == 'Dec')$Value)
+             dplyr::filter(allData, Variable == 'Mead.Pool Elevation_Monthly_1', Month == 'December')$Value)
 })
 
 test_that('file extension is checked', {
