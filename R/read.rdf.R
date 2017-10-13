@@ -110,12 +110,11 @@ read.rdf <- function(file){
 	
 	rdf.obj <- list()
 	rdf.con <- file(file,'r')
+	on.exit(close(rdf.con))
 	
 	rdf.obj <- read_rdf_meta(rdf.con,rdf.obj)
 	for(i in 1:as.numeric(rdf.obj$meta$number_of_runs))
 		rdf.obj <- read_rdf_run(rdf.con,rdf.obj)
-	
-	close(rdf.con)
 	
 	return(rdf.obj)
 }
