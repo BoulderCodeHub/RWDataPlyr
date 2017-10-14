@@ -1,9 +1,8 @@
 # Written by Cameron Bracken - circa 2010
 
 read_rdf_header <- function(con,end){
-	
+
 	#assumes connection is already correctly positioned
-	
 	obj <- list()
 	
 	repeat{
@@ -109,9 +108,9 @@ read_rdf_run <- function(rdf.con,rdf.obj){
 read.rdf <- function(file){
 	
 	rdf.obj <- list()
-	rdf.con <- file(file,'r')
+	rdf.con <- file(file,'r', encoding = "")
 	on.exit(close(rdf.con))
-	
+
 	rdf.obj <- read_rdf_meta(rdf.con,rdf.obj)
 	for(i in 1:as.numeric(rdf.obj$meta$number_of_runs))
 		rdf.obj <- read_rdf_run(rdf.con,rdf.obj)
