@@ -24,3 +24,21 @@ test_that('slots in rdf are those that are expected (getSlotsinRdf)', {
   expect_equal(sum(getSlotsInRdf(keyRdf) %in% exptSlots), length(getSlotsInRdf(keyRdf)))
 })
 
+test_that("read.rdf2 warnings post, and values match read.rdf", {
+  expect_warning(
+    r3 <- read.rdf2(
+      system.file(
+        'extdata',
+        file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
+        package = 'RWDataPlyr'
+      )
+    ),
+    paste(
+      "'read.rdf2' is deprecated.", 
+      "Use 'read.rdf' instead.", 'See help("Deprecated")', 
+      sep = "\n"
+    ),
+    fixed = TRUE
+  )
+  expect_equal(r3, r1)
+})
