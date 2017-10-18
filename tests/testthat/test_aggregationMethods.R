@@ -131,10 +131,10 @@ test_that("processSlots monthly to annual aggregation methods work", {
 
 # hand compute values
 # keyRdf exists as data in package
-key <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
+key <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
 mReg <- rdfSlotToMatrix(key, "Mead.Pool Elevation")
 pReg <- rdfSlotToMatrix(key, "Powell.Outflow")
-sys <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
+sys <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
 lbShort <- as.data.frame(rdfSlotToMatrix(sys, "SummaryOutputData.LBShortageConditions"))
 cNames <- 1:ncol(mReg)
 colnames(mReg) <- cNames

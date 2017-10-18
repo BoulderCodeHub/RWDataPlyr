@@ -7,7 +7,7 @@
 rdfToTbl(rdf, scenario = NULL)
 }
 \arguments{
-\item{rdf}{An rdf list returned from \code{\link{read.rdf2}}.}
+\item{rdf}{An rdf list returned from \code{\link{read.rdf}}.}
 
 \item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
 will be added to the tibble as another variable. Typically a string, but it is
@@ -30,5 +30,5 @@ t2 <- rdfToTbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 
 }
 \seealso{
-\code{\link{read.rdf2}}, \code{\link{read.rdf}}
+\code{\link{read.rdf}}
 }

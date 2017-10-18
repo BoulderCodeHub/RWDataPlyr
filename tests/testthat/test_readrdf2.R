@@ -1,9 +1,9 @@
 library(RWDataPlyr)
-context('check read.rdf2')
+context('check read.rdf')
 
-r1 <- read.rdf2(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
+r1 <- read.rdf(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
                            package = 'RWDataPlyr'))
-r2 <- read.rdf2(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','SystemConditions.rdf'),
+r2 <- read.rdf(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','SystemConditions.rdf'),
                            package = 'RWDataPlyr'))
 
 test_that('read.rdf data are as expected', {

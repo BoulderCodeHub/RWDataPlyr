@@ -42,7 +42,7 @@ rwCsvOptionalCols <- function() {
 #'   package = "RWDataPlyr"
 #' ))
 #' 
-#' @seealso \code{\link{read.rdf}}, \code{\link{read.rdf2}}
+#' @seealso \code{\link{read.rdf}}
 #' 
 #' @export
 

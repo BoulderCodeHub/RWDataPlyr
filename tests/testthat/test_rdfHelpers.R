@@ -5,8 +5,8 @@ context('check rdf helper functions')
 nYrs <- 5
 nTraces <- 4
 
-key <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
-sys <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
+key <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
+sys <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
 
 test_that("rdfSlotToMatrix gets correct dimensions for matrix", {
   expect_equal(dim(rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')),c(nYrs*12,nTraces))

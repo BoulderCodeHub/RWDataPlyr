@@ -67,7 +67,7 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
 #' \code{\link[tibble]{tibble}}. All of the \code{meta} entries into the rdf list
 #' are stored as attribures in the returned tibble. 
 #' 
-#' @param rdf An rdf list returned from \code{\link{read.rdf2}}.
+#' @param rdf An rdf list returned from \code{\link{read.rdf}}.
 #' @param scenario An optional parameter, that if it is not \code{NULL} (default)
 #' will be added to the tibble as another variable. Typically a string, but it is
 #' not coerced to a string.
@@ -78,7 +78,7 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
 #' t1 <- rdfToTbl(keyRdf)
 #' t2 <- rdfToTbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
-#' @seealso \code{\link{read.rdf2}}, \code{\link{read.rdf}}
+#' @seealso \code{\link{read.rdf}}
 #' 
 #' @export
 

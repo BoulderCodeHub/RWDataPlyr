@@ -41,5 +41,5 @@ zz <- readRwCsv(system.file(
 
 }
 \seealso{
-\code{\link{read.rdf}}, \code{\link{read.rdf2}}
+\code{\link{read.rdf}}
 }
