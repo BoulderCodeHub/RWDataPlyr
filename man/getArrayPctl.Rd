@@ -19,7 +19,7 @@ Get values at the input exceedance levels for the entire array by date
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 pe105090 <- getTraceMax(pe, c(0.1, 0.5, 0.9))
 }
 }

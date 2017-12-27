@@ -112,11 +112,7 @@ read_rdf_run2 <- function(rdf.mat,rdf.obj){
 #' @param iFile The input rdf file that will be read into R.
 #' @return A multi-level list containing all metadata and slot data in the original rdf file.
 #' @examples
-#' zz <- read.rdf2(system.file(
-#'   'extdata/Scenario/ISM1988_2014,2007Dems,IG,Most', 
-#'   "KeySlots.rdf", 
-#'   package = "RWDataPlyr"
-#' ))
+#' zz <- read.rdf2(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlyr"))
 #' 
 #' @export
 

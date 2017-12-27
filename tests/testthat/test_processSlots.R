@@ -3,8 +3,8 @@ context('check that processSlots works')
 
 # check processSlots internal function using keyRdf and sysRdf
 
-sla <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
-                                  'AnnualRaw',NA,'meadPE'),nrow = 1))[[1]]
+sla <- createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation',
+                                  'AnnualRaw',NA,'powellPE'),nrow = 1))[[1]]
 sla <- rbind(sla$slots, sla$annualize, sla$varNames)
 
 sla2 <- createSlotAggList(matrix(c('SystemConditions.rdf', "SummaryOutputData.LBShortageConditions",
@@ -26,12 +26,12 @@ test_that("warnings are posted for agg method and data timestep mismatches", {
     )
 })
 
-sla <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
+sla <- createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation',
                                    'EOCY',NA),nrow = 1))[[1]]
 sla <- rbind(sla$slots, sla$annualize, sla$varNames)
 
-sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
-                                   'EOCY',NA,'meadPE'),nrow = 1))[[1]]
+sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation',
+                                   'EOCY',NA,'powellPE'),nrow = 1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 
 df1 <- RWDataPlyr:::processSlots(sla, keyRdf, 'KeySlots.rdf', findAllSlots = TRUE)
@@ -39,7 +39,7 @@ df2 <- RWDataPlyr:::processSlots(sla2, keyRdf, 'KeySlots.rdf', findAllSlots = TR
 
 # test 3
 test_that('variable name is constructed properly', {
-  expect_equal(as.character(df1$Variable[1]),'Mead.Pool Elevation_EOCY_1')
+  expect_equal(as.character(df1$Variable[1]),'Powell.Pool Elevation_EOCY_1')
 })
 
 # test 4
@@ -55,7 +55,7 @@ sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 # get caught
 sla <- sla2
 sla[2,1] <- "Weird"
-sla[1,1] <- "Mead.Pool Elevation"
+sla[1,1] <- "Powell.Pool Elevation"
 
 # test 5 and 6
 test_that('process slots stops as expected', {

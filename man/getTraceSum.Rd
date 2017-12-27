@@ -19,7 +19,7 @@ Get the annual sum for each trace
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 peWY <- getTraceSum(pe, 'WY')
 }
 }

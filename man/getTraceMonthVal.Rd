@@ -19,7 +19,7 @@ Get values that meet a month requirement
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
 peJanFeb <- getTraceMonthVal(pe, c(1, 2))
 }
 

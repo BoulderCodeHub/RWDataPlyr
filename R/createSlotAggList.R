@@ -19,7 +19,7 @@
 #' \tabular{ccccc}{
 #' \strong{rdf} \tab \strong{Slot} \tab \strong{Aggregation Method} \tab 
 #' \strong{Threshold or Scaling Factor} \tab \strong{Variable Name (optional)}\cr
-#' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'EOCY' \tab NA \tab Mead EOCY Elevation\cr
+#' 'KeySlots.rdf' \tab 'Powell.Pool Elevation' \tab 'EOCY' \tab NA \tab Powell EOCY Elevation\cr
 #' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1100' \tab Mead < 1,100\cr
 #' 'KeySlots.rdf' \tab 'Mead.Pool Elevation' \tab 'AnnMinLTE' \tab '1060' \tab Mead < 1,060\cr
 #' 'Other.rdf' \tab 'Powell.Outflow' \tab 'AnnualSum' \tab '0.001' \tab Powell Annual Release\cr
@@ -29,12 +29,12 @@
 #' the threshold to be used to scale the data by or compare the data to, and an optional 
 #' specified variable name. The threshold and
 #' scaling factors are described in more detail below. For example, the first row will result
-#' in compiling all end-of-December values for Mead's pool elevation.  The data will not be 
+#' in compiling all end-of-December values for Powell's pool elevation.  The data will not be 
 #' scaled, and is found in KeySlots.rdf. The second row will find the annual minimum Mead pool
 #' elevation and see if it is less than or equal to 1,100' feet in the second line and less
 #' than or equal to 1,060' feet in the third row. To scale the data by a value less than 1, 
 #' use decimals rather than fractions, as shown in the fourth row. If the Variable Name column
-#' was not specified, the variable name for the first row would be \code{Mead.Pool Elevation_EOCY_1}
+#' was not specified, the variable name for the first row would be \code{Powell.Pool Elevation_EOCY_1}
 #' as \code{NA} is replaced with a 1 when construcing the variable names.
 #' 
 #' The available aggregation methods are as follows. The behaviour of the "Threshold or scaling

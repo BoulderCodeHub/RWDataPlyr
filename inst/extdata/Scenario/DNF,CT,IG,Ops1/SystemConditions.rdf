@@ -1,0 +1,12681 @@
+name:DNF Stress Test
+owner:CJerla
+description:2015.09.02 Updated to run 25 "stress" traces for the 1988-2012 natural flows.
+create_date:2016-10-19 16:30
+number_of_runs:25
+END_PACKAGE_PREAMBLE
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+0.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN
+start:2017-12-31 24:00
+end:2036-12-31 24:00
+time_step_unit:year
+unit_quantity:1
+time_steps:20
+consecutive:0
+slot_set:MRM StressTest FlowInput 2017Start
+rule_set:$CRSS_DIR/ruleset/CRSS.Baseline.2027IG.v2.4.DCP.rls
+idx_sequential:1
+END_RUN_PREAMBLE
+2017-12-31 24:00
+2018-12-31 24:00
+2019-12-31 24:00
+2020-12-31 24:00
+2021-12-31 24:00
+2022-12-31 24:00
+2023-12-31 24:00
+2024-12-31 24:00
+2025-12-31 24:00
+2026-12-31 24:00
+2027-12-31 24:00
+2028-12-31 24:00
+2029-12-31 24:00
+2030-12-31 24:00
+2031-12-31 24:00
+2032-12-31 24:00
+2033-12-31 24:00
+2034-12-31 24:00
+2035-12-31 24:00
+2036-12-31 24:00
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBNormalCondition
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+1.00
+1.00
+1.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBSurplusConditions
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep1
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep2
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBShortageStep3
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: UpperBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: MidElevationReleaseAt748
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: EqualizationAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAbove823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+1.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingBelow823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+1.00
+1.00
+1.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+1.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LowerBalancingAt823
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+object_type: DataObj
+object_name: SummaryOutputData
+slot_name: LBFloodControlSurplus
+END_SLOT_PREAMBLE
+units: NONE
+scale: 1
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+0.00
+END_COLUMN
+END_SLOT
+END_RUN

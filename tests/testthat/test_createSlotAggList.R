@@ -2,7 +2,7 @@ library(RWDataPlyr)
 context('check creation of slot aggregation list')
 
 samFail <- matrix(c(
-  "KeySlots.rdf", "Powell.Outflow", "Monthly", 10, "powellMothly10",
+  "KeySlots.rdf", "Powell.Pool Elevation", "Monthly", 10, "powellMothly10",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadMonthly001"),
   ncol = 5, byrow = TRUE
 )
@@ -16,15 +16,15 @@ test_that("createSlotAggList returns proper errors", {
                "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
   expect_error(createSlotAggList(1:17),
                "iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
-  expect_warning(createSlotAggList(c('KeySlots.rdf','Mead.Pool Elevation','AnnMax',NA, 'KeySlots.rdf','Powell.Outflow','AnnMin',NA)),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','AnnMax',NA, 'KeySlots.rdf','Powell.Pool Elevation','AnnMin',NA)),
                  "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA)),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA)),
                  "Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA, "var1",
-                                     'KeySlots.rdf','Mead.Pool Elevation','EOCY',NA, "var1",
-                                     'KeySlots.rdf','Mead.Pool Elevation','EOCY',NA, "var1")),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1",
+                                     'KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
                  "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
-  expect_warning(createSlotAggList(c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA, "var1")),
+  expect_warning(createSlotAggList(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA, "var1")),
                  "Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
   expect_error(createSlotAggList(file.path("some", "crazy", "file.txt")),
                paste(file.path("some", "crazy", "file.txt"),'does not exist.'))
@@ -32,8 +32,8 @@ test_that("createSlotAggList returns proper errors", {
                paste0("The \"Monthly\" aggregation method cannot currently be mixed with other aggregation methods\n",
                     "Please create a seperate slot aggregation list with only the monthly data."))
   expect_error(
-    createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation','Weird',NA,
-                               "KeySlots.rdf", "Mead.Pool Elevation", "TooWeird", NA),
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','Weird',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
                              nrow = 2, byrow = TRUE)),
     paste0("Invalid aggregation methods:\n    ", 
            paste(c("Weird", "TooWeird"), collapse = ", "), "\n  ",
@@ -41,8 +41,8 @@ test_that("createSlotAggList returns proper errors", {
     fixed = TRUE
   )
   expect_error(
-    createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA,
-                               "KeySlots.rdf", "Mead.Pool Elevation", "TooWeird", NA),
+    createSlotAggList(matrix(c('KeySlots.rdf','Powell.Pool Elevation','EOCY',NA,
+                               "KeySlots.rdf", "Powell.Pool Elevation", "TooWeird", NA),
                              nrow = 2, byrow = TRUE)),
     paste0("Invalid aggregation methods:\n    ", 
            paste(c("TooWeird"), collapse = ", "), "\n  ",
@@ -56,17 +56,17 @@ sal <- createSlotAggList(system.file("extdata", "SlotAggTable.csv", package = "R
 sam <- matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe",
   "SystemConditions.rdf", "Shortage.ShortageFlag", "AnnualRaw", 100, "lbShort",
-  "KeySlots.rdf", "Powell.Outflow", "AnnualSum", NA, "powellRel"
+  "KeySlots.rdf", "Powell.Pool Elevation", "EOCY", NA, "powellPe"
 ), ncol = 5, byrow = TRUE)
 sal2 <- createSlotAggList(sam)
 
 test_that("format of createSlotAggList is correct", {
   expect_equal(length(sal), 1)
   expect_equal(length(sal[[1]]$rdf), 1)
-  expect_equal(length(sal[[1]]$slots), 3)
+  expect_equal(length(sal[[1]]$slots), 4)
   expect_equal(nrow(sal[[1]]$annualize), 2)
-  expect_equal(ncol(sal[[1]]$annualize), 3)
-  expect_equal(length(sal[[1]]$varNames), 3)
+  expect_equal(ncol(sal[[1]]$annualize), 4)
+  expect_equal(length(sal[[1]]$varNames), 4)
   expect_true(all(is.na(sal[[1]]$varNames)))
   
   expect_equal(length(sal2), 2)

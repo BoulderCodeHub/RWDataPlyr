@@ -1,14 +1,14 @@
 library(RWDataPlyr)
 context('check read.rdf2 matches read.rdf')
 
-r1 <- read.rdf(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
+r1 <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),
                            package = 'RWDataPlyr'))
-r2 <- read.rdf(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','SystemConditions.rdf'),
+r2 <- read.rdf(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemConditions.rdf'),
                            package = 'RWDataPlyr'))
 
-r3 <- read.rdf2(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
+r3 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','KeySlots.rdf'),
                            package = 'RWDataPlyr'))
-r4 <- read.rdf2(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','SystemConditions.rdf'),
+r4 <- read.rdf2(system.file('extdata',file.path('Scenario','DNF,CT,IG','SystemConditions.rdf'),
                            package = 'RWDataPlyr'))
 
 test_that('list components match', {
