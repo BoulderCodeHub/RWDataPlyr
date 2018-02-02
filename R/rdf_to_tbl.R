@@ -3,7 +3,7 @@
 #' 
 #' @noRd
 
-rdfObjectToTbl <- function(rdfObject, timeSteps)
+rdf_object_to_tbl <- function(rdfObject, timeSteps)
 {
   ot <- rdfObject$object_type
   on <- rdfObject$object_name
@@ -32,7 +32,7 @@ rdfObjectToTbl <- function(rdfObject, timeSteps)
 #' "loop" through all objects within 1 trace of data
 #' @noRd
 
-rdfTraceToTbl <- function(rdfTrace, traceNum) 
+rdf_trace_to_tbl <- function(rdfTrace, traceNum) 
 {
   trace <- as.integer(rdfTrace$idx_sequential)
   timeSteps <- rdfTrace$times
@@ -47,7 +47,7 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
   # for all objects, call getObjectData for rdfTrace$objects
   tbl <- do.call(
     rbind, 
-    lapply(rdfTrace$objects, rdfObjectToTbl, timeSteps = timeSteps)
+    lapply(rdfTrace$objects, rdf_object_to_tbl, timeSteps = timeSteps)
   ) %>%
     dplyr::mutate(
       TraceNumber = traceNum, 
@@ -61,28 +61,28 @@ rdfTraceToTbl <- function(rdfTrace, traceNum)
 
 #' Convert RDF to a Tibble
 #' 
-#' \code{rdfToTbl} converts an rdf list to a tibble (data.frame).
+#' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
 #' 
 #' The rdf list is converted to a "long" data frame, and then converted to a 
-#' \code{\link[tibble]{tibble}}. All of the \code{meta} entries into the rdf list
+#' `tibble::tibble()`. All of the `meta` entries into the rdf list
 #' are stored as attribures in the returned tibble. 
 #' 
-#' @param rdf An rdf list returned from \code{\link{read.rdf}}.
-#' @param scenario An optional parameter, that if it is not \code{NULL} (default)
-#' will be added to the tibble as another variable. Typically a string, but it is
-#' not coerced to a string.
+#' @param rdf An rdf list returned from `read.rdf()`.
+#' @param scenario An optional parameter, that if it is not `NULL` (default)
+#'   will be added to the tibble as another variable. Typically a string, but it 
+#'   is not coerced to a string.
 #' 
 #' @return A tibble with additional attributes from the rdf list
 #' 
 #' @examples 
-#' t1 <- rdfToTbl(keyRdf)
-#' t2 <- rdfToTbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
+#' t1 <- rw_rdf_to_tbl(keyRdf)
+#' t2 <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
-#' @seealso \code{\link{read.rdf}}
+#' @seealso `read.rdf()`
 #' 
 #' @export
 
-rdfToTbl <- function(rdf, scenario = NULL)
+rw_rdf_to_tbl <- function(rdf, scenario = NULL)
 {
   # rdf[["meta"]] contains meta data
   # rdf[["runs"]] will be the length of rdf[[1]]$number_of_runs
@@ -91,7 +91,7 @@ rdfToTbl <- function(rdf, scenario = NULL)
   
   tbl <- do.call(
     rbind, 
-    lapply(1:nRun, function(x) rdfTraceToTbl(rdf[[2]][[x]], traceNum = x))
+    lapply(1:nRun, function(x) rdf_trace_to_tbl(rdf[[2]][[x]], traceNum = x))
   )
   
   if(!is.null(scenario))
