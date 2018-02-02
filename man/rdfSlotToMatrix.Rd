@@ -13,7 +13,7 @@ rdfSlotToMatrix(rdf, slot)
 }
 \description{
 \code{rdfSlotToMatrix} Takes a list created by \code{\link{read.rdf}} and converts the nested slot values over
-multiple traces into a matrix with rows indexing through time and columns 
+multiple traces into a matrix with rows indexing through time and columns
 indexing over traces.
 }
 \examples{

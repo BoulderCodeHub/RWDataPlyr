@@ -9,14 +9,14 @@ sumMonth2Annual(matrixToSum, multFactor = 1)
 \arguments{
 \item{matrixToSum}{The monthly trace data (months by traces) that will be summed.}
 
-\item{multFactor}{A factor the annual sum will be multiplied by.  Can be used to 
+\item{multFactor}{A factor the annual sum will be multiplied by.  Can be used to
 convert from flow to volume,  or to scale all results in another manor.}
 }
 \value{
 The annual sums as a matrix (years by traces).
 }
 \description{
-\code{sumMonth2Annual} takes a matrix containing monthly data (months by traces), 
+\code{sumMonth2Annual} takes a matrix containing monthly data (months by traces),
 sum the monthly data into annual data.  Returns a years by traces matrix.
 }
 \examples{

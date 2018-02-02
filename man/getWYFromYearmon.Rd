@@ -20,7 +20,7 @@ year and that will be returned.
 \details{
 If the argument is not already a yearmon object, it will attempt to convert it.
 This may results in unexpected results. For example, the string \code{"12-1-1906"} can
-be converted to a yearmon, however, it will not convert to \code{"Dec 1906"} as 
+be converted to a yearmon, however, it will not convert to \code{"Dec 1906"} as
 you might desire. It will convert to \code{"Jan 0012"} since it is not a format expected
 by \code{zoo::as.yearmon}.
 }

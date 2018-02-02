@@ -15,10 +15,10 @@ are saved in.}
 as \code{scenFolders}. The scenario names are used as attributes to the data in the "Scenario"
 column.}
 
-\item{slotAggList}{The slot aggregation list. A list containing the slots that will be 
-imported and aggregated, the aggregation method(s) to use, and the rdf files that 
+\item{slotAggList}{The slot aggregation list. A list containing the slots that will be
+imported and aggregated, the aggregation method(s) to use, and the rdf files that
 contain the slots. Either created by calling \code{\link{createSlotAggList}} with a specified
-set of slots, or a list of lists with each entry containing an rdf file and the keyword 
+set of slots, or a list of lists with each entry containing an rdf file and the keyword
 'all' for the slots, e.g., \code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}, which will
 return all of the slots found in an rdf file. If this option is used, the code will return
 monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
@@ -29,7 +29,7 @@ file.}
 \item{oFile}{An absolute or relative path with the file name of the location the table will
 be saved to. Valid file types are .csv, .txt, or .feather.}
 
-\item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
+\item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned.
 If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
 
 \item{findAllSlots}{Boolean; if \code{TRUE} (default), then the function will

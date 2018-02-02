@@ -11,21 +11,21 @@ makeAllScenNames(dim1, dim2, ..., sep = ",")
 
 \item{dim2}{A character vector with all of the second dimension's scenario names.}
 
-\item{...}{As many individual character vectors as necessary for the remaining 
+\item{...}{As many individual character vectors as necessary for the remaining
 dimension's scenario names.}
 
-\item{sep}{The character used to seperate the different dimension names. 
+\item{sep}{The character used to seperate the different dimension names.
 Defaults to \code{","}.}
 }
 \value{
 A character vector of all possible scenario combinations.
 }
 \description{
-\code{makeAllScenNames()} creates a vector of full scenario names by combining 
+\code{makeAllScenNames()} creates a vector of full scenario names by combining
 multipe dimensions together.
 }
 \details{
-Many RiverWare runs are specified by multiple dimensions (or assumptions), 
+Many RiverWare runs are specified by multiple dimensions (or assumptions),
 and RiverSMART creates folder names by combining the dimension names together
 for a full scenario name. \code{makeAllScenNames()} makes it quick to create all
 of the full scenario names by passing in the names of the individual dimensions

@@ -16,8 +16,8 @@ A vector of yearly data of the flow-weighted average annual concentration. Units
 be mg/L.
 }
 \description{
-Given mass and flow at the monthly basis, the flow-weighted average annual concentration is 
-returned. Mass and flow should be monthly data and should be for only a single trace, 
+Given mass and flow at the monthly basis, the flow-weighted average annual concentration is
+returned. Mass and flow should be monthly data and should be for only a single trace,
 or for one year of one trace. Expect flow to be in acre-ft/month and mass to be in tons.
 Return value will be in mg/L
 }

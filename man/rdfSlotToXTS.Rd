@@ -15,8 +15,8 @@ rdfSlotToXTS(rdf, slot)
 an XTS object with the selected slot data
 }
 \description{
-\code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
-the nested slot values over the multiple traces into an XTS array 
+\code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert
+the nested slot values over the multiple traces into an XTS array
 indexing over traces.
 }
 \examples{
