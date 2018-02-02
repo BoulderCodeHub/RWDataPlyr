@@ -13,47 +13,48 @@ rwCsvOptionalCols <- function() {
 
 #' Read in RiverWare Data
 #' 
-#' Read in a CSV file created from RiverWare. If the CSV file does not contain 
-#' column names that RiverWare always uses (see Details), then it assumes that the CSV file
-#' was not created from RiverWare and throws an error. It also removes spaces
-#' from the column names, and adjusts the \code{Object.Slot} and \code{Slot Value}
-#' columns to be \code{ObjectSlot} and \code{Value}, respectively.
+#' `rw_read_rw_csv()` reads in a CSV file created from RiverWare. If the CSV 
+#' file does not contain column names that RiverWare always uses (see Details), 
+#' then it assumes that the CSV file was not created from RiverWare and throws 
+#' an error. It also removes spaces from the column names, and adjusts the 
+#' `Object.Slot` and `Slot Value` columns to be `ObjectSlot` and `Value`, 
+#' respectively.
 #' 
-#' The required column names are: \code{Run Number}, \code{Trace Number}, 
-#' \code{Object.Slot}, \code{Timestep}, \code{Slot Value}. See the CSV output 
-#' section of the 
-#' \href{http://www.riverware.org/PDF/RiverWare/documentation/MRM.pdf}{RiverWare documentation}
+#' The required column names are: `Run Number`, `Trace Number`, `Object.Slot`, 
+#' `Timestep`, `Slot Value`. See the CSV output section of the 
+#' [RiverWare documentation](http://www.riverware.org/PDF/RiverWare/documentation/MRM.pdf)
 #' for more information on the other optional column names.
 #' 
-#' This function uses \code{data.table::\link[data.table]{fread}()} to read in 
+#' This function uses [data.table::fread()] to read in 
 #' the CSV file, and forces it to expect a CSV file, expect headers, and return
-#' a \code{data.frame}.
+#' `data.frame`.
 #' 
-#' @param file The name of the file which the data are to be read from. Either an
-#' absolute or relative path.
+#' @param file The name of the file which the data are to be read from. Either 
+#'   an absolute or relative path.
 #' 
-#' @return A data frame (\code{\link[base]{data.frame}}) containing a 
-#' representation of the data in the file.
+#' @return A data frame `data.frame` containing a representation of the data in 
+#' the file.
 #' 
 #' @examples 
-#' zz <- readRwCsv(system.file(
+#' zz <- rw_read_rw_csv(system.file(
 #'   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most",
 #'   "KeySlots.csv",
 #'   package = "RWDataPlyr"
 #' ))
 #' 
-#' @seealso \code{\link{read.rdf}}
+#' @seealso [read.rdf]
 #' 
 #' @export
 
-readRwCsv <- function(file) {
+rw_read_rw_csv <- function(file) {
   # read in the file
   zz <- data.table::fread(file, sep = ',', header = TRUE, data.table = FALSE)
   
   # check column names
-  reqColumns <- c("Run Number", "Trace Number", "Object.Slot", "Timestep", "Slot Value")
+  reqColumns <- c("Run Number", "Trace Number", "Object.Slot", "Timestep", 
+                  "Slot Value")
   
-  if(!all(reqColumns %in% colnames(zz)))
+  if (!all(reqColumns %in% colnames(zz)))
     stop("The ", file, 
          " csv does not have all required column names.\n",
          "It is unlikely this is a csv file from RiverWare.\n",
