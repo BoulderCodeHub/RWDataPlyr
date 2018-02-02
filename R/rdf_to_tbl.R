@@ -64,10 +64,10 @@ rdf_trace_to_tbl <- function(rdfTrace, traceNum)
 #' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
 #' 
 #' The rdf list is converted to a "long" data frame, and then converted to a 
-#' `tibble::tibble()`. All of the `meta` entries into the rdf list
+#' [tibble::tibble()]. All of the `meta` entries into the rdf list
 #' are stored as attribures in the returned tibble. 
 #' 
-#' @param rdf An rdf list returned from `read.rdf()`.
+#' @param rdf An rdf list returned from [read.rdf()].
 #' @param scenario An optional parameter, that if it is not `NULL` (default)
 #'   will be added to the tibble as another variable. Typically a string, but it 
 #'   is not coerced to a string.
@@ -78,7 +78,7 @@ rdf_trace_to_tbl <- function(rdfTrace, traceNum)
 #' t1 <- rw_rdf_to_tbl(keyRdf)
 #' t2 <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
-#' @seealso `read.rdf()`
+#' @seealso [read.rdf()]
 #' 
 #' @export
 
