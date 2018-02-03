@@ -79,43 +79,46 @@
 #'  
 #' }
 #' 
-#' @param iData Either an Nx4 character matrix or a character with an absolute 
+#' @param x Either an Nx4 character matrix or a character with an absolute 
 #'   or relative path to a csv file.
 #'   
-#' @return A "slot_agg" object.
+#' @return A `slot_agg_list` object.
 #' 
 #' @examples
-#' createSlotAggList(
+#' slot_agg_list(
 #'   system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr')
 #' )
 #' 
-#' @seealso \code{\link{getDataForAllScens}}
+#' @seealso `getDataForAllScens()`
 #'
 #' @export
 
-slot_agg <- function(...)
+slot_agg_list <- function(x)
 {
   structure(
-    create_slot_agg(...),
-    class = "slot_agg"
+    create_slot_agg_list(x),
+    class = "slot_agg_list"
   )
 }
 
 #' @export
-print.slot_agg <- function(x)
+print.slot_agg_list <- function(x)
 {
-  
-  
   printSlot <- function(x, i, rdfI){
-    thresh <- ifelse(is.na(x[[rdfI]]$annualize[2, i]), "NA", x[[rdfI]]$annualize[2, i])
+    thresh <- ifelse(
+      is.na(x[[rdfI]]$annualize[2, i]), 
+      "NA", 
+      x[[rdfI]]$annualize[2, i]
+    )
+    
     var <- ifelse(
       is.na(x[[rdfI]]$varNames[i]) || x[[rdfI]]$varNames[i] == "", 
       "default constructed", 
       x[[rdfI]]$varNames[i]
     )
     
-    cat("  ", x[[rdfI]]$annualize[1, i], "(", x[[rdfI]]$slots[i], ",", thresh, ")",  
-        "->", var ,"\n")
+    cat("  ", x[[rdfI]]$annualize[1, i], "(", x[[rdfI]]$slots[i], ",", thresh, 
+        ")",  "->", var ,"\n")
   }
   
   printRdf <- function(x, i){
@@ -130,7 +133,7 @@ print.slot_agg <- function(x)
 }
 
 #' @export
-summary.slot_agg <- function(x)
+summary.slot_agg_list <- function(x)
 {
-  cat(length(x[[1]]$slots), "slots aggregated from", length(x), "rdfs.")
+  cat(length(x[[1]]$slots), "slots to aggregate from", length(x), "rdf(s).")
 }

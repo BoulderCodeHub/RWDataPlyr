@@ -10,13 +10,13 @@
 createSlotAggList <- function(iData)
 {
   .Deprecated("slot_agg")
-  create_slot_agg(iData)
+  create_slot_agg_list(iData)
 }
 
 #' creates the slot_agg object; see ?slot_agg.
 #' @noRd
 
-create_slot_agg <- function(iData)
+create_slot_agg_list <- function(iData)
 {
   if(!is.matrix(iData)){
     if(length(iData) > 1){
