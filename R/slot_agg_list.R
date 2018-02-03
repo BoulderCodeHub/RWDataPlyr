@@ -167,3 +167,15 @@ summary.slot_agg_list <- function(x)
 {
   cat(length(x[[1]]$slots), "slots to aggregate from", length(x), "rdf(s).")
 }
+
+#' Test if the object is a slot_agg_list
+#'
+#' @param x An object
+#' 
+#' @return `TRUE` if the object inherits from the `slot_agg_list` class.
+#' @export
+is_slot_agg_list <- function(x) inherits(x, "slot_agg_list")
+
+#' @rdname is_slot_agg_list
+#' @export
+is.slot_agg_list <- is_slot_agg_list
