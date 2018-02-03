@@ -70,5 +70,5 @@ rw_read_rw_csv <- function(file) {
   i <- which(colnames(zz) == "SlotValue")
   colnames(zz)[i] <- "Value"
   
-  zz
+  tibble::as_tibble(zz)
 }
