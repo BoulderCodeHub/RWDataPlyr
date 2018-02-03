@@ -1,64 +1,4 @@
 
-#' create a data frame from one of the objects in one trace of the rdf list
-#' 
-#' @noRd
-
-rdf_object_to_tbl <- function(rdfObject, timeSteps)
-{
-  ot <- rdfObject$object_type
-  on <- rdfObject$object_name
-  sn <- rdfObject$slot_name
-  os <- paste(on, sn, sep = ".")
-  units <- rdfObject$units
-  scale <- as.numeric(rdfObject$scale)
-  value <- rdfObject$values * scale
-  
-  tbl <- data.frame("Timestep" = timeSteps) %>%
-    dplyr::mutate(
-      ObjectName = on,
-      SlotName = sn,
-      ObjectType = ot,
-      ObjectSlot = os,
-      Value = value,
-      Unit = units
-    )
-
-  tbl
-}
-
-
-#' for a single run/trace, take the list and create a data frame from it
-
-#' "loop" through all objects within 1 trace of data
-#' @noRd
-
-rdf_trace_to_tbl <- function(rdfTrace, traceNum) 
-{
-  trace <- as.integer(rdfTrace$idx_sequential)
-  timeSteps <- rdfTrace$times
-  ruleSet <- rdfTrace$rule_set
-  slotSet <- rdfTrace$slot_set # the input DMI on the input tab
-  
-  # ***
-  # maybe check if time_step_unit is year, and if so, change the timestep label
-  # maybe change to yearmon here?
-  # ***
-  
-  # for all objects, call getObjectData for rdfTrace$objects
-  tbl <- do.call(
-    rbind, 
-    lapply(rdfTrace$objects, rdf_object_to_tbl, timeSteps = timeSteps)
-  ) %>%
-    dplyr::mutate(
-      TraceNumber = traceNum, 
-      RulesetFileName = ruleSet, 
-      InputDMIName = slotSet
-    ) %>%
-    dplyr::mutate_at(.vars = "Timestep", .funs = as.character)
-  
-  tbl
-}
-
 #' Convert RDF to a Tibble
 #' 
 #' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
@@ -123,6 +63,67 @@ rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE)
     "create_date" = atts$create_date,
     "n_traces" = nRun
   )
+}
+
+
+#' create a data frame from one of the objects in one trace of the rdf list
+#' 
+#' @noRd
+
+rdf_object_to_tbl <- function(rdfObject, timeSteps)
+{
+  ot <- rdfObject$object_type
+  on <- rdfObject$object_name
+  sn <- rdfObject$slot_name
+  os <- paste(on, sn, sep = ".")
+  units <- rdfObject$units
+  scale <- as.numeric(rdfObject$scale)
+  value <- rdfObject$values * scale
+  
+  tbl <- data.frame("Timestep" = timeSteps) %>%
+    dplyr::mutate(
+      ObjectName = on,
+      SlotName = sn,
+      ObjectType = ot,
+      ObjectSlot = os,
+      Value = value,
+      Unit = units
+    )
+  
+  tbl
+}
+
+
+#' for a single run/trace, take the list and create a data frame from it
+
+#' "loop" through all objects within 1 trace of data
+#' @noRd
+
+rdf_trace_to_tbl <- function(rdfTrace, traceNum) 
+{
+  trace <- as.integer(rdfTrace$idx_sequential)
+  timeSteps <- rdfTrace$times
+  ruleSet <- rdfTrace$rule_set
+  slotSet <- rdfTrace$slot_set # the input DMI on the input tab
+  
+  # ***
+  # maybe check if time_step_unit is year, and if so, change the timestep label
+  # maybe change to yearmon here?
+  # ***
+  
+  # for all objects, call getObjectData for rdfTrace$objects
+  tbl <- do.call(
+    rbind, 
+    lapply(rdfTrace$objects, rdf_object_to_tbl, timeSteps = timeSteps)
+  ) %>%
+    dplyr::mutate(
+      TraceNumber = traceNum, 
+      RulesetFileName = ruleSet, 
+      InputDMIName = slotSet
+    ) %>%
+    dplyr::mutate_at(.vars = "Timestep", .funs = as.character)
+  
+  tbl
 }
 
 #' Standard (required) Column Names for RDF Tables that will always be returned
