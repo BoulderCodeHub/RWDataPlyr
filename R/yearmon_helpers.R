@@ -1,18 +1,23 @@
 
 #' Get the water year from a month-year (yearmon) value
 #' 
-#' \code{getWYFromYearmon} returns the water year (assumed to be October - September)
-#' from a yearmon object. October - December of a year, are part of the next water
-#' year and that will be returned.
+#' `getWYFromYearmon()` returns the water year (assumed to be October - 
+#' September) from a [zoo::yearmon] object. October - December of a year, are 
+#' part of the next water year and that is returned.
 #' 
-#' If the argument is not already a yearmon object, it will attempt to convert it.
-#' This may results in unexpected results. For example, the string \code{"12-1-1906"} can
-#' be converted to a yearmon, however, it will not convert to \code{"Dec 1906"} as 
-#' you might desire. It will convert to \code{"Jan 0012"} since it is not a format expected
-#' by \code{zoo::as.yearmon}.
+#' If the argument is not already a yearmon object, it will attempt to convert 
+#' it to a [zoo::yearmon]. This may result in unexpected results. For example, 
+#' the string `"12-1-1906"` can be converted to a [zoo::yearmon], however, it 
+#' will not convert to `"Dec 1906"` as you might desire. It will convert to 
+#' `"Jan 0012"` since it is not a format expected by [zoo::as.yearmon()]. 
+#' Therefore, a warning is posted when the function attempts to convert to 
+#' [zoo::yearmon], and it is safer to ensure `ym` is already a [zoo::yearmon]. 
 #' 
-#' @param ym An object of class yearmon, or something that can be converted to yearmon
+#' @param ym An object of class [zoo::yearmon], or something that can be 
+#'   successfully converted to [zoo::yearmon].
+#'   
 #' @return The water year as a numeric
+#' 
 #' @examples 
 #' library(zoo)
 #' getWYFromYearmon(as.yearmon(c("Dec 1906", "Oct 1945", "Jul 1955")))
