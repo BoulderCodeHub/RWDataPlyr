@@ -11,7 +11,7 @@ rwCsvOptionalCols <- function() {
     "Input DMI Name", "MRM Config Name", "MRM Descriptors")
 }
 
-#' Read in RiverWare Data
+#' Read RiverWare/RiverSMART roduced csv files
 #' 
 #' `rw_read_rw_csv()` reads in a CSV file created from RiverWare. If the CSV 
 #' file does not contain column names that RiverWare always uses (see Details), 
@@ -77,15 +77,27 @@ rw_read_rw_csv <- function(file) {
 }
 
 #' convert the timestep in the rw csv from mm-dd-yy hh:mm:ss to yyyy-m-dd 
-#' hh:mm:ss format
+#' hh:mm:ss format. It does not modify the hh:mm at all, but expect there to 
+#' be some hh:mm
 #' 
 #' @noRd
 
 convert_rw_csv_ts <- function(ts)
 {
-  # expects timestep in mm-dd-yyyy hh:mm:ss format and we need to change it 
-  # to yyyy-mm-dd hh:mm:ss format
   date_time <- simplify2array(strsplit(ts, " "))
+  if (is.null(nrow(date_time)) || nrow(date_time) != 2)
+    stop("Unexpected Timestep format encountered when reading csv.\n",
+         "Year, month, day and time should be seperated by a space.")
+  
   yrmon <- simplify2array(strsplit(date_time[1,], "-"))
-  paste0(yrmon[3,],"-", as.integer(yrmon[1,]), "-", yrmon[2,], " ", date_time[2,])
+  if (is.null(nrow(yrmon)) || nrow(yrmon) != 3)
+    stop("Unexpected Timestep format encountered when reading csv.\n",
+         "Year, month, and day should be seperated by '-'")
+  
+  if (!all(nchar(yrmon[3,]) == 4))
+    stop("Unexpected Timestep format encountered when reading csv.\n",
+         "Year is expected to be the 3rd element of the month, day, year.")
+  
+  paste0(yrmon[3,], "-", as.integer(yrmon[1,]), "-", yrmon[2,], " ", 
+         date_time[2,])
 }
