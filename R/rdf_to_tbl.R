@@ -5,7 +5,8 @@
 #' 
 #' The rdf list is converted to a "long" data frame, and then converted to a 
 #' [tibble::tibble()]. All of the `meta` entries into the rdf list
-#' are stored as attribures in the returned tibble. 
+#' are stored as attribures in the returned tibble. These attributes are:
+#' "mrm_config_name", "owner", "description", "create_date", and "n_traces".
 #' 
 #' @param rdf An rdf list returned from [read.rdf()].
 #' @param scenario An optional parameter, that if it is not `NULL` (default)
@@ -21,23 +22,33 @@
 #'   character vector, then the above 5 columns are returned, along with any of
 #'   those specified in `keep_cols`; if they are not found, a warning will post.
 #'   If `scenario` is specified, it will also always be returned.
+#' @param add_ym Boolean that controls whether or not `Year` and `Month` columns
+#'   are addded to the returned tibble. If `TRUE` (default), they will be added, 
+#'   and if `FALSE` they will not be added. They are constructed from the dates 
+#'   in the `Timestep` column.
 #' 
 #' @return A tibble with additional attributes from the rdf list
 #' 
 #' @examples 
-#' t1 <- rw_rdf_to_tbl(keyRdf)
-#' t2 <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
+#' rdftbl <- rw_rdf_to_tbl(keyRdf)
+#' # same as previous, except you do not want "Year" and "Month" columns
+#' rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE)
+#' # but you do want to keep the object name seperately:
+#' rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
+#' rdftbl <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
 #' @seealso [read.rdf()]
 #' 
 #' @export
 
-rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE)
+rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 {
   stopifnot(
     (is.logical(keep_cols) && !is.na(keep_cols) && length(keep_cols == 1)) || 
     (is.character(keep_cols) && length(keep_cols) > 0)
   )
+  
+  stopifnot(is.logical(add_ym) && !is.na(add_ym))
   
   # rdf[["meta"]] contains meta data
   # rdf[["runs"]] will be the length of rdf[[1]]$number_of_runs
@@ -55,6 +66,9 @@ rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE)
   if (!is.null(scenario))
     tbl$Scenario <- scenario
   
+  if (add_ym)
+    tbl <- add_ym_to_rdftbl(tbl)
+    
   structure(
     tibble::as_tibble(tbl),
     "mrm_config_name" = atts$name,
@@ -159,5 +173,20 @@ select_rdftbl_cols <- function(rdftbl, keep_cols)
   
   rdftbl %>%
     dplyr::select_at(.vars = select_cols)
+}
+
+#' Adds "Year", and "Month" columns to the tbl, which are constructed from 
+#' the "Timestep" column.
+#' @noRd
+
+add_ym_to_rdftbl <- function(tbl)
+{
+  other_cols <- colnames(tbl)[colnames(tbl) != "Timestep"]
+  tbl <- tbl %>%
+    dplyr::mutate_at("Timestep", dplyr::funs("ym" = zoo::as.yearmon)) %>%
+    dplyr::mutate_at(
+      "ym", 
+      dplyr::funs("Year" = ym_get_year, "Month" = ym_get_month_str)) %>%
+    dplyr::select_at(c("Timestep", "Year", "Month", other_cols))
 }
 

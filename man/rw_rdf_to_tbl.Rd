@@ -4,7 +4,7 @@
 \alias{rw_rdf_to_tbl}
 \title{Convert RDF to a Tibble}
 \usage{
-rw_rdf_to_tbl(rdf, scenario = NULL, keep_cols = FALSE)
+rw_rdf_to_tbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 }
 \arguments{
 \item{rdf}{An rdf list returned from \code{\link[=read.rdf]{read.rdf()}}.}
@@ -23,6 +23,11 @@ is \code{FALSE}, then only the above 5 columns are returned. If \code{keep_cols}
 character vector, then the above 5 columns are returned, along with any of
 those specified in \code{keep_cols}; if they are not found, a warning will post.
 If \code{scenario} is specified, it will also always be returned.}
+
+\item{add_ym}{Boolean that controls whether or not \code{Year} and \code{Month} columns
+are addded to the returned tibble. If \code{TRUE} (default), they will be added,
+and if \code{FALSE} they will not be added. They are constructed from the dates
+in the \code{Timestep} column.}
 }
 \value{
 A tibble with additional attributes from the rdf list
@@ -33,11 +38,16 @@ A tibble with additional attributes from the rdf list
 \details{
 The rdf list is converted to a "long" data frame, and then converted to a
 \code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries into the rdf list
-are stored as attribures in the returned tibble.
+are stored as attribures in the returned tibble. These attributes are:
+"mrm_config_name", "owner", "description", "create_date", and "n_traces".
 }
 \examples{
-t1 <- rw_rdf_to_tbl(keyRdf)
-t2 <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
+rdftbl <- rw_rdf_to_tbl(keyRdf)
+# same as previous, except you do not want "Year" and "Month" columns
+rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE)
+# but you do want to keep the object name seperately:
+rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
+rdftbl <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 
 }
 \seealso{

@@ -22,10 +22,10 @@
 
 getWYFromYearmon <- function(ym)
 {
-  if(!(class(ym) == "yearmon")) {
+  if (!(class(ym) == "yearmon")) {
     warning("ym, is not a yearmon object. attempting to convert to yearmon...")
     ym <- zoo::as.yearmon(ym)
-    if(is.na(ym)) 
+    if (is.na(ym)) 
       stop("could not convert ym to yearmon")
   }
   
@@ -35,4 +35,28 @@ getWYFromYearmon <- function(ym)
   yy[mm > 9] <- yy[mm > 9] + 1
   
   yy
+}
+
+#' Get the year as a numeric from a yearmon object
+#' 
+#' Could use lubridate::year(), but for now we are not depending on lubridate
+#' @noRd
+
+ym_get_year <- function(ym)
+{
+  if (!(class(ym) == "yearmon"))
+    stop("ym in ym_get_year(ym) is not a yearmon object.")
+  
+  as.numeric(format(ym, "%Y"))
+}
+
+#' Get the full month name from a yearmon object
+#' @noRd
+
+ym_get_month_str <- function(ym)
+{
+  if (!(class(ym) == "yearmon"))
+    stop("ym in ym_get_month_str(ym) is not a yearmon object.")
+  
+  format(ym, "%B")
 }
