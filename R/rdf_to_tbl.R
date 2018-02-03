@@ -48,7 +48,10 @@ rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE
     (is.character(keep_cols) && length(keep_cols) > 0)
   )
   
-  stopifnot(is.logical(add_ym) && !is.na(add_ym))
+  stopifnot(is.logical(add_ym) && !is.na(add_ym) && length(add_ym) == 1)
+  
+  # this function only reads in one scenario, so should only have one scenario name
+  stopifnot(is.null(scenario) || length(scenario) == 1)
   
   # rdf[["meta"]] contains meta data
   # rdf[["runs"]] will be the length of rdf[[1]]$number_of_runs
