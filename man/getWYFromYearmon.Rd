@@ -11,7 +11,7 @@ getWYFromYearmon(ym)
 successfully converted to \link[zoo:yearmon]{zoo::yearmon}.}
 }
 \value{
-The water year as a numeric
+The water year as a numeric.
 }
 \description{
 \code{getWYFromYearmon()} returns the water year (assumed to be October -

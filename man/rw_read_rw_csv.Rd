@@ -11,8 +11,7 @@ rw_read_rw_csv(file)
 an absolute or relative path.}
 }
 \value{
-A tible (data frame) containing a representation of the data in
-the csv.
+A tibble (data frame) containing the data in the csv.
 }
 \description{
 \code{rw_read_rw_csv()} reads in a CSV file created from RiverWare. If the CSV

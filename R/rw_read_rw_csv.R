@@ -32,8 +32,7 @@ rwCsvOptionalCols <- function() {
 #' @param file The name of the file which the data are to be read from. Either 
 #'   an absolute or relative path.
 #' 
-#' @return A tible (data frame) containing a representation of the data in 
-#'   the csv.
+#' @return A tibble (data frame) containing the data in the csv.
 #' 
 #' @examples 
 #' zz <- rw_read_rw_csv(system.file(

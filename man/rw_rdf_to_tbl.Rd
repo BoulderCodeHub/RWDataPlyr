@@ -2,7 +2,7 @@
 % Please edit documentation in R/rdf_to_tbl.R
 \name{rw_rdf_to_tbl}
 \alias{rw_rdf_to_tbl}
-\title{Convert RDF to a Tibble}
+\title{Convert RDF to a tibble}
 \usage{
 rw_rdf_to_tbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 }
@@ -14,15 +14,17 @@ will be added to the tibble as another variable. Typically a string, but it
 is not coerced to a string.}
 
 \item{keep_cols}{Either boolean, or a character vector of column names to
-keep in the returned tibble. The "Timestep", "TraceNumber", "ObjectSlot",
-and "Value" columns are always returned. \code{keep_cols} allows
-the user to include other columns that are not always required, e.g.,
-"Object" and "Slot" instead of only the "ObjectSlot" column. If \code{keep_cols}
-is \code{FALSE}, then only the above 5 columns are returned. If \code{keep_cols} is
-\code{TRUE}, then all columns are returned. Finally, if \code{keep_cols} is a
-character vector, then the above 5 columns are returned, along with any of
-those specified in \code{keep_cols}; if they are not found, a warning will post.
-If \code{scenario} is specified, it will also always be returned.}
+keep in the returned tibble. The values of \code{keep_cols} work as follows:
+\itemize{
+\item \code{FALSE} (default) only includes the defaults columns: "Timestep",
+\code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
+\code{scenario} is specified.
+\item \code{TRUE}, all columns are returned.
+\item A character vector, e.g., \code{c("ObjectName", "Units")}, allows the user to
+include other columns that are not always required, in addition to the
+"default" set of columns. If any of the values in \code{keep_cols} are not
+found, a warning will post, but all other columns will be returned.
+}}
 
 \item{add_ym}{Boolean that controls whether or not \code{Year} and \code{Month} columns
 are addded to the returned tibble. If \code{TRUE} (default), they will be added,
@@ -30,16 +32,16 @@ and if \code{FALSE} they will not be added. They are constructed from the dates
 in the \code{Timestep} column.}
 }
 \value{
-A tibble with additional attributes from the rdf list
+A tibble with additional attributes from the rdf list.
 }
 \description{
 \code{rw_rdf_to_tbl()} converts an rdf list to a tibble (data.frame).
 }
 \details{
-The rdf list is converted to a "long" data frame, and then converted to a
+The rdf list is converted to a data frame, and then converted to a
 \code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries into the rdf list
 are stored as attribures in the returned tibble. These attributes are:
-"mrm_config_name", "owner", "description", "create_date", and "n_traces".
+\code{mrm_config_name}, \code{owner}, \code{description}, \code{create_date}, and \code{n_traces}.
 }
 \examples{
 rdftbl <- rw_rdf_to_tbl(keyRdf)

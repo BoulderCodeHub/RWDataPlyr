@@ -16,7 +16,7 @@
 #' @param ym An object of class [zoo::yearmon], or something that can be 
 #'   successfully converted to [zoo::yearmon].
 #'   
-#' @return The water year as a numeric
+#' @return The water year as a numeric.
 #' 
 #' @examples 
 #' library(zoo)

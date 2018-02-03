@@ -2,6 +2,8 @@
 
 * Thresholds < 1 will now work for aggregation methods that compute <=/>=. (#14)
 * For monthly data, `getDataForAllScens()` will use full month name in the `Month` column. This change could break existing code if there are checks for particular months. (#20)
+* New function `rw_read_rw_csv()` to read csv files created from RiverWare or RiverSMART (#30)
+* New function `rw_rdf_to_tbl()` to convert rdf lists (read in from `read.rdf()`) to tibbles (#30)
 
 # RWDataPlyr 0.5.0
 

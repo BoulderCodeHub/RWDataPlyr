@@ -1,33 +1,33 @@
 
-#' Convert RDF to a Tibble
+#' Convert RDF to a tibble
 #' 
 #' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
 #' 
-#' The rdf list is converted to a "long" data frame, and then converted to a 
+#' The rdf list is converted to a data frame, and then converted to a 
 #' [tibble::tibble()]. All of the `meta` entries into the rdf list
 #' are stored as attribures in the returned tibble. These attributes are:
-#' "mrm_config_name", "owner", "description", "create_date", and "n_traces".
+#' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
 #' @param rdf An rdf list returned from [read.rdf()].
 #' @param scenario An optional parameter, that if it is not `NULL` (default)
 #'   will be added to the tibble as another variable. Typically a string, but it 
 #'   is not coerced to a string.
 #' @param keep_cols Either boolean, or a character vector of column names to 
-#'   keep in the returned tibble. The "Timestep", "TraceNumber", "ObjectSlot", 
-#'   and "Value" columns are always returned. `keep_cols` allows 
-#'   the user to include other columns that are not always required, e.g., 
-#'   "Object" and "Slot" instead of only the "ObjectSlot" column. If `keep_cols`
-#'   is `FALSE`, then only the above 5 columns are returned. If `keep_cols` is
-#'   `TRUE`, then all columns are returned. Finally, if `keep_cols` is a 
-#'   character vector, then the above 5 columns are returned, along with any of
-#'   those specified in `keep_cols`; if they are not found, a warning will post.
-#'   If `scenario` is specified, it will also always be returned.
+#'   keep in the returned tibble. The values of `keep_cols` work as follows:
+#'   * `FALSE` (default) only includes the defaults columns: "Timestep", 
+#'   `TraceNumber`, `ObjectSlot`, and `Value`. `Scenario` is also returned if 
+#'   `scenario` is specified.
+#'   * `TRUE`, all columns are returned.
+#'   * A character vector, e.g., `c("ObjectName", "Units")`, allows the user to 
+#'   include other columns that are not always required, in addition to the 
+#'   "default" set of columns. If any of the values in `keep_cols` are not 
+#'   found, a warning will post, but all other columns will be returned. 
 #' @param add_ym Boolean that controls whether or not `Year` and `Month` columns
 #'   are addded to the returned tibble. If `TRUE` (default), they will be added, 
 #'   and if `FALSE` they will not be added. They are constructed from the dates 
 #'   in the `Timestep` column.
 #' 
-#' @return A tibble with additional attributes from the rdf list
+#' @return A tibble with additional attributes from the rdf list.
 #' 
 #' @examples 
 #' rdftbl <- rw_rdf_to_tbl(keyRdf)
