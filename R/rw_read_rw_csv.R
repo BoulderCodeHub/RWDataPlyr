@@ -32,8 +32,8 @@ rwCsvOptionalCols <- function() {
 #' @param file The name of the file which the data are to be read from. Either 
 #'   an absolute or relative path.
 #' 
-#' @return A data frame `data.frame` containing a representation of the data in 
-#' the file.
+#' @return A tible (data frame) containing a representation of the data in 
+#'   the csv.
 #' 
 #' @examples 
 #' zz <- rw_read_rw_csv(system.file(
@@ -70,5 +70,22 @@ rw_read_rw_csv <- function(file) {
   i <- which(colnames(zz) == "SlotValue")
   colnames(zz)[i] <- "Value"
   
+  zz <- zz %>%
+    dplyr::mutate_at(.vars = "Timestep", .funs = convert_rw_csv_ts)
+  
   tibble::as_tibble(zz)
+}
+
+#' convert the timestep in the rw csv from mm-dd-yy hh:mm:ss to yyyy-m-dd 
+#' hh:mm:ss format
+#' 
+#' @noRd
+
+convert_rw_csv_ts <- function(ts)
+{
+  # expects timestep in mm-dd-yyyy hh:mm:ss format and we need to change it 
+  # to yyyy-mm-dd hh:mm:ss format
+  date_time <- simplify2array(strsplit(ts, " "))
+  yrmon <- simplify2array(strsplit(date_time[1,], "-"))
+  paste0(yrmon[3,],"-", as.integer(yrmon[1,]), "-", yrmon[2,], " ", date_time[2,])
 }
