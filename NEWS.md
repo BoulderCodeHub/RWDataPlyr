@@ -4,6 +4,9 @@
 * For monthly data, `getDataForAllScens()` will use full month name in the `Month` column. This change could break existing code if there are checks for particular months. (#20)
 * New function `rw_read_rw_csv()` to read csv files created from RiverWare or RiverSMART (#30)
 * New function `rw_rdf_to_tbl()` to convert rdf lists (read in from `read.rdf()`) to tibbles (#30)
+* Removed dependency on reshape2
+* Got rid of `read.rdf()` original implementation. Now `read.rdf2()` (the faster implementation) is named `read.rdf()` and `read.rdf2()` is deprecated. (#63)
+
 
 # RWDataPlyr 0.5.0
 
