@@ -4,7 +4,7 @@
 \alias{rw_rdf_to_tbl}
 \title{Convert RDF to a Tibble}
 \usage{
-rw_rdf_to_tbl(rdf, scenario = NULL)
+rw_rdf_to_tbl(rdf, scenario = NULL, keep_cols = FALSE)
 }
 \arguments{
 \item{rdf}{An rdf list returned from \code{\link[=read.rdf]{read.rdf()}}.}
@@ -12,6 +12,17 @@ rw_rdf_to_tbl(rdf, scenario = NULL)
 \item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
 will be added to the tibble as another variable. Typically a string, but it
 is not coerced to a string.}
+
+\item{keep_cols}{Either boolean, or a character vector of column names to
+keep in the returned tibble. The "Timestep", "TraceNumber", "ObjectSlot",
+and "Value" columns are always returned. \code{keep_cols} allows
+the user to include other columns that are not always required, e.g.,
+"Object" and "Slot" instead of only the "ObjectSlot" column. If \code{keep_cols}
+is \code{FALSE}, then only the above 5 columns are returned. If \code{keep_cols} is
+\code{TRUE}, then all columns are returned. Finally, if \code{keep_cols} is a
+character vector, then the above 5 columns are returned, along with any of
+those specified in \code{keep_cols}; if they are not found, a warning will post.
+If \code{scenario} is specified, it will also always be returned.}
 }
 \value{
 A tibble with additional attributes from the rdf list
