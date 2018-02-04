@@ -44,7 +44,7 @@ filterVarToMatrix <- function(zz, var, scen = "ISM1988_2014,2007Dems,IG,Most") {
 
 # ---------------------------------------
 # create a sal that tests every one of the agg methods
-sal <- createSlotAggList(matrix(c(
+sal <- slot_agg_list(matrix(c(
   "KeySlots.rdf", "Powell.Outflow", "AnnMin", NA, "powellMin",
   "KeySlots.rdf", "Powell.Outflow", "EOWY", NA, "powellEowy",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe",
@@ -62,7 +62,7 @@ sal <- createSlotAggList(matrix(c(
 ))
 
 # for now have to process monthly seperately
-salMonthly <- createSlotAggList(matrix(c(
+salMonthly <- slot_agg_list(matrix(c(
   "KeySlots.rdf", "Powell.Outflow", "Monthly", 10, "powellMothly10",
   "KeySlots.rdf", "Mead.Pool Elevation", "Monthly", .001, "meadMonthly001"),
   ncol = 5, byrow = TRUE

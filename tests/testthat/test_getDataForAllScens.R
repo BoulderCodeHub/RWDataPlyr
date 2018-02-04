@@ -4,7 +4,7 @@ context('check that getDataForAllScens works')
 # get a specified set of slots and apply some aggregation method to them
 scenNames <- scenFolders <- c('ISM1988_2014,2007Dems,IG,Most') 
 
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+slotAggList <- slot_agg_list(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.txt'
 retFile <- TRUE # return the data, instead of only save it as a text file
@@ -45,7 +45,7 @@ test_that('file extension is checked', {
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp.feather", FALSE)
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp.csv", FALSE)
 # annual (keyData)
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+slotAggList <- slot_agg_list(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp2.feather", FALSE)
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, "tmp2.csv", FALSE)
 

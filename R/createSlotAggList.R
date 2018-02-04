@@ -1,6 +1,6 @@
 #' Creates a list for use by \code{\link{getDataForAllScens}}.
 #' 
-#' Deprecated: please use [slot_agg()] instead, which returns the same list, but
+#' Deprecated: please use [slot_agg_list()] instead, which returns the same list, but
 #' now as a "slot_agg" object.
 #' 
 #' @param iData Either an Nx4 character matrix or a character with an absolute 
@@ -21,16 +21,19 @@ create_slot_agg_list <- function(iData)
   if(!is.matrix(iData)){
     if(length(iData) > 1){
       if(length(iData) %% 4 == 0){
-        warning("Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        warning("Attempting to convert iData to a N x 4 matrix. Results may be unexpected. Probably better to stop and pass a matrix to slot_agg_list()")
         iData <- matrix(iData, ncol = 4, byrow = T)
       } else if (length(iData) %% 5 == 0){
-        warning("Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to createSlotAggList.")
+        warning("Attempting to convert iData to a N x 5 matrix. Results may be unexpected. Probably better to stop and pass a matrix to slot_agg_list()")
         iData <- matrix(iData, ncol = 5, byrow = T)
       } else{
-        stop("iData is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix")
+        stop(
+          "`iData` is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix",
+          call. = FALSE
+        )
       }
     } else if(!file.exists(iData)){
-      stop(paste(iData,'does not exist.'))
+      stop(paste(iData,'does not exist.'), call. = FALSE)
     } else{
       iData <- as.matrix(utils::read.csv(iData,header = F))
     }

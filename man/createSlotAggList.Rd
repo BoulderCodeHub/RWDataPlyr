@@ -11,6 +11,6 @@ createSlotAggList(iData)
 or relative path to a csv file.}
 }
 \description{
-Deprecated: please use \code{\link[=slot_agg]{slot_agg()}} instead, which returns the same list, but
+Deprecated: please use \code{\link[=slot_agg_list]{slot_agg_list()}} instead, which returns the same list, but
 now as a "slot_agg" object.
 }

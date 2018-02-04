@@ -3,11 +3,11 @@ context('check that processSlots works')
 
 # check processSlots internal function using keyRdf and sysRdf
 
-sla <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
+sla <- slot_agg_list(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
                                   'AnnualRaw',NA,'meadPE'),nrow = 1))[[1]]
 sla <- rbind(sla$slots, sla$annualize, sla$varNames)
 
-sla2 <- createSlotAggList(matrix(c('SystemConditions.rdf', "SummaryOutputData.LBShortageConditions",
+sla2 <- slot_agg_list(matrix(c('SystemConditions.rdf', "SummaryOutputData.LBShortageConditions",
                                   'EOCY',NA), nrow=1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 
@@ -26,11 +26,11 @@ test_that("warnings are posted for agg method and data timestep mismatches", {
     )
 })
 
-sla <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
+sla <- slot_agg_list(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
                                    'EOCY',NA),nrow = 1))[[1]]
 sla <- rbind(sla$slots, sla$annualize, sla$varNames)
 
-sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
+sla2 <- slot_agg_list(matrix(c('KeySlots.rdf','Mead.Pool Elevation',
                                    'EOCY',NA,'meadPE'),nrow = 1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 
@@ -47,7 +47,7 @@ test_that('results match regardless of variable name', {
   expect_equal(df1$Value, df2$Value)
 })
 
-sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Something.Pool Elevation',
+sla2 <- slot_agg_list(matrix(c('KeySlots.rdf','Something.Pool Elevation',
                                   'EOCY',NA),nrow = 1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 
@@ -66,7 +66,7 @@ test_that('process slots stops as expected', {
                'slot: Something.Pool Elevation not found in rdf: KeySlots.rdf')
 })
 
-sla2 <- createSlotAggList(matrix(c('KeySlots.rdf','Something.Pool Elevation',
+sla2 <- slot_agg_list(matrix(c('KeySlots.rdf','Something.Pool Elevation',
                                    'EOCY',NA,"tst"),nrow = 1))[[1]]
 sla2 <- rbind(sla2$slots, sla2$annualize, sla2$varNames)
 df <- RWDataPlyr:::processSlots(sla2, keyRdf, "KeySlots.rdf", findAllSlots = FALSE)

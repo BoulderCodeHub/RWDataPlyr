@@ -7,7 +7,7 @@ context("check that RWDataPlyr:::getSlots() works as intended")
 nYrs <- 5
 nTraces <- 4
 
-sal <- createSlotAggList(matrix(
+sal <- slot_agg_list(matrix(
   c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA,"pe",
     "KeySlots.rdf", "no.Pool Elevation", "EOCY", NA, "no"),
   nrow = 2,
@@ -36,7 +36,7 @@ test_that("still get an error when second slot is the one that cannot be found",
   paste("slot:", "no.Pool Elevation", "not found in rdf:", "KeySlots.rdf"))
 })
 
-sal <- createSlotAggList(matrix(
+sal <- slot_agg_list(matrix(
   c('KeySlots.rdf','Mead.Pool Elevation','EOCY',NA,"pe",
     "KeySlots.rdf", "no.Pool Elevation", "EOCY", NA, "no",
     "KeySlots.rdf", "nonono.Pool Elevation", "EOCY", NA, "no2"),
