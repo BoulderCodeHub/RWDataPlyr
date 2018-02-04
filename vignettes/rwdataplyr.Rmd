@@ -93,7 +93,7 @@ The steps for annualizing the scenario results are:
 1. Determine which slots, from which rdf files are needed.
 1. Determine how the slots will be annualzied, i.e., summarized.
 1. Create the table, i.e., slot aggregation table, that provides the information from steps 1 and 2 to the package.
-1. Create the "slot aggregation list" from the table, using `createSlotAggList`.
+1. Create the "slot aggregation list" from the table, using `slot_agg_list()`.
 1. Run the code that saves the data frame.
 1. The saved data frame can then be read into R or other programs for plotting.
 
@@ -129,7 +129,7 @@ The data will be processed for each row, for all scenarios.
 
 ### Create the Data Table for All Scenarios
 
-After creating the slot aggregation table, either as an R matrix or as an external csv file, use `createSlotAggList` to create the slot aggregation list. Then, use `getDataForAllScens` to aggregate the data for all scenarios.  `getDAtaForAllScens` will save the data frame as a .txt file in the user specified folder. The .txt file can then be read into R for further analsysis, or for plotting. The choice was made to write the file out so that the user does not have to re-process the data everytime a small change to a plot is desired. 
+After creating the slot aggregation table, either as an R matrix or as an external csv file, use `slot_agg_list()` to create the slot aggregation list. Then, use `getDataForAllScens()` to aggregate the data for all scenarios.  `getDAtaForAllScens()` will save the data frame as a .txt file in the user specified folder. The .txt file can then be read into R for further analsysis, or for plotting. The choice was made to write the file out so that the user does not have to re-process the data everytime a small change to a plot is desired. 
 
 
 ```{r,eval=TRUE}
@@ -137,7 +137,7 @@ scenPath <- system.file('extdata','Scenario',package = 'RWDataPlyr')
 # two scenario folders that exist in scenPath
 scenFolders <- c('ISM1988_2014,2007Dems,IG,Most','ISM1988_2014,2007Dems,IG,2002') 
 scenNames <- c('Observed Hydrology','Observed Hydrology w/Options') # scenarios names
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+slotAggList <- slot_agg_list(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
 oFile <- 'allScenariosProcessed.txt'
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
 ```
