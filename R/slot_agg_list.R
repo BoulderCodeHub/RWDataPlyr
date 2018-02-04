@@ -132,7 +132,7 @@ slot_agg_list <- function(x)
 }
 
 #' @export
-print.slot_agg_list <- function(x)
+print.slot_agg_list <- function(x, ...)
 {
   printSlot <- function(x, i, rdfI){
     thresh <- ifelse(
@@ -163,9 +163,10 @@ print.slot_agg_list <- function(x)
 }
 
 #' @export
-summary.slot_agg_list <- function(x)
+summary.slot_agg_list <- function(object, ...)
 {
-  cat(length(x[[1]]$slots), "slots to aggregate from", length(x), "rdf(s).")
+  cat(length(object[[1]]$slots), "slots to aggregate from", length(object), 
+      "rdf(s).")
 }
 
 #' Test if the object is a slot_agg_list
