@@ -83,3 +83,11 @@ test_that("format of slot_agg_list is correct", {
   expect_equal(length(sal2[[2]]$varNames), 1)
   expect_false(all(is.na(sal2[[2]]$varNames)))
 })
+
+# compare old function to new -----------------------
+test_that("createSlotAggList matches slot_agg_list", {
+  expect_warning(expect_equivalent(
+    createSlotAggList(sam),
+    slot_agg_list(sam)
+  ))
+})
