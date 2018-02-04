@@ -138,8 +138,12 @@ scenPath <- system.file('extdata','Scenario',package = 'RWDataPlyr')
 scenFolders <- c('ISM1988_2014,2007Dems,IG,Most','ISM1988_2014,2007Dems,IG,2002') 
 scenNames <- c('Observed Hydrology','Observed Hydrology w/Options') # scenarios names
 slotAggList <- slot_agg_list(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
-oFile <- 'allScenariosProcessed.txt'
+oFile <- 'allScenariosProcessed.feather'
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile)
+```
+
+```{r, eval=TRUE, echo=FALSE}
+on.exit(unlink(oFile))
 ```
 
 ## Generating Common Figures
