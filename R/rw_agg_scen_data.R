@@ -28,12 +28,12 @@ period_filter_group <- function(rwtbl, period)
     rwtbl <- period_filter$fun(rwtbl) %>%
       dplyr::filter_at(
         "Month", 
-        dplyr::any_vars(. == period_filter$filter_months)
+        dplyr::any_vars(. %in% period_filter$filter_months)
       ) %>%
       dplyr::group_by_at(period_filter$group_tbl)
   } else {
     rwtbl <- rwtbl %>%
-      dplyr::filter_at("Month", dplyr::any_vars(. == period_filter)) %>%
+      dplyr::filter_at("Month", dplyr::any_vars(. %in% period_filter)) %>%
       dplyr::group_by_at("Year")
   }
   
