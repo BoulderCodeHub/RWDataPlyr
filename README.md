@@ -2,7 +2,7 @@ RWDataPlyr
 =================
 
 
-Contains R package to read and manipulate data from [RiverWare^TM^](http://www.riverware.org) that are saved as rdf (RiverWare data format) files.  
+Contains R package to read and manipulate data from [RiverWare<sup>TM</sup>](http://www.riverware.org) that are saved as rdf (RiverWare data format) files.  
 
 | Release (v0.5.0) | Development      |
 |:----------------:|:----------------:|
@@ -13,7 +13,7 @@ Contains R package to read and manipulate data from [RiverWare^TM^](http://www.r
 
 ## Overview
 
-RWDataPlyr is a tool to read and manipulate data generated from [RiverWare^TM^](http://www.riverware.org) simulations. It provides functions to gather data from multiple "scenarios", and aggregate the data in some manner. Common aggregation functions, e.g., annual minimum values, are included.  
+RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations. It provides functions to gather data from multiple "scenarios", and aggregate the data in some manner. Common aggregation functions, e.g., annual minimum values, are included.  
 
 ## Installation
 
