@@ -48,17 +48,60 @@ test_that("period_apply works with pre-specified periods", {
 })
 
 # check custom functions -------------------------------
+slot_agg_matrix <- data.frame(matrix(c(
+  "KeySlots.rdf", "Mead.Pool Elevation", "summer", "max", ">=", "1100", "peGt1100",
+  "KeySlots.rdf", "Powell.Outflow", "djf", "sum", "none", "none", "djrRel"
+), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
+
+colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
+
 # **** add these to vignette
-summer <- function()
+
+# globally defined, b/c user would be adding it to the global workspace
+summer <<- function()
 {
-  c("July", "August", "May")
+  list(
+    fun = function(x) x, 
+    filter_months = c("July", "August", "May"), 
+    group_tbl = c("Year")
+  )
 }
 
-# **** need to consider how this would work since you would want December of
 # the previous year to go with Jan and Feb of the current year
-djf <- function()
+djf <<- function()
 {
-  c("December", "January", "February")
+  djf_convert <- function(rwtbl)
+  {
+    rwtbl %>%
+      dplyr::mutate_at("Timestep", .funs = dplyr::funs("ym" = zoo::as.yearmon)) %>%
+      # can use the getWYFromYearmon b/c djf are all in same water year
+      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
+      dplyr::select(-dplyr::one_of("ym"))
+  }
   
-  # # ensure that it still has the appropriate attributes --------------
+  list(fun = djf_convert, filter_months = month.name[c(12, 1, 2)], group_tbl = c("Year"))
+  
 }
+
+on.exit(rm(summer, djf, envir = globalenv()))
+
+test_that("custom functions work for period_apply", {
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[1,]),
+    rwtbl %>% 
+      filter(ObjectSlot == slot_agg_matrix[1,]$slot, 
+             Month %in% summer()$filter_months) %>%
+      group_by(Year)
+  )
+  
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[2,]),
+    rwtbl %>% 
+      filter(ObjectSlot == slot_agg_matrix[2,]$slot, 
+             Month %in% djf()$filter_months) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = getWYFromYearmon(ym)) %>%
+      select(-ym) %>%
+      group_by(Year)
+  )
+})
