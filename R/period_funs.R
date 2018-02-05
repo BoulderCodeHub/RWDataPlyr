@@ -7,15 +7,15 @@ cy <- function() month.name
 
 wy <- function()
 {
+  wy_convert <- function(rwtbl)
+  {
+    rwtbl %>%
+      dplyr::mutate_at("Timestep", .funs = dplyr::funs("ym" = zoo::as.yearmon)) %>%
+      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
+      dplyr::select(-dplyr::one_of("ym"))
+  }
+  
   list(fun = wy_convert, filter_months = month.name, group_tbl = c("Year"))
-}
-
-wy_convert <- function(rwtbl)
-{
-  rwtbl %>%
-    dplyr::mutate_at("Timestep", .funs = dplyr::funs("ym" = zoo::as.yearmon)) %>%
-    dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
-    dplyr::select(-dplyr::one_of("ym"))
 }
 
 is_custom_period_fun <- function(x)
