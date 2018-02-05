@@ -10,7 +10,10 @@ wy <- function()
   wy_convert <- function(rwtbl)
   {
     rwtbl %>%
-      dplyr::mutate_at("Timestep", .funs = dplyr::funs("ym" = zoo::as.yearmon)) %>%
+      dplyr::mutate_at(
+        "Timestep", 
+        .funs = dplyr::funs("ym" = zoo::as.yearmon)
+      ) %>%
       dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
       dplyr::select(-dplyr::one_of("ym"))
   }
