@@ -73,14 +73,3 @@ check_period_filter <- function(period_filter, period)
          call. = FALSE)
   }
 }
-
-apply_summary <- function(rwtbl, slot_agg_row)
-{
-  # ** need to consider how to group/not lose the other column names that were 
-  # included in rwtbl
-}
-
-# can probably start using slot_agg_matrix that just reads that in directly 
-# and does a few checks; then find unique files; read those in, and then 
-# just do a row-wise apply of each row; don't think we need all the crazy list
-# levels
