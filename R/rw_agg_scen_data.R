@@ -2,25 +2,20 @@
 
 period_filter_group <- function(rwtbl, period)
 {
-  # CY:  group_by year
-  # WY: convert to WY,  group by year
-  # EOCY: filter only December, group by year
-  # EOWY: filter only September, group by year
-  # "March": filter only March, group by year
-  # custom: summer, filter June, July, and August
-  # asis: monthly stays monthly, annual stays annual; group by month and year
-  
   if (!(period %in% c(month.name, "asis"))) {
     # convert to appropriate function, and then chuck that function exists
     if (!exists(period, mode = "function"))
-        stop("specified `period`: ", period, " does not match expected values or existing functions.\n",
+        stop("specified `period`: ", period, 
+             " does not match expected values or existing functions.\n",
              "   Please see ?XXX for help.", call. = FALSE)
     
-    period_filter <- eval(parse(text = paste0(period, "()")))
- 
-    if (!is.character(period_filter) && !is_custom_period_fun(period_filter)) {
-      stop("Function `", period, "()` must return either a function or character vector.")
-    }
+    period_filter <- tryCatch(
+      eval(parse(text = paste0(period, "()"))), 
+      error = function(c) -1
+    )
+    
+    check_period_filter(period_filter, period)
+    
   } else if (period %in% month.name) {
     period_filter <- period
   }
@@ -31,7 +26,10 @@ period_filter_group <- function(rwtbl, period)
   } else if (is_custom_period_fun(period_filter)) {
     # list(fun = wy_convert, filter_months = month.name, group_tbl = c("Year"))
     rwtbl <- period_filter$fun(rwtbl) %>%
-      dplyr::filter_at("Month", dplyr::any_vars(. == period_filter$filter_months)) %>%
+      dplyr::filter_at(
+        "Month", 
+        dplyr::any_vars(. == period_filter$filter_months)
+      ) %>%
       dplyr::group_by_at(period_filter$group_tbl)
   } else {
     rwtbl <- rwtbl %>%
@@ -47,14 +45,39 @@ apply_period <- function(rwtbl, slot_agg_row)
   # check that it has Year and Month columns
 
   # filter based on slot
-  rwtbl <- dplyr::filter_at(rwtbl, "ObjectSlot", dplyr::any_vars(. == slot_agg_row$slot))
+  rwtbl <- dplyr::filter_at(
+    rwtbl, 
+    "ObjectSlot", 
+    dplyr::any_vars(. == slot_agg_row$slot)
+  ) %>%
+    # filter and group for period
+    period_filter_group(period = slot_agg_row$period)
+
+  rwtbl
+}
+
+check_period_filter <- function(period_filter, period)
+{
+  ftxt <- paste0("Function `", period, "()` ")
   
-  # filter and group for period
-  rwtbl <- period_filter_group(rwtbl, period = slot_agg_row$period)
+  if (is.numeric(period_filter) && period_filter == -1)
+    stop(ftxt, "exists, but could not be evaluated.\n",
+         "  It should not require any arguments.", call. = FALSE)
   
+  if (is.character(period_filter) && !all(period_filter %in% month.name))
+    stop(ftxt, "is returning characters that are not found in `month.name`",
+         call. = FALSE)
+  
+  if (!is.character(period_filter) && !is_custom_period_fun(period_filter)) {
+    stop(ftxt, "must return either a function or character vector.", 
+         call. = FALSE)
+  }
+}
+
+apply_summary <- function(rwtbl, slot_agg_row)
+{
   # ** need to consider how to group/not lose the other column names that were 
   # included in rwtbl
-  rwtbl
 }
 
 # can probably start using slot_agg_matrix that just reads that in directly 
