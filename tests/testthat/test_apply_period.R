@@ -13,33 +13,33 @@ slot_agg_matrix <- data.frame(matrix(c(
 
 colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
 
-tbl <- rw_rdf_to_tbl(keyRdf)
+rwtbl <- rw_rdf_to_tbl(keyRdf)
 
 # check pre-specified periods --------------------------
 test_that("period_apply works with pre-specified periods", {
   expect_identical(
-    RWDataPlyr:::apply_period(tbl, slot_agg_matrix[1,]),
-    filter(tbl, Month %in% month.name, ObjectSlot == slot_agg_matrix[1,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[1,]),
+    filter(rwtbl, Month %in% month.name, ObjectSlot == slot_agg_matrix[1,]$slot) %>%
       group_by(Year)
   )
   expect_identical(
-    RWDataPlyr:::apply_period(tbl, slot_agg_matrix[2,]),
-    filter(tbl, Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[2,]),
+    filter(rwtbl, Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
       group_by(Year)
   )
   expect_identical(
-    RWDataPlyr:::apply_period(tbl, slot_agg_matrix[3,]),
-    filter(tbl, Month %in% "July", ObjectSlot == slot_agg_matrix[3,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[3,]),
+    filter(rwtbl, Month %in% "July", ObjectSlot == slot_agg_matrix[3,]$slot) %>%
       group_by(Year)
   )
   expect_identical(
-    RWDataPlyr:::apply_period(tbl, slot_agg_matrix[4,]),
-    filter(tbl, ObjectSlot == slot_agg_matrix[4,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[4,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[4,]$slot) %>%
       group_by(Year, Month)
   )
   expect_identical(
-    RWDataPlyr:::apply_period(tbl, slot_agg_matrix[5,]),
-    filter(tbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = getWYFromYearmon(ym)) %>%
       select(-ym) %>%
