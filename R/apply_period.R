@@ -1,4 +1,29 @@
 
+#' Given user specified `period` input found in `slot_agg_row`, filter the 
+#' `Month` in `rwtbl` to only include those specified by `period`. 
+#' @noRd
+
+apply_period <- function(rwtbl, slot_agg_row)
+{
+  # check that it has Year and Month columns
+  
+  # filter based on slot
+  rwtbl <- dplyr::filter_at(
+    rwtbl, 
+    "ObjectSlot", 
+    dplyr::any_vars(. == slot_agg_row$slot)
+  ) %>%
+    # filter and group for period
+    period_filter_group(period = slot_agg_row$period)
+  
+  rwtbl
+}
+
+#' Call the function specified by `period`, and filter `Month` based on it
+#' 
+#' Also group by the pre-specified or user specified grouping.
+#' 
+#' @noRd
 
 period_filter_group <- function(rwtbl, period)
 {
@@ -40,21 +65,8 @@ period_filter_group <- function(rwtbl, period)
   rwtbl
 }
 
-apply_period <- function(rwtbl, slot_agg_row)
-{
-  # check that it has Year and Month columns
-
-  # filter based on slot
-  rwtbl <- dplyr::filter_at(
-    rwtbl, 
-    "ObjectSlot", 
-    dplyr::any_vars(. == slot_agg_row$slot)
-  ) %>%
-    # filter and group for period
-    period_filter_group(period = slot_agg_row$period)
-
-  rwtbl
-}
+#' After evaluating `period` (`period_filter`), ensure it meets all requirements
+#' @noRd
 
 check_period_filter <- function(period_filter, period)
 {
