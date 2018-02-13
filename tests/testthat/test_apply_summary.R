@@ -4,10 +4,10 @@ library(dplyr)
 # file             slot                 period   summary  eval  t_s  variable
 slot_agg_matrix <- data.frame(matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "cy", "min", "<=", "1000", "peLt1000",  
-  "KeySlots.rdf", "Mead.Pool Elevation", "eocy", NA, "none", "NA", "peEocy",
-  "KeySlots.rdf", "Powell.Outflow", "July", NA, "none", "NA", "julyRel",
-  "KeySlots.rdf", "Powell.Outflow", "asis", NA, "<=", "400000", "pMonthlyLt400k",
-  "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "none", ".001", "pwyRel"
+  "KeySlots.rdf", "Mead.Pool Elevation", "eocy", NA, NA, NA, "peEocy",
+  "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, NA, "julyRel",
+  "KeySlots.rdf", "Powell.Outflow", "asis", NA, ">", "400000", "pMonthlyLt400k",
+  "KeySlots.rdf", "Powell.Outflow", "wy", "sum", NA, ".001", "pwyRel"
 ), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
 
 colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", 
