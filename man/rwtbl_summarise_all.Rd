@@ -7,6 +7,29 @@
 rwtbl_summarise_all(slot_agg_matrix, scen_dir = ".", scenario = NULL,
   keep_cols = FALSE)
 }
+\arguments{
+\item{slot_agg_matrix}{A slot_agg_matrix specifying the rdfs, slot, and
+aggregation methods to use. See XXX.}
+
+\item{scen_dir}{The top level directory that contains the rdf files.}
+
+\item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
+will be added to the tibble as another variable. Typically a string, but it
+is not coerced to a string.}
+
+\item{keep_cols}{Either boolean, or a character vector of column names to
+keep in the returned tibble. The values of \code{keep_cols} work as follows:
+\itemize{
+\item \code{FALSE} (default) only includes the defaults columns: "Timestep",
+\code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
+\code{scenario} is specified.
+\item \code{TRUE}, all columns are returned.
+\item A character vector, e.g., \code{c("ObjectName", "Units")}, allows the user to
+include other columns that are not always required, in addition to the
+"default" set of columns. If any of the values in \code{keep_cols} are not
+found, a warning will post, but all other columns will be returned.
+}}
+}
 \description{
 \code{rwtbl_summarise_all()} processes a \code{slot_agg_matrix} for a single scenario.
 }

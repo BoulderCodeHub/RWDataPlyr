@@ -10,6 +10,11 @@
 
 #' `rwtbl_summarise_all()` processes a `slot_agg_matrix` for a single scenario.
 #' 
+#' @param slot_agg_matrix A slot_agg_matrix specifying the rdfs, slot, and 
+#'   aggregation methods to use. See XXX.
+#' @param scen_dir The top level directory that contains the rdf files.
+#' @inheritParams rw_rdf_to_tbl
+#' 
 #' @export
 
 rwtbl_summarise_all <- function(slot_agg_matrix, 

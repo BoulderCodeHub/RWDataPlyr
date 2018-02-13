@@ -28,5 +28,10 @@ test_that("rwtbl_summarise_all works, initially", {
     ),
     c("tbl_df")
   )
+  
+  # check attribute has the sam
+  # check that it contains all of the above variables
+  # check that it contains expected colnames
+  # check that annual slots only containd December; check that monthly slots contains all months
 })
 
