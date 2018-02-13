@@ -1,5 +1,5 @@
 
-context("check the period_apply function")
+context("check the apply_period function")
 library(dplyr)
 
 # file             slot                 period   summary  eval  t_s  variable
@@ -11,7 +11,8 @@ slot_agg_matrix <- data.frame(matrix(c(
   "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "none", ".001", "pwyRel"
 ), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
 
-colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
+colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", 
+                               "t_s", "variable")
 
 rwtbl <- rw_rdf_to_tbl(keyRdf)
 
@@ -53,7 +54,8 @@ slot_agg_matrix <- data.frame(matrix(c(
   "KeySlots.rdf", "Powell.Outflow", "djf", "sum", "none", "none", "djrRel"
 ), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
 
-colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
+colnames(slot_agg_matrix) <- c("file", "slot", "period", "summary", "eval", 
+                               "t_s", "variable")
 
 # **** add these to vignette
 
@@ -79,7 +81,11 @@ djf <<- function()
       dplyr::select(-dplyr::one_of("ym"))
   }
   
-  list(fun = djf_convert, filter_months = month.name[c(12, 1, 2)], group_tbl = c("Year"))
+  list(
+    fun = djf_convert, 
+    filter_months = month.name[c(12, 1, 2)], 
+    group_tbl = c("Year")
+  )
   
 }
 
