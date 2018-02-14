@@ -14,7 +14,7 @@
 #'   is not coerced to a string.
 #' @param keep_cols Either boolean, or a character vector of column names to 
 #'   keep in the returned tibble. The values of `keep_cols` work as follows:
-#'   * `FALSE` (default) only includes the defaults columns: "Timestep", 
+#'   * `FALSE` (default) only includes the defaults columns: `Timestep`, 
 #'   `TraceNumber`, `ObjectSlot`, and `Value`. `Scenario` is also returned if 
 #'   `scenario` is specified.
 #'   * `TRUE`, all columns are returned.
@@ -193,3 +193,10 @@ add_ym_to_rdftbl <- function(tbl)
     dplyr::select_at(c("Timestep", "Year", "Month", other_cols))
 }
 
+rwtbl_get_atts <- function(rwtbl)
+{
+  attributes(rwtbl)[match(
+    c("mrm_config_name", "owner", "description", "create_date", "n_traces"), 
+    names(attributes(rwtbl))
+  )]
+}

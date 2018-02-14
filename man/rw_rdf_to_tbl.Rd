@@ -16,7 +16,7 @@ is not coerced to a string.}
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
 \itemize{
-\item \code{FALSE} (default) only includes the defaults columns: "Timestep",
+\item \code{FALSE} (default) only includes the defaults columns: \code{Timestep},
 \code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
 \code{scenario} is specified.
 \item \code{TRUE}, all columns are returned.
