@@ -1,27 +1,26 @@
-# can probably start using slot_agg_matrix that just reads that in directly 
-# and does a few checks; then find unique files; read those in, and then 
-# just do a row-wise apply of each row; don't think we need all the crazy list
-# levels
 
-# summary:
-# which.min, which.max
-# Summary S4 generics that work: min, max, sum, prod, mean, median
-# no reason that a custom function won't work here
-
-#' `rwtbl_summarise_all()` processes a `slot_agg_matrix` for a single scenario.
+#' Aggregate RiverWare output for a single scenario
 #' 
-#' @param slot_agg_matrix A slot_agg_matrix specifying the rdfs, slot, and 
-#'   aggregation methods to use. See XXX.
+#' `rwtbl_aggregate()` aggregates a single scenario of data by processing a 
+#' [slot_agg_matrix]. The user specifies the [slot_agg_matrix], which 
+#' determines the slots that are aggregated, and how they are aggregated. See
+#' [slot_agg_matrix] for more details on how it should be specified.
+#' 
+#' @param slot_agg_matrix A [slot_agg_matrix] specifying the rdfs, slot, and 
+#'   aggregation methods to use.
 #' @param scen_dir The top level directory that contains the rdf files.
 #' @inheritParams rw_rdf_to_tbl
 #' 
 #' @export
 
-rwtbl_summarise_all <- function(slot_agg_matrix, 
-                                scen_dir = ".",
-                                scenario = NULL,
-                                keep_cols = FALSE)
+rwtbl_aggregate <- function(slot_agg_matrix, 
+                            scen_dir = ".",
+                            scenario = NULL,
+                            keep_cols = FALSE)
 {
+  if (!is.slot_agg_matrix(slot_agg_matrix))
+    stop("`slot_agg_matrix` passed to `rwtbl_aggregate()` is not a `slot_agg_matrix`")
+  
   # get unique rdf files
   rdfs <- unique(slot_agg_matrix$file)
   rdf_files <- file.path(scen_dir, rdfs)
@@ -38,7 +37,7 @@ rwtbl_summarise_all <- function(slot_agg_matrix,
   
   rdf_len <- seq_len(length(rdfs))
   
-  rwtblsummry <- lapply(
+  rwtblsmmry <- lapply(
     rdf_len,
     function(x){
       # call rwtbl_apply_sam for each unique rdf
@@ -58,14 +57,26 @@ rwtbl_summarise_all <- function(slot_agg_matrix,
     }
   )
   
-  rwtblsummry <- dplyr::bind_rows(rwtblsummry)
+  rwtbl_atts <- lapply(rdf_len, function(x) rwtbl_get_atts(rwtblsmmry[[x]]))
+  names(rwtbl_atts) <- rdfs
+  
+  rwtblsmmry <- dplyr::bind_rows(rwtblsmmry)
+  
+  cols <- colnames(rwtblsmmry)
+  cols <- cols[!(cols %in% c("Variable", "Value"))]
+  rwtblsmmry <- rwtblsmmry %>% 
+    dplyr::select(dplyr::one_of(cols, "Variable", "Value"))
   
   # save the sam as an attribute
   structure(
-    rwtblsummry,
-    "slot_agg_matrix" = slot_agg_matrix
+    rwtblsmmry,
+    "slot_agg_matrix" = slot_agg_matrix,
+    "rdf_atts" = rwtbl_atts
   )
 }
+
+#' Apply all of the slot aggregations to a single rdf file
+#' @noRd
 
 rwtbl_apply_sam <- function(rwtbl, slot_agg_matrix)
 {
@@ -75,8 +86,15 @@ rwtbl_apply_sam <- function(rwtbl, slot_agg_matrix)
     function(x) rwtbl_apply_sar(rwtbl, slot_agg_matrix[x,])
   )
   
-  dplyr::bind_rows(rwtblsmmry)
+  rwtblsmmry <- dplyr::bind_rows(rwtblsmmry)
+  
+  attributes(rwtblsmmry) <- c(attributes(rwtblsmmry), rwtbl_get_atts(rwtbl))
+  
+  rwtblsmmry
 }
+
+#' Apply a single slot agg matrix's row (sar)
+#' @noRd
 
 rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
 {
@@ -87,12 +105,18 @@ rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
     add_var_drop_objectslot(slot_agg_row)
 }
 
+#' Add in a `Variable` columns and drop the `ObjectSlot` column
+#' @noRd
+
 add_var_drop_objectslot <- function(rwtbl, slot_agg_row)
 {
   var_map <- slot_agg_row$variable
   names(var_map) <- slot_agg_row$slot
+  tmp_groups <- dplyr::group_vars(rwtbl)
+  tmp_groups <- tmp_groups[tmp_groups != "ObjectSlot"]
   
   rwtbl %>%
+    dplyr::group_by_at(tmp_groups) %>%
     dplyr::mutate_at("ObjectSlot", dplyr::funs("Variable" = var_map[.])) %>%
     dplyr::select(-dplyr::matches("ObjectSlot"))
 }
