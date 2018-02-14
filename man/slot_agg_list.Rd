@@ -132,5 +132,5 @@ slot_agg_list(slot_agg_matrix)
 
 }
 \seealso{
-\code{getDataForAllScens()}
+\code{\link[=getDataForAllScens]{getDataForAllScens()}}
 }

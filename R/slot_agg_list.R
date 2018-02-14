@@ -119,7 +119,7 @@
 #' )
 #' slot_agg_list(slot_agg_matrix)
 #' 
-#' @seealso `getDataForAllScens()`
+#' @seealso [getDataForAllScens()]
 #'
 #' @export
 
