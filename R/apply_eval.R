@@ -37,7 +37,7 @@ check_eval_and_t_s <- function(slot_agg_row)
   
   eval_col <- slot_agg_row$eval
   
-  if (!is.na(eval_col) & !(eval_col %in% getGroupMembers("Compare"))) {
+  if (!is.na(eval_col) & !(eval_col %in% methods::getGroupMembers("Compare"))) {
     stop(
       "'", eval_col, "' is not a valid `eval` value.\n",
       "The `eval` column in the slot agg matrix should either be\n",

@@ -24,10 +24,13 @@ apply_summary <- function(rwtbl, slot_agg_row)
     rwtbl <- summary_summarise(rwtbl, slot_agg_row$summary)
   } else {
     # drop the columns that aren't returned if you are summarising the tbl
-    drop_cols <- colnames(rwtbl)[!(colnames(rwtbl) %in% c(dplyr::group_vars(rwtbl), "Value"))]
+    drop_cols <- colnames(rwtbl)[!(
+      colnames(rwtbl) %in% c(dplyr::group_vars(rwtbl), "Value")
+    )]
+    
     rwtbl <- dplyr::select(rwtbl, -dplyr::one_of(drop_cols)) %>%
       # drop the last grouping variable to match output if you do summarise
-      dplyr::group_by_at(c(cur_groups, head(cols, -1)))
+      dplyr::group_by_at(c(cur_groups, utils::head(cols, -1)))
   }
   
   rwtbl
