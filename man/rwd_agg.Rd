@@ -127,6 +127,6 @@ rwd_agg(
 )
 
 # get all the monthly slots in KeySlots.rdf
-rw_agg(rdfs = "KeySlots.rdf")
+rwd_agg(rdfs = "KeySlots.rdf")
 
 }

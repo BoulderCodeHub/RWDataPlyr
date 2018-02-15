@@ -4,6 +4,9 @@
 #' S3 generic for coercing from lists, matrices, and data.frames to [rwd_agg] 
 #' objects.
 #' 
+#' @param x A list. Each element of the list must have the same length.
+#' @param ... Other arguments passed on to individual methods.
+#' 
 #' @export
 as_rwd_agg <- function(x, ...) 
 {

@@ -20,6 +20,11 @@ as_rwd_agg(x, ...)
 
 \method{as_rwd_agg}{default}(x, ...)
 }
+\arguments{
+\item{x}{A list. Each element of the list must have the same length.}
+
+\item{...}{Other arguments passed on to individual methods.}
+}
 \description{
 S3 generic for coercing from lists, matrices, and data.frames to \link{rwd_agg}
 objects.

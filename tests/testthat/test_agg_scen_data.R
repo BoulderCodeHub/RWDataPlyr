@@ -14,6 +14,8 @@ sam <- data.frame(matrix(c(
 
 colnames(sam) <- c("file", "slot", "period", "summary", "eval", 
                                "t_s", "variable")
+sam <- rwd_agg(sam)
+  
 dnfmost_dir <- system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
   package = "RWDataPlyr"
