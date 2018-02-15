@@ -18,6 +18,7 @@ Imports:
     stats,
     tibble,
     tidyr,
+    tools,
     utils,
     feather,
     xts,
