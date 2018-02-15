@@ -1,5 +1,4 @@
 #' Coerce lists, matrices, and data.frames to RiverWare data aggregators 
-#' ([rwd_agg])
 #' 
 #' S3 generic for coercing from lists, matrices, and data.frames to [rwd_agg] 
 #' objects.
@@ -35,6 +34,11 @@ as_rwd_agg.list <- function(x, ...)
 #' @rdname as_rwd_agg
 as_rwd_agg.matrix <- function(x, ...)
 {
+  x <- as.data.frame(
+    apply(x[,seq_len(ncol(x))], 2, as.character), 
+    stringsAsFactors = FALSE
+  )
+  x$t_s <- as.numeric(x$t_s)
   as_rwd_agg(as.data.frame(x, stringsAsFactors = FALSE, ...))
 }
 

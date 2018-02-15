@@ -108,7 +108,7 @@ check_period_asis <- function(rwd_agg)
 
 check_period_wy_cy <- function(rwd_agg)
 {
-  r2 <- rwd_agg[rwd_agg$period %in% c("CY", "WY"),]
+  r2 <- rwd_agg[rwd_agg$period %in% c("cy", "wy"),]
   if (nrow(r2) > 0) {
     if (nrow(r2[is.na(r2$summary),]) > 0) {
       stop(

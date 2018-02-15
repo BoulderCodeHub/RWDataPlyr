@@ -150,22 +150,29 @@ validate_rwd_agg <- function(x)
   
   cols <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
   if (ncol(x) != 7 | !all(colnames(x) == cols)) {
-    stop("The `colnames(x)` must be exactly:", paste(cols, collapse = ", "))
+    stop(
+      "The `colnames(x)` must be exactly: ", paste(cols, collapse = ", "), 
+      call. = FALSE
+    )
   }
   
   # all columns should not be factors
-  if ("factor" %in% simplify2array(lapply(1:7, function(cc) typeof(x[[cc]])))) {
-    stop("No columns should be factors.")
+  if ("factor" %in% simplify2array(lapply(1:7, function(cc) class(x[[cc]])))) {
+    stop("No columns should be factors.", call. = FALSE)
   }
   
   # check valid file extensions (for now only rdfs)
   if (!all(tools::file_ext(x$file) %in% rwd_ext)) {
-    stop("All `file` extensions should be: ", paste(rwd_ext, collapse = ","))
+    stop(
+      "All `file` extensions should be: ", paste(rwd_ext, collapse = ","),
+      call. = FALSE
+    )
   }
   
-  # all variables should be unique
-  if (length(unique(x$variable)) != nrow(x)) {
-    stop("All `variable`s should be unique.")
+  # all variables should be unique if the "all" keyword isn't used
+  tmp <- x[x$slot != "all",]
+  if (length(unique(tmp$variable)) != nrow(tmp)) {
+    stop("All `variable`s should be unique.", call. = FALSE)
   }
   
   # if period is "asis", then summary must be none
