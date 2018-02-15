@@ -1,11 +1,11 @@
 #' Create a vector of scenarios from different dimensions
 #' 
-#' \code{makeAllScenNames()} creates a vector of full scenario names by combining 
-#' multipe dimensions together.
+#' `makeAllScenNames()` creates a vector of full scenario names by combining 
+#' multiple dimensions together.
 #' 
 #' Many RiverWare runs are specified by multiple dimensions (or assumptions), 
 #' and RiverSMART creates folder names by combining the dimension names together
-#' for a full scenario name. \code{makeAllScenNames()} makes it quick to create all
+#' for a full scenario name. `makeAllScenNames()` makes it quick to create all
 #' of the full scenario names by passing in the names of the individual dimensions
 #' and creating all possible combinations of all dimensions. 
 #' 
@@ -19,10 +19,12 @@
 #' @param dim1 A character vector with all of the first dimension's scenario names.
 #' @param dim2 A character vector with all of the second dimension's scenario names. 
 #' @param ... As many individual character vectors as necessary for the remaining 
-#' dimension's scenario names.
-#' @param sep The character used to seperate the different dimension names. 
-#' Defaults to \code{","}.
+#'   dimension's scenario names.
+#' @param sep The character used to separate the different dimension names. 
+#'   Defaults to \code{","}.
+#'   
 #' @return A character vector of all possible scenario combinations.
+#'
 #' @examples
 #' makeAllScenNames("DNF", "CT", c("IG", "NA"), c("MTOM", "24-MS"))
 #' makeAllScenNames("DNF", "CT", c("IG", "NA"), sep = "_")

@@ -1,9 +1,10 @@
+
 #' Creates a list for use by \code{\link{getDataForAllScens}}.
 #' 
-#' Deprecated: please use [slot_agg_list()] instead, which returns the same list, but
-#' now as a "slot_agg" object.
+#' Deprecated: please use [slot_agg_list()] instead, which returns the same 
+#' list, but now as a "slot_agg_list" object.
 #' 
-#' @param iData Either an Nx4 character matrix or a character with an absolute 
+#' @param iData Either an N x 4 character matrix or a character with an absolute 
 #'   or relative path to a csv file.
 #' 
 #' @export

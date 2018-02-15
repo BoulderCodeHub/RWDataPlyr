@@ -2,7 +2,7 @@
 % Please edit documentation in R/rdf_to_tbl.R
 \name{rw_rdf_to_tbl}
 \alias{rw_rdf_to_tbl}
-\title{Convert RDF to a tibble}
+\title{Convert rdf to a tibble}
 \usage{
 rw_rdf_to_tbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 }
@@ -27,7 +27,7 @@ found, a warning will post, but all other columns will be returned.
 }}
 
 \item{add_ym}{Boolean that controls whether or not \code{Year} and \code{Month} columns
-are addded to the returned tibble. If \code{TRUE} (default), they will be added,
+are added to the returned tibble. If \code{TRUE} (default), they will be added,
 and if \code{FALSE} they will not be added. They are constructed from the dates
 in the \code{Timestep} column.}
 }
@@ -40,7 +40,7 @@ A tibble with additional attributes from the rdf list.
 \details{
 The rdf list is converted to a data frame, and then converted to a
 \code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries into the rdf list
-are stored as attribures in the returned tibble. These attributes are:
+are stored as attributes in the returned tibble. These attributes are:
 \code{mrm_config_name}, \code{owner}, \code{description}, \code{create_date}, and \code{n_traces}.
 }
 \examples{

@@ -19,7 +19,7 @@
 #' In order to specify how each slot should be aggregated, each column should 
 #' include specific keywords, which are described below. It is up to the user
 #' to specify which rdf file contains each slot. In a general case, the user
-#' specifes the `slot` that is found in a specific rdf file (`file`). A 
+#' specifies the `slot` that is found in a specific rdf file (`file`). A 
 #' `summary` function is applied to a subset `period` of the `slot`, and then
 #' compared (`eval`) to a threshold (`t_s`) and saved as the `variable`.
 #' - *file:* specifies the rdf file that contains the slot.
@@ -36,7 +36,7 @@
 #'   the `slot_agg` object, leave off the `()`, that is only specify the 
 #'   function name. This can also be a user specified custom function; see the
 #'   *Custom Period Functions* section. If the keyword "asis" is specified, the
-#'   data is returned for the timestep it natively exists at, i.e, monthly data
+#'   data is returned for its native timestep, i.e, monthly data
 #'   will return monthly data and annual data will return annual.
 #' - *summary:* the summary function that should be applied to the period 
 #'   specified as a function name, or `NA`. If the `period` specified is "asis"
@@ -75,14 +75,14 @@
 #' 
 #' Users can specify custom period functions to make it easier to group months
 #' together in custom ways. For example a function could return all of the 
-#' summer months, or the more complicated case groups months accross different
+#' summer months, or the more complicated case groups months across different
 #' calendar years together. In fact, `wy()` is an example of a function that 
 #' does this; another example might be grouping December - February together 
 #' for winter months. 
 #' 
 #' The custom period function should return a list with three elements:
 #' - `fun` - a function that will modify a rwtbl and properly determine the 
-#'   new `Year`s baed on the custom period.
+#'   new `Year`s based on the custom period.
 #' - `filter_months` - the months that should be grouped together.
 #' - `group_tbl` - how to group the returned rwtbl; likely either `c("Year")` or
 #'   `c("Year", "Month")`
@@ -91,9 +91,9 @@
 #' winter custom functions described above.
 #' 
 #' @param x A data.frame with required column names and valid entries; see 
-#'   *Details* and *Aggregation Sepcification* sections.
+#'   *Details* and *Aggregation Specification* sections.
 #' @param rdfs A vector of rdf names; see *Details* and 
-#'   *Aggregation Sepcification* sections.
+#'   *Aggregation Specification* sections.
 #'   
 #' @examples 
 #' # determine if Powell's minimum water year elevation is < 3550'

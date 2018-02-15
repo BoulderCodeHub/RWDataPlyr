@@ -11,7 +11,7 @@ rwCsvOptionalCols <- function() {
     "Input DMI Name", "MRM Config Name", "MRM Descriptors")
 }
 
-#' Read RiverWare/RiverSMART roduced csv files
+#' Read RiverWare/RiverSMART produced csv files
 #' 
 #' `rw_read_rw_csv()` reads in a CSV file created from RiverWare. If the CSV 
 #' file does not contain column names that RiverWare always uses (see Details), 

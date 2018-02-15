@@ -8,10 +8,10 @@ rwd_agg(x = NULL, rdfs = NULL)
 }
 \arguments{
 \item{x}{A data.frame with required column names and valid entries; see
-\emph{Details} and \emph{Aggregation Sepcification} sections.}
+\emph{Details} and \emph{Aggregation Specification} sections.}
 
 \item{rdfs}{A vector of rdf names; see \emph{Details} and
-\emph{Aggregation Sepcification} sections.}
+\emph{Aggregation Specification} sections.}
 }
 \description{
 \code{rwd_agg()} creates a RiverWare data aggregator (\code{rwd_agg}) object, which
@@ -36,7 +36,7 @@ aggregated/summarized.
 In order to specify how each slot should be aggregated, each column should
 include specific keywords, which are described below. It is up to the user
 to specify which rdf file contains each slot. In a general case, the user
-specifes the \code{slot} that is found in a specific rdf file (\code{file}). A
+specifies the \code{slot} that is found in a specific rdf file (\code{file}). A
 \code{summary} function is applied to a subset \code{period} of the \code{slot}, and then
 compared (\code{eval}) to a threshold (\code{t_s}) and saved as the \code{variable}.
 \itemize{
@@ -54,7 +54,7 @@ year, and \code{eowy()} selects the end of the water year. When specified in
 the \code{slot_agg} object, leave off the \code{()}, that is only specify the
 function name. This can also be a user specified custom function; see the
 \emph{Custom Period Functions} section. If the keyword "asis" is specified, the
-data is returned for the timestep it natively exists at, i.e, monthly data
+data is returned for its native timestep, i.e, monthly data
 will return monthly data and annual data will return annual.
 \item \emph{summary:} the summary function that should be applied to the period
 specified as a function name, or \code{NA}. If the \code{period} specified is "asis"
@@ -94,7 +94,7 @@ is below elevation 3550 feet, the following would be specified:\preformatted{dat
 
 Users can specify custom period functions to make it easier to group months
 together in custom ways. For example a function could return all of the
-summer months, or the more complicated case groups months accross different
+summer months, or the more complicated case groups months across different
 calendar years together. In fact, \code{wy()} is an example of a function that
 does this; another example might be grouping December - February together
 for winter months.
@@ -102,7 +102,7 @@ for winter months.
 The custom period function should return a list with three elements:
 \itemize{
 \item \code{fun} - a function that will modify a rwtbl and properly determine the
-new \code{Year}s baed on the custom period.
+new \code{Year}s based on the custom period.
 \item \code{filter_months} - the months that should be grouped together.
 \item \code{group_tbl} - how to group the returned rwtbl; likely either \code{c("Year")} or
 \code{c("Year", "Month")}

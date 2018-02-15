@@ -22,7 +22,7 @@ they are found in, and a set of keywords that are used to control how
 The \code{slot_agg_list} class, contains a list that includes: which rdf file to
 find each slot in, how to aggregate and process the slot data, and any
 thresholds or scaling factors. The function can either read in a csv file or
-start from an Nx4 or Nx5 string matrix (the 5th column is optional).
+start from an N x 4 or N x 5 string matrix (the 5th column is optional).
 
 The csv file and the matrix should be in the form of an Nx4 or Nx5 matrix.
 Each row is a single slot, aggregation, and threshold combination. If you
@@ -35,7 +35,7 @@ compare the slot data to. The fifth column is an optional column; if
 specified, the 5th column will be used for the variable name for the
 data.frame created by \code{\link[=getDataForAllScens]{getDataForAllScens()}}. If it is not specified
 the variable name will be created by concatenating the slot, aggregation
-method, and threshold/scaling factor using '_' to seperate the columns.
+method, and threshold/scaling factor using '_' to separate the columns.
 Below is an example table. All values should be strings except for \code{NA},
 if specified as a matrix in R.
 
@@ -62,14 +62,14 @@ the third row.
 To scale the data by a value less than 1, use decimals rather than fractions,
 as shown in the fourth row. If the Variable Name column was not specified,
 the variable name for the first row would be \code{Mead.Pool Elevation_EOCY_1}
-\code{NA} is replaced with a 1 when construcing the variable names.
+\code{NA} is replaced with a 1 when constructing the variable names.
 
-See the \strong{Aggregation Methods} section for available aggregtation methods.
+See the \strong{Aggregation Methods} section for available aggregation methods.
 }
 \section{Aggregation Methods}{
 
 
-The available aggregation methods are as follows. The behaviour of the
+The available aggregation methods are as follows. The behavior of the
 "Threshold or scaling factor" are described and a bold \strong{"Threshold"} or
 \strong{"Scaled"} indicates which is used by the aggregation method. For scaling
 factors, a value of \code{NA} will not scale the data.
@@ -104,13 +104,13 @@ or equal to a \strong{threshold.} Returns 100 if it is less than or equal to
 the \strong{threshold} and 0 otherwise. This can be used to determine if an
 entire water year is below a \strong{threshold}. The water year is defined
 as October through September of the next year. For the first year, only
-January through September are evaluated as RiveWare does not typcially
+January through September are evaluated as RiveWare does not typically
 export pre-simulation data.}
 \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than
 or equal to a \strong{threshold.} Returns 100 if it is less than or equal to
 the \strong{threshold} and 0 otherwise. The water year is defined as October
 through September of the next year. For the first year, only January through
-September are evaluated as RiveWare does not typcially export pre-simulation
+September are evaluated as RiveWare does not typically export pre-simulation
 data.}
 }
 }

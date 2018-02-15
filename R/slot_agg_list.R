@@ -8,7 +8,7 @@
 #' The `slot_agg_list` class, contains a list that includes: which rdf file to 
 #' find each slot in, how to aggregate and process the slot data, and any 
 #' thresholds or scaling factors. The function can either read in a csv file or 
-#' start from an Nx4 or Nx5 string matrix (the 5th column is optional).
+#' start from an N x 4 or N x 5 string matrix (the 5th column is optional).
 #' 
 #' The csv file and the matrix should be in the form of an Nx4 or Nx5 matrix.  
 #' Each row is a single slot, aggregation, and threshold combination. If you 
@@ -21,7 +21,7 @@
 #' specified, the 5th column will be used for the variable name for the 
 #' data.frame created by [getDataForAllScens()]. If it is not specified
 #' the variable name will be created by concatenating the slot, aggregation 
-#' method, and threshold/scaling factor using '_' to seperate the columns. 
+#' method, and threshold/scaling factor using '_' to separate the columns. 
 #' Below is an example table. All values should be strings except for `NA`, 
 #' if specified as a matrix in R.
 #' 
@@ -48,13 +48,13 @@
 #' To scale the data by a value less than 1, use decimals rather than fractions, 
 #' as shown in the fourth row. If the Variable Name column was not specified, 
 #' the variable name for the first row would be `Mead.Pool Elevation_EOCY_1`
-#' `NA` is replaced with a 1 when construcing the variable names.
+#' `NA` is replaced with a 1 when constructing the variable names.
 #' 
-#' See the **Aggregation Methods** section for available aggregtation methods.
+#' See the **Aggregation Methods** section for available aggregation methods.
 #' 
 #' @section Aggregation Methods:
 #' 
-#' The available aggregation methods are as follows. The behaviour of the 
+#' The available aggregation methods are as follows. The behavior of the 
 #' "Threshold or scaling factor" are described and a bold **"Threshold"** or 
 #' **"Scaled"** indicates which is used by the aggregation method. For scaling 
 #' factors, a value of `NA` will not scale the data.
@@ -89,13 +89,13 @@
 #'  the \strong{threshold} and 0 otherwise. This can be used to determine if an 
 #'  entire water year is below a \strong{threshold}. The water year is defined 
 #'  as October through September of the next year. For the first year, only 
-#'  January through September are evaluated as RiveWare does not typcially 
+#'  January through September are evaluated as RiveWare does not typically 
 #'  export pre-simulation data.}
 #'  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than 
 #'  or equal to a \strong{threshold.} Returns 100 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise. The water year is defined as October 
 #'  through September of the next year. For the first year, only January through 
-#'  September are evaluated as RiveWare does not typcially export pre-simulation 
+#'  September are evaluated as RiveWare does not typically export pre-simulation 
 #'  data.}
 #' }
 #' 

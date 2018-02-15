@@ -2,7 +2,7 @@
 % Please edit documentation in R/rw_read_rw_csv.R
 \name{rw_read_rw_csv}
 \alias{rw_read_rw_csv}
-\title{Read RiverWare/RiverSMART roduced csv files}
+\title{Read RiverWare/RiverSMART produced csv files}
 \usage{
 rw_read_rw_csv(file)
 }

@@ -14,7 +14,7 @@ makeAllScenNames(dim1, dim2, ..., sep = ",")
 \item{...}{As many individual character vectors as necessary for the remaining
 dimension's scenario names.}
 
-\item{sep}{The character used to seperate the different dimension names.
+\item{sep}{The character used to separate the different dimension names.
 Defaults to \code{","}.}
 }
 \value{
@@ -22,7 +22,7 @@ A character vector of all possible scenario combinations.
 }
 \description{
 \code{makeAllScenNames()} creates a vector of full scenario names by combining
-multipe dimensions together.
+multiple dimensions together.
 }
 \details{
 Many RiverWare runs are specified by multiple dimensions (or assumptions),

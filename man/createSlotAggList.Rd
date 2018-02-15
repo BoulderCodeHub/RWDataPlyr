@@ -7,10 +7,10 @@
 createSlotAggList(iData)
 }
 \arguments{
-\item{iData}{Either an Nx4 character matrix or a character with an absolute
+\item{iData}{Either an N x 4 character matrix or a character with an absolute
 or relative path to a csv file.}
 }
 \description{
-Deprecated: please use \code{\link[=slot_agg_list]{slot_agg_list()}} instead, which returns the same list, but
-now as a "slot_agg" object.
+Deprecated: please use \code{\link[=slot_agg_list]{slot_agg_list()}} instead, which returns the same
+list, but now as a "slot_agg_list" object.
 }

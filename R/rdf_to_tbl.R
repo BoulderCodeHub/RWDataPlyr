@@ -1,11 +1,11 @@
 
-#' Convert RDF to a tibble
+#' Convert rdf to a tibble
 #' 
 #' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
 #' 
 #' The rdf list is converted to a data frame, and then converted to a 
 #' [tibble::tibble()]. All of the `meta` entries into the rdf list
-#' are stored as attribures in the returned tibble. These attributes are:
+#' are stored as attributes in the returned tibble. These attributes are:
 #' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
 #' @param rdf An rdf list returned from [read.rdf()].
@@ -23,7 +23,7 @@
 #'   "default" set of columns. If any of the values in `keep_cols` are not 
 #'   found, a warning will post, but all other columns will be returned. 
 #' @param add_ym Boolean that controls whether or not `Year` and `Month` columns
-#'   are addded to the returned tibble. If `TRUE` (default), they will be added, 
+#'   are added to the returned tibble. If `TRUE` (default), they will be added, 
 #'   and if `FALSE` they will not be added. They are constructed from the dates 
 #'   in the `Timestep` column.
 #' 
