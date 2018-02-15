@@ -7,8 +7,7 @@
 \alias{as_rwd_agg.matrix}
 \alias{as_rwd_agg.default}
 \alias{as.rwd_agg}
-\title{Coerce lists, matrices, and data.frames to RiverWare data aggregators
-(\link{rwd_agg})}
+\title{Coerce lists, matrices, and data.frames to RiverWare data aggregators}
 \usage{
 as_rwd_agg(x, ...)
 
