@@ -1,20 +1,10 @@
 context("test rwtbl_aggregate()")
 library(dplyr)
 
-# file             slot                 period   summary  eval  t_s  variable
-sam <- data.frame(matrix(c(
-  "KeySlots.rdf", "Mead.Pool Elevation", "cy", "min", "<=", "1000", "peLt1000",  
-  "KeySlots.rdf", "Mead.Pool Elevation", "eocy", NA, NA, NA, "peEocy",
-  "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, NA, "julyRel",
-  "KeySlots.rdf", "Powell.Outflow", "asis", NA, ">", "400000", "pMonthlyGt400k",
-  "KeySlots.rdf", "Powell.Outflow", "wy", "sum", NA, ".001", "pwyRel",
-  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "asis", NA, NA, NA, "short",
-  "SystemConditions.rdf", "SummaryOutputData.UpperBalancingAbove823", "asis", NA, NA, NA, "ueb823"
-), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
-
-colnames(sam) <- c("file", "slot", "period", "summary", "eval", 
-                               "t_s", "variable")
-sam <- rwd_agg(sam)
+sam <- rwd_agg(read.csv(
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  stringsAsFactors = FALSE
+))
   
 dnfmost_dir <- system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
