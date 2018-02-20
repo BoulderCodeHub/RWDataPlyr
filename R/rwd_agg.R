@@ -200,8 +200,11 @@ rwd_ext <- c("rdf")
 #' 
 #' @return `TRUE` if the object inherits from the `rwd_agg` class.
 #' @export
-is_rwd_agg <- function(x) inherits(x, "rwd_agg")
+is_rwd_agg <- function(x)
+{
+  inherits(x, "rwd_agg")
+}
 
-#' @rdname is_slot_agg_list
+#' @rdname is_rwd_agg
 #' @export
 is.rwd_agg <- is_rwd_agg

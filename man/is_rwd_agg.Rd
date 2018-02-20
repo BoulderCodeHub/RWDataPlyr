@@ -2,9 +2,12 @@
 % Please edit documentation in R/rwd_agg.R
 \name{is_rwd_agg}
 \alias{is_rwd_agg}
+\alias{is.rwd_agg}
 \title{Test if the object is a rwd_agg}
 \usage{
 is_rwd_agg(x)
+
+is.rwd_agg(x)
 }
 \arguments{
 \item{x}{An object}
