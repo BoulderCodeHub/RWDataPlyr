@@ -124,3 +124,45 @@ test_that("as.rwd_agg methods work", {
   )
 })
 
+# check combine methods ----------------
+context("check the rbind.rwd_agg cbind.rwd_agg methods")
+
+df1 <- data.frame(
+  file = "KeySlots.rdf",
+  slot = "Powell.Pool Elevation",
+  period = "wy",
+  summary = "min",
+  eval = "<",
+  t_s = 3550,
+  variable = "powellLt3550",
+  stringsAsFactors = FALSE
+)
+ra1 <- rwd_agg(df1)
+
+ra2 <- rwd_agg(read.csv(
+  system.file(
+    "extdata/rwd_agg_files/passing_aggs.csv",
+    package = "RWDataPlyr"
+  ),
+  stringsAsFactors = FALSE
+))
+df2 <- as.data.frame(ra2)
+
+test_that("rbind method works on rwd_agg", {
+  expect_s3_class(tmp <- rbind(ra1, ra2), c("rwd_agg", "data.frame"))
+  expect_equal(dim(tmp), c(nrow(ra1) + nrow(ra2), 7))
+  expect_true(all(tmp$variable %in% c(ra1$variable, ra2$variable)))
+  expect_identical(tmp, as_rwd_agg(rbind(df1, df2)))
+})
+
+test_that("rbind method fails properly on rwd_agg", {
+  expect_error(rbind(ra1, ra1))
+})
+
+test_that("cbind method fails on rwd_agg objects", {
+  expect_error(
+    cbind(ra1, ra2), 
+    "`rwd_agg` objects cannot be combined by columns."
+  )
+})
+
