@@ -7,6 +7,7 @@
 * Removed dependency on reshape2
 * Got rid of `read.rdf()` original implementation. Now `read.rdf2()` (the faster implementation) is named `read.rdf()` and `read.rdf2()` is deprecated. (#63)
 * Formalized the list returned by `createSlotAggList()` as a `slot_agg_list` class. Created applicable constructor, which deprecates `createSlotAggList()`, `print()`, `summary()` and `is.`/`is_` methods and functions. (#67)
+* `rwd_agg` class. Includes methods for `rbind()`, `cbind()`, `as` and `is`. (#68)
 
 
 # RWDataPlyr 0.5.0

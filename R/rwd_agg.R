@@ -208,3 +208,41 @@ is_rwd_agg <- function(x)
 #' @rdname is_rwd_agg
 #' @export
 is.rwd_agg <- is_rwd_agg
+
+#' Given a rdf_file name and the rwtbl of that rdf, create a `rwd_agg` object
+#' that contains all of the slots found in that rdf.
+#' @noRd
+rwd_agg_build_all <- function(rwtbl, rdf_file)
+{
+  slots <- as.character(levels(as.factor(rwtbl$ObjectSlot)))
+  slot_names <- obj_slot_name(slots)
+  
+  rwd_agg(data.frame(
+    file = rdf_file,
+    slot = slots,
+    period = "asis",
+    summary = NA,
+    eval = NA,
+    t_s = NA,
+    variable = slot_names,
+    stringsAsFactors = FALSE
+  ))
+}
+
+#' Take an Object.Slot and construct a valid variable name. In general, this 
+#' will replace "." with "_" and convert to all lowercase. It will also shorten
+#' commonly used slot names. Right now, "Pool Elevation" is the only shortened
+#' slot name, and it is set to pe.
+#' @noRd
+obj_slot_name <- function(slots)
+{
+  obj_slot <- simplify2array(strsplit(slots, ".", fixed = TRUE))
+  obj_slot[2,obj_slot[2,] == "Pool Elevation"] <- "pe"
+  # replace : and " " with _
+  obj_slot <- gsub(":", "_", obj_slot)
+  obj_slot <- gsub(" ", "_", obj_slot)
+  # convert to all lower case
+  obj_slot <- tolower(obj_slot)
+  
+  paste(obj_slot[1,], obj_slot[2,], sep = "_")
+}

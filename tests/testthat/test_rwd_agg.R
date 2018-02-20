@@ -166,3 +166,39 @@ test_that("cbind method fails on rwd_agg objects", {
   )
 })
 
+# check the slotname function -----------------------
+testSlots <- c("Mead.Pool Elevation", "Powell.Outflow", 
+               "Morrow Point.Pool Elevation", "Blue Mesa.Evaporation", 
+               "AggObject:WaterUser.Depletion Requested")
+testAnswers <- c("mead_pe", "powell_outflow", "morrow_point_pe", 
+                 "blue_mesa_evaporation", 
+                 "aggobject_wateruser_depletion_requested")
+test_that("`obj_slot_name()` creates names as expected", {
+  expect_equal(RWDataPlyr:::obj_slot_name(testSlots), testAnswers, fixed = TRUE)
+  expect_equal(RWDataPlyr:::obj_slot_name(testSlots[1]), testAnswers[1])
+  expect_equal(RWDataPlyr:::obj_slot_name(testSlots[3]), testAnswers[3])
+})
+
+# check rwd_agg_build_all() ----------------------------
+keytbl <- rw_rdf_to_tbl(keyRdf)
+
+test_that("`rwd_agg_build_all()` constructs proper rwd_agg object", {
+  expect_s3_class(
+    tmp <- RWDataPlyr:::rwd_agg_build_all(keytbl, "KeySlots.rdf"), 
+    c("rwd_agg", "data.frame")
+  )
+  expect_identical(
+    tmp,
+    rwd_agg(data.frame(
+      file = "KeySlots.rdf",
+      slot = c("Mead.Pool Elevation", "Powell.Outflow"),
+      period = "asis",
+      summary = NA,
+      eval = NA, 
+      t_s = NA,
+      variable = c("mead_pe", "powell_outflow"),
+      stringsAsFactors = FALSE
+    ))
+  )
+})
+

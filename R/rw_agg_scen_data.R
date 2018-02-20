@@ -2,11 +2,11 @@
 #' Aggregate RiverWare output for a single scenario
 #' 
 #' `rwtbl_aggregate()` aggregates a single scenario of data by processing a 
-#' [rwd_agg]. The user specifies the [rwd_agg], which 
+#' [rwd_agg] object. The user specifies the [rwd_agg], which 
 #' determines the slots that are aggregated, and how they are aggregated. See
 #' [rwd_agg] for more details on how it should be specified.
 #' 
-#' @param slot_agg_matrix A [rwd_agg] specifying the rdfs, slot, and 
+#' @param slot_agg_matrix A [rwd_agg] object specifying the rdfs, slots, and 
 #'   aggregation methods to use.
 #' @param scen_dir The top level directory that contains the rdf files.
 #' @inheritParams rw_rdf_to_tbl
@@ -80,6 +80,11 @@ rwtbl_aggregate <- function(slot_agg_matrix,
 
 rwtbl_apply_sam <- function(rwtbl, slot_agg_matrix)
 {
+  # if rwd_agg uses the "all" keyword, need to construct the full rwd_agg
+  if (slot_agg_matrix$slot == "all") {
+    slot_agg_matrix <- rwd_agg_build_all(slot_agg_matrix$file, rwtbl)
+  }
+  
   sam_rows <- seq_len(nrow(slot_agg_matrix))
   rwtblsmmry <- lapply(
     sam_rows, 

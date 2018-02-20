@@ -100,3 +100,18 @@ test_that("test rwtbl_aggregate() structure", {
   ))
 })
 
+# check that the "all" keyword gets all the data --------------------------
+test_that("'all' keyword gets all data", {
+  expect_is(
+    tmp <- rwtbl_aggregate(
+      rwd_agg(rdfs = "KeySlots.rdf"),
+      scen_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE
+    ),
+    c("tbl_df")
+  )
+  expect_true(all(as.character(levels(as.factor(tmp$variable))) %in% c("powell_outflow", "mead_pe")))
+})
+
+
