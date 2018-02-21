@@ -74,11 +74,17 @@ rwtbl_aggregate <- function(slot_agg_matrix,
   rwtblsmmry <- rwtblsmmry %>% 
     dplyr::select(dplyr::one_of(cols, "Variable", "Value"))
   
+  scen_folder <- data.frame(
+    "scenario" = ifelse(is.null(scenario), NA_character_, scenario), 
+    "folder" = normalizePath(scen_dir)
+  )
+  
   # save the sam as an attribute
   structure(
     rwtblsmmry,
     "slot_agg_matrix" = slot_agg_matrix,
-    "rdf_atts" = rwtbl_atts
+    "rdf_atts" = rwtbl_atts,
+    "scen_folder" = scen_folder
   )
 }
 

@@ -31,6 +31,11 @@ test_that("test rwtbl_aggregate() structure", {
     attributes(tmp)$slot_agg_matrix, ra1
   )
   
+  expect_identical(
+    attributes(tmp)$scen_folder,
+    data.frame(scenario = "DNFMost", folder = normalizePath(dnfmost_dir))
+  )
+  
   # check that it contains the same attributes as keyRdf
   expect_identical(
     attributes(tmp)$rdf_atts$KeySlots.rdf$mrm_config_name, 
