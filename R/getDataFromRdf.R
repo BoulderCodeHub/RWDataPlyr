@@ -22,8 +22,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 {
   ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
-	thresh[is.na(thresh)] = 1 # can use thresh as a scale also.  If it is not specified,
-	# then multiply by 1.
+	# can use thresh as a scale also.  If it is not specified, then multiply by 1.
+	thresh[is.na(thresh)] = 1 
 	slot <- slotsAnnualize[1]
 
 	if(!(slot %in% getSlotsInRdf(rdf))){
@@ -59,7 +59,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	}
 	
 	if(tsUnit == 'year' & ann != 'AnnualRaw'){
-	  # data is annual, so none of the aggregation methods besides annualRaw make sense
+	  # data is annual, so none of the aggregation methods besides annualRaw 
+	  # make sense
 	  warning(paste('rdf contains annual data, but the aggregation method is not "AnnualRaw".\n',
 	                'Processing using "AnnualRaw" instead. Edit the slotAggList and call getDataForAllScens again, if necessary. '))
 	  ann = 'AnnualRaw'
@@ -99,7 +100,9 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'Monthly'){
-		rownames(slot) <- as.character(zoo::as.yearmon(yy[1] + seq(0, (length(yy) * 12)-1)/12))
+		rownames(slot) <- as.character(
+		  zoo::as.yearmon(yy[1] + seq(0, (length(yy) * 12) - 1) / 12)
+		)
 		slot <- slot*thresh
 	} else if(ann == 'WYMinLTE'){
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
@@ -126,9 +129,11 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	} else if(ann == 'AnnualRaw'){
 		if(tsUnit == 'month'){
 		  # data is monthly, so will use EOCY
-		  warning(paste('User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
-		          'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
-		          'edit the slot agg list and call getDataForAllScens again.'))
+		  warning(paste(
+		    'User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
+		    'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
+		    'edit the slot agg list and call getDataForAllScens again.'
+		    ))
 		  slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE] 
 		  slot[is.nan(slot)] <- 0
 		  slot <- slot * thresh
@@ -173,7 +178,10 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		) %>%
 		  dplyr::mutate(
 		    Year = as.numeric(simplify2array(strsplit(Month, ' '))[2,]),
-		    Month = month.name[match(simplify2array(strsplit(Month, " "))[1,], month.abb)],
+		    Month = month.name[match(
+		      simplify2array(strsplit(Month, " "))[1,], 
+		      month.abb
+		    )],
 		    Trace = as.integer(Trace),
 		    Variable = dplyr::if_else(
 		      is.na(slotsAnnualize[4]),
