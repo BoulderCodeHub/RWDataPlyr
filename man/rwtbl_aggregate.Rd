@@ -5,7 +5,7 @@
 \title{Aggregate RiverWare output for a single scenario}
 \usage{
 rwtbl_aggregate(slot_agg_matrix, scen_dir = ".", scenario = NULL,
-  keep_cols = FALSE)
+  keep_cols = FALSE, nans_are = "0")
 }
 \arguments{
 \item{slot_agg_matrix}{A \link{rwd_agg} object specifying the rdfs, slots, and
@@ -29,6 +29,10 @@ include other columns that are not always required, in addition to the
 "default" set of columns. If any of the values in \code{keep_cols} are not
 found, a warning will post, but all other columns will be returned.
 }}
+
+\item{nans_are}{Either "0" or "error". If "0", then \code{NaN}s in the rwtbl are
+treated as 0s. If "error", then any \code{NaN}s will cause an error in this
+function.}
 }
 \description{
 \code{rwtbl_aggregate()} aggregates a single scenario of data by processing a

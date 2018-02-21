@@ -10,16 +10,22 @@
 #'   aggregation methods to use.
 #' @param scen_dir The top level directory that contains the rdf files.
 #' @inheritParams rw_rdf_to_tbl
+#' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
+#'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
+#'   function.
 #' 
 #' @export
 
 rwtbl_aggregate <- function(slot_agg_matrix, 
                             scen_dir = ".",
                             scenario = NULL,
-                            keep_cols = FALSE)
+                            keep_cols = FALSE,
+                            nans_are = "0")
 {
   if (!is_rwd_agg(slot_agg_matrix))
     stop("`slot_agg_matrix` passed to `rwtbl_aggregate()` is not a `rwd_agg`")
+  
+  nans_are <- match.arg(nans_are, choices = c("0", "error"))
   
   # get unique rdf files
   rdfs <- unique(slot_agg_matrix$file)
@@ -49,7 +55,8 @@ rwtbl_aggregate <- function(slot_agg_matrix,
         scenario = scenario, 
         keep_cols = keep_cols, 
         add_ym = TRUE
-      ) 
+      ) %>%
+        check_nans(nans_are, rdf_file = rdf_files[x])
       
       tmp_sam <- slot_agg_matrix[slot_agg_matrix$file == rdfs[x],]
       
@@ -158,3 +165,52 @@ add_month_to_annual <- function(rwtbl)
   rwtbl
 }
 
+#' Check if there are any NaNs in the `rwtbl`, and either convert to 0s or 
+#' throw an error.
+#' 
+#' @inheritParams rwtbl_aggregate
+#' @param rdf_file The rdf file name as a character.
+#' 
+#' @noRd
+check_nans <- function(rwtbl, nans_are, rdf_file)
+{
+  nans_are <- match.arg(nans_are, choices = c("0", "error"))
+  
+  if (any(is.nan(rwtbl$Value))) {
+    if (nans_are == "error") {
+      slots <- rwtbl %>%
+        dplyr::filter_at("Value", dplyr::all_vars(is.nan(.)))
+      
+      slots <- unique(slots$ObjectSlot)
+      nSlots <- length(slots)
+      slotM <- ""
+      if (length(slots) > 10) {
+        slots <- slots[1:10]
+        slotM <- "...\n(Only the first 10 slots containing `NaN`s are printed.)"
+      }
+      
+      stop(
+        "`NaN`s were found in ", rdf_file, 
+        " and `nans_are` treated as an error.\n",
+        "`NaN`s were found in ", nSlots, " slots:\n",
+        paste(slots, collapse = "\n"),
+        "\n", slotM,
+        call. = FALSE
+      )
+      
+    } else {
+      # convert any NaNs to 0
+      rwtbl <- rwtbl %>%
+        dplyr::mutate_at("Value", nan_to_zero)
+    }
+  }
+  
+  rwtbl
+}
+
+#' Convert NaNs to 0
+#' @noRd
+nan_to_zero <- function(x) {
+  x[is.nan(x)] <- 0
+  x
+}

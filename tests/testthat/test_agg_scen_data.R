@@ -138,4 +138,50 @@ test_that("'all' keyword gets all data", {
   )
 })
 
+# check handling NaNs -----------------------------------
+ss <- c("Shortage.ShortageFlag", "Coordinated Operation.ReducedReleaseFlag")
+flags_rdf <- rw_rdf_to_tbl(read.rdf(file.path(dnfmost_dir, "Flags.rdf"))) %>%
+  filter(ObjectSlot %in% ss)
+short_ra <- rwd_agg(data.frame(
+  file = "Flags.rdf", 
+  slot = ss, 
+  period = "asis", 
+  summary = NA, 
+  eval = NA, 
+  t_s = NA, 
+  variable = c("short_flag", "rdc_flag"),
+  stringsAsFactors = FALSE
+))
 
+test_that("`NaN`s are treated properly in `rwtbl_aggregate()`", {
+  expect_error(rwtbl_aggregate(
+    rwd_agg(rdfs = "Flags.rdf"), 
+    scen_dir = dnfmost_dir, 
+    nans_are = "error"
+  ))
+  
+  expect_error(rwtbl_aggregate(
+    short_ra, scen_dir = dnfmost_dir, nans_are = "error"
+  ))
+  
+  expect_is(
+    t1 <- rwtbl_aggregate(short_ra, scen_dir = dnfmost_dir, nans_are = "0"),
+    "tbl_df"
+  )
+  # flags that have no NaNs should not be affected
+  expect_equal(
+    (t1 %>% filter(Variable == "rdc_flag"))$Value,
+    (flags_rdf %>% filter(ObjectSlot == ss[2]))$Value
+  )
+  # converting to 0s should not affect the sum
+  expect_equal(
+    (t1 %>%
+       filter(Variable == "short_flag") %>%
+       group_by(Year, Month, TraceNumber) %>%
+       summarise(Value = sum(Value)))$Value,
+    (flags_rdf %>%
+       filter(ObjectSlot == ss[1]) %>%
+       group_by(Year, Month, TraceNumber) %>%
+       summarise(Value = sum(Value, na.rm = TRUE)))$Value
+  )
+})
