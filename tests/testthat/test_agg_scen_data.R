@@ -1,7 +1,7 @@
 context("test rwtbl_aggregate()")
 library(dplyr)
 
-sam <- rwd_agg(read.csv(
+ra1 <- rwd_agg(read.csv(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
   stringsAsFactors = FALSE
 ))
@@ -13,21 +13,22 @@ dnfmost_dir <- system.file(
 
 keyrwtbl <- rw_rdf_to_tbl(keyRdf)
 sysrwtbl <- rw_rdf_to_tbl(sysRdf)
-  
+
+# test rwtbl_aggregate() structure -------------------------
 test_that("test rwtbl_aggregate() structure", {
   expect_s3_class(
     tmp <- rwtbl_aggregate(
-      sam,
+      ra1,
       scen_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE
     ),
-    c("tbl_df")
+    c("tbl_df", "data.frame")
   )
   
-  # check attribute has the sam
+  # check attribute has the ra1
   expect_identical(
-    attributes(tmp)$slot_agg_matrix, sam
+    attributes(tmp)$slot_agg_matrix, ra1
   )
   
   # check that it contains the same attributes as keyRdf
@@ -74,10 +75,10 @@ test_that("test rwtbl_aggregate() structure", {
   )
   # check that it contains all of the above variables
   expect_true(
-    all(as.character(levels(as.factor(tmp$Variable))) %in% sam$variable)
+    all(as.character(levels(as.factor(tmp$Variable))) %in% ra1$variable)
   )
   expect_true(
-    all(sam$variable %in% as.character(levels(as.factor(tmp$Variable))))
+    all(ra1$variable %in% as.character(levels(as.factor(tmp$Variable))))
   )
   # check that it contains expected colnames
   expect_equal(
@@ -111,7 +112,30 @@ test_that("'all' keyword gets all data", {
     ),
     c("tbl_df")
   )
-  expect_true(all(as.character(levels(as.factor(tmp$variable))) %in% c("powell_outflow", "mead_pe")))
+  expect_true(all(as.character(levels(as.factor(tmp$Variable))) %in% 
+                    c("powell_outflow", "mead_pe")))
+  
+  # check function when the rwd_agg includes "all" and summary slots from the
+  # same rdf
+  expect_is(
+    tmp2 <- rwtbl_aggregate(
+      rbind(ra1, rwd_agg(rdfs = "KeySlots.rdf")),
+      scen_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE
+    ),
+    c("tbl_df")
+  )
+  expect_true(all(as.character(levels(as.factor(tmp$Variable))) %in%
+                    c("powell_outflow", "mead_pe", ra1$variable)))
+  
+  # compare the two data, they should be the same
+  expect_equal(
+    tmp %>% arrange(Year, Month, TraceNumber, Scenario, Variable),
+    tmp2 %>% 
+      filter(Variable %in% c("powell_outflow", "mead_pe")) %>%
+      arrange(Year, Month, TraceNumber, Scenario, Variable)
+  )
 })
 
 

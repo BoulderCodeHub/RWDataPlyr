@@ -81,8 +81,23 @@ rwtbl_aggregate <- function(slot_agg_matrix,
 rwtbl_apply_sam <- function(rwtbl, slot_agg_matrix)
 {
   # if rwd_agg uses the "all" keyword, need to construct the full rwd_agg
-  if (slot_agg_matrix$slot == "all") {
-    slot_agg_matrix <- rwd_agg_build_all(slot_agg_matrix$file, rwtbl)
+  # need to determine if only the all key word exists, or if there is one 
+  # row that is all, but then there are summary rows
+  if ("all" %in% slot_agg_matrix$slot) {
+    if (nrow(slot_agg_matrix) == 1) {
+      slot_agg_matrix <- rwd_agg_build_all(rwtbl, slot_agg_matrix$file)
+    } else {
+      # must have other summary rows, so remove all row and combine with the 
+      # "all" rows
+      slot_agg_matrix <- rbind(
+        slot_agg_matrix[slot_agg_matrix$slot != "all",],
+        rwd_agg_build_all(
+          rwtbl,
+          slot_agg_matrix$file[slot_agg_matrix$slot == "all"]
+        )
+      )
+    }
+    
   }
   
   sam_rows <- seq_len(nrow(slot_agg_matrix))
