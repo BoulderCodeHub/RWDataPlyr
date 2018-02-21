@@ -8,7 +8,7 @@ rwtbl_aggregate(slot_agg_matrix, scen_dir = ".", scenario = NULL,
   keep_cols = FALSE)
 }
 \arguments{
-\item{slot_agg_matrix}{A \link{rwd_agg} specifying the rdfs, slot, and
+\item{slot_agg_matrix}{A \link{rwd_agg} object specifying the rdfs, slots, and
 aggregation methods to use.}
 
 \item{scen_dir}{The top level directory that contains the rdf files.}
@@ -32,7 +32,7 @@ found, a warning will post, but all other columns will be returned.
 }
 \description{
 \code{rwtbl_aggregate()} aggregates a single scenario of data by processing a
-\link{rwd_agg}. The user specifies the \link{rwd_agg}, which
+\link{rwd_agg} object. The user specifies the \link{rwd_agg}, which
 determines the slots that are aggregated, and how they are aggregated. See
 \link{rwd_agg} for more details on how it should be specified.
 }
