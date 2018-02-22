@@ -354,31 +354,37 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath,
                                oFile, retFile = FALSE, findAllSlots = TRUE)
 {
   # determine file type to save data as:
-  oFile <- gsub('\\', '/', oFile, fixed = TRUE)
-  fName <- utils::tail(strsplit(oFile,'/', fixed = T)[[1]],1)
-  fExt <- utils::tail(strsplit(fName,'.', fixed = TRUE)[[1]],1)
+  fExt <- tools::file_ext(oFile)
   if(!(fExt %in% c('txt', 'csv', 'feather'))){
     stop(paste0('oFile has an invalid file exention.\n',
                 'getDataForAllScens does not know how to handle ".', fExt,
                 '" extensions.'))
   }
   
-	scenPath = paste(scenPath,'/',scenFolders,sep = '')
+	scenPath = file.path(scenPath, scenFolders)
 	scen = cbind(scenPath, scenNames)
 	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList, findAllSlots)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
-	
-	if(fExt == 'txt'){
-	  data.table::fwrite(zz, file = oFile, row.names = F, sep = '\t')
-	} else if(fExt == 'csv'){
-	  data.table::fwrite(zz, oFile, row.names = F, sep = ",")
-	} else if(fExt == 'feather'){
-	  feather::write_feather(zz, oFile)
-	}
+	write_rw_data(zz, oFile)
 	
 	if(retFile){
 	  zz
 	}
 }
 
+#' Write out csv, txt, or a feather file.
+#' @noRd
+write_rw_date <- function(zz, oFile)
+{
+  fExt <- tools::file_ext(oFile)
+  if(fExt == 'txt'){
+    data.table::fwrite(zz, file = oFile, row.names = F, sep = '\t')
+  } else if(fExt == 'csv'){
+    data.table::fwrite(zz, oFile, row.names = F, sep = ",")
+  } else if(fExt == 'feather'){
+    feather::write_feather(zz, oFile)
+  }
+  
+  invisible(zz)
+}
