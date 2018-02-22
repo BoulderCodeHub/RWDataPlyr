@@ -8,7 +8,7 @@
 #' 
 #' @param slot_agg_matrix A [rwd_agg] object specifying the rdfs, slots, and 
 #'   aggregation methods to use.
-#' @param scen_dir The top level directory that contains the rdf files.
+#' @param rdf_dir The top level directory that contains the rdf files.
 #' @inheritParams rw_rdf_to_tbl
 #' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
 #'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
@@ -17,7 +17,7 @@
 #' @export
 
 rwtbl_aggregate <- function(slot_agg_matrix, 
-                            scen_dir = ".",
+                            rdf_dir = ".",
                             scenario = NULL,
                             keep_cols = FALSE,
                             nans_are = "0")
@@ -29,13 +29,13 @@ rwtbl_aggregate <- function(slot_agg_matrix,
   
   # get unique rdf files
   rdfs <- unique(slot_agg_matrix$file)
-  rdf_files <- file.path(scen_dir, rdfs)
+  rdf_files <- file.path(rdf_dir, rdfs)
   rdfs_exist <- file.exists(rdf_files)
   
   # verify rdfs exist
   if (!any(rdfs_exist)) {
     stop(
-      "The following rdfs were not found in ", normalizePath(scen_dir), ":\n",
+      "The following rdfs were not found in ", normalizePath(rdf_dir), ":\n",
       toString(rdfs[!rdfs_exist]), 
       call. = FALSE
     )
@@ -76,7 +76,7 @@ rwtbl_aggregate <- function(slot_agg_matrix,
   
   scen_folder <- data.frame(
     "scenario" = ifelse(is.null(scenario), NA_character_, scenario), 
-    "folder" = normalizePath(scen_dir)
+    "folder" = normalizePath(rdf_dir)
   )
   
   # save the sam as an attribute
