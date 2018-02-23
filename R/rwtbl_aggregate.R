@@ -1,12 +1,17 @@
 
-#' Aggregate RiverWare output for a single scenario
+#' Aggregate RiverWare output for one or more scenarios
+#' 
+#' Process the user specified `rwd_agg` object for one or more scenarios to 
+#' aggregate and summarize RiverWare output data.
 #' 
 #' `rwtbl_aggregate()` aggregates a single scenario of data by processing a 
-#' [rwd_agg] object. The user specifies the [rwd_agg], which 
+#' [rwd_agg] object. 
+#' 
+#' In both cases, the user specifies the [rwd_agg], which 
 #' determines the slots that are aggregated, and how they are aggregated. See
 #' [rwd_agg] for more details on how it should be specified.
 #' 
-#' @param slot_agg_matrix A [rwd_agg] object specifying the rdfs, slots, and 
+#' @param agg A [rwd_agg] object specifying the rdfs, slots, and 
 #'   aggregation methods to use.
 #' @param rdf_dir The top level directory that contains the rdf files.
 #' @inheritParams rw_rdf_to_tbl
@@ -16,19 +21,19 @@
 #' 
 #' @export
 
-rwtbl_aggregate <- function(slot_agg_matrix, 
+rwtbl_aggregate <- function(agg, 
                             rdf_dir = ".",
                             scenario = NULL,
                             keep_cols = FALSE,
                             nans_are = "0")
 {
-  if (!is_rwd_agg(slot_agg_matrix))
-    stop("`slot_agg_matrix` passed to `rwtbl_aggregate()` is not a `rwd_agg`")
+  if (!is_rwd_agg(agg))
+    stop("`agg` passed to `rwtbl_aggregate()` is not a `rwd_agg`")
   
   nans_are <- match.arg(nans_are, choices = c("0", "error"))
   
   # get unique rdf files
-  rdfs <- unique(slot_agg_matrix$file)
+  rdfs <- unique(agg$file)
   rdf_files <- file.path(rdf_dir, rdfs)
   rdfs_exist <- file.exists(rdf_files)
   
@@ -58,7 +63,7 @@ rwtbl_aggregate <- function(slot_agg_matrix,
       ) %>%
         check_nans(nans_are, rdf_file = rdf_files[x])
       
-      tmp_sam <- slot_agg_matrix[slot_agg_matrix$file == rdfs[x],]
+      tmp_sam <- agg[agg$file == rdfs[x],]
       
       rwtbl_apply_sam(rwtbl, tmp_sam)
     }
@@ -82,7 +87,7 @@ rwtbl_aggregate <- function(slot_agg_matrix,
   # save the sam as an attribute
   structure(
     rwtblsmmry,
-    "slot_agg_matrix" = slot_agg_matrix,
+    "agg" = agg,
     "rdf_atts" = rwtbl_atts,
     "scen_folder" = scen_folder
   )
@@ -91,32 +96,32 @@ rwtbl_aggregate <- function(slot_agg_matrix,
 #' Apply all of the slot aggregations to a single rdf file
 #' @noRd
 
-rwtbl_apply_sam <- function(rwtbl, slot_agg_matrix)
+rwtbl_apply_sam <- function(rwtbl, agg)
 {
   # if rwd_agg uses the "all" keyword, need to construct the full rwd_agg
   # need to determine if only the all key word exists, or if there is one 
   # row that is all, but then there are summary rows
-  if ("all" %in% slot_agg_matrix$slot) {
-    if (nrow(slot_agg_matrix) == 1) {
-      slot_agg_matrix <- rwd_agg_build_all(rwtbl, slot_agg_matrix$file)
+  if ("all" %in% agg$slot) {
+    if (nrow(agg) == 1) {
+      agg <- rwd_agg_build_all(rwtbl, agg$file)
     } else {
       # must have other summary rows, so remove all row and combine with the 
       # "all" rows
-      slot_agg_matrix <- rbind(
-        slot_agg_matrix[slot_agg_matrix$slot != "all",],
+      agg <- rbind(
+        agg[agg$slot != "all",],
         rwd_agg_build_all(
           rwtbl,
-          slot_agg_matrix$file[slot_agg_matrix$slot == "all"]
+          agg$file[agg$slot == "all"]
         )
       )
     }
     
   }
   
-  sam_rows <- seq_len(nrow(slot_agg_matrix))
+  sam_rows <- seq_len(nrow(agg))
   rwtblsmmry <- lapply(
     sam_rows, 
-    function(x) rwtbl_apply_sar(rwtbl, slot_agg_matrix[x,])
+    function(x) rwtbl_apply_sar(rwtbl, agg[x,])
   )
   
   rwtblsmmry <- dplyr::bind_rows(rwtblsmmry)
