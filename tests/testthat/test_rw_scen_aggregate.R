@@ -20,6 +20,7 @@ scenNames <- c("2002", "Most")
 names(scens3) <- scenNames
 scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
 
+# check errors ----------------------------------------
 test_that("`rw_scen_aggregate()` arguments verify correctly", {
   expect_error(
     rw_scen_aggregate(scens2, rwa, scenPath),
@@ -59,5 +60,33 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
     rw_scen_aggregate(scens3, rwa, scenPath, file = c("an/invalid/loc/ofile.csv")),
     "In `rw_scen_aggregate()`, `file` should point to a valid location.",
     fixed = TRUE
+  )
+})
+
+# check data ------------------------------------------
+t1 <- rwtbl_aggregate(rwa, file.path(scenPath, scens1[1]), scenNames[1])
+t2 <- rwtbl_aggregate(rwa, file.path(scenPath, scens1[2]), scenNames[2]) 
+t3 <- bind_rows(t1, t2)
+
+test_that("`rw_scen_aggregate()` returns proper data", {
+  expect_is(
+    tmp <- rw_scen_aggregate(scens3, agg = rwa, scen_dir = scenPath),
+    "tbl_df"
+  )
+  
+  expect_equivalent(
+    tmp %>% 
+      arrange(Year, Month, TraceNumber, Scenario, Variable),
+    t3 %>% 
+      arrange(Year, Month, TraceNumber, Scenario, Variable)
+  )
+  expect_setequal(names(attributes(tmp)), names(attributes(t1)))
+  expect_identical(attr(tmp, "rwd_agg"), attr(t1, "rwd_agg"))
+  expect_identical(attr(tmp, "rwd_agg"), attr(t2, "rwd_agg"))
+  expect_identical(attr(tmp, "rdf_atts")[[scenNames[1]]], attr(t1, "rdf_atts"))
+  expect_identical(attr(tmp, "rdf_atts")[[scenNames[2]]], attr(t2, "rdf_atts"))
+  expect_identical(
+    attr(tmp, "scen_folder"), 
+    rbind(attr(t1, "scen_folder"), attr(t2, "scen_folder"))
   )
 })

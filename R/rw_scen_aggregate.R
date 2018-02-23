@@ -58,8 +58,8 @@
 #' `rw_scen_aggregate()` should be called with `scen_dir` set to 
 #' "C:/users/crss/". `scenarios` can then be set to 
 #' `c("CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most","CRSS.Jan2018/Scenario/ISM1988_2014,2007Dems,IG,Most")`,
-#' assuming the same scenario exists in both folders. In this case it is advisable
-#' to also specify `scen_names` or name `scenarios`.
+#' assuming the same scenario exists in both folders. In this case it is 
+#' advisable to also specify `scen_names` or name `scenarios`.
 #' 
 #' @return A `tbl_df` containing all aggregated and summarized data for all of
 #'   the specified `scenarios`.
@@ -109,14 +109,24 @@ rw_scen_aggregate <- function(scenarios,
       nans_are = nans_are
     )
   })
-  
+  rwd_agg <- attr(rwscenagg[[1]], "rwd_agg")
+  rdf_atts <- lapply(nScen, function(x) attr(rwscenagg[[x]], "rdf_atts"))
+  names(rdf_atts) <- names(scenarios)
+  scen_folder <- lapply(nScen, function(x) attr(rwscenagg[[x]], "scen_folder"))
+  scen_folder <- dplyr::bind_rows(scen_folder)
+    
   rwscenagg <- dplyr::bind_rows(rwscenagg)
   
   if (!missing(file)) {
     write_rw_data(rwscenagg, file)
   }
   
-  rwscenagg
+  structure(
+    rwscenagg,
+    "rwd_agg" = rwd_agg,
+    "rdf_atts" = rdf_atts,
+    "scen_folder" = scen_folder
+  )
 }
 
 #' Since scenario names can be specified multiple ways, `get_scen_names()` will
@@ -125,7 +135,7 @@ rw_scen_aggregate <- function(scenarios,
 get_scen_names <- function(scenarios, scen_names)
 {
   # if scenarios have names, then scen_names should not be specified
-  if (!is.null(names(scenarios)) && !missing(scen_names)) {
+  if (!is.null(names(scenarios)) && !is.null(scen_names)) {
     stop(
       "In `rw_scen_aggregate()`, `scenarios` have `names()`, so `scen_names` should not be specified.",
       call. = FALSE
