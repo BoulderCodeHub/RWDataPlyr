@@ -375,7 +375,7 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath,
 
 #' Write out csv, txt, or a feather file.
 #' @noRd
-write_rw_date <- function(zz, oFile)
+write_rw_data <- function(zz, oFile)
 {
   fExt <- tools::file_ext(oFile)
   if(fExt == 'txt'){
