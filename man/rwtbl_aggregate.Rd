@@ -89,29 +89,20 @@ variable names for \code{rw_scen_aggregate()} and \code{rwtbl_aggregate()}. (In 
 example below, C:/user/crss/CRSS.Jan2017/Scenario is the more complete
 directory setup for the data included in \code{system.file("extdata/Scenario/")}.)
 
+\preformatted{
 C:/user/crss
-
 |
-
 |- CRSS.Jan2017
-
 |    - model
-
 |    - ruleset
-
-|    -
-
+|    - Scenario
 |         - ISM1988_2014,2007Dems,IG,Most
-
-|         - ISM1988_2014,2007Dems,IG,2002
-
+|         - ISM1988_2014,2007Dems,IG,2002 
 |    - ...
-
 |- CRSS.Jan2018
-
-|
-
+|    - model
 |    - ... (same general setup as CRSS.Jan2017)
+}
 
 To get one scenario's data, \code{rwtbl_aggregate()} can be called with \code{rdf_dir}
 set to "C:/user/crss/CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most".
