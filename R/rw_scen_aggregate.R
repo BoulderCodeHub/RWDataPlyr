@@ -1,9 +1,80 @@
 
-# slot_agg_matrix, 
-# scen_dir = ".",
-# scenario = NULL,
-# keep_cols = FALSE,
-# nans_are = "0"
+#' @details 
+#' `rw_scen_aggregate()` aggregates multiple scenarios of data. It processes the 
+#' [rwd_agg] object (`agg`) for each single scenario, and then binds all of the
+#' indvidual scenario data together into a single `tbl_df`.
+#' 
+#' @inheritParams rwtbl_aggregate
+#' @param scenarios A character vector of scenarios. This is usually a vector
+#'   of folder names, where each folder name contains one scenario worth of
+#'   data. `scenarios` can be named or unamed. The names are used as the 
+#'   scenario name in the returned `tbl_df`. Scenario names can also be 
+#'   specified through the `scen_names` argument. If `scen_names` is specified, 
+#'   `scenarios` should not already have names. If `scen_names` is not specified
+#'   and, `scenarios` is not already named, then the scenario folders will also
+#'   be used as the scenario names. See **Directory Structure**.
+#' @param scen_dir File path to the directory that contains the scenario 
+#'   folders. **Directory Structure**.
+#' @param file Optionally save the `tbl_df` of aggregated scenario data as a 
+#'   .txt, .csv, or .feather file. If `file` is specified, then the data are 
+#'   saved in the specified output format.
+#' @param scen_names An alternative way to specify scenario names. 
+#' 
+#' @section Directory Structure:
+#' 
+#' RiverWare and RiverSMART typically write data into an expected directory 
+#' structure. The below shows an example directory structure and corresponding
+#' variable names for `rw_scen_aggregate()` and `rwtbl_aggregate()`. (In the
+#' example below, C:/user/crss/CRSS.Jan2017/Scenario is the more complete 
+#' directory setup for the data included in `system.file("extdata/Scenario/")`.)
+#' 
+#' C:/user/crss
+#' 
+#' |
+#' 
+#' |- CRSS.Jan2017
+#' 
+#' |    - model
+#' 
+#' |    - ruleset
+#' 
+#' |    - 
+#' 
+#' |         - ISM1988_2014,2007Dems,IG,Most
+#' 
+#' |         - ISM1988_2014,2007Dems,IG,2002 
+#' 
+#' |    - ...
+#' 
+#' |- CRSS.Jan2018
+#' 
+#' |
+#' 
+#' |    - ... (same general setup as CRSS.Jan2017)
+#' 
+#' To get one scenario's data, `rwtbl_aggregate()` can be called with `rdf_dir`
+#' set to "C:/user/crss/CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most".
+#' (`scenario` can optionally be specified to git a scenario name.)
+#' 
+#' To aggregate multiple scenarios of data togther, `rw_scen_aggregate()` should
+#' be called with `scen_dir` set to "C:/user/CRSS/CRSS.Jan2017/Scenario" and 
+#' `scenarios` set to 
+#' `c("ISM1988_2014,2007Dems,IG,Most", "ISM1988_2014,2007Dems,IG,2002")`. 
+#' (Optionally, `scenarios` can be named, or `scen_names` specified to use 
+#' scenario names that are different from the above scenario folders.)
+#' 
+#' Finally, to aggregate scenario data from both CRSS.Jan2017 and CRSS.Jan2018,
+#' `rw_scen_aggregate()` should be called with `scen_dir` set to 
+#' "C:/users/crss/". `scenarios` can then be set to 
+#' `c("CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most","CRSS.Jan2018/Scenario/ISM1988_2014,2007Dems,IG,Most")`,
+#' assuming the same scenario exists in both folders. In this case it is advisable
+#' to also specify `scen_names` or name `scenarios`.
+#' 
+#' @return A `tbl_df` containing all aggregated and summarized data for all of
+#'   the specified `scenarios`.
+#' 
+#' @rdname rwtbl_aggregate
+#' 
 #' @export
 rw_scen_aggregate <- function(scenarios, 
                               agg, 
@@ -13,6 +84,7 @@ rw_scen_aggregate <- function(scenarios,
                               file = NULL, 
                               scen_names = NULL)
 {
+  # check all UI --------------------
   if (!is.rwd_agg(agg)) {
     stop("In `rw_scen_aggregate()`, `agg` must be a `rwd_agg` object.")
   }
@@ -32,8 +104,33 @@ rw_scen_aggregate <- function(scenarios,
   }
 
   scenarios <- get_scen_names(scenarios, scen_names)
+  
+  # aggregate all scenarios -------------
+  nScen <- seq_len(length(scenarios))
+  
+  rwscenagg <- lapply(nScen, function(x) {
+    
+    rwtbl_aggregate(
+      agg, 
+      rdf_dir = file.path(scen_dir, scenarios[x]),
+      scenario = names(scenarios)[x],
+      keep_cols = keep_cols,
+      nans_are = nans_are
+    )
+  })
+  
+  rwscenagg <- dplyr::bind_rows(rwscenagg)
+  
+  if (!missing(file)) {
+    write_rw_data(rwscenagg, file)
+  }
+  
+  rwscenagg
 }
 
+#' Since scenario names can be specified multiple ways, `get_scen_names()` will
+#' check the different ways and error/return scenarios with proper names
+#' @noRd
 get_scen_names <- function(scenarios, scen_names)
 {
   # if scenarios have names, then scen_names should not be specified
@@ -45,6 +142,12 @@ get_scen_names <- function(scenarios, scen_names)
   }
   
   if (is.null(names(scenarios)) && !missing(scen_names)) {
+    if (length(scenarios) != length(scen_names)) {
+      stop(
+        "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
+        call. = FALSE
+      )
+    }
     names(scenarios) <- scen_names
   }
   
@@ -60,6 +163,9 @@ get_scen_names <- function(scenarios, scen_names)
   scenarios
 }
 
+#' Check that all scenario paths, and rdf files in the scenario paths can be
+#' found, prior to processing data.
+#' @noRd
 check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
 {
   # check all scenario paths
@@ -85,6 +191,8 @@ check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
   }
 }
 
+#' For the out put file, verify it is correctly specified.
+#' @noRd
 check_rw_agg_file <- function(file)
 {
   if (length(file) != 1) {

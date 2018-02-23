@@ -3,9 +3,7 @@
 \name{rw_scen_aggregate}
 \alias{rw_scen_aggregate}
 \alias{rwtbl_aggregate}
-\title{\code{rw_scen_aggregate()} aggregates multiple scenarios of data. It processes the
-\link{rwd_agg} object (\code{agg}) for each single scenario, and then binds all of the
-indvidual scenario data together into a single \code{tbl_df}.}
+\title{Aggregate RiverWare output for one or more scenarios}
 \usage{
 rw_scen_aggregate(scenarios, agg, scen_dir = ".", nans_are = "0",
   keep_cols = FALSE, file = NULL, scen_names = NULL)
@@ -21,12 +19,13 @@ scenario name in the returned \code{tbl_df}. Scenario names can also be
 specified through the \code{scen_names} argument. If \code{scen_names} is specified,
 \code{scenarios} should not already have names. If \code{scen_names} is not specified
 and, \code{scenarios} is not already named, then the scenario folders will also
-be used as the scenario names.}
+be used as the scenario names. See \strong{Directory Structure}.}
 
 \item{agg}{A \link{rwd_agg} object specifying the rdfs, slots, and
 aggregation methods to use.}
 
-\item{scen_dir}{File path to the directory that contains the scenario folders.}
+\item{scen_dir}{File path to the directory that contains the scenario
+folders. \strong{Directory Structure}.}
 
 \item{nans_are}{Either "0" or "error". If "0", then \code{NaN}s in the rwtbl are
 treated as 0s. If "error", then any \code{NaN}s will cause an error in this
@@ -51,7 +50,8 @@ saved in the specified output format.}
 
 \item{scen_names}{An alternative way to specify scenario names.}
 
-\item{rdf_dir}{The top level directory that contains the rdf files.}
+\item{rdf_dir}{The top level directory that contains the rdf files. See
+\strong{Directory Structure}.}
 
 \item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
 will be added to the tibble as another variable. Typically a string, but it
@@ -62,20 +62,23 @@ A \code{tbl_df} containing all aggregated and summarized data for all of
 the specified \code{scenarios}.
 }
 \description{
-\code{rw_scen_aggregate()} aggregates multiple scenarios of data. It processes the
-\link{rwd_agg} object (\code{agg}) for each single scenario, and then binds all of the
-indvidual scenario data together into a single \code{tbl_df}.
-
 Process the user specified \code{rwd_agg} object for one or more scenarios to
 aggregate and summarize RiverWare output data.
 }
 \details{
+\code{rw_scen_aggregate()} aggregates multiple scenarios of data. It processes the
+\link{rwd_agg} object (\code{agg}) for each single scenario, and then binds all of the
+indvidual scenario data together into a single \code{tbl_df}.
+
 \code{rwtbl_aggregate()} aggregates a single scenario of data by processing a
 \link{rwd_agg} object.
 
 In both cases, the user specifies the \link{rwd_agg}, which
 determines the slots that are aggregated, and how they are aggregated. See
 \link{rwd_agg} for more details on how it should be specified.
+
+See the \strong{Directory Structure} section for how to specify \code{scenarios},
+\code{scen_dir}, and \code{rdf_dir}.
 }
 \section{Directory Structure}{
 
@@ -87,16 +90,27 @@ example below, C:/user/crss/CRSS.Jan2017/Scenario is the more complete
 directory setup for the data included in \code{system.file("extdata/Scenario/")}.)
 
 C:/user/crss
+
 |
+
 |- CRSS.Jan2017
+
 |    - model
+
 |    - ruleset
-|    - Scenario
+
+|    -
+
 |         - ISM1988_2014,2007Dems,IG,Most
+
 |         - ISM1988_2014,2007Dems,IG,2002
+
 |    - ...
+
 |- CRSS.Jan2018
+
 |
+
 |    - ... (same general setup as CRSS.Jan2017)
 
 To get one scenario's data, \code{rwtbl_aggregate()} can be called with \code{rdf_dir}
