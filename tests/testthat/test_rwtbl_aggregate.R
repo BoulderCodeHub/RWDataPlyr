@@ -33,7 +33,11 @@ test_that("test rwtbl_aggregate() structure", {
   
   expect_identical(
     attributes(tmp)$scen_folder,
-    data.frame(scenario = "DNFMost", folder = normalizePath(dnfmost_dir))
+    data.frame(
+      scenario = "DNFMost", 
+      folder = normalizePath(dnfmost_dir), 
+      stringsAsFactors = FALSE
+    )
   )
   
   # check that it contains the same attributes as keyRdf
