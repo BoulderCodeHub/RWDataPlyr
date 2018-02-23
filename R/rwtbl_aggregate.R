@@ -85,7 +85,8 @@ rwtbl_aggregate <- function(agg,
   
   scen_folder <- data.frame(
     "scenario" = ifelse(is.null(scenario), NA_character_, scenario), 
-    "folder" = normalizePath(rdf_dir)
+    "folder" = normalizePath(rdf_dir),
+    stringsAsFactors = FALSE
   )
   
   # save the sam as an attribute

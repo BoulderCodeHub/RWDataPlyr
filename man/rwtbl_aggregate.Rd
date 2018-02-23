@@ -119,7 +119,7 @@ Finally, to aggregate scenario data from both CRSS.Jan2017 and CRSS.Jan2018,
 \code{rw_scen_aggregate()} should be called with \code{scen_dir} set to
 "C:/users/crss/". \code{scenarios} can then be set to
 \code{c("CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most","CRSS.Jan2018/Scenario/ISM1988_2014,2007Dems,IG,Most")},
-assuming the same scenario exists in both folders. In this case it is advisable
-to also specify \code{scen_names} or name \code{scenarios}.
+assuming the same scenario exists in both folders. In this case it is
+advisable to also specify \code{scen_names} or name \code{scenarios}.
 }
 
