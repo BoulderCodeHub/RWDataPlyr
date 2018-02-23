@@ -19,7 +19,7 @@ test_that("test rwtbl_aggregate() structure", {
   expect_s3_class(
     tmp <- rwtbl_aggregate(
       ra1,
-      scen_dir = dnfmost_dir,
+      rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE
     ),
@@ -111,7 +111,7 @@ test_that("'all' keyword gets all data", {
   expect_is(
     tmp <- rwtbl_aggregate(
       rwd_agg(rdfs = "KeySlots.rdf"),
-      scen_dir = dnfmost_dir,
+      rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE
     ),
@@ -125,7 +125,7 @@ test_that("'all' keyword gets all data", {
   expect_is(
     tmp2 <- rwtbl_aggregate(
       rbind(ra1, rwd_agg(rdfs = "KeySlots.rdf")),
-      scen_dir = dnfmost_dir,
+      rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE
     ),
@@ -161,16 +161,16 @@ short_ra <- rwd_agg(data.frame(
 test_that("`NaN`s are treated properly in `rwtbl_aggregate()`", {
   expect_error(rwtbl_aggregate(
     rwd_agg(rdfs = "Flags.rdf"), 
-    scen_dir = dnfmost_dir, 
+    rdf_dir = dnfmost_dir, 
     nans_are = "error"
   ))
   
   expect_error(rwtbl_aggregate(
-    short_ra, scen_dir = dnfmost_dir, nans_are = "error"
+    short_ra, rdf_dir = dnfmost_dir, nans_are = "error"
   ))
   
   expect_is(
-    t1 <- rwtbl_aggregate(short_ra, scen_dir = dnfmost_dir, nans_are = "0"),
+    t1 <- rwtbl_aggregate(short_ra, rdf_dir = dnfmost_dir, nans_are = "0"),
     "tbl_df"
   )
   # flags that have no NaNs should not be affected
