@@ -28,7 +28,7 @@ test_that("test rwtbl_aggregate() structure", {
   
   # check attribute has the ra1
   expect_identical(
-    attributes(tmp)$slot_agg_matrix, ra1
+    attributes(tmp)$rwd_agg, ra1
   )
   
   expect_identical(

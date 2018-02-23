@@ -9,11 +9,15 @@
 #' 
 #' In both cases, the user specifies the [rwd_agg], which 
 #' determines the slots that are aggregated, and how they are aggregated. See
-#' [rwd_agg] for more details on how it should be specified.
+#' [rwd_agg] for more details on how it should be specified. 
+#' 
+#' See the **Directory Structure** section for how to specify `scenarios`, 
+#' `scen_dir`, and `rdf_dir`.
 #' 
 #' @param agg A [rwd_agg] object specifying the rdfs, slots, and 
 #'   aggregation methods to use.
-#' @param rdf_dir The top level directory that contains the rdf files.
+#' @param rdf_dir The top level directory that contains the rdf files. See
+#'   **Directory Structure**.
 #' @inheritParams rw_rdf_to_tbl
 #' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
 #'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
@@ -87,7 +91,7 @@ rwtbl_aggregate <- function(agg,
   # save the sam as an attribute
   structure(
     rwtblsmmry,
-    "agg" = agg,
+    "rwd_agg" = agg,
     "rdf_atts" = rwtbl_atts,
     "scen_folder" = scen_folder
   )
