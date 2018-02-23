@@ -4,12 +4,12 @@
 \name{RWDataPlyr-package}
 \alias{RWDataPlyr}
 \alias{RWDataPlyr-package}
-\title{RWDataPlyr: Read and manipulate data from RiverWareTM}
+\title{RWDataPlyr: Read and manipulate data from RiverWare}
 \description{
 A tool to read and manipulate data generated from RiverWare(TM)
-(riverware.org) simulations. RiverWare generates data in "rdf" format. This
-package provides an interface to read, combine data from multiple
-scenarios, and summarize the data.
+(riverware.org) simulations. RiverWare and RiverSMART generate data in
+"rdf", "csv", and "nc" format. This package provides an interface to read,
+aggregate, and summarize data from one or more simulations.
 }
 \author{
 \strong{Maintainer}: Alan Butler \email{rabutler@usbr.gov}
