@@ -1,13 +1,5 @@
 context("test `rw_scen_aggregate()`")
 
-# rw_scen_aggregate <- function(scenarios, 
-#                               agg, 
-#                               scen_dir = ".", 
-#                               nans_are = "0",
-#                               keep_cols = FALSE,
-#                               file = NULL, 
-#                               scen_names = NULL)
-
 rwa <- rwd_agg(read.csv(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
   stringsAsFactors = FALSE
