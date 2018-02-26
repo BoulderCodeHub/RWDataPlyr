@@ -22,6 +22,11 @@
 #' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
 #'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
 #'   function.
+#' @param find_all_slots Boolean; if `TRUE` (default), then the function will 
+#'   abort if it cannot find a particular slot. If `FALSE`, then the function 
+#'   will continue, even if a slot cannot be found. If a slot is not found, 
+#'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
+#'   Value.
 #' 
 #' @export
 
@@ -29,7 +34,8 @@ rwtbl_aggregate <- function(agg,
                             rdf_dir = ".",
                             scenario = NULL,
                             keep_cols = FALSE,
-                            nans_are = "0")
+                            nans_are = "0",
+                            find_all_slots = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rwtbl_aggregate()` is not a `rwd_agg`")
@@ -69,7 +75,7 @@ rwtbl_aggregate <- function(agg,
       
       tmp_sam <- agg[agg$file == rdfs[x],]
       
-      rwtbl_apply_sam(rwtbl, tmp_sam)
+      rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
     }
   )
   
@@ -98,10 +104,10 @@ rwtbl_aggregate <- function(agg,
   )
 }
 
-#' Apply all of the slot aggregations to a single rdf file
+#' Apply all of the operations from a rwd_agg to a single rdf file
 #' @noRd
 
-rwtbl_apply_sam <- function(rwtbl, agg)
+rwtbl_apply_sam <- function(rwtbl, agg, find_all_slots)
 {
   # if rwd_agg uses the "all" keyword, need to construct the full rwd_agg
   # need to determine if only the all key word exists, or if there is one 
@@ -120,7 +126,19 @@ rwtbl_apply_sam <- function(rwtbl, agg)
         )
       )
     }
-    
+  }
+  
+  if (find_all_slots) {
+    tmp_slots <- agg$slot %in% rwtbl_slot_names(rwtbl)
+    if (!(all(tmp_slots))) {
+      missing_slots <- agg$slot[!(tmp_slots)]
+      stop(
+        "`find_all_slots` is `TRUE`, and the following slots were not found in the ",
+        agg$file[1], " file:\n",
+        paste(paste("   ", missing_slots), collapse = "\n"), 
+        call. = FALSE
+      )
+    }
   }
   
   sam_rows <- seq_len(nrow(agg))
@@ -136,16 +154,26 @@ rwtbl_apply_sam <- function(rwtbl, agg)
   rwtblsmmry
 }
 
-#' Apply a single slot agg matrix's row (sar)
+#' Apply a single row's aggregation (sar) from an rwd_agg object
 #' @noRd
-
 rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
 {
-  apply_period(rwtbl, slot_agg_row) %>%
+  # if the slot cannot be found, return -99, and NaN, NaN, since if we have 
+  # gotten here, `find_all_slots`, must be `FALSE`
+  
+  if (slot_agg_row$slot %in% rwtbl_slot_names(rwtbl)) {
+  zz <- apply_period(rwtbl, slot_agg_row) %>%
     apply_summary(slot_agg_row) %>%
     apply_eval(slot_agg_row) %>%
     add_month_to_annual() %>%
     add_var_drop_objectslot(slot_agg_row)
+  } else{
+    zz <- build_missing_slot_values(slot_agg_row) %>%
+      add_month_to_annual() %>%
+      add_var_drop_objectslot(slot_agg_row)
+  }
+  
+  zz
 }
 
 #' Add in a `Variable` columns and drop the `ObjectSlot` column
@@ -229,4 +257,17 @@ check_nans <- function(rwtbl, nans_are, rdf_file)
 nan_to_zero <- function(x) {
   x[is.nan(x)] <- 0
   x
+}
+
+#' Build a single row tibble that contains the appropriate values for slots
+#' that cannot be found
+#' @noRd
+build_missing_slot_values <- function(slot_agg_row) 
+{
+  tibble::tibble(
+    Year = NaN,
+    TraceNumber = -99,
+    ObjectSlot = slot_agg_row$slot,
+    Value = NaN
+  )
 }

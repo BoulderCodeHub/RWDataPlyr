@@ -6,10 +6,11 @@
 \title{Aggregate RiverWare output for one or more scenarios}
 \usage{
 rw_scen_aggregate(scenarios, agg, scen_dir = ".", nans_are = "0",
-  keep_cols = FALSE, file = NULL, scen_names = NULL)
+  keep_cols = FALSE, file = NULL, scen_names = NULL,
+  find_all_slots = TRUE)
 
 rwtbl_aggregate(agg, rdf_dir = ".", scenario = NULL, keep_cols = FALSE,
-  nans_are = "0")
+  nans_are = "0", find_all_slots = TRUE)
 }
 \arguments{
 \item{scenarios}{A character vector of scenarios. This is usually a vector
@@ -49,6 +50,12 @@ found, a warning will post, but all other columns will be returned.
 saved in the specified output format.}
 
 \item{scen_names}{An alternative way to specify scenario names.}
+
+\item{find_all_slots}{Boolean; if \code{TRUE} (default), then the function will
+abort if it cannot find a particular slot. If \code{FALSE}, then the function
+will continue, even if a slot cannot be found. If a slot is not found,
+then the function will return \code{-99} for the Trace, and \code{NaN} for Year, and
+Value.}
 
 \item{rdf_dir}{The top level directory that contains the rdf files. See
 \strong{Directory Structure}.}
