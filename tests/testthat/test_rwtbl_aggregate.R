@@ -194,3 +194,52 @@ test_that("`NaN`s are treated properly in `rwtbl_aggregate()`", {
        summarise(Value = sum(Value, na.rm = TRUE)))$Value
   )
 })
+
+# check handling `find_all_slots` ----------------
+ra2 <- rbind(
+  ra1[1,],
+  rwd_agg(data.frame(
+    file = "KeySlots.rdf",
+    slot = "Powell.Pool Elevation",
+    period = "wy",
+    summary = "min",
+    eval = "<",
+    t_s = 3550,
+    variable = "powellLt3550",
+    stringsAsFactors = FALSE
+  ))
+)
+
+test_that("`find_all_slots` parameter fails and gets data correctly", {
+  expect_error(
+    tmp <- rwtbl_aggregate(
+      ra2,
+      rdf_dir = dnfmost_dir
+    ),
+    paste0(
+      "`find_all_slots` is `TRUE`, and the following slots were not found in ",
+      "the KeySlots.rdf file:\n",
+      paste(paste("   ", "Powell.Pool Elevation"), collapse = "\n")
+    )
+  )
+  
+  expect_s3_class(
+    tmp <- rwtbl_aggregate(
+      ra2,
+      rdf_dir = dnfmost_dir,
+      find_all_slots = FALSE
+    ),
+    c("tbl_df", "data.frame")
+  )
+  
+  expect_setequal(
+    as.character(levels(as.factor(tmp$Variable))), 
+    c("powellLt3550", "peLt1000")
+  )
+  tmp <- tmp %>% 
+    filter(Variable == "powellLt3550")
+  expect_equal(nrow(tmp), 1)
+  expect_equal(tmp$TraceNumber, -99)
+  expect_equal(tmp$Value, NaN)
+  expect_equal(tmp$Year, NaN)
+})
