@@ -64,7 +64,7 @@
 #'  \item{'AnnMax'}{Returns the maximum annual \strong{scaled} value.}
 #'  \item{'AnnualSum'}{Returns the annual \strong{scaled} sum.}
 #'  \item{'AnnMinLTE'}{Checks to see if the annual minimum value is less than or 
-#'  equal to a \strong{threshold.} Returns 100 if it is less than or equal to 
+#'  equal to a \strong{threshold.} Returns 1 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise.}
 #'  \item{'AnnualRaw'}{Returns the annual \strong{scaled} data. This aggregation 
 #'  method should only be used if the rdf file contains only annual data. For 
@@ -76,23 +76,23 @@
 #'  \item{'EOCY'}{End-of-calendar year values are reported and \strong{scaled}. 
 #'  Any values that are NaNs are changed to 0s.}
 #'  \item{'EOCYGTE'}{Checks to see if the end-of-calendar year values are 
-#'  greater than or equal to a \strong{threshold}. Returns 100 if it is greater 
+#'  greater than or equal to a \strong{threshold}. Returns 1 if it is greater 
 #'  than or equal to the \strong{threshold} and 0 otherwise.}
 #'  \item{'EOCYLTE'}{Checks to see if the end-of-calendar year values are less 
-#'  than or equal to a \strong{threshold}. Returns 100 if it is less than or 
+#'  than or equal to a \strong{threshold}. Returns 1 if it is less than or 
 #'  equal to the \strong{threshold} and 0 otherwise.}
 #'  \item{'EOWY'}{End-of-water year values are reported and \strong{scaled}. 
 #'  Any values that are NaNs are changed to 0s.}
 #'  \item{'Monthly'}{Returns the monthly \strong{scaled} data.}
 #'  \item{'WYMaxLTE'}{Checks to see if the maximum water year value is less than 
-#'  or equal to a \strong{threshold.} Returns 100 if it is less than or equal to 
+#'  or equal to a \strong{threshold.} Returns 1 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise. This can be used to determine if an 
 #'  entire water year is below a \strong{threshold}. The water year is defined 
 #'  as October through September of the next year. For the first year, only 
 #'  January through September are evaluated as RiveWare does not typically 
 #'  export pre-simulation data.}
 #'  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than 
-#'  or equal to a \strong{threshold.} Returns 100 if it is less than or equal to 
+#'  or equal to a \strong{threshold.} Returns 1 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise. The water year is defined as October 
 #'  through September of the next year. For the first year, only January through 
 #'  September are evaluated as RiveWare does not typically export pre-simulation 
