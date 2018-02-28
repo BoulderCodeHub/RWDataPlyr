@@ -67,7 +67,8 @@
 #'   summary = "min",
 #'   eval = "<",
 #'   t_s = 3550,
-#'   variable = "powellLt3550"
+#'   variable = "powellLt3550",
+#'   stringsAsFactors = FALSE
 #' )
 #' ```
 #'   

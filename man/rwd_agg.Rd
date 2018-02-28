@@ -84,7 +84,8 @@ is below elevation 3550 feet, the following would be specified:\preformatted{dat
   summary = "min",
   eval = "<",
   t_s = 3550,
-  variable = "powellLt3550"
+  variable = "powellLt3550",
+  stringsAsFactors = FALSE
 )
 }
 }
