@@ -81,7 +81,7 @@ test_that("apply_summary errors correctly", {
     RWDataPlyr:::apply_period(rwtbl, sam[2,]) %>%
       RWDataPlyr:::apply_summary(sam[2,]),
     paste0("specified `summary`: blah does not match existing functions.\n",
-      "   Please see ?XXX for help."),
+      "   Please see ?rwd_agg for help."),
     fixed = TRUE
   )
   

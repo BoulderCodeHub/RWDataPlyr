@@ -32,7 +32,7 @@ period_filter_group <- function(rwtbl, period)
     if (!exists(period, mode = "function"))
         stop("specified `period`: ", period, 
              " does not match expected values or existing functions.\n",
-             "   Please see ?XXX for help.", call. = FALSE)
+             "   Please see ?rwd_agg for help.", call. = FALSE)
     
     period_filter <- tryCatch(
       eval(parse(text = paste0(period, "()"))), 

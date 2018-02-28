@@ -46,7 +46,7 @@ summary_summarise <- function(rwtbl, sam_summary)
   if (!exists(sam_summary, mode = "function"))
     stop("specified `summary`: ", sam_summary, 
          " does not match existing functions.\n",
-         "   Please see ?XXX for help.", call. = FALSE)
+         "   Please see ?rwd_agg for help.", call. = FALSE)
   
   smry_fun <- tryCatch(
     eval(parse(text = sam_summary)), 
