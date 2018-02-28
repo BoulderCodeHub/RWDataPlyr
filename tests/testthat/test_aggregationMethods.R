@@ -9,7 +9,10 @@ context('check RWDataPlyr:::processSlots aggregation computations')
 # keyRdf exists as data in package
 mReg <- rdfSlotToMatrix(keyRdf, "Mead.Pool Elevation")
 pReg <- rdfSlotToMatrix(keyRdf, "Powell.Outflow")
-lbShort <- as.data.frame(rdfSlotToMatrix(sysRdf, "SummaryOutputData.LBShortageConditions"))
+lbShort <- as.data.frame(rdfSlotToMatrix(
+  sysRdf, 
+  "SummaryOutputData.LBShortageConditions"
+))
 cNames <- 1:ncol(mReg)
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
@@ -104,11 +107,17 @@ test_that("processSlots monthly to annual aggregation methods work", {
   expect_equal(filterVarToMatrix(zz, "meadGt1100"), m1100)
   expect_equal(filterVarToMatrix(zz, "powellMin"), pMin)
   expect_equal(filterVarToMatrix(zz, "meadPe2"), mEocy)
-  expect_equal(filterVarToMatrix(zz, "meadPe2"), filterVarToMatrix(zz, "meadPe"))
+  expect_equal(
+    filterVarToMatrix(zz, "meadPe2"), 
+    filterVarToMatrix(zz, "meadPe")
+  )
   expect_equal(filterVarToMatrix(zz, "lbShort"), lbShort)
   expect_equal({
     zzMonthly %>% 
-      filter(Variable == "powellMothly10", Scenario == "ISM1988_2014,2007Dems,IG,Most") %>%
+      filter(
+        Variable == "powellMothly10", 
+        Scenario == "ISM1988_2014,2007Dems,IG,Most"
+      ) %>%
       select(-Scenario, -Variable, -Month) %>%
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
@@ -117,7 +126,10 @@ test_that("processSlots monthly to annual aggregation methods work", {
   
   expect_equal({
     zzMonthly %>% 
-      filter(Variable == "meadMonthly001", Scenario == "ISM1988_2014,2007Dems,IG,Most") %>%
+      filter(
+        Variable == "meadMonthly001", 
+        Scenario == "ISM1988_2014,2007Dems,IG,Most"
+      ) %>%
       select(-Scenario, -Variable, -Month) %>%
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
@@ -131,11 +143,21 @@ test_that("processSlots monthly to annual aggregation methods work", {
 
 # hand compute values
 # keyRdf exists as data in package
-key <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
+key <- read.rdf(system.file(
+  "extdata/Scenario/T13,CT,IG", 
+  "KeySlots.rdf", 
+  package = "RWDataPlyr"
+))
 mReg <- rdfSlotToMatrix(key, "Mead.Pool Elevation")
 pReg <- rdfSlotToMatrix(key, "Powell.Outflow")
-sys <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
-lbShort <- as.data.frame(rdfSlotToMatrix(sys, "SummaryOutputData.LBShortageConditions"))
+sys <- read.rdf(system.file(
+  "extdata/Scenario/T13,CT,IG", 
+  "SystemConditions.rdf", package = "RWDataPlyr"
+))
+lbShort <- as.data.frame(rdfSlotToMatrix(
+  sys, 
+  "SummaryOutputData.LBShortageConditions"
+))
 cNames <- 1:ncol(mReg)
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
@@ -169,7 +191,7 @@ zzMonthly <- getDataForAllScens(
   retFile = TRUE
 ) %>%
   mutate(monthNum = match(Month, month.name))
-
+on.exit(file.remove(c("tmp.feather")))
 test_that("processSlots monthly to annual aggregation methods work for rdf with only 1 trace", {
   expect_warning(
     zz <- getDataForAllScens(
@@ -181,6 +203,7 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
       retFile = TRUE
     )
   )
+  on.exit(file.remove("tmp2.feather"), add = TRUE)
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "powellEowy", stScen), pEowy)
   expect_equal(filterVarToMatrix(zz, "meadPe", stScen), mEocy)
@@ -194,7 +217,10 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
   expect_equal(filterVarToMatrix(zz, "meadGt1100", stScen), m1100)
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "meadPe2", stScen), mEocy)
-  expect_equal(filterVarToMatrix(zz, "meadPe2", stScen), filterVarToMatrix(zz, "meadPe", stScen))
+  expect_equal(
+    filterVarToMatrix(zz, "meadPe2", stScen), 
+    filterVarToMatrix(zz, "meadPe", stScen)
+  )
   expect_equal(filterVarToMatrix(zz, "lbShort", stScen), lbShort)
   expect_equal({
     zzMonthly %>% 
@@ -215,4 +241,3 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
   }, as.data.frame(mReg * 0.001))
 })
 
-on.exit(file.remove(c("tmp.feather","tmp2.feather")))
