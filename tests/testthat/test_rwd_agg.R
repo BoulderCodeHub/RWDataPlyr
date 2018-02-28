@@ -47,7 +47,7 @@ test_that("rwd_agg validation fails properly", {
   df2$summary[4] <- "max"
   expect_error(
     rwd_agg(df2), 
-    "If the `period` is specified as 'asis', then the `summary`` must be `NA`."
+    "If the `period` is specified as 'asis', then the `summary` must be `NA`."
   )
   df2 <- df
   df2$summary[1] <- NA

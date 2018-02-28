@@ -95,7 +95,7 @@ check_period_asis <- function(rwd_agg)
   if (nrow(r2) > 0) {
     if (nrow(r2[!is.na(r2$summary),]) > 0) {
       stop(
-        "If the `period` is specified as 'asis', then the `summary`` must be `NA`.",
+        "If the `period` is specified as 'asis', then the `summary` must be `NA`.",
         call. = FALSE
       )
     }
