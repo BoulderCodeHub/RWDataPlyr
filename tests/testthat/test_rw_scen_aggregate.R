@@ -57,8 +57,8 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
 })
 
 # check data ------------------------------------------
-t1 <- rwtbl_aggregate(rwa, file.path(scenPath, scens1[1]), scenNames[1])
-t2 <- rwtbl_aggregate(rwa, file.path(scenPath, scens1[2]), scenNames[2]) 
+t1 <- rdf_aggregate(rwa, file.path(scenPath, scens1[1]), scenNames[1])
+t2 <- rdf_aggregate(rwa, file.path(scenPath, scens1[2]), scenNames[2]) 
 t3 <- bind_rows(t1, t2)
 
 test_that("`rw_scen_aggregate()` returns proper data", {

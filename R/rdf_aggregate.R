@@ -4,7 +4,7 @@
 #' Process the user specified `rwd_agg` object for one or more scenarios to 
 #' aggregate and summarize RiverWare output data.
 #' 
-#' `rwtbl_aggregate()` aggregates a single scenario of data by processing a 
+#' `rdf_aggregate()` aggregates a single scenario of data by processing a 
 #' [rwd_agg] object. 
 #' 
 #' In both cases, the user specifies the [rwd_agg], which 
@@ -29,7 +29,7 @@
 #'   Value.
 #'   
 #' @examples 
-#' # rwtbl_aggregate() ----------
+#' # rdf_aggregate() ----------
 #' 
 #' rdfPath <- system.file(
 #'   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
@@ -44,19 +44,19 @@
 #'  stringsAsFactors = FALSE
 #' ))
 #' 
-#' x <- rwtbl_aggregate(rwa[1,], rdf_dir = rdfPath, scenario = "Most")
+#' x <- rdf_aggregate(rwa[1,], rdf_dir = rdfPath, scenario = "Most")
 #' 
 #' @export
 
-rwtbl_aggregate <- function(agg, 
-                            rdf_dir = ".",
-                            scenario = NULL,
-                            keep_cols = FALSE,
-                            nans_are = "0",
-                            find_all_slots = TRUE)
+rdf_aggregate <- function(agg, 
+                          rdf_dir = ".",
+                          scenario = NULL,
+                          keep_cols = FALSE,
+                          nans_are = "0",
+                          find_all_slots = TRUE)
 {
   if (!is_rwd_agg(agg))
-    stop("`agg` passed to `rwtbl_aggregate()` is not a `rwd_agg`")
+    stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
   
   nans_are <- match.arg(nans_are, choices = c("0", "error"))
   
@@ -230,7 +230,7 @@ add_month_to_annual <- function(rwtbl)
 #' Check if there are any NaNs in the `rwtbl`, and either convert to 0s or 
 #' throw an error.
 #' 
-#' @inheritParams rwtbl_aggregate
+#' @inheritParams rdf_aggregate
 #' @param rdf_file The rdf file name as a character.
 #' 
 #' @noRd

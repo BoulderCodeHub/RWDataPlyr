@@ -9,7 +9,7 @@
 * Formalized the list returned by `createSlotAggList()` as a `slot_agg_list` class. Created applicable constructor, which deprecates `createSlotAggList()`, `print()`, `summary()` and `is.`/`is_` methods and functions. (#67)
 * `rwd_agg` class. Includes methods for `rbind()`, `cbind()`, `as` and `is`. (#68)
 * New function: `rwtbl_slot_names()`
-* New functions: `rw_scen_aggregate()` and `rwtbl_aggregate()` (#51)
+* New functions: `rw_scen_aggregate()` and `rdf_aggregate()` (#51)
 * New functions: `rwtbl_get_scen_folder()` and `rwtbl_var_to_slot()` (#50)
 
 

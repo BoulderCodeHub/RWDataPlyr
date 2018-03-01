@@ -4,7 +4,7 @@
 #' [rwd_agg] object (`agg`) for each single scenario, and then binds all of the
 #' indvidual scenario data together into a single `tbl_df`.
 #' 
-#' @inheritParams rwtbl_aggregate
+#' @inheritParams rdf_aggregate
 #' @param scenarios A character vector of scenarios. This is usually a vector
 #'   of folder names, where each folder name contains one scenario worth of
 #'   data. `scenarios` can be named or unamed. The names are used as the 
@@ -24,7 +24,7 @@
 #' 
 #' RiverWare and RiverSMART typically write data into an expected directory 
 #' structure. The below shows an example directory structure and corresponding
-#' variable names for `rw_scen_aggregate()` and `rwtbl_aggregate()`. (In the
+#' variable names for `rw_scen_aggregate()` and `rdf_aggregate()`. (In the
 #' example below, C:/user/crss/CRSS.Jan2017/Scenario is the more complete 
 #' directory setup for the data included in `system.file("extdata/Scenario/")`.)
 #' 
@@ -43,7 +43,7 @@
 #' |    - ... (same general setup as CRSS.Jan2017)
 #' }
 #' 
-#' To get one scenario's data, `rwtbl_aggregate()` can be called with `rdf_dir`
+#' To get one scenario's data, `rdf_aggregate()` can be called with `rdf_dir`
 #' set to "C:/user/crss/CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most".
 #' (`scenario` can optionally be specified to git a scenario name.)
 #' 
@@ -95,7 +95,7 @@
 #' 
 #' identical(x, y) # is TRUE
 #' 
-#' @rdname rwtbl_aggregate
+#' @rdname rdf_aggregate
 #' 
 #' @export
 rw_scen_aggregate <- function(scenarios, 
@@ -133,7 +133,7 @@ rw_scen_aggregate <- function(scenarios,
   
   rwscenagg <- lapply(nScen, function(x) {
     
-    rwtbl_aggregate(
+    rdf_aggregate(
       agg, 
       rdf_dir = file.path(scen_dir, scenarios[x]),
       scenario = names(scenarios)[x],

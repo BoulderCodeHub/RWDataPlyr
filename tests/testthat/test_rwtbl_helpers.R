@@ -28,7 +28,7 @@ test_that("`rwtbl_slot_names()` fails for other data frames", {
   
   # should fail for summarized RW data
   expect_error(
-    rwtbl_slot_names(rwtbl_aggregate(
+    rwtbl_slot_names(rdf_aggregate(
       rwa[1,],
       system.file(
         "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most/", 

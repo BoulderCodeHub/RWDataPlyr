@@ -1,4 +1,4 @@
-context("test rwtbl_aggregate()")
+context("test rdf_aggregate()")
 library(dplyr)
 
 ra1 <- rwd_agg(read.csv(
@@ -14,10 +14,10 @@ dnfmost_dir <- system.file(
 keyrwtbl <- rw_rdf_to_tbl(keyRdf)
 sysrwtbl <- rw_rdf_to_tbl(sysRdf)
 
-# test rwtbl_aggregate() structure -------------------------
-test_that("test rwtbl_aggregate() structure", {
+# test rdf_aggregate() structure -------------------------
+test_that("test rdf_aggregate() structure", {
   expect_s3_class(
-    tmp <- rwtbl_aggregate(
+    tmp <- rdf_aggregate(
       ra1,
       rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
@@ -113,7 +113,7 @@ test_that("test rwtbl_aggregate() structure", {
 # check that the "all" keyword gets all the data --------------------------
 test_that("'all' keyword gets all data", {
   expect_is(
-    tmp <- rwtbl_aggregate(
+    tmp <- rdf_aggregate(
       rwd_agg(rdfs = "KeySlots.rdf"),
       rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
@@ -127,7 +127,7 @@ test_that("'all' keyword gets all data", {
   # check function when the rwd_agg includes "all" and summary slots from the
   # same rdf
   expect_is(
-    tmp2 <- rwtbl_aggregate(
+    tmp2 <- rdf_aggregate(
       rbind(ra1, rwd_agg(rdfs = "KeySlots.rdf")),
       rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
@@ -162,19 +162,19 @@ short_ra <- rwd_agg(data.frame(
   stringsAsFactors = FALSE
 ))
 
-test_that("`NaN`s are treated properly in `rwtbl_aggregate()`", {
-  expect_error(rwtbl_aggregate(
+test_that("`NaN`s are treated properly in `rdf_aggregate()`", {
+  expect_error(rdf_aggregate(
     rwd_agg(rdfs = "Flags.rdf"), 
     rdf_dir = dnfmost_dir, 
     nans_are = "error"
   ))
   
-  expect_error(rwtbl_aggregate(
+  expect_error(rdf_aggregate(
     short_ra, rdf_dir = dnfmost_dir, nans_are = "error"
   ))
   
   expect_is(
-    t1 <- rwtbl_aggregate(short_ra, rdf_dir = dnfmost_dir, nans_are = "0"),
+    t1 <- rdf_aggregate(short_ra, rdf_dir = dnfmost_dir, nans_are = "0"),
     "tbl_df"
   )
   # flags that have no NaNs should not be affected
@@ -212,7 +212,7 @@ ra2 <- rbind(
 
 test_that("`find_all_slots` parameter fails and gets data correctly", {
   expect_error(
-    tmp <- rwtbl_aggregate(
+    tmp <- rdf_aggregate(
       ra2,
       rdf_dir = dnfmost_dir
     ),
@@ -224,7 +224,7 @@ test_that("`find_all_slots` parameter fails and gets data correctly", {
   )
   
   expect_s3_class(
-    tmp <- rwtbl_aggregate(
+    tmp <- rdf_aggregate(
       ra2,
       rdf_dir = dnfmost_dir,
       find_all_slots = FALSE
@@ -255,9 +255,9 @@ t13 <- read.rdf(system.file(
 ))
 t13pe <- rdfSlotToMatrix(t13, "Mead.Pool Elevation")
 
-test_that("rwtbl_aggregate() can handle 1 trace of data", {
+test_that("rdf_aggregate() can handle 1 trace of data", {
   expect_s3_class(
-    tmp <- rwtbl_aggregate(ra1, rdf_dir = trace13_dir),
+    tmp <- rdf_aggregate(ra1, rdf_dir = trace13_dir),
     c("tbl_df", "data.frame")
   )
   
