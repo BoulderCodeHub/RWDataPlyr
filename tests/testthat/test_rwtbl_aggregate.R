@@ -243,3 +243,32 @@ test_that("`find_all_slots` parameter fails and gets data correctly", {
   expect_equal(tmp$Value, NaN)
   expect_equal(tmp$Year, NaN)
 })
+
+# single trace ------------------
+trace13_dir <- system.file(
+  "extdata/Scenario/T13,CT,IG", 
+  package = "RWDataPlyr"
+)
+t13 <- read.rdf(system.file(
+  "extdata/Scenario/T13,CT,IG/KeySlots.rdf", 
+  package = "RWDataPlyr"
+))
+t13pe <- rdfSlotToMatrix(t13, "Mead.Pool Elevation")
+
+test_that("rwtbl_aggregate() can handle 1 trace of data", {
+  expect_s3_class(
+    tmp <- rwtbl_aggregate(ra1, rdf_dir = trace13_dir),
+    c("tbl_df", "data.frame")
+  )
+  
+  expect_equal(range(tmp$TraceNumber), c(1, 1))
+  
+  expect_equivalent(
+    tmp %>% 
+      filter(Variable == "peEocy") %>% 
+      ungroup() %>% 
+      select(Value) %>% 
+      as.matrix(),
+    t13pe[seq(12, nrow(t13pe), 12),, drop = FALSE]
+  )
+})
