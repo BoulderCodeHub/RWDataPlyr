@@ -78,3 +78,50 @@ rwtbl_var_to_slot <- function(rwtblsmmry, varname)
   
   slot_names
 }
+
+#' Map a scenario name to the original scenario folder
+#' 
+#' `rwtbl_get_scen_folder()` provides the original file path to the scenario
+#' folder for the specified scenario name(s) (`scenarios`). If `scenarios` are 
+#' not found in `rwtblsmmry`, a warning message is posted.
+#' 
+#' @inheritParams rwtbl_var_to_slot
+#' 
+#' @param scenarios A vector of scenario names to map to scenario folders.
+#' 
+#' @return A vector of scenario folders; `character(0)` if none of the 
+#'   `scenarios` are found.
+#'   
+#' @examples 
+#' rwtbl_get_scen_folder(scen_data, "Most")
+#' rwtbl_get_scen_folder(scen_data, c("Most", "2002"))
+#' 
+#' @export
+rwtbl_get_scen_folder <- function(rwtblsmmry, scenarios)
+{
+  if (!("Scenario" %in% names(rwtblsmmry))) {
+    stop("Invalid `tbl_df` passed to `rwtbl_get_scen_folder()`.\n",
+         "It does not have a `Scenario` column")
+  } 
+  
+  scen_folder <- attr(rwtblsmmry, "scen_folder")
+  
+  if (is.null(scen_folder))
+  {
+    stop("Invalid `tbl_df` passed to `rwtbl_get_scen_folder()`.\n",
+         "It does not have a `scen_folder` attribute.")
+  }
+  
+  scen_folder <- scen_folder$folder[match(scenarios, scen_folder$scenario)]
+  
+  if (anyNA(scen_folder)) {
+    tmp <- scenarios[is.na(scen_folder)]
+    warning("The following scenarios were not found in the rwtbl:\n",
+            paste(paste("    ", tmp), collapse = "\n"),
+            call. = FALSE)
+    
+    scen_folder <- scen_folder[!is.na(scen_folder)]
+  }
+  
+  scen_folder
+}
