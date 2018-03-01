@@ -8,7 +8,10 @@ slot_agg_matrix <- rwd_agg(read.csv(
 
 rwtbl <- rw_rdf_to_tbl(keyRdf)
 
-# check apply_summary --------------------------
+orig_op <- getOption("rwdataplyr.wy_month_tol")
+on.exit(options(rwdataplyr.wy_month_tol = orig_op))
+
+# check results --------------------------
 test_that("apply_summary works as expected", {
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[1,]) %>%
@@ -54,12 +57,45 @@ test_that("apply_summary works as expected", {
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = getWYFromYearmon(ym)) %>%
       select(-ym) %>%
+      # drop the last WY off
+      filter(Year < max(Year)) %>%
+      group_by(Year, TraceNumber, ObjectSlot) %>%
+      summarise(Value = sum(Value))
+  )
+  
+  # also want to check water year calc for different wy tolerance levels
+  # don't filter any off
+  options(rwdataplyr.wy_month_tol = 0)
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]) %>%
+      RWDataPlyr:::apply_summary(slot_agg_matrix[5,]),
+    rwtbl %>%
+      filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = getWYFromYearmon(ym)) %>%
+      select(-ym) %>%
+      group_by(Year, TraceNumber, ObjectSlot) %>%
+      summarise(Value = sum(Value))
+  )
+  
+  # filter off first and last WY since they aren't full
+  options(rwdataplyr.wy_month_tol = 11)
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]) %>%
+      RWDataPlyr:::apply_summary(slot_agg_matrix[5,]),
+    rwtbl %>%
+      filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = getWYFromYearmon(ym)) %>%
+      select(-ym) %>%
+      # drop the last WY off
+      filter(Year < max(Year), Year > min(Year)) %>%
       group_by(Year, TraceNumber, ObjectSlot) %>%
       summarise(Value = sum(Value))
   )
 })
 
-# check apply_summary errors --------------------------
+# check errors --------------------------
 sam <- data.frame(matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "cy", "range", "<=", "1000", "peLt1000",
   "KeySlots.rdf", "Mead.Pool Elevation", "cy", "blah", "<=", "1000", "peLt1000",
