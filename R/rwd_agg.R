@@ -35,9 +35,16 @@
 #'   year, and `eowy()` selects the end of the water year. When specified in 
 #'   the `slot_agg` object, leave off the `()`, that is only specify the 
 #'   function name. This can also be a user specified custom function; see the
-#'   *Custom Period Functions* section. If the keyword "asis" is specified, the
-#'   data is returned for its native timestep, i.e, monthly data
-#'   will return monthly data and annual data will return annual.
+#'   *Custom Period Functions* section. If `"wy"` is specified, the function 
+#'   will remove data for any water years that have less than 7 months of data.
+#'   This "tolerance" is specified by the `"rwdataplyr.wy_month_tol"` option, 
+#'   and can be modified by updating this option to another number. For standard
+#'   CRSS data that starts in January and ends in December, this results in 
+#'   keeping the first water year, even though it only includes 9 months of 
+#'   data, and removing the last three months of data from the final water year.
+#'   If the keyword "asis" is specified, the data is returned for its native 
+#'   timestep, i.e, monthly data will return monthly data and annual data will 
+#'   return annual.
 #' - *summary:* the summary function that should be applied to the period 
 #'   specified as a function name, or `NA`. If the `period` specified is "asis"
 #'   or returns only one month, e.g., `eocy()`, then the summary should be `NA`.
