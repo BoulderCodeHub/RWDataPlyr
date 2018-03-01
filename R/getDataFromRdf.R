@@ -1,15 +1,17 @@
 
 #' Aggregate the slot data.
 #' 
-#' \code{processSlots} gets slot data from a rdf list and aggregates it as specified.
+#' \code{processSlots} gets slot data from a rdf list and aggregates it as 
+#' specified.
 #' 
-#' @param slotsAnnualize A string vector with three entries.  \code{slotsAnnualize[1]} is the
-#' slot to process. \code{slotsAnnualize[2]} is the aggregation method to use. 
-#' \code{slotsAnnualize[3]} is the threshold or scaling factor to use. \code{slotsAnnualize[4]}
-#' is the variable name to use. If \code{slotsAnnualize[4]} is \code{NA}, then the variable
-#' name is constructed as \code{slotsAnnualize[1]}_\code{slotsAnnualize[2]}_\code{slotsAnnualize[3]}.
+#' @param slotsAnnualize A string vector with three entries.  
+#'   `slotsAnnualize[1]` is the slot to process. `slotsAnnualize[2]` is the 
+#'   aggregation method to use. `slotsAnnualize[3]` is the threshold or scaling 
+#'   factor to use. `slotsAnnualize[4]` is the variable name to use. If 
+#'   `slotsAnnualize[4]` is `NA`, then the variable is constructed as 
+#'   `slotsAnnualize[1]_slotsAnnualize[2]_slotsAnnualize[3]`.
 #' 
-#' @param rdf The rdf list returned by \code{\link{read.rdf}} to get the slot data from.  
+#' @param rdf The rdf list returned by [read.rdf()] to get the slot data from.  
 #' 
 #' @param rdfName String of the rdf name.
 #' 
@@ -53,17 +55,26 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	yy <- seq(as.numeric(startData[1]), as.numeric(endData[1]), 1)
 	
 	tsUnit <- rdf$runs[[1]]$time_step_unit # should either be 'year' or 'month'
-	if(!(tsUnit %in% c('month','year'))){
-	  stop(paste('rdf:', rdfName,'contains data that is on a timestep other than year or month.\n',
-	             'Currently, RWDataPlyr can only handle monthly and annual rdf data.'))
+	if (!(tsUnit %in% c('month','year'))) {
+	  stop(
+	    'rdf: ', rdfName,
+	     ' contains data that is on a timestep other than year or month.\n',
+	     'Currently, RWDataPlyr can only handle monthly and annual rdf data.',
+	    call. = FALSE
+	  )
 	}
 	
-	if(tsUnit == 'year' & ann != 'AnnualRaw'){
+	if (tsUnit == 'year' & ann != 'AnnualRaw') {
 	  # data is annual, so none of the aggregation methods besides annualRaw 
 	  # make sense
-	  warning(paste('rdf contains annual data, but the aggregation method is not "AnnualRaw".\n',
-	                'Processing using "AnnualRaw" instead. Edit the slotAggList and call getDataForAllScens again, if necessary. '))
-	  ann = 'AnnualRaw'
+	  warning(
+	    "rdf contains annual data, but the aggregation method is not 'AnnualRaw'.\n",
+	    "Processing using 'AnnualRaw' instead.\n",
+	    "Edit the slotAggList and call `getDataForAllScens()` again, if necessary.",
+	    call. = FALSE
+	  )
+	  
+	  ann <- "AnnualRaw"
 	}
 	
 	# XXX
@@ -129,11 +140,13 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	} else if(ann == 'AnnualRaw'){
 		if(tsUnit == 'month'){
 		  # data is monthly, so will use EOCY
-		  warning(paste(
-		    'User specified aggregation is "AnnualRaw", but the rdf contains monthly data.\n',
-		    'Will use EOCY aggregation instead. If other aggregation method is desired, please\n',
-		    'edit the slot agg list and call getDataForAllScens again.'
-		    ))
+		  warning(
+		    "User specified aggregation is 'AnnualRaw', but the rdf contains monthly data.\n",
+		    "Will use 'EOCY' aggregation instead.\n",
+        "If other aggregation method is desired, edit the slotAggList and call `getDataForAllScens()` again.",
+		    call. = FALSE
+		  )
+		  
 		  slot <- slot[seq(12, nrow(slot), 12),, drop = FALSE] 
 		  slot[is.nan(slot)] <- 0
 		  slot <- slot * thresh
@@ -198,8 +211,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 
 #' Get and aggregate data from a single rdf file.
 #' 
-#' \code{getSlots} gets all of the slots contained in a single rdf file and aggregates them
-#' as specified by the summary functions in \code{slotAggList}. 
+#' `getSlots()` gets all of the slots contained in a single rdf file and 
+#' aggregates them as specified by the summary functions in `slotAggList`. 
 #' 
 #' @param slotAggList The slot aggregation list. A list containing the slots 
 #'   that will be imported and aggregated, the aggregation method(s) to use, 
@@ -224,7 +237,11 @@ getSlots <- function(slotAggList, scenPath, findAllSlots)
     } else if (rdf$runs[[1]]$time_step_unit == 'year'){
       aggMeth <- 'AnnualRaw'
     } else{
-      stop(paste('The', slotAggList$rdf, 'contains data of an unexpected timestep.'))
+      stop(
+        paste('The', slotAggList$rdf, 
+              'contains data of an unexpected timestep.'),
+        call. = FALSE
+      )
     }
     
     slotAggList <- slot_agg_list(cbind(
@@ -236,17 +253,28 @@ getSlots <- function(slotAggList, scenPath, findAllSlots)
     slotAggList <- slotAggList[[1]] 
 	}
   
-  slotsAnnualize <- rbind(slotAggList$slots, slotAggList$annualize, slotAggList$varNames)
+  slotsAnnualize <- rbind(
+    slotAggList$slots, 
+    slotAggList$annualize, 
+    slotAggList$varNames
+  )
 
-	allSlots <- apply(slotsAnnualize, 2, processSlots, rdf, slotAggList$rdf, findAllSlots)
+	allSlots <- apply(
+	  slotsAnnualize, 
+	  2, 
+	  processSlots, 
+	  rdf, 
+	  slotAggList$rdf, 
+	  findAllSlots
+	 )
 	allSlots <- do.call(rbind, lapply(allSlots, function(X) X))
 	allSlots
 }
 
 #' Get and aggregate data from rdf file(s) for one scenario.
 #' 
-#' \code{getAndProcessAllSlots} gets data for a single scenario.  The slots from each
-#' rdf are processed and aggregated together.
+#' `getAndProcessAllSlots()` gets data for a single scenario.  The slots 
+#' from each rdf are processed and aggregated together.
 #' 
 #' @param scenPath A relative or absolute path to the scenario folder.
 #' 
