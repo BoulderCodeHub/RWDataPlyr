@@ -9,7 +9,7 @@ slot_agg_matrix <- rwd_agg(read.csv(
 rwtbl <- rw_rdf_to_tbl(keyRdf)
 
 orig_op <- getOption("rwdataplyr.wy_month_tol")
-on.exit(options(rwdataplyr.wy_month_tol = orig_op))
+teardown(options(rwdataplyr.wy_month_tol = orig_op))
 
 # check results --------------------------
 test_that("apply_summary works as expected", {

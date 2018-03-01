@@ -8,7 +8,7 @@ slot_agg_matrix <- rwd_agg(read.csv(
 
 rwtbl <- rw_rdf_to_tbl(keyRdf)
 
-# check apply_eval --------------------------
+# check results --------------------------
 test_that("apply_eval works as expected", {
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[1,]) %>%
@@ -61,13 +61,14 @@ test_that("apply_eval works as expected", {
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = getWYFromYearmon(ym)) %>%
       select(-ym) %>%
+      filter(Year < max(Year)) %>%
       group_by(Year, TraceNumber, ObjectSlot) %>%
       summarise(Value = sum(Value)) %>%
       mutate(Value = Value * 0.001)
   )
 })
 
-# check apply_eval errors --------------------------
+# check errors --------------------------
 sam <- data.frame(matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "cy", "sum", "<=", NA, "peLt1000",
   "KeySlots.rdf", "Mead.Pool Elevation", "cy", "sum", "sum", "1000", "peLt1000",

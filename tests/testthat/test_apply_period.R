@@ -9,16 +9,24 @@ slot_agg_matrix <- rwd_agg(read.csv(
 
 rwtbl <- rw_rdf_to_tbl(keyRdf)
 
+orig_op <- getOption("rwdataplyr.wy_month_tol")
+teardown(options(rwdataplyr.wy_month_tol = orig_op))
+
 # check pre-specified periods --------------------------
 test_that("period_apply works with pre-specified periods", {
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[1,]),
-    filter(rwtbl, Month %in% month.name, ObjectSlot == slot_agg_matrix[1,]$slot) %>%
+    filter(
+      rwtbl, 
+      Month %in% month.name, 
+      ObjectSlot == slot_agg_matrix[1,]$slot
+    ) %>%
       group_by(Year)
   )
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[2,]),
-    filter(rwtbl, Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
+    rwtbl %>%  
+      filter(Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
       group_by(Year)
   )
   expect_identical(
@@ -37,6 +45,33 @@ test_that("period_apply works with pre-specified periods", {
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = getWYFromYearmon(ym)) %>%
       select(-ym) %>%
+      # drop the last year off
+      filter(Year < max(Year)) %>%
+      group_by(Year)
+  )
+  
+  # also want to check water year calc for different wy tolerance levels
+  # don't filter any off
+  options(rwdataplyr.wy_month_tol = 0)
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = getWYFromYearmon(ym)) %>%
+      select(-ym) %>%
+      group_by(Year)
+  )
+  
+  # filter off first and last WY since they aren't full
+  options(rwdataplyr.wy_month_tol = 11)
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = getWYFromYearmon(ym)) %>%
+      select(-ym) %>%
+      # drop first and last years off (they don't have full 12 months of data)
+      filter(Year < max(Year), Year > min(Year)) %>%
       group_by(Year)
   )
 })
@@ -68,7 +103,10 @@ djf <<- function()
   djf_convert <- function(rwtbl)
   {
     rwtbl %>%
-      dplyr::mutate_at("Timestep", .funs = dplyr::funs("ym" = zoo::as.yearmon)) %>%
+      dplyr::mutate_at(
+        "Timestep", 
+        .funs = dplyr::funs("ym" = zoo::as.yearmon)
+      ) %>%
       # can use the getWYFromYearmon b/c djf are all in same water year
       dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
       dplyr::select(-dplyr::one_of("ym"))
