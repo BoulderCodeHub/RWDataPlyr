@@ -45,24 +45,38 @@ compared (\code{eval}) to a threshold (\code{t_s}) and saved as the \code{variab
 \item \emph{period:} the period that the slot should be summarized over. This should
 either be a function name, a full month name (found in \link{month.name}), or
 the keyword "asis".
-If specifying a function, only the function name should be specified. This
-package provides the following functions: \code{cy()}, \code{wy()}, \code{eocy()}, and
-\code{eowy()}. \code{cy()} indicates the data will be summarized over the calendar
-year, i.e., January - December, while \code{wy()} summarizes over the water
-year, i.e., October - September. \code{eocy()} selects the end of the calendar
-year, and \code{eowy()} selects the end of the water year. When specified in
-the \code{slot_agg} object, leave off the \code{()}, that is only specify the
-function name. This can also be a user specified custom function; see the
-\emph{Custom Period Functions} section. If \code{"wy"} is specified, the function
-will remove data for any water years that have less than 7 months of data.
-This "tolerance" is specified by the \code{"rwdataplyr.wy_month_tol"} option,
-and can be modified by updating this option to another number. For standard
-CRSS data that starts in January and ends in December, this results in
-keeping the first water year, even though it only includes 9 months of
-data, and removing the last three months of data from the final water year.
-If the keyword "asis" is specified, the data is returned for its native
-timestep, i.e, monthly data will return monthly data and annual data will
-return annual.
+\itemize{
+\item \emph{function name:} Specifying a function name allows for pre-specified
+or custom functions to group together several months in the \emph{period}.
+This package provides the following functions: \code{cy()}, \code{wy()},
+\code{eocy()}, and \code{eowy()}. \code{cy()} indicates the data will be summarized
+over the calendar year, i.e., January - December, while \code{wy()}
+summarizes over the water year, i.e., October - September. \code{eocy()}
+selects the end of the calendar year, and \code{eowy()} selects the end of
+the water year. When specified in the \code{slot_agg} object, leave off the
+parenthesis, i.e., only specify the function name. If \code{wy()} is
+specified, the function will remove data for any water years that have
+less than 7 months of data. This "tolerance" is specified by the
+\code{rwdataplyr.wy_month_tol} option, and can be modified by updating this
+option to another number. For standard monthly data that starts in
+January and ends in December, this results in keeping the first water
+year, since it includes 9 months of data, and removing the final water
+year, since it includes only three months of data. Setting this option
+to 0 will result in keeping any water year data that has at least one
+month of data; settting this option to 11, ensures that there must be
+a full water year of data for that year to be kept.
+
+This can also be a user specified custom function; see the
+\emph{Custom Period Functions} section for details on constructing the custom
+functions.
+\item \emph{full month name:} When the full month name is specified, data will
+be filtered to only include data for that paricular month. To select
+multiple months of data, use a function as described above. If the
+month specified is not found in \link{month.name}, an error will occur.
+\item \emph{asis:} If the keyword "asis" is specified, the data is returned for
+its native timestep, i.e, monthly data will return monthly data and
+annual data will return annual.
+}
 \item \emph{summary:} the summary function that should be applied to the period
 specified as a function name, or \code{NA}. If the \code{period} specified is "asis"
 or returns only one month, e.g., \code{eocy()}, then the summary should be \code{NA}.

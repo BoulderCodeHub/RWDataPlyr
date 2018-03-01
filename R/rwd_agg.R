@@ -22,29 +22,48 @@
 #' specifies the `slot` that is found in a specific rdf file (`file`). A 
 #' `summary` function is applied to a subset `period` of the `slot`, and then
 #' compared (`eval`) to a threshold (`t_s`) and saved as the `variable`.
+#' 
 #' - *file:* specifies the rdf file that contains the slot.
+#' 
 #' - *slot:* the full RiverWare slot name.
+#' 
 #' - *period:* the period that the slot should be summarized over. This should 
 #'   either be a function name, a full month name (found in [month.name]), or 
 #'   the keyword "asis". 
-#'   If specifying a function, only the function name should be specified. This
-#'   package provides the following functions: `cy()`, `wy()`, `eocy()`, and 
-#'   `eowy()`. `cy()` indicates the data will be summarized over the calendar
-#'   year, i.e., January - December, while `wy()` summarizes over the water 
-#'   year, i.e., October - September. `eocy()` selects the end of the calendar
-#'   year, and `eowy()` selects the end of the water year. When specified in 
-#'   the `slot_agg` object, leave off the `()`, that is only specify the 
-#'   function name. This can also be a user specified custom function; see the
-#'   *Custom Period Functions* section. If `"wy"` is specified, the function 
-#'   will remove data for any water years that have less than 7 months of data.
-#'   This "tolerance" is specified by the `"rwdataplyr.wy_month_tol"` option, 
-#'   and can be modified by updating this option to another number. For standard
-#'   CRSS data that starts in January and ends in December, this results in 
-#'   keeping the first water year, even though it only includes 9 months of 
-#'   data, and removing the last three months of data from the final water year.
-#'   If the keyword "asis" is specified, the data is returned for its native 
-#'   timestep, i.e, monthly data will return monthly data and annual data will 
-#'   return annual.
+#'   
+#'     - *function name:* Specifying a function name allows for pre-specified 
+#'       or custom functions to group together several months in the *period*. 
+#'       This package provides the following functions: `cy()`, `wy()`, 
+#'       `eocy()`, and `eowy()`. `cy()` indicates the data will be summarized 
+#'       over the calendar year, i.e., January - December, while `wy()` 
+#'       summarizes over the water year, i.e., October - September. `eocy()` 
+#'       selects the end of the calendar year, and `eowy()` selects the end of 
+#'       the water year. When specified in the `slot_agg` object, leave off the 
+#'       parenthesis, i.e., only specify the function name. If `wy()` is 
+#'       specified, the function will remove data for any water years that have 
+#'       less than 7 months of data. This "tolerance" is specified by the 
+#'       `rwdataplyr.wy_month_tol` option, and can be modified by updating this 
+#'       option to another number. For standard monthly data that starts in 
+#'       January and ends in December, this results in keeping the first water 
+#'       year, since it includes 9 months of data, and removing the final water 
+#'       year, since it includes only three months of data. Setting this option 
+#'       to 0 will result in keeping any water year data that has at least one 
+#'       month of data; settting this option to 11, ensures that there must be 
+#'       a full water year of data for that year to be kept.
+#'   
+#'       This can also be a user specified custom function; see the
+#'       *Custom Period Functions* section for details on constructing the custom
+#'       functions.
+#'     
+#'     - *full month name:* When the full month name is specified, data will 
+#'       be filtered to only include data for that paricular month. To select
+#'       multiple months of data, use a function as described above. If the
+#'       month specified is not found in [month.name], an error will occur.
+#'     
+#'     - *asis:* If the keyword "asis" is specified, the data is returned for 
+#'       its native timestep, i.e, monthly data will return monthly data and 
+#'       annual data will return annual.
+#'     
 #' - *summary:* the summary function that should be applied to the period 
 #'   specified as a function name, or `NA`. If the `period` specified is "asis"
 #'   or returns only one month, e.g., `eocy()`, then the summary should be `NA`.
@@ -52,14 +71,17 @@
 #'   of the `Summary` [S4groupGeneric]s work. Notably, `range()` will not
 #'   since it returns two values. There is no reason that a custom function
 #'   will not work here, but it has not been tested and implemented. 
+#'   
 #' - *eval:* the comparison operator to use ([S4groupGeneric] - `Compare`). If
 #'   no comparison is desired, then `NA` should be used. If `eval` is specified
 #'   the value returned from applying the `summary` to the `period` will be 
 #'   compared to the threshold specified by `t_s`. The results of the comparison
 #'   are returned as 0 and 1 instead of `TRUE` and `FALSE`.
+#'   
 #' - *t_s:* either the threshold to be compared to if `eval` is not `NA` or a 
 #'   value to scale the result by, e.g,. 0.001 to convert from acre-ft to 
 #'   thousand acre-ft. 
+#'   
 #' - *variable:* the variable name that will be used to identify the results
 #'   of applying the period, summary, comparison/scaling to. All variable names
 #'   should be unique.
