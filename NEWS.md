@@ -7,10 +7,12 @@
 * Removed dependency on reshape2
 * Got rid of `read.rdf()` original implementation. Now `read.rdf2()` (the faster implementation) is named `read.rdf()` and `read.rdf2()` is deprecated. (#63)
 * Formalized the list returned by `createSlotAggList()` as a `slot_agg_list` class. Created applicable constructor, which deprecates `createSlotAggList()`, `print()`, `summary()` and `is.`/`is_` methods and functions. (#67)
+    - added check in creation to ensure all variables are unique (if specified) (#64)
 * `rwd_agg` class. Includes methods for `rbind()`, `cbind()`, `as` and `is`. (#68)
 * New function: `rwtbl_slot_names()`
 * New functions: `rw_scen_aggregate()` and `rdf_aggregate()` (#51)
 * New functions: `rwtbl_get_scen_folder()` and `rwtbl_var_to_slot()` (#50)
+
 
 
 # RWDataPlyr 0.5.0
