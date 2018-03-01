@@ -27,6 +27,24 @@
 #'   will continue, even if a slot cannot be found. If a slot is not found, 
 #'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
 #'   Value.
+#'   
+#' @examples 
+#' # rwtbl_aggregate() ----------
+#' 
+#' rdfPath <- system.file(
+#'   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
+#'   package = "RWDataPlyr"
+#' )
+#' 
+#' rwa <- rwd_agg(read.csv(
+#'   system.file(
+#'     "extdata/rwd_agg_files/passing_aggs.csv", 
+#'     package = "RWDataPlyr"
+#'   ), 
+#'  stringsAsFactors = FALSE
+#' ))
+#' 
+#' x <- rwtbl_aggregate(rwa[1,], rdf_dir = rdfPath, scenario = "Most")
 #' 
 #' @export
 

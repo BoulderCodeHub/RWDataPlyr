@@ -63,6 +63,37 @@
 #' 
 #' @return A `tbl_df` containing all aggregated and summarized data for all of
 #'   the specified `scenarios`.
+#'   
+#' @examples 
+#' # rw_scen_aggregate() ----------
+#' 
+#' scens <- c("ISM1988_2014,2007Dems,IG,2002", "ISM1988_2014,2007Dems,IG,Most")
+#' scenNames <- c("2002", "Most")
+#' namedScens <- scens
+#' names(namedScens) <- scenNames
+#' 
+#' scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
+#' 
+#' rwa <- rwd_agg(read.csv(
+#'   system.file(
+#'     "extdata/rwd_agg_files/passing_aggs.csv", 
+#'     package = "RWDataPlyr"
+#'   ), 
+#'  stringsAsFactors = FALSE
+#' ))
+#' 
+#' x <- rw_scen_aggregate(namedScens, agg = rwa[1,], scen_dir = scenPath)
+#' 
+#' # y will be identical to x
+#' 
+#' y <- rw_scen_aggregate(
+#'   scens, 
+#'   agg = rwa[1,], 
+#'   scen_dir = scenPath, 
+#'   scen_names = scenNames
+#' )
+#' 
+#' identical(x, y) # is TRUE
 #' 
 #' @rdname rwtbl_aggregate
 #' 
