@@ -10,6 +10,7 @@
 * `rwd_agg` class. Includes methods for `rbind()`, `cbind()`, `as` and `is`. (#68)
 * New function: `rwtbl_slot_names()`
 * New functions: `rw_scen_aggregate()` and `rwtbl_aggregate()` (#51)
+* New functions: `rwtbl_get_scen_folder()` and `rwtbl_var_to_slot()` (#50)
 
 
 # RWDataPlyr 0.5.0
