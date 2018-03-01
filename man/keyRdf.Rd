@@ -14,9 +14,9 @@ keyRdf
 }
 \description{
 An example of an rdf file that has already been read into R via
-\link{read.rdf}. This example contains 39 slots, at the monthly
+\code{\link[=read.rdf]{read.rdf()}}. This example contains 39 slots, at the monthly
 timestep for 11 years and 25 runs. Slots include pool elevation,
-flow, and flags. Use this with \link{getSlotsInRdf} or
-\link{rdfSlotToMatrix} to use the data.
+flow, and flags. Use this with \code{\link[=getSlotsInRdf]{getSlotsInRdf()}} or
+\code{\link[=rdfSlotToMatrix]{rdfSlotToMatrix()}} to use the data.
 }
 \keyword{datasets}
