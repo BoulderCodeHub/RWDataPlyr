@@ -10,14 +10,13 @@ slotAggList <- slot_agg_list(system.file(
 ))
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.txt'
-retFile <- TRUE # return the data, instead of only save it as a text file
+
 keyData <- getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.txt", 
-  retFile
+  "tmp2.txt"
 )
 
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
@@ -27,8 +26,7 @@ allData <- getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  oFile, 
-  retFile
+  oFile
 )
 on.exit(file.remove("tmp.txt"), add = TRUE)
 
@@ -65,8 +63,7 @@ test_that('file extension is checked', {
       scenNames, 
       slotAggList, 
       scenPath, 
-      'tst.xyz', 
-      retFile
+      'tst.xyz'
     ),
     paste0(
       'oFile has an invalid file exention.\n',
@@ -81,8 +78,7 @@ test_that('file extension is checked', {
       scenNames, 
       slotAggList, 
       scenPath, 
-      'tst.cvs', 
-      retFile
+      'tst.cvs'
     ),
     paste0(
       'oFile has an invalid file exention.\n',
@@ -99,8 +95,7 @@ getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp.feather", 
-  FALSE
+  "tmp.feather"
 )
 
 on.exit(file.remove(c("tmp.feather")), add = TRUE)
@@ -110,8 +105,7 @@ getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp.csv", 
-  FALSE
+  "tmp.csv"
 )
 
 on.exit(file.remove("tmp.csv"), add = TRUE)
@@ -126,8 +120,7 @@ getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.feather", 
-  FALSE
+  "tmp2.feather"
 )
 on.exit(file.remove("tmp2.feather"), add = TRUE)
 getDataForAllScens(
@@ -135,8 +128,7 @@ getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.csv", 
-  FALSE
+  "tmp2.csv"
 )
 on.exit(file.remove("tmp2.csv"), add = TRUE)
 

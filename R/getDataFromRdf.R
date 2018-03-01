@@ -329,15 +329,14 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 #' @param oFile An absolute or relative path with the file name of the location 
 #'   the table will be saved to. Valid file types are .csv, .txt, or .feather. 
 #' 
-#' @param retFile If `TRUE`, the data frame will be saved to `oFile` and 
-#'   returned. If `FALSE`, the data frame will only be saved to `oFile`.
-#' 
 #' @param findAllSlots Boolean; if `TRUE` (default), then the function will
 #'   abort if it cannot find a particular slot. If \code{FALSE}, then the 
 #'   function will continue, even if a slot cannot be found. If a slot is not 
 #'   found, then the function will return `-99` for the Trace, Year, and Value.
+#'   
+#' @param retFile Deprecated. Data are always returned invisibly.
 #' 
-#' @return If `retFile` is `TRUE`, a data.frame, otherwise nothing is returned.
+#' @return A data.frame.
 #' 
 #' @examples 
 #' # get a specified set of slots and apply some aggregation method to them
@@ -357,8 +356,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 #'   scenNames = scenFolders, 
 #'   slotAggList = slotAggList, 
 #'   scenPath = scenPath, 
-#'   oFile = oFile, 
-#'   retFile = retFile
+#'   oFile = oFile
 #' )
 #' 
 #' # get all of the data from the KeySlots rdf file
@@ -370,8 +368,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 #'   scenNames = scenFolders, 
 #'   slotAggList = slotAggList, 
 #'   scenPath = scenPath, 
-#'   oFile = oFile, 
-#'   retFile = retFile
+#'   oFile = oFile
 #' )
 #' 
 #' @seealso [slot_agg_list()]
@@ -379,14 +376,22 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 #' @export
 #' 
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, 
-                               oFile, retFile = FALSE, findAllSlots = TRUE)
+                               oFile, retFile = NULL, findAllSlots = TRUE)
 {
   # determine file type to save data as:
   fExt <- tools::file_ext(oFile)
-  if(!(fExt %in% c('txt', 'csv', 'feather'))){
+  if (!(fExt %in% c('txt', 'csv', 'feather'))) {
     stop(paste0('oFile has an invalid file exention.\n',
                 'getDataForAllScens does not know how to handle ".', fExt,
                 '" extensions.'))
+  }
+  
+  if (!missing(retFile)) {
+    warning(
+      "In `getDataForAllScens()`, `retFile` is deprecated.\n",
+      "Data are always invisibly returned.",
+      call. = FALSE
+    )
   }
   
 	scenPath = file.path(scenPath, scenFolders)
@@ -396,9 +401,7 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath,
 	
 	write_rw_data(zz, oFile)
 	
-	if(retFile){
-	  zz
-	}
+	invisible(zz)
 }
 
 #' Write out csv, txt, or a feather file.

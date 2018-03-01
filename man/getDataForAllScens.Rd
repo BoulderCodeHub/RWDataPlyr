@@ -5,7 +5,7 @@
 \title{Get and aggregate data from an rdf file(s)}
 \usage{
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile,
-  retFile = FALSE, findAllSlots = TRUE)
+  retFile = NULL, findAllSlots = TRUE)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios)
@@ -31,8 +31,7 @@ methods will be applied to the data in the rdf file.}
 \item{oFile}{An absolute or relative path with the file name of the location
 the table will be saved to. Valid file types are .csv, .txt, or .feather.}
 
-\item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and
-returned. If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
+\item{retFile}{Deprecated. Data are always returned invisibly.}
 
 \item{findAllSlots}{Boolean; if \code{TRUE} (default), then the function will
 abort if it cannot find a particular slot. If \code{FALSE}, then the
@@ -40,7 +39,7 @@ function will continue, even if a slot cannot be found. If a slot is not
 found, then the function will return \code{-99} for the Trace, Year, and Value.}
 }
 \value{
-If \code{retFile} is \code{TRUE}, a data.frame, otherwise nothing is returned.
+A data.frame.
 }
 \description{
 \code{getDataForAllScens()} gets slot data from multiple rdf files and/or multiple
@@ -65,8 +64,7 @@ keyData <- getDataForAllScens(
   scenNames = scenFolders, 
   slotAggList = slotAggList, 
   scenPath = scenPath, 
-  oFile = oFile, 
-  retFile = retFile
+  oFile = oFile
 )
 
 # get all of the data from the KeySlots rdf file
@@ -78,8 +76,7 @@ allData <- getDataForAllScens(
   scenNames = scenFolders, 
   slotAggList = slotAggList, 
   scenPath = scenPath, 
-  oFile = oFile, 
-  retFile = retFile
+  oFile = oFile
 )
 
 }
