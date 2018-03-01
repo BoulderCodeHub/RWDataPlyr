@@ -1,4 +1,5 @@
 context("test `rw_scen_aggregate()`")
+library(dplyr)
 
 rwa <- rwd_agg(read.csv(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
@@ -49,7 +50,7 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
     fixed = TRUE
   )
   expect_error(
-    rw_scen_aggregate(scens3, rwa, scenPath, file = c("an/invalid/loc/ofile.csv")),
+    rw_scen_aggregate(scens3, rwa, scenPath, file = c("invalid/loc/ofile.csv")),
     "In `rw_scen_aggregate()`, `file` should point to a valid location.",
     fixed = TRUE
   )
@@ -82,3 +83,41 @@ test_that("`rw_scen_aggregate()` returns proper data", {
     rbind(attr(t1, "scen_folder"), attr(t2, "scen_folder"))
   )
 })
+
+# compare to getDataForAllScens() ----------------------------
+context("compare `rw_scen_aggregate()` to `getDataForAllScens()`")
+sal <- slot_agg_list(system.file(
+  "extdata/sat_all_aggs.csv", 
+  package = "RWDataPlyr"
+))
+ra <- rwd_agg(read.csv(
+  system.file(
+    "extdata/rwd_agg_files/rwd_agg_all_aggs.csv", 
+    package = "RWDataPlyr"
+  ),
+  stringsAsFactors = FALSE
+))
+
+t1 <- getDataForAllScens(scens1, scenNames, sal, scenPath, "tmp.feather", TRUE)
+on.exit(file.remove("tmp.feather"))
+t2 <- rw_scen_aggregate(scens3, ra, scenPath)
+allVars <- ra$variable
+
+test_that("returned data is the same", {
+  for (var in allVars) {
+    expect_equivalent(
+      t1 %>%
+        filter(Variable == var) %>%
+        arrange(Scenario, Trace, Year) %>%
+        select(Value),
+      t2 %>%
+        ungroup() %>%
+        filter(Variable == var) %>%
+        arrange(Scenario, TraceNumber, Year) %>%
+        select(Value),
+      info = var
+    )
+  }
+})
+
+# *** still need to test monthly asis
