@@ -128,4 +128,43 @@ test_that("returned data is the same", {
   }
 })
 
-# *** still need to test monthly asis
+# compare monthly data ----------------------------
+
+expect_warning(
+  t1 <- getDataForAllScens(
+    scens1, 
+    scenNames, 
+    list(list(rdf = "KeySlots.rdf", slots = "all")), 
+    scenPath, 
+    "tmp2.feather"
+  )
+)
+on.exit(file.remove("tmp2.feather"), add = TRUE)
+
+t2 <- rw_scen_aggregate(scens3, rwd_agg(rdfs = "KeySlots.rdf"), scenPath)
+
+test_that("monthly data are equal", {
+  expect_equivalent(
+    t1 %>% 
+      filter(Variable == "Mead.Pool Elevation_Monthly_1") %>%
+      arrange(Scenario, Trace, Year) %>%
+      select(Value),
+    t2 %>%
+      ungroup() %>%
+      filter(Variable == "mead_pe") %>%
+      arrange(Scenario, TraceNumber, Year) %>%
+      select(Value)
+  )
+  
+  expect_equivalent(
+    t1 %>% 
+      filter(Variable == "Powell.Outflow_Monthly_1") %>%
+      arrange(Scenario, Trace, Year) %>%
+      select(Value),
+    t2 %>%
+      ungroup() %>%
+      filter(Variable == "powell_outflow") %>%
+      arrange(Scenario, TraceNumber, Year) %>%
+      select(Value)
+  )
+})
