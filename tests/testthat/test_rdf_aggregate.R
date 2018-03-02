@@ -149,7 +149,8 @@ test_that("'all' keyword gets all data", {
 
 # check handling NaNs -----------------------------------
 ss <- c("Shortage.ShortageFlag", "Coordinated Operation.ReducedReleaseFlag")
-flags_rdf <- rw_rdf_to_tbl(read.rdf(file.path(dnfmost_dir, "Flags.rdf"))) %>%
+scenario_dir <- system.file("extdata/Scenario/", package = "RWDataPlyr")
+flags_rdf <- rw_rdf_to_tbl(read.rdf(file.path(scenario_dir, "Flags.rdf"))) %>%
   filter(ObjectSlot %in% ss)
 short_ra <- rwd_agg(data.frame(
   file = "Flags.rdf", 
@@ -165,16 +166,16 @@ short_ra <- rwd_agg(data.frame(
 test_that("`NaN`s are treated properly in `rdf_aggregate()`", {
   expect_error(rdf_aggregate(
     rwd_agg(rdfs = "Flags.rdf"), 
-    rdf_dir = dnfmost_dir, 
+    rdf_dir = scenario_dir, 
     nans_are = "error"
   ))
   
   expect_error(rdf_aggregate(
-    short_ra, rdf_dir = dnfmost_dir, nans_are = "error"
+    short_ra, rdf_dir = scenario_dir, nans_are = "error"
   ))
   
   expect_is(
-    t1 <- rdf_aggregate(short_ra, rdf_dir = dnfmost_dir, nans_are = "0"),
+    t1 <- rdf_aggregate(short_ra, rdf_dir = scenario_dir, nans_are = "0"),
     "tbl_df"
   )
   # flags that have no NaNs should not be affected
