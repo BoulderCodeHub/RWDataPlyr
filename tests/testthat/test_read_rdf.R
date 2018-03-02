@@ -13,6 +13,9 @@ r2 <- read.rdf(system.file(
 ))
 # current read vs. old read -------------------
 test_that('read.rdf data are as expected', {
+  expect_equal(r1, keyRdf)
+  expect_equal(r2, sysRdf)
+  
   expect_equal(rdfSlotToMatrix(r1, 'Powell.Outflow'),
                rdfSlotToMatrix(keyRdf, 'Powell.Outflow'))
   expect_equal(rdfSlotToMatrix(r1, 'Mead.Pool Elevation'),
@@ -31,10 +34,10 @@ test_that('read.rdf data are as expected', {
 exptSlots <- c('Mead.Pool Elevation', 'Powell.Outflow') 
 
 test_that('slots in rdf are those that are expected', {
-  expect_equal(length(getSlotsInRdf(keyRdf)),length(exptSlots))
+  expect_equal(length(rdf_slot_names(keyRdf)),length(exptSlots))
   expect_equal(
-    sum(getSlotsInRdf(keyRdf) %in% exptSlots), 
-    length(getSlotsInRdf(keyRdf))
+    sum(rdf_slot_names(keyRdf) %in% exptSlots), 
+    length(rdf_slot_names(keyRdf))
   )
 })
 
@@ -64,11 +67,11 @@ test_that("rdfs with scalar slots read in correctly", {
   expect_type(srs <- read.rdf("../rdfs/series.rdf"), "list")
   expect_type(ss <- read.rdf("../rdfs/scalar_series.rdf"), "list")
   expect_setequal(
-    getSlotsInRdf(ss), 
-    c(getSlotsInRdf(scl), getSlotsInRdf(srs))
+    rdf_slot_names(ss), 
+    c(rdf_slot_names(scl), rdf_slot_names(srs))
   )
   
-  for (slot in getSlotsInRdf(scl)) {
+  for (slot in rdf_slot_names(scl)) {
     expect_identical(
       rdfSlotToMatrix(scl, slot), 
       rdfSlotToMatrix(ss, slot), 
@@ -76,7 +79,7 @@ test_that("rdfs with scalar slots read in correctly", {
     )
   }
   
-  for (slot in getSlotsInRdf(srs)) {
+  for (slot in rdf_slot_names(srs)) {
     expect_identical(
       rdfSlotToMatrix(srs, slot), 
       rdfSlotToMatrix(ss, slot), 

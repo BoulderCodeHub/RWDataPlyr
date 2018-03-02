@@ -16,7 +16,7 @@ sysRdf
 An example of an rdf file that has already been read into R via
 \code{\link[=read.rdf]{read.rdf()}}. This example contains 23 slots, at the annual
 timestep for 11 years and 25 runs. Slots only include
-flags. Use this with \code{\link[=getSlotsInRdf]{getSlotsInRdf()}} or
+flags. Use this with \code{\link[=rdf_slot_names]{rdf_slot_names()}} or
 \code{\link[=rdfSlotToMatrix]{rdfSlotToMatrix()}} to use the data.
 }
 \keyword{datasets}

@@ -26,8 +26,11 @@ test_that('getTimeSpan returns correct length', {
   expect_equal(length(getTimeSpan(keyRdf)),2)
 })
 
-test_that('getSlotsInRdf returns expected slot names', {
+test_that('rdf_slot_names returns expected slot names', {
   # use all and check if it's in the list. order does not matter.
-  expect_equal(all(getSlotsInRdf(keyRdf) %in% c('Mead.Pool Elevation',
+  expect_equal(all(rdf_slot_names(keyRdf) %in% c('Mead.Pool Elevation',
                                                 'Powell.Outflow')),TRUE)
+  
+  expect_equal(rdf_slot_names(keyRdf), expect_warning(getSlotsInRdf(keyRdf)))
+  expect_equal(rdf_slot_names(sysRdf), expect_warning(getSlotsInRdf(sysRdf)))
 })

@@ -31,7 +31,7 @@ expect_warning(allData <- getDataForAllScens(
 ))
 on.exit(file.remove("tmp.txt"), add = TRUE)
 
-expectedSlotNames <- sort(paste(getSlotsInRdf(keyRdf),'Monthly','1',sep='_'))
+expectedSlotNames <- sort(paste(rdf_slot_names(keyRdf),'Monthly','1',sep='_'))
 
 test_that("getting all slot data from RDF does actually return all slots", {
   expect_equal(levels(as.factor(allData$Variable)),expectedSlotNames)

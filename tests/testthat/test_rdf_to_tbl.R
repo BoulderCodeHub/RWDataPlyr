@@ -8,7 +8,7 @@ reqCols <- RWDataPlyr:::req_rwtbl_cols()
 exp_atts <- c("mrm_config_name", "owner", "description", "create_date", 
               "n_traces")
 nt <- as.integer(keyRdf$meta$number_of_runs)
-slots <- getSlotsInRdf(keyRdf)
+slots <- rdf_slot_names(keyRdf)
 
 test_that("dimensions are as expected", {
   expect_true(nrow(rdftbl) > 0)
@@ -140,7 +140,7 @@ context("check rw_rdf_to_tbl with annual rdf file")
 rdftbl <- rw_rdf_to_tbl(sysRdf)
 reqCols <- RWDataPlyr:::req_rwtbl_cols()
 nt <- as.integer(sysRdf$meta$number_of_runs)
-slots <- getSlotsInRdf(sysRdf)
+slots <- rdf_slot_names(sysRdf)
 
 test_that("dimensions are as expected", {
   expect_true(nrow(rdftbl) > 0)

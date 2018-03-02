@@ -1,21 +1,35 @@
 
 # -----------------------------------------------------------------------------
-# 								getSlotsInRdf
+# 								rdf_slot_names
 # -----------------------------------------------------------------------------
 #' Returns all slots contained in an rdf file.
 #' 
-#' \code{getSlotsInRdf} returns a list of all of the slots contained within the rdf list.
+#' `rdf_slot_names()` returns a character vector of all slots contained within 
+#' an rdf object.
 #' 
-#' @param rdf list returned by \code{\link{read.rdf}}
-#' @return A vector of strings.  Each string is a slot contained in the rdf list.
+#' @param rdf An `rdf` object. 
+#' 
+#' @return A character vector.
+#' 
 #' @examples
-#' getSlotsInRdf(keyRdf)
+#' rdf_slot_names(keyRdf)
+#' 
+#' @seealso [read.rdf()]
 #' 
 #' @export
-#' 
+rdf_slot_names <- function(rdf)
+{
+  stopifnot(methods::is(rdf, "rdf"))
+  
+  names(rdf$runs[[1]]$objects)
+}
+
+#' @describeIn rdf_slot_names Deprecated version of `rdf_slot_names()`
+#' @export
 getSlotsInRdf <- function(rdf)
 {
-  names(rdf$runs[[1]]$objects)
+  .Deprecated("`rdf_slot_names()`")
+  rdf_slot_names(rdf)
 }
 
 # ----------------------------------------------------------------------------
@@ -37,11 +51,14 @@ getSlotsInRdf <- function(rdf)
 rdfSlotToMatrix <- function(rdf, slot)
 {
   # check to see if the slot exists in the rdf, if it does not exit error out
-  if(!(slot %in% getSlotsInRdf(rdf)))
+  if (!(slot %in% rdf_slot_names(rdf)))
      stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
      
 	nn <- as.numeric(rdf$meta$number_of_runs)
-	res <- do.call(cbind, lapply(1:nn, function(xx) rdf$runs[[xx]]$objects[[slot]]$values))
+	res <- do.call(
+	  cbind, 
+	  lapply(1:nn, function(xx) rdf$runs[[xx]]$objects[[slot]]$values)
+	)
 	
 	res
 }
@@ -88,7 +105,7 @@ getTimeSpan <- function(rdf)
 rdfSlotToXTS <- function(rdf, slot)
 {
   # check to see if the slot exists in the rdf, if it does not exit
-  if(!(slot %in% getSlotsInRdf(rdf)))
+  if(!(slot %in% rdf_slot_names(rdf)))
     stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
   # Get date-times from rdf
   tArray <- rdf$runs[[1]]$times

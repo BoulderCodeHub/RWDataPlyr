@@ -11,7 +11,7 @@ test_that("`rwtbl_slot_names()` finds correct slots", {
   
   expect_true(all(c("Mead.Pool Elevation", "Powell.Outflow") %in% rwslots))
   
-  expect_setequal(rwslots, getSlotsInRdf(keyRdf))
+  expect_setequal(rwslots, rdf_slot_names(keyRdf))
 })
 
 rwa <- as.rwd_agg(read.csv(

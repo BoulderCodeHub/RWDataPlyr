@@ -28,8 +28,8 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	thresh[is.na(thresh)] = 1 
 	slot <- slotsAnnualize[1]
 
-	if(!(slot %in% getSlotsInRdf(rdf))){
-	  if(findAllSlots) {
+	if (!(slot %in% rdf_slot_names(rdf))) {
+	  if (findAllSlots) {
 		  stop(paste("slot:", slot, "not found in rdf:", rdfName))
 	  } else {
 	    # Trace Year                     Variable   Value
@@ -230,7 +230,7 @@ getSlots <- function(slotAggList, scenPath, findAllSlots)
   if(slotAggList$slots[1] == 'all'){
 	  # if slots is all, then need to create the slotAggList
 	  # after reading in all the slot names
-    slots <- getSlotsInRdf(rdf)
+    slots <- rdf_slot_names(rdf)
     nSlots <- length(slots)
     if(rdf$runs[[1]]$time_step_unit == 'month'){
       aggMeth <- 'Monthly'

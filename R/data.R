@@ -3,7 +3,7 @@
 #' An example of an rdf file that has already been read into R via 
 #' [read.rdf()]. This example contains 39 slots, at the monthly 
 #' timestep for 11 years and 25 runs. Slots include pool elevation, 
-#' flow, and flags. Use this with [getSlotsInRdf()] or 
+#' flow, and flags. Use this with [rdf_slot_names()] or 
 #' [rdfSlotToMatrix()] to use the data.
 #'
 #' @format A multi level list. `keyRdf$meta` provides a description
@@ -17,7 +17,7 @@
 #' An example of an rdf file that has already been read into R via 
 #' [read.rdf()]. This example contains 23 slots, at the annual 
 #' timestep for 11 years and 25 runs. Slots only include  
-#' flags. Use this with [getSlotsInRdf()] or 
+#' flags. Use this with [rdf_slot_names()] or 
 #' [rdfSlotToMatrix()] to use the data.
 #'
 #' @format A multi level list. `sysRdf$meta` provides a description
