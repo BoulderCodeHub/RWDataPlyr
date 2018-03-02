@@ -13,6 +13,7 @@
 * New functions: `rw_scen_aggregate()` and `rdf_aggregate()` (#51)
 * New functions: `rwtbl_get_scen_folder()` and `rwtbl_var_to_slot()` (#50)
 * `getDataForAllScens()` always returns data invisibly; deprecate the `retFile` arguement. (#66)
+* `read.rdf()` now works with rdf files that contain scalar slots (#52)
 
 
 
