@@ -138,8 +138,7 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 #' 
 #' @param iFile The input rdf file that will be read into R.
 #' 
-#' @return A multi-level list containing all metadata and slot data in the 
-#'   original rdf file.
+#' @return An rdf object.
 #'   
 #' @examples
 #' zz <- read.rdf(system.file(
@@ -152,6 +151,9 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 
 read.rdf <- function(iFile)
 {
+  stopifnot(tools::file_ext(iFile) == "rdf")
+  stopifnot(file.exists(iFile))
+  
   rdf.obj <- list()
   # read entire file into memory
   rdf.mat <- as.matrix(data.table::fread(
@@ -171,10 +173,13 @@ read.rdf <- function(iFile)
   
   rdf.obj$position <- NULL # remove position before returning
   
-  return(rdf.obj)
+  structure(
+    rdf.obj,
+    class = "rdf"
+  )
 }
 
-#' @describeIn read.rdf Deprecated version of \code{read.rdf}
+#' @describeIn read.rdf Deprecated version of `read.rdf()`
 #' @export
 
 read.rdf2 <- function(iFile)

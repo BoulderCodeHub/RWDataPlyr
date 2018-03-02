@@ -13,8 +13,7 @@ read.rdf2(iFile)
 \item{iFile}{The input rdf file that will be read into R.}
 }
 \value{
-A multi-level list containing all metadata and slot data in the
-original rdf file.
+An rdf object.
 }
 \description{
 \code{read.rdf()} reads an rdf file into R and formats it as a multi-level list
