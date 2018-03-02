@@ -1,46 +1,55 @@
 
-read_rdf_header <- function(con, pos, end){
-  
+read_rdf_header <- function(con, pos, end)
+{
   obj <- list()
 
-  repeat{
-    line <- con[pos,1]
+  repeat {
+    line <- con[pos, 1]
 
     pos <- pos + 1 # advancing line to read
     if(line == end) break
     
-    splitLine <- strsplit(line,':')[[1]]
+    splitLine <- strsplit(line, ':')[[1]]
     name <- splitLine[1]
-    if(length(splitLine) > 1){
-      if(substr(splitLine[2],1,1) == ' ')
-        splitLine[2] <- substr(splitLine[2],2,nchar(splitLine[2]))
-      contents <- paste(splitLine[2:length(splitLine)],collapse=':')
-    } else{
+    
+    if (length(splitLine) > 1) {
+      
+      if (substr(splitLine[2], 1, 1) == ' ') {
+        splitLine[2] <- substr(splitLine[2], 2, nchar(splitLine[2]))
+      }
+      
+      contents <- paste(splitLine[2:length(splitLine)], collapse = ':')
+    } else {
       contents <- NA
     }
+    
     obj[[name]] <- contents
     
     # 1 passed to this function sometimes; when it is, it forces it to read
     # one line and parse
-    if(end == 1) break 
-    
+    if (end == 1) break 
   }
   
   #returns the object
   
   return(list(data = obj, position = pos))
-  
 }
 
-read_rdf_meta <- function(rdf.mat,rdf.obj){
-  rdf.tmp <- read_rdf_header(rdf.mat,rdf.obj$position,'END_PACKAGE_PREAMBLE')
+#' Read the initial meta data from the rdf file; this is the descriptor:pair 
+#' data up through the END_PACKAGE_PREAMBLE keyword. These are read once for
+#' each rdf file and there is only one set of meta data regardless of the 
+#' number of traces.
+#' @noRd
+read_rdf_meta <- function(rdf.mat, rdf.obj)
+{
+  rdf.tmp <- read_rdf_header(rdf.mat, rdf.obj$position, 'END_PACKAGE_PREAMBLE')
   rdf.obj[['meta']] <- rdf.tmp$data
   rdf.obj$position <- rdf.tmp$position
   return(rdf.obj)
 }
 
-read_rdf_run <- function(rdf.mat,rdf.obj){
-
+read_rdf_run <- function(rdf.mat, rdf.obj)
+{
   this.run <- length(rdf.obj$runs) + 1
   rdf.tmp <- read_rdf_header(rdf.mat,rdf.obj$position,'END_RUN_PREAMBLE')
   rdf.obj$runs[[this.run]] <- rdf.tmp$data
@@ -49,8 +58,9 @@ read_rdf_run <- function(rdf.mat,rdf.obj){
   #time steps
   nts <- as.integer(rdf.obj$runs[[this.run]]$time_steps)
   #for non-mrm files
-  if(length(nts) == 0) 
+  if (length(nts) == 0) {
     nts <- as.integer(rdf.obj$runs[[this.run]]$timesteps)
+  }
   
   rr <- rdf.obj$position:(rdf.obj$position + nts -1)
   rdf.obj$runs[[this.run]][['times']] <- rdf.mat[rr, 1]
@@ -65,39 +75,53 @@ read_rdf_run <- function(rdf.mat,rdf.obj){
     rdf.obj$runs[[this.run]][['objects']][[nob]] <- rdf.tmp$data
     rdf.obj$position <- rdf.tmp$position
     
-    #name the objecst after their object.slot name
+    # name the object after their object.slot name
     obj.name <- rdf.obj$runs[[this.run]][['objects']][[nob]]$object_name
     slot.name <- rdf.obj$runs[[this.run]][['objects']][[nob]]$slot_name
-    name <- paste(obj.name,slot.name,sep='.')
+    name <- paste(obj.name, slot.name, sep = '.')
     names(rdf.obj$runs[[this.run]][['objects']])[nob] <- name
     
-    #read in the extr two header pieces
+    # read in the extr two header pieces
     rdf.tmp <- read_rdf_header(rdf.mat,rdf.obj$position, 1)
     rdf.obj$runs[[this.run]][['objects']][[nob]]$units <- rdf.tmp$data[[1]]
     rdf.obj$position <- rdf.tmp$position
     rdf.tmp <- read_rdf_header(rdf.mat,rdf.obj$position, 1)
     rdf.obj$runs[[this.run]][['objects']][[nob]]$scale <- rdf.tmp$data[[1]]
     rdf.obj$position <- rdf.tmp$position
+
+    # Figure out when the END_COLUMN keyword shows up
+    rdf_tmp <- read_rdf_header(rdf.mat, rdf.obj$position, "END_COLUMN")
+    if (rdf_tmp$position == rdf.obj$position + 2) {
+      # must be a scalar slot
+      row_nums <- rdf.obj$position
+    } else if (rdf_tmp$position - rdf.obj$position - 1 == nts) {
+      row_nums <- rdf.obj$position:(rdf_tmp$position - 2)
+    } else {
+      stop(
+        "rdf includes an unexpected number of data points.\n",
+        "`read.rdf()` expects the data entries to either be 1, or\n",
+        "the number of time steps."
+      )
+    }
     
     rdf.obj$runs[[this.run]][['objects']][[nob]]$values <- as.numeric(
-      rdf.mat[rdf.obj$position:(rdf.obj$position + nts -1),1]
+      rdf.mat[row_nums, 1]
     )
-    rdf.obj$position <- rdf.obj$position + nts
+    rdf.obj$position <- rdf.obj$position + length(row_nums)
     
     #END_COLUMN,END_SLOT, table slots need support here
     #dummy <- readLines(rdf.con,n=2) # just advances position by 2??
     
     
-    if(rdf.mat[rdf.obj$position+2,1] == 'END_RUN'){
-      #dummy <- readLines(rdf.con,n=1)
+    if (rdf.mat[rdf.obj$position+2,1] == 'END_RUN') {
       rdf.obj$position <- rdf.obj$position + 3
       break
-    } else{
+    } else {
       rdf.obj$position <- rdf.obj$position + 2
     }
   }
-  return(rdf.obj)
   
+  return(rdf.obj)
 }
 
 #' Read an rdf file into R.
@@ -139,8 +163,9 @@ read.rdf <- function(iFile)
   
   rdf.obj$position <- 1 # initialize where to read from
   rdf.obj <- read_rdf_meta(rdf.mat, rdf.obj)
-  
-  for(i in 1:as.numeric(rdf.obj$meta$number_of_runs)) {
+
+  # Read each trace/run 
+  for (i in 1:as.numeric(rdf.obj$meta$number_of_runs)) {
     rdf.obj <- read_rdf_run(rdf.mat, rdf.obj)
   }
   
