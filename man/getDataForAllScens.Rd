@@ -59,24 +59,30 @@ slotAggList <- slot_agg_list(
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.feather'
 retFile <- TRUE # return the data, instead of only saving it as a text file
-keyData <- getDataForAllScens(
-  scenFolders, 
-  scenNames = scenFolders, 
-  slotAggList = slotAggList, 
-  scenPath = scenPath, 
-  oFile = oFile
+# expect Deprecated warning
+testthat::expect_warning(
+  keyData <- getDataForAllScens(
+    scenFolders, 
+    scenNames = scenFolders, 
+    slotAggList = slotAggList, 
+    scenPath = scenPath, 
+    oFile = oFile
+  )
 )
 
 # get all of the data from the KeySlots rdf file
 scenFolders <- scenFolders[1] # only one scenario
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 # will return monthly data for all slots in KeySlots.rdf
-allData <- getDataForAllScens(
-  scenFolders, 
-  scenNames = scenFolders, 
-  slotAggList = slotAggList, 
-  scenPath = scenPath, 
-  oFile = oFile
+# expect Deprecated warning
+testthat::expect_warning(
+  allData <- getDataForAllScens(
+    scenFolders, 
+    scenNames = scenFolders, 
+    slotAggList = slotAggList, 
+    scenPath = scenPath, 
+    oFile = oFile
+  )
 )
 
 }

@@ -351,24 +351,30 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 #' scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 #' oFile <- 'tmp.feather'
 #' retFile <- TRUE # return the data, instead of only saving it as a text file
-#' keyData <- getDataForAllScens(
-#'   scenFolders, 
-#'   scenNames = scenFolders, 
-#'   slotAggList = slotAggList, 
-#'   scenPath = scenPath, 
-#'   oFile = oFile
+#' # expect Deprecated warning
+#' testthat::expect_warning(
+#'   keyData <- getDataForAllScens(
+#'     scenFolders, 
+#'     scenNames = scenFolders, 
+#'     slotAggList = slotAggList, 
+#'     scenPath = scenPath, 
+#'     oFile = oFile
+#'   )
 #' )
 #' 
 #' # get all of the data from the KeySlots rdf file
 #' scenFolders <- scenFolders[1] # only one scenario
 #' slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 #' # will return monthly data for all slots in KeySlots.rdf
-#' allData <- getDataForAllScens(
-#'   scenFolders, 
-#'   scenNames = scenFolders, 
-#'   slotAggList = slotAggList, 
-#'   scenPath = scenPath, 
-#'   oFile = oFile
+#' # expect Deprecated warning
+#' testthat::expect_warning(
+#'   allData <- getDataForAllScens(
+#'     scenFolders, 
+#'     scenNames = scenFolders, 
+#'     slotAggList = slotAggList, 
+#'     scenPath = scenPath, 
+#'     oFile = oFile
+#'   )
 #' )
 #' 
 #' @seealso [slot_agg_list()]
@@ -378,6 +384,18 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath, 
                                oFile, retFile = NULL, findAllSlots = TRUE)
 {
+  .Deprecated(
+    "`rw_scen_aggregate()`",
+    msg = paste(
+      "`getDataForAllScens()` is deprecated.",
+      "Use `rw_scen_aggregate()` instead.",
+      "`rw_scen_aggregate()` provides a more user friendly way of specifying",
+      "and cusomizing the aggregation of RiverWare data.",
+      "`getDataForAllScens()` will be removed in a future release.",
+      sep = "\n"
+    )
+  )
+  
   # determine file type to save data as:
   fExt <- tools::file_ext(oFile)
   if (!(fExt %in% c('txt', 'csv', 'feather'))) {

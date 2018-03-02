@@ -11,23 +11,24 @@ slotAggList <- slot_agg_list(system.file(
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.txt'
 
-keyData <- getDataForAllScens(
+expect_warning(keyData <- getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   "tmp2.txt"
-)
+))
+on.exit(file.remove("tmp2.txt"), add = TRUE)
 
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 # will return monthly data for all slots in KeySlots.rdf
-allData <- getDataForAllScens(
+expect_warning(allData <- getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   oFile
-)
+))
 on.exit(file.remove("tmp.txt"), add = TRUE)
 
 expectedSlotNames <- sort(paste(getSlotsInRdf(keyRdf),'Monthly','1',sep='_'))
@@ -58,12 +59,14 @@ test_that("getting all slot data matches a pre-configured slotAggList", {
 
 test_that('file extension is checked', {
   expect_error(
-    getDataForAllScens(
-      scenFolders, 
-      scenNames, 
-      slotAggList, 
-      scenPath, 
-      'tst.xyz'
+    expect_warning(
+      getDataForAllScens(
+        scenFolders, 
+        scenNames, 
+        slotAggList, 
+        scenPath, 
+        'tst.xyz'
+      )
     ),
     paste0(
       'oFile has an invalid file exention.\n',
@@ -73,12 +76,14 @@ test_that('file extension is checked', {
   )
   
   expect_error(
-    getDataForAllScens(
-      scenFolders, 
-      scenNames, 
-      slotAggList, 
-      scenPath, 
-      'tst.cvs'
+    expect_warning(
+      getDataForAllScens(
+        scenFolders, 
+        scenNames, 
+        slotAggList, 
+        scenPath, 
+        'tst.cvs'
+      )
     ),
     paste0(
       'oFile has an invalid file exention.\n',
@@ -90,23 +95,23 @@ test_that('file extension is checked', {
 
 # a .txt already exists, create .csv and .feather
 # monthly
-getDataForAllScens(
+expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   "tmp.feather"
-)
+))
 
 on.exit(file.remove(c("tmp.feather")), add = TRUE)
 
-getDataForAllScens(
+expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   "tmp.csv"
-)
+))
 
 on.exit(file.remove("tmp.csv"), add = TRUE)
 
@@ -115,21 +120,22 @@ slotAggList <- slot_agg_list(system.file(
   'extdata/SlotAggTable.csv',
   package = 'RWDataPlyr'
 ))
-getDataForAllScens(
+expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   "tmp2.feather"
-)
+))
 on.exit(file.remove("tmp2.feather"), add = TRUE)
-getDataForAllScens(
+
+expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
   "tmp2.csv"
-)
+))
 on.exit(file.remove("tmp2.csv"), add = TRUE)
 
 test_that("data matches regardless of file extension", {

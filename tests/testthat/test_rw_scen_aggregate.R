@@ -98,7 +98,15 @@ ra <- rwd_agg(read.csv(
   stringsAsFactors = FALSE
 ))
 
-t1 <- getDataForAllScens(scens1, scenNames, sal, scenPath, "tmp.feather", TRUE)
+expect_warning(
+  t1 <- getDataForAllScens(
+    scens1, 
+    scenNames, 
+    sal, 
+    scenPath, 
+    "tmp.feather"
+  )
+)
 on.exit(file.remove("tmp.feather"))
 t2 <- rw_scen_aggregate(scens3, ra, scenPath)
 allVars <- ra$variable
