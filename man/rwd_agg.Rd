@@ -28,6 +28,12 @@ for details on how to specify each column.
 \item By providing a vector of rdf files. If specified in this manor, all of the
 slots in each rdf file will be read in to a \code{rwtbl}, but will not be
 aggregated/summarized.
+
+In this case, the \code{variable} names are automatically constructed from the
+\code{ObjectSlot} names. The variable names are constructed as the all lower
+case version of the object_slot name. If the slot name is "Pool Elevatin",
+it is shortened to "pe", otherwise the full object and slot name are used.
+If there are any spaces, they are replaced with underscores.
 }
 }
 \section{Aggregation Specification}{
