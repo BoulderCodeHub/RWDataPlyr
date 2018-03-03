@@ -78,23 +78,31 @@ rdfSlotToMatrix <- function(rdf, slot)
 # ****************************************************************************
 # **************************  getTimeSpan  *******************************
 # ****************************************************************************
-#' Returns the run period from an rdf. 
+#' Returns the simulation timespan from an rdf 
 #' 
-#' \code{getTimeSpan} Takes a list created by \code{\link{read.rdf}} and returns
-#' the run period from the
+#' `rdf_get_timespan()` gets the simulation timespan from an `rdf` object.
 #' 
-#' @param rdf list returned by \code{\link{read.rdf}}
-#' @return A named string vector with two elements. The first element, named 'start',
-#' includes the start date of the simulation. The second element, named 'end',
-#' includes the end date of the simulation.
+#' @param rdf An `rdf` object (likely from [read.rdf()]).
+#' 
+#' @return A named character vector with two elements. The first element, named 
+#'   `"start"`, includes the start date of the simulation. The second element, 
+#'   named `"end"`, includes the end date of the simulation.
+#'   
 #' @examples
-#' getTimeSpan(keyRdf)
+#' rdf_get_timespan(keyRdf)
 #' 
 #' @export
+rdf_get_timespan <- function(rdf)
+{
+  stopifnot(methods::is(rdf, "rdf"))
+  
+  c('start' = rdf$runs[[1]]$start, 'end' = rdf$runs[[1]]$end)
+}
 
 getTimeSpan <- function(rdf)
 {
-  c('start' = rdf$runs[[1]]$start, 'end' = rdf$runs[[1]]$end)
+  .Deprecated("rdf_get_timespan()")
+  rdf_get_timespan(rdf)
 }
 
 # ****************************************************************************
@@ -102,12 +110,13 @@ getTimeSpan <- function(rdf)
 # ****************************************************************************
 #' Get one slot out of an rdf list and put it in an XTS object
 #' 
-#' \code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
-#' the nested slot values over the multiple traces into an XTS array 
+#' \code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and 
+#' convert the nested slot values over the multiple traces into an XTS array 
 #' indexing over traces.
 #' 
 #' @param rdf list returned by \code{\link{read.rdf}}
-#' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
+#' @param slot string of slot name that exists in \code{rdf} that will be 
+#'   converted to a matrix
 #' @return an XTS object with the selected slot data
 #' @examples
 #' \dontrun{
@@ -128,7 +137,10 @@ rdfSlotToXTS <- function(rdf, slot)
   # 4. read.zoo - convert dataframe to zoo matrix
   # 5. as.xts - convert zoo matrix to XTS
   # 6. Storage.mode() - convert char values in the XTS matrix to numeric
-  rdfXTS <- xts::as.xts(zoo::read.zoo(data.frame(cbind(tArray,rdf_get_slot(rdf, slot)))))
+  rdfXTS <- xts::as.xts(zoo::read.zoo(data.frame(cbind(
+    tArray,
+    rdf_get_slot(rdf, slot)
+  ))))
   storage.mode(rdfXTS) <- "numeric"
   runNames <- c()
   for (ithRun in c(1:as.numeric(rdf$meta$number_of_runs))){

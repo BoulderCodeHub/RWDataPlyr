@@ -70,8 +70,7 @@ getMinAnnValue <- function(rwslot)
 returnMinAnn <- function(traceVal)
 {
   tmp <- matrix(traceVal, ncol = 12, byrow = T)
-  tmp <- apply(tmp, 1, min)
-  return(tmp)
+  apply(tmp, 1, min)
 }
 
 #' `getMaxAnnValue()` finds the maximum annual value for all years and traces.
@@ -88,15 +87,14 @@ returnMinAnn <- function(traceVal)
 #' @export
 getMaxAnnValue <- function(rwslot)
 {
-	maxAnn <- apply(rwslot, 2, returnMaxAnn)
-	return(maxAnn)
+  apply(rwslot, 2, returnMaxAnn)
 }
 
 returnMaxAnn <- function(traceVal)
 {
   tmp <- matrix(traceVal, ncol = 12, byrow = T)
-  tmp <- apply(tmp, 1, max)
-  return(tmp)
+  
+  apply(tmp, 1, max)
 }
 
 #' `flowWeightedAvgAnnConc()` calculates the flow-weighted average annual 
@@ -138,5 +136,5 @@ flowWeightedAvgAnnConc <- function(mass, flow)
   
   conc <- mass.annAvg/flow.annAvg*735.466642
   
-  return(conc)
+  conc
 }
