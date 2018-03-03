@@ -188,3 +188,7 @@ read.rdf2 <- function(iFile)
   
   read.rdf(iFile)
 }
+
+#' @rdname read.rdf
+#' @export
+read_rdf <- read.rdf

@@ -3,11 +3,14 @@
 \name{read.rdf}
 \alias{read.rdf}
 \alias{read.rdf2}
+\alias{read_rdf}
 \title{Read an rdf file into R.}
 \usage{
 read.rdf(iFile)
 
 read.rdf2(iFile)
+
+read_rdf(iFile)
 }
 \arguments{
 \item{iFile}{The input rdf file that will be read into R.}
