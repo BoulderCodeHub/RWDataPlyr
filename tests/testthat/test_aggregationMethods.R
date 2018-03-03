@@ -23,7 +23,7 @@ pMin <- as.data.frame(getMinAnnValue(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),])
 mMax <- as.data.frame(getMaxAnnValue(mReg))
-mSum <- as.data.frame(sumMonth2Annual(mReg))
+mSum <- as.data.frame(rwslot_annual_sum(mReg))
 p800 <- as.data.frame((getMinAnnValue(pReg) <= 800000) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),]
@@ -168,7 +168,7 @@ pMin <- as.data.frame(getMinAnnValue(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),, drop = FALSE])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),, drop = FALSE])
 mMax <- as.data.frame(getMaxAnnValue(mReg))
-mSum <- as.data.frame(sumMonth2Annual(mReg))
+mSum <- as.data.frame(rwslot_annual_sum(mReg))
 p800 <- as.data.frame((getMinAnnValue(pReg) <= 800000) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),,drop = FALSE]

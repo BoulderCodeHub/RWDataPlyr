@@ -104,7 +104,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 		slot <- slot * thresh
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualSum'){
-		slot <- sumMonth2Annual(slot,thresh)
+		slot <- rwslot_annual_sum(slot,thresh)
 		rownames(slot) <- yy
 	} else if(ann == 'AnnMinLTE'){
 		slot <- apply(slot, 2, returnMinAnn) # minimum annual value

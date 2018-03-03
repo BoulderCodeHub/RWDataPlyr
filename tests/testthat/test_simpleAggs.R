@@ -16,12 +16,35 @@ test_that("getMaxAnnValue returns corect values", {
                                          apply(pe[25:36,],2,max)))
 })
 
-test_that("sumMonth2Annual returns corect values", {
-  expect_equal(sumMonth2Annual(simpMat), matrix(c(sum(1:12),sum(13:24),sum(25:36),sum(37:48)),ncol=2))
-  expect_equal(sumMonth2Annual(pe), rbind(apply(pe[1:12,],2,sum), apply(pe[13:24,],2,sum), 
-                                         apply(pe[25:36,],2,sum)))
+# rwslot_annual_sum ------------------
+test_that("rwslot_annual_sum returns corect values", {
+  expect_equal(
+    rwslot_annual_sum(simpMat), 
+    matrix(c(sum(1:12), sum(13:24), sum(25:36), sum(37:48)), ncol = 2)
+  )
+  expect_equal(
+    rwslot_annual_sum(pe), 
+    rbind(
+      apply(pe[1:12,], 2, sum), 
+      apply(pe[13:24,], 2, sum),
+      apply(pe[25:36,], 2, sum)
+    )
+  )
 })
 
+test_that("rwslot_annual_sum matches sumMonth2Annual", {
+  expect_identical(
+    rwslot_annual_sum(simpMat),
+    expect_warning(sumMonth2Annual(simpMat))
+  )
+  expect_identical(
+    rwslot_annual_sum(pe),
+    expect_warning(sumMonth2Annual(pe))
+  )
+})
+
+
+# flowWeightedAvgAnnConc -------------------
 flow <- rep(c(700,800,800,900,750,900),2)*1000
 saltMass <- c(25,30,35,25,25,22,35,47,21,45,34,23)*1000
 
