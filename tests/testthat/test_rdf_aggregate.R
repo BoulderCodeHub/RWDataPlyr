@@ -254,7 +254,7 @@ t13 <- read.rdf(system.file(
   "extdata/Scenario/T13,CT,IG/KeySlots.rdf", 
   package = "RWDataPlyr"
 ))
-t13pe <- rdfSlotToMatrix(t13, "Mead.Pool Elevation")
+t13pe <- rdf_get_slot(t13, "Mead.Pool Elevation")
 
 test_that("rdf_aggregate() can handle 1 trace of data", {
   expect_s3_class(

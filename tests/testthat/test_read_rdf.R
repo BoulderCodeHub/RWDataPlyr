@@ -16,17 +16,17 @@ test_that('read.rdf data are as expected', {
   expect_equal(r1, keyRdf)
   expect_equal(r2, sysRdf)
   
-  expect_equal(rdfSlotToMatrix(r1, 'Powell.Outflow'),
-               rdfSlotToMatrix(keyRdf, 'Powell.Outflow'))
-  expect_equal(rdfSlotToMatrix(r1, 'Mead.Pool Elevation'),
-               rdfSlotToMatrix(keyRdf, 'Mead.Pool Elevation'))
+  expect_equal(rdf_get_slot(r1, 'Powell.Outflow'),
+               rdf_get_slot(keyRdf, 'Powell.Outflow'))
+  expect_equal(rdf_get_slot(r1, 'Mead.Pool Elevation'),
+               rdf_get_slot(keyRdf, 'Mead.Pool Elevation'))
   expect_equal(
-    rdfSlotToMatrix(r2, "SummaryOutputData.LBShortageConditions"),
-    rdfSlotToMatrix(sysRdf, "SummaryOutputData.LBShortageConditions")
+    rdf_get_slot(r2, "SummaryOutputData.LBShortageConditions"),
+    rdf_get_slot(sysRdf, "SummaryOutputData.LBShortageConditions")
   )
   expect_equal(
-    rdfSlotToMatrix(r2, "SummaryOutputData.MidElevationReleaseAt748"),
-    rdfSlotToMatrix(sysRdf, "SummaryOutputData.MidElevationReleaseAt748")
+    rdf_get_slot(r2, "SummaryOutputData.MidElevationReleaseAt748"),
+    rdf_get_slot(sysRdf, "SummaryOutputData.MidElevationReleaseAt748")
   )
 })
 
@@ -73,16 +73,16 @@ test_that("rdfs with scalar slots read in correctly", {
   
   for (slot in rdf_slot_names(scl)) {
     expect_identical(
-      rdfSlotToMatrix(scl, slot), 
-      rdfSlotToMatrix(ss, slot), 
+      rdf_get_slot(scl, slot), 
+      rdf_get_slot(ss, slot), 
       info = slot
     )
   }
   
   for (slot in rdf_slot_names(srs)) {
     expect_identical(
-      rdfSlotToMatrix(srs, slot), 
-      rdfSlotToMatrix(ss, slot), 
+      rdf_get_slot(srs, slot), 
+      rdf_get_slot(ss, slot), 
       info = slot
     )
   }

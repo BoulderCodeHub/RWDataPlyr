@@ -8,11 +8,11 @@ nTraces <- 4
 key <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
 sys <- read.rdf(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
 
-test_that("rdfSlotToMatrix gets correct dimensions for matrix", {
-  expect_equal(dim(rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')),c(nYrs*12,nTraces))
-  expect_equal(dim(rdfSlotToMatrix(sysRdf,'SummaryOutputData.LBShortageConditions')),c(nYrs,nTraces))
-  expect_equal(dim(rdfSlotToMatrix(key,'Mead.Pool Elevation')),c(240,1))
-  expect_equal(dim(rdfSlotToMatrix(sys,'SummaryOutputData.LBShortageConditions')),c(20,1))
+test_that("rdf_get_slot gets correct dimensions for matrix", {
+  expect_equal(dim(rdf_get_slot(keyRdf,'Mead.Pool Elevation')),c(nYrs*12,nTraces))
+  expect_equal(dim(rdf_get_slot(sysRdf,'SummaryOutputData.LBShortageConditions')),c(nYrs,nTraces))
+  expect_equal(dim(rdf_get_slot(key,'Mead.Pool Elevation')),c(240,1))
+  expect_equal(dim(rdf_get_slot(sys,'SummaryOutputData.LBShortageConditions')),c(20,1))
 })
 
 test_that('getTimeSpan returns expected dates', {

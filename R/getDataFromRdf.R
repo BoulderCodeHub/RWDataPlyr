@@ -47,7 +47,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	    return(zz)
 	  }
 	}
-	slot <- rdfSlotToMatrix(rdf, slot)
+	slot <- rdf_get_slot(rdf, slot)
 	
 	startData <- strsplit(rdf$runs[[1]]$start, '-')[[1]] # start year
 	endData <- strsplit(rdf$runs[[1]]$end, '-')[[1]] # end year

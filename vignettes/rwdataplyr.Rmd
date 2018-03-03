@@ -36,7 +36,7 @@ The `RWDataPlyr` package provides fucntionality to (1) read rdf data into R, (2)
 
 The `read.rdf()` function will read rdf data into R. The function returns a multi-level list that contains all meta data embedded in an rdf file, including the start and end timesteps, the number of traces, units of each slot, and RiverWare object type for each slot. However, the list returned by `read.rdf` is not in a form that is particularly easy to manipulate. Since each rdf file can include data for many slots, data for a single trace and single slot are embedded in the list in `rdfList$runs[[1]]$objects$'Mead.Pool Elevation'$values`, where `rdfList` is a list returned by `read.rdf`, 1 is the trace number, and Mead.Pool Elevation is the slot.  
 
-The function `rdfSlotToMatrix` will create a time by trace matrix for a single slot so that the data are in a form that is easier to manipulate in R, as shown in the table below.
+The function `rdf_get_slot` will create a time by trace matrix for a single slot so that the data are in a form that is easier to manipulate in R, as shown in the table below.
 
 |        |Trace 1|Trace 2|...|Trace N|
 |-------:|------:|------:|--:|------:|
@@ -53,11 +53,11 @@ The steps below show an example of reading an rdf file into R, looking at the av
 ```{r}
 library(RWDataPlyr)
 rdf <- read.rdf(system.file('extdata',file.path('Scenario','ISM1988_2014,2007Dems,IG,2002','KeySlots.rdf'),package = 'RWDataPlyr'))
-pe <- rdfSlotToMatrix(rdf, 'Mead.Pool Elevation')
+pe <- rdf_get_slot(rdf, 'Mead.Pool Elevation')
 ```
 
 ### Manipulation and Aggregation Functions
-To assist in working with the data returned by `rdfSlotToMatrix` several other functions are provided that perform common annualization functions as follows.
+To assist in working with the data returned by `rdf_get_slot` several other functions are provided that perform common annualization functions as follows.
 
 1. `getMaxAnnValue` returns a matrix of the annual maximum for each year and trace.
 1. `getMinAnnValue` returns a matrix of the the annual minimum for each year and trace.
@@ -83,7 +83,7 @@ peMin[1:2,1:2]
 The help pages provide more details on the other aggregation functions.
 
 ## Aggregating Multiple Scenarios
-While the functionality provided by `read.rdf`, `rdfSlotToMatrix`, and the few simple aggregation methods is useful when a user needs to interactively explore the data, the real utility in the `RWDataPlyr` package is in combining results from many scenarios into a single data frame. The data frame can then be utilized for further analysis or easily plotted using `ggplot2`. 
+While the functionality provided by `read.rdf`, `rdf_get_slot`, and the few simple aggregation methods is useful when a user needs to interactively explore the data, the real utility in the `RWDataPlyr` package is in combining results from many scenarios into a single data frame. The data frame can then be utilized for further analysis or easily plotted using `ggplot2`. 
 
 Because the monthly data is typically annualized in some manner, and because storing all monthly values is somewhat inefficient, the scenario data can be aggregated in many ways before it is combined. The package provides several common functions that can be applied to the monthly data, prior to combining scenario results.
 

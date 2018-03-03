@@ -35,7 +35,7 @@ test_that("no values are modified", {
         (rdftbl %>% 
            filter(TraceNumber == tt, ObjectSlot == slot) %>%
            select(Value))$Value,
-        rdfSlotToMatrix(keyRdf, slot)[,tt]
+        rdf_get_slot(keyRdf, slot)[,tt]
       )
     }
   }
@@ -167,7 +167,7 @@ test_that("values are as expected", {
         (rdftbl %>% 
            filter(TraceNumber == tt, ObjectSlot == slot) %>%
            select(Value))$Value,
-        rdfSlotToMatrix(sysRdf, slot)[,tt]
+        rdf_get_slot(sysRdf, slot)[,tt]
       )
     }
   }

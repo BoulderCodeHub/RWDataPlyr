@@ -7,9 +7,9 @@ context('check RWDataPlyr:::processSlots aggregation computations')
 # -----------------------------------
 # hand compute values
 # keyRdf exists as data in package
-mReg <- rdfSlotToMatrix(keyRdf, "Mead.Pool Elevation")
-pReg <- rdfSlotToMatrix(keyRdf, "Powell.Outflow")
-lbShort <- as.data.frame(rdfSlotToMatrix(
+mReg <- rdf_get_slot(keyRdf, "Mead.Pool Elevation")
+pReg <- rdf_get_slot(keyRdf, "Powell.Outflow")
+lbShort <- as.data.frame(rdf_get_slot(
   sysRdf, 
   "SummaryOutputData.LBShortageConditions"
 ))
@@ -82,7 +82,7 @@ zzMonthly <- getDataForAllScens(
   mutate(monthNum = match(Month, month.name))
 
 # compare the results computed by getDataForAllScen -> processSlots
-# to those computed by hand using rdfSlotToMatrix
+# to those computed by hand using rdf_get_slot
 test_that("processSlots monthly to annual aggregation methods work", {
   expect_warning(
     zz <- getDataForAllScens(
@@ -148,13 +148,13 @@ key <- read.rdf(system.file(
   "KeySlots.rdf", 
   package = "RWDataPlyr"
 ))
-mReg <- rdfSlotToMatrix(key, "Mead.Pool Elevation")
-pReg <- rdfSlotToMatrix(key, "Powell.Outflow")
+mReg <- rdf_get_slot(key, "Mead.Pool Elevation")
+pReg <- rdf_get_slot(key, "Powell.Outflow")
 sys <- read.rdf(system.file(
   "extdata/Scenario/T13,CT,IG", 
   "SystemConditions.rdf", package = "RWDataPlyr"
 ))
-lbShort <- as.data.frame(rdfSlotToMatrix(
+lbShort <- as.data.frame(rdf_get_slot(
   sys, 
   "SummaryOutputData.LBShortageConditions"
 ))

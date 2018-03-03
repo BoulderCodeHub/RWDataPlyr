@@ -23,11 +23,11 @@ Return value will be in mg/L
 }
 \examples{
 \dontrun{
-flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
-mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
+flow <- rdf_get_slot(rdf,'Powell.Outflow')
+mass <- rdf_get_slot(rdf,'Powell.Outflow Salt Mass')
 fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
 }
 }
 \seealso{
-\code{\link{rdfSlotToMatrix}}
+\code{\link[=rdf_get_slot]{rdf_get_slot()}}
 }

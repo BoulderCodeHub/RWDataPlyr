@@ -7,7 +7,7 @@
 getMinAnnValue(xx)
 }
 \arguments{
-\item{xx}{A matrix (months by traces) such as that returned by \code{\link{rdfSlotToMatrix}}.
+\item{xx}{A matrix (months by traces) such as that returned by \code{\link[=rdf_get_slot]{rdf_get_slot()}}.
 Will error if the number of rows in xx is not divisible by 12, i.e., the data must be monthly
 for a full consecutive year.}
 }
@@ -18,10 +18,10 @@ A matrix (years by traces) with the maximum annual value for each year and trace
 Find the minimum annual value for all years and traces.
 }
 \examples{
-pe <- rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')
+pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 peMax <- getMinAnnValue(pe)
 }
 \seealso{
 \code{\link{getMaxAnnValue}}
-\code{\link{rdfSlotToMatrix}}
+\code{\link[=rdf_get_slot]{rdf_get_slot()}}
 }

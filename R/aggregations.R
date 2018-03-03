@@ -11,12 +11,12 @@
 #' be mg/L.
 #' @examples
 #' \dontrun{
-#' flow <- rdfSlotToMatrix(rdf,'Powell.Outflow')
-#' mass <- rdfSlotToMatrix(rdf,'Powell.Outflow Salt Mass')
+#' flow <- rdf_get_slot(rdf,'Powell.Outflow')
+#' mass <- rdf_get_slot(rdf,'Powell.Outflow Salt Mass')
 #' fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) # repeat for other traces.
 #' }
 #' @seealso
-#' \code{\link{rdfSlotToMatrix}}
+#' [rdf_get_slot()]
 #' 
 #' @export
 #' 
@@ -46,16 +46,16 @@ returnMinAnn <- function(traceVal)
 
 #' Find the minimum annual value for all years and traces.
 #' 
-#' @param xx A matrix (months by traces) such as that returned by \code{\link{rdfSlotToMatrix}}.
+#' @param xx A matrix (months by traces) such as that returned by [rdf_get_slot()].
 #' Will error if the number of rows in xx is not divisible by 12, i.e., the data must be monthly
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')
+#' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 #' peMax <- getMinAnnValue(pe)
 #' @seealso
 #' \code{\link{getMaxAnnValue}}
-#' \code{\link{rdfSlotToMatrix}}
+#' [rdf_get_slot()]
 #' 
 #' @export
 #' 
@@ -74,16 +74,16 @@ returnMaxAnn <- function(traceVal)
 
 #' Find the maximum annual value for all years and traces.
 #' 
-#' @param xx A matrix (months by traces) such as that returned by \code{\link{rdfSlotToMatrix}}.
+#' @param xx A matrix (months by traces) such as that returned by [rdf_get_slot()].
 #' Will error if the number of rows in xx is not divisible by 12, i.e., the data must be monthly
 #' for a full consecutive year.
 #' @return A matrix (years by traces) with the maximum annual value for each year and trace.
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf,'Mead.Pool Elevation')
+#' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 #' peMax <- getMaxAnnValue(pe)
 #' @seealso
 #' \code{\link{getMinAnnValue}}
-#' \code{\link{rdfSlotToMatrix}}
+#' [rdf_get_slot()]
 #' 
 #' @export
 #' 
@@ -103,7 +103,7 @@ getMaxAnnValue <- function(xx)
 #' convert from flow to volume,  or to scale all results in another manor.
 #' @return The annual sums as a matrix (years by traces).
 #' @examples
-#' zz <- rdfSlotToMatrix(keyRdf, 'Powell.Outflow')
+#' zz <- rdf_get_slot(keyRdf, 'Powell.Outflow')
 #' annualTotVal <- sumMonth2Annual(zz) # returns in original units, e.g., acre-ft
 #' annualTotVal <- sumMonth2Annual(zz,.001) # returns in scaled units, e.g., kaf
 #' 

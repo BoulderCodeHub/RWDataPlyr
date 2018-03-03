@@ -1,7 +1,7 @@
 
-# -----------------------------------------------------------------------------
+# ****************************************************************************
 # 								rdf_slot_names
-# -----------------------------------------------------------------------------
+# ****************************************************************************
 #' Returns all slots contained in an rdf file.
 #' 
 #' `rdf_slot_names()` returns a character vector of all slots contained within 
@@ -28,28 +28,32 @@ rdf_slot_names <- function(rdf)
 #' @export
 getSlotsInRdf <- function(rdf)
 {
-  .Deprecated("`rdf_slot_names()`")
+  .Deprecated("rdf_slot_names()")
   rdf_slot_names(rdf)
 }
 
-# ----------------------------------------------------------------------------
-# **************************  rdfSlotToMatrix  *******************************
-# ----------------------------------------------------------------------------
-#' Get one slot out of an rdf list and put it in matrix form.
+# ****************************************************************************
+#                             rdf_get_slot
+# ****************************************************************************
+#' Get a slot out of an rdf object
 #' 
-#' \code{rdfSlotToMatrix} Takes a list created by \code{\link{read.rdf}} and converts the nested slot values over
-#' multiple traces into a matrix with rows indexing through time and columns 
-#' indexing over traces.
+#' `rdf_get_slot()` gets a slot from an `rdf` object and creates a matrix with
+#' rows indexing through time and columns indexing over traces.
 #' 
-#' @param rdf list returned by \code{\link{read.rdf}}
-#' @param slot string of slot name that exists in \code{rdf} that will be converted to a matrix
+#' @param rdf An `rdf` object.
+#' @param slot Character slot name that exists in the `rdf`.
+#' 
 #' @examples
-#' pe <- rdfSlotToMatrix(keyRdf, 'Mead.Pool Elevation')
+#' pe <- rdf_get_slot(keyRdf, "Mead.Pool Elevation")
+#' 
+#' @return A matrix with traces as columns and timesteps as rows.
 #' 
 #' @export
-#' 
-rdfSlotToMatrix <- function(rdf, slot)
+rdf_get_slot <- function(rdf, slot)
 {
+  stopifnot(methods::is(rdf, "rdf"))
+  stopifnot(length(slot) == 1)
+  
   # check to see if the slot exists in the rdf, if it does not exit error out
   if (!(slot %in% rdf_slot_names(rdf)))
      stop(paste(slot,'not found in rdf:',deparse(substitute(rdf))))
@@ -63,9 +67,17 @@ rdfSlotToMatrix <- function(rdf, slot)
 	res
 }
 
-# ----------------------------------------------------------------------------
+#' @describeIn rdf_get_slot Deprecated version of `rdf_get_slot()`
+#' @export
+rdfSlotToMatrix <- function(rdf, slot)
+{
+  .Deprecated("rdf_get_slot()")
+  rdf_get_slot(rdf, slot)
+}
+
+# ****************************************************************************
 # **************************  getTimeSpan  *******************************
-# ----------------------------------------------------------------------------
+# ****************************************************************************
 #' Returns the run period from an rdf. 
 #' 
 #' \code{getTimeSpan} Takes a list created by \code{\link{read.rdf}} and returns
@@ -85,9 +97,9 @@ getTimeSpan <- function(rdf)
   c('start' = rdf$runs[[1]]$start, 'end' = rdf$runs[[1]]$end)
 }
 
-# ----------------------------------------------------------------------------
+# ****************************************************************************
 # **************************  rdfSlotToXTS  **********************************
-# ----------------------------------------------------------------------------
+# ****************************************************************************
 #' Get one slot out of an rdf list and put it in an XTS object
 #' 
 #' \code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
@@ -116,7 +128,7 @@ rdfSlotToXTS <- function(rdf, slot)
   # 4. read.zoo - convert dataframe to zoo matrix
   # 5. as.xts - convert zoo matrix to XTS
   # 6. Storage.mode() - convert char values in the XTS matrix to numeric
-  rdfXTS <- xts::as.xts(zoo::read.zoo(data.frame(cbind(tArray,rdfSlotToMatrix(rdf, slot)))))
+  rdfXTS <- xts::as.xts(zoo::read.zoo(data.frame(cbind(tArray,rdf_get_slot(rdf, slot)))))
   storage.mode(rdfXTS) <- "numeric"
   runNames <- c()
   for (ithRun in c(1:as.numeric(rdf$meta$number_of_runs))){
