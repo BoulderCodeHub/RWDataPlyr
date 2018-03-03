@@ -3,7 +3,7 @@
 \name{rdf_get_slot}
 \alias{rdf_get_slot}
 \alias{rdfSlotToMatrix}
-\title{Get one slot out of an rdf object and put it in matrix form.}
+\title{Get a slot out of an rdf object}
 \usage{
 rdf_get_slot(rdf, slot)
 
