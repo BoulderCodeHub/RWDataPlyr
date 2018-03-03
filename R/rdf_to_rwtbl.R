@@ -1,14 +1,14 @@
 
 #' Convert rdf to a tibble
 #' 
-#' `rw_rdf_to_tbl()` converts an rdf list to a tibble (data.frame).
+#' `rdf_to_rwtbl()` converts an rdf list to a tibble (data.frame).
 #' 
 #' The rdf list is converted to a data frame, and then converted to a 
 #' [tibble::tibble()]. All of the `meta` entries into the rdf list
 #' are stored as attributes in the returned tibble. These attributes are:
 #' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
-#' @param rdf An rdf list returned from [read.rdf()].
+#' @param rdf An rdf object (from [read.rdf()]).
 #' @param scenario An optional parameter, that if it is not `NULL` (default)
 #'   will be added to the tibble as another variable. Typically a string, but it 
 #'   is not coerced to a string.
@@ -27,22 +27,24 @@
 #'   and if `FALSE` they will not be added. They are constructed from the dates 
 #'   in the `Timestep` column.
 #' 
-#' @return A tibble with additional attributes from the rdf list.
+#' @return A tbl_df with additional attributes from the rdf object.
 #' 
 #' @examples 
-#' rdftbl <- rw_rdf_to_tbl(keyRdf)
+#' rdftbl <- rdf_to_rwtbl(keyRdf)
 #' # same as previous, except you do not want "Year" and "Month" columns
-#' rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE)
+#' rdftbl <- rdf_to_rwtbl(keyRdf, add_ym = FALSE)
 #' # but you do want to keep the object name seperately:
-#' rdftbl <- rw_rdf_to_tbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
-#' rdftbl <- rw_rdf_to_tbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
+#' rdftbl <- rdf_to_rwtbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
+#' rdftbl <- rdf_to_rwtbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
 #' @seealso [read.rdf()]
 #' 
 #' @export
 
-rw_rdf_to_tbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
+rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 {
+  stopifnot(methods::is(rdf, "rdf"))
+  
   stopifnot(
     (is.logical(keep_cols) && !is.na(keep_cols) && length(keep_cols == 1)) || 
     (is.character(keep_cols) && length(keep_cols) > 0)
@@ -144,7 +146,7 @@ rdf_trace_to_tbl <- function(rdfTrace, traceNum)
 }
 
 #' Standard (required) Column Names for RDF Tables that will always be returned
-#' by `rw_rdf_to_tbl()`
+#' by `rdf_to_rwtbl()`
 #' 
 #' @noRd
 

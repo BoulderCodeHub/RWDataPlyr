@@ -3,7 +3,7 @@
 * Thresholds < 1 will now work for aggregation methods that compute <=/>=. (#14)
 * For monthly data, `getDataForAllScens()` will use full month name in the `Month` column. This change could break existing code if there are checks for particular months. (#20)
 * New function `rw_read_rw_csv()` to read csv files created from RiverWare or RiverSMART (#30)
-* New function `rw_rdf_to_tbl()` to convert rdf lists (read in from `read.rdf()`) to tibbles (#30)
+* New function `rdf_to_rwtbl()` to convert rdf objects (read in from `read.rdf()`) to tbl_df objects (#30)
 * Removed dependency on reshape2
 * Got rid of `read.rdf()` original implementation. Now `read.rdf2()` (the faster implementation) is named `read.rdf()` and `read.rdf2()` is deprecated. (#63)
 * Formalized the list returned by `createSlotAggList()` as a `slot_agg_list` class. Created applicable constructor, which deprecates `createSlotAggList()`, `print()`, `summary()` and `is.`/`is_` methods and functions. (#67)

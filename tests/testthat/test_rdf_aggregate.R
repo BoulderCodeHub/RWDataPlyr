@@ -11,8 +11,8 @@ dnfmost_dir <- system.file(
   package = "RWDataPlyr"
 )
 
-keyrwtbl <- rw_rdf_to_tbl(keyRdf)
-sysrwtbl <- rw_rdf_to_tbl(sysRdf)
+keyrwtbl <- rdf_to_rwtbl(keyRdf)
+sysrwtbl <- rdf_to_rwtbl(sysRdf)
 
 # test rdf_aggregate() structure -------------------------
 test_that("test rdf_aggregate() structure", {
@@ -150,7 +150,7 @@ test_that("'all' keyword gets all data", {
 # check handling NaNs -----------------------------------
 ss <- c("Shortage.ShortageFlag", "Coordinated Operation.ReducedReleaseFlag")
 scenario_dir <- system.file("extdata/Scenario/", package = "RWDataPlyr")
-flags_rdf <- rw_rdf_to_tbl(read.rdf(file.path(scenario_dir, "Flags.rdf"))) %>%
+flags_rdf <- rdf_to_rwtbl(read.rdf(file.path(scenario_dir, "Flags.rdf"))) %>%
   filter(ObjectSlot %in% ss)
 short_ra <- rwd_agg(data.frame(
   file = "Flags.rdf", 

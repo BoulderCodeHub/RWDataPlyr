@@ -18,7 +18,7 @@
 #'   aggregation methods to use.
 #' @param rdf_dir The top level directory that contains the rdf files. See
 #'   **Directory Structure**.
-#' @inheritParams rw_rdf_to_tbl
+#' @inheritParams rdf_to_rwtbl
 #' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
 #'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
 #'   function.
@@ -83,7 +83,7 @@ rdf_aggregate <- function(agg,
       # seperate sam into one sam for each rdf;
       # read the rdf, then apply the sam to that rdf
       
-      rwtbl <- rw_rdf_to_tbl(
+      rwtbl <- rdf_to_rwtbl(
         read.rdf(rdf_files[x]), 
         scenario = scenario, 
         keep_cols = keep_cols, 

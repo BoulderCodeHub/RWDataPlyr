@@ -180,7 +180,7 @@ test_that("`obj_slot_name()` creates names as expected", {
 })
 
 # check rwd_agg_build_all() ----------------------------
-keytbl <- rw_rdf_to_tbl(keyRdf)
+keytbl <- rdf_to_rwtbl(keyRdf)
 
 test_that("`rwd_agg_build_all()` constructs proper rwd_agg object", {
   expect_s3_class(

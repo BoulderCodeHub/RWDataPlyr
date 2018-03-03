@@ -2,7 +2,7 @@ library(dplyr)
 # rwtbl_slot_names() ---------------------
 context("Test `rwtbl_slot_names()` function")
 
-rwtbl <- rw_rdf_to_tbl(keyRdf)
+rwtbl <- rdf_to_rwtbl(keyRdf)
 
 test_that("`rwtbl_slot_names()` finds correct slots", {
   expect_type(rwslots <- rwtbl_slot_names(rwtbl), "character")

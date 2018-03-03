@@ -7,7 +7,7 @@ slot_agg_matrix <- rwd_agg(read.csv(
   stringsAsFactors = FALSE
 ))[1:5,]
 
-rwtbl <- rw_rdf_to_tbl(keyRdf)
+rwtbl <- rdf_to_rwtbl(keyRdf)
 
 orig_op <- getOption("rwdataplyr.wy_month_tol")
 teardown(options(rwdataplyr.wy_month_tol = orig_op))
