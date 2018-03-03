@@ -2,7 +2,7 @@
 
 * Thresholds < 1 will now work for aggregation methods that compute <=/>=. (#14)
 * For monthly data, `getDataForAllScens()` will use full month name in the `Month` column. This change could break existing code if there are checks for particular months. (#20)
-* New function `rw_read_rw_csv()` to read csv files created from RiverWare or RiverSMART (#30)
+* New function `read_rw_csv()` to read csv files created from RiverWare or RiverSMART (#30)
 * New function `rdf_to_rwtbl()` to convert rdf objects (read in from `read.rdf()`) to tbl_df objects (#30)
 * Removed dependency on reshape2
 * Got rid of `read.rdf()` original implementation. Now `read.rdf2()` (the faster implementation) is named `read.rdf()` and `read.rdf2()` is deprecated. (#63)
@@ -15,6 +15,7 @@
 * `getDataForAllScens()` always returns data invisibly; deprecate the `retFile` arguement. (#66)
 * `read.rdf()` now works with rdf files that contain scalar slots (#52)
 * `read.rdf()` now returns an object with an rdf class
+* `read_rdf()`
 
 
 

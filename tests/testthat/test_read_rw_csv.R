@@ -1,5 +1,5 @@
 library(dplyr)
-context("check rw_read_rw_csv")
+context("check read_rw_csv")
 
 # create an arbitrary csv file to check errors
 td <- tempdir()
@@ -11,7 +11,7 @@ setup({
 })
 teardown(unlink(td, recursive = TRUE))
 
-zz <- rw_read_rw_csv(system.file(
+zz <- read_rw_csv(system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most",
   "KeySlots.csv",
   package = "RWDataPlyr"
@@ -58,7 +58,7 @@ test_that("rw csv is formatted properly", {
 
 # check error ---------------------------------
 test_that("error is thrown on non rw csv", {
-  expect_error(rw_read_rw_csv(tf))
+  expect_error(read_rw_csv(tf))
 })
 
 ts <- c("4-30-2020 23:59:00", "5-31-2020 23:59:01", "6-30-2020 24:00")
@@ -125,7 +125,7 @@ test_that("timestep is correctly modified", {
 # check riversmart csv -------------------------
 test_that("RiverSMART csv is properly read in", {
   expect_s3_class(
-    zz <- rw_read_rw_csv(system.file(
+    zz <- read_rw_csv(system.file(
       "extdata/ScenarioSet/ScenarioGroupA",
       "C_SystemConditions.csv",
       package = "RWDataPlyr"

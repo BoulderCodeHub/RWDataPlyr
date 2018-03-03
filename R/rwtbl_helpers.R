@@ -5,14 +5,14 @@
 #' containing RiverWare output data.
 #' 
 #' Given a `tbl_df` object that is returned by [rdf_to_rwtbl()] or 
-#' [rw_read_rw_csv()], return all of the Object.Slot names found in the data 
+#' [read_rw_csv()], return all of the Object.Slot names found in the data 
 #' frame. These are the unique full slot names found in the `ObjectSlot` 
 #' column.
 #' 
 #' @param rwtbl A `tbl_df` object with RiverWare output. Must contain the 
 #'   `ObjectSlot` column.
 #' 
-#' @seealso [rdf_to_rwtbl()], [rw_read_rw_csv()]
+#' @seealso [rdf_to_rwtbl()], [read_rw_csv()]
 #' 
 #' @examples 
 #' rwtbl <- rdf_to_rwtbl(keyRdf)

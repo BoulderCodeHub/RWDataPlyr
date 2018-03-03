@@ -16,7 +16,7 @@ containing RiverWare output data.
 }
 \details{
 Given a \code{tbl_df} object that is returned by \code{\link[=rdf_to_rwtbl]{rdf_to_rwtbl()}} or
-\code{\link[=rw_read_rw_csv]{rw_read_rw_csv()}}, return all of the Object.Slot names found in the data
+\code{\link[=read_rw_csv]{read_rw_csv()}}, return all of the Object.Slot names found in the data
 frame. These are the unique full slot names found in the \code{ObjectSlot}
 column.
 }
@@ -26,5 +26,5 @@ rwtbl_slot_names(rwtbl)
 
 }
 \seealso{
-\code{\link[=rdf_to_rwtbl]{rdf_to_rwtbl()}}, \code{\link[=rw_read_rw_csv]{rw_read_rw_csv()}}
+\code{\link[=rdf_to_rwtbl]{rdf_to_rwtbl()}}, \code{\link[=read_rw_csv]{read_rw_csv()}}
 }
