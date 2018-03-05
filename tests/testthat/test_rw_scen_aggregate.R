@@ -59,6 +59,11 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
     "In `rw_scen_aggregate()`, `file` should point to a valid location.",
     fixed = TRUE
   )
+  expect_error(
+    rw_scen_aggregate(scens1, rwa, scenPath, scen_names = scenNames[1]),
+    "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
+    fixed = TRUE
+  )
 })
 
 # check data ------------------------------------------

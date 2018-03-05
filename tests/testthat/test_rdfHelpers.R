@@ -30,6 +30,19 @@ test_that("rdf_get_slot gets correct dimensions for matrix", {
   )
 })
 
+test_that("`rdf_get_slot()` matches `rdfSlotToMatrix()`", {
+  expect_identical(
+    rdf_get_slot(keyRdf, 'Mead.Pool Elevation'),
+    expect_warning(rdfSlotToMatrix(keyRdf, 'Mead.Pool Elevation'))
+  )
+  expect_identical(
+    rdf_get_slot(sysRdf, 'SummaryOutputData.LBShortageConditions'),
+    expect_warning(
+      rdf_get_slot(sysRdf, 'SummaryOutputData.LBShortageConditions')
+    )
+  )
+})
+
 # rdf_get_timespan -------------------
 test_that('rdf_get_timespan returns expected dates', {
   # keyRdf includes monthly data so it starts in January. 
