@@ -7,7 +7,7 @@
 \alias{getMinAnnValue}
 \alias{rwslot_annual_max}
 \alias{getMaxAnnValue}
-\alias{flowWeightedAvgAnnConc}
+\alias{rwslot_fwaac}
 \title{Simple aggregation functions for monthly matrix data}
 \usage{
 rwslot_annual_sum(rwslot, multFactor = 1)
@@ -22,7 +22,7 @@ rwslot_annual_max(rwslot)
 
 getMaxAnnValue(rwslot)
 
-flowWeightedAvgAnnConc(mass, flow)
+rwslot_fwaac(mass, flow)
 }
 \arguments{
 \item{rwslot}{A matrix (months by traces) such as that returned by
@@ -33,11 +33,11 @@ year.}
 \item{multFactor}{A factor the annual sum will be multiplied by.  Can be used
 to convert from flow to volume, or to scale all results in another manor.}
 
-\item{mass}{A vector of one trace worth of data, or one year of one trace.
-Units should be in tons.}
+\item{mass}{A matrix (months by traces), such as that returned by
+\code{\link[=rdf_get_slot]{rdf_get_slot()}}, of mass in tons.}
 
-\item{flow}{A vector of one trace worth of data, or one year of one trace.
-Units should be in acre-ft/month.}
+\item{flow}{A matrix (months by traces), such as that returned by
+\code{\link[=rdf_get_slot]{rdf_get_slot()}}, of flow in acre-ft/month.}
 }
 \value{
 \code{rwslot_annual_sum()} returns the annual sum as a matrix (years by
@@ -49,8 +49,8 @@ maximum annual value for each year and trace.
 \code{rwslot_annual_max()} returns a matrix (years by traces) with the
 maximum annual value for each year and trace.
 
-\code{flowWeightedAvgAnnConc()} returns a vector of yearly data of the
-flow-weighted average annual concentration. Units will be mg/L.
+\code{rwslot_fwaac()} returns a matrix of yearly data of the
+flow-weighted average annual concentration. Units are mg/L.
 }
 \description{
 \code{rwslot_annual_sum()} takes a matrix containing monthly data (months by
@@ -61,12 +61,12 @@ traces matrix.
 
 \code{rwslot_annual_max()} finds the maximum annual value for all years and traces.
 
-\code{flowWeightedAvgAnnConc()} calculates the flow-weighted average annual
-concentration. Given mass and flow at the monthly basis, the flow-weighted
-average annual concentration is returned. Mass and flow should be monthly
-data and should be for only a single trace, or for one year of one trace.
-Expect flow to be in acre-ft/month and mass to be in tons. Return value will
-be in mg/L.
+\code{rwslot_fwaac()} calculates the flow-weighted average annual
+concentration (fwaac). Given mass and flow at the monthly basis, the
+flow-weighted average annual concentration is computed. \code{mass} and \code{flow}
+should be monthly data. \code{rwslot_fwaac()} expects flow to be in acre-ft/month
+and mass to be in tons; however, there are no checks to ensure this is true.
+Return value will be in mg/L.
 }
 \section{Functions}{
 \itemize{
@@ -92,7 +92,7 @@ peMax <- rwslot_annual_max(pe)
 flow <- rdf_get_slot(rdf,'Powell.Outflow')
 mass <- rdf_get_slot(rdf,'Powell.Outflow Salt Mass')
 # repeat for other traces as necessary:
-fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) 
+fwaac <- rwslot_fwaac(mass, flow) 
 }
 
 }

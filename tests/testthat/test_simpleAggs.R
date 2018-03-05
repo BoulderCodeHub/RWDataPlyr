@@ -78,14 +78,49 @@ test_that("rwslot_annual_sum matches sumMonth2Annual", {
 })
 
 
-# flowWeightedAvgAnnConc -------------------
+# rwslot_fwaac -------------------
 flow <- rep(c(700,800,800,900,750,900),2)*1000
 saltMass <- c(25,30,35,25,25,22,35,47,21,45,34,23)*1000
 
-test_that("Flow weighted annual average concentration returns correct Values", {
-  expect_equal(round(flowWeightedAvgAnnConc(saltMass, flow),5),27.82642)
-  expect_error(flowWeightedAvgAnnConc(saltMass[1:11],flow), 
-               'Data passed to flowWeightedAvgAnnConc is not divisible by 12')
-  expect_error(flowWeightedAvgAnnConc(saltMass,flow[1:11]), 
-               'Data passed to flowWeightedAvgAnnConc is not divisible by 12')
+test_that("`trace_fwaac()` returns correct Values", {
+  expect_equal(round(RWDataPlyr:::trace_fwaac(saltMass, flow),5),27.82642)
+  expect_error(
+    RWDataPlyr:::trace_fwaac(saltMass[1:11],flow), 
+    'Data passed to `trace_fwaac()` is not divisible by 12',
+    fixed = TRUE
+  )
+  expect_error(
+    RWDataPlyr:::trace_fwaac(saltMass,flow[1:11]), 
+    "Data passed to `trace_fwaac()` is not divisible by 12",
+    fixed = TRUE
+  )
+})
+
+flow <- cbind(flow, flow)
+flow <- rbind(flow, flow, flow, flow)
+saltMass <- cbind(saltMass, saltMass)
+saltMass <- rbind(saltMass, saltMass, saltMass, saltMass)
+
+test_that("`rwslot_fwaac() returns correct values", {
+  expect_is(tmp <- rwslot_fwaac(saltMass, flow), "matrix")
+  expect_equal(dim(tmp), c(4, 2))
+  expect_true(all(round(tmp, 5) == 27.82642))
+})
+
+test_that("`rwslot_fwaac() errors correctly", {
+  expect_error(
+    rwslot_fwaac(saltMass, flow[1:36, ]),
+    "In `rwslot_fwaac()`, the dimensions of `flow` and `mass` must match.",
+    fixed = TRUE
+  )
+  expect_error(
+    rwslot_fwaac(saltMass[,1], flow),
+    "In `rwslot_fwaac()`, the dimensions of `flow` and `mass` must match.",
+    fixed = TRUE
+  )
+  expect_error(
+    rwslot_fwaac(saltMass[1:40,], flow[1:40,]),
+    "In `rwslot_fwaac()`, `mass` and `flow` are not divisible by 12.", 
+    fixed = TRUE
+  )
 })

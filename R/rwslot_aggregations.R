@@ -113,35 +113,55 @@ trace_max_ann <- function(traceVal)
   apply(tmp, 1, max)
 }
 
-#' `flowWeightedAvgAnnConc()` calculates the flow-weighted average annual 
-#' concentration. Given mass and flow at the monthly basis, the flow-weighted 
-#' average annual concentration is returned. Mass and flow should be monthly 
-#' data and should be for only a single trace, or for one year of one trace. 
-#' Expect flow to be in acre-ft/month and mass to be in tons. Return value will 
-#' be in mg/L.
+#' `rwslot_fwaac()` calculates the flow-weighted average annual 
+#' concentration (fwaac). Given mass and flow at the monthly basis, the 
+#' flow-weighted average annual concentration is computed. `mass` and `flow` 
+#' should be monthly data. `rwslot_fwaac()` expects flow to be in acre-ft/month 
+#' and mass to be in tons; however, there are no checks to ensure this is true.
+#' Return value will be in mg/L.
 #' 
-#' @param mass A vector of one trace worth of data, or one year of one trace. 
-#'   Units should be in tons.
-#' @param flow A vector of one trace worth of data, or one year of one trace. 
-#'   Units should be in acre-ft/month.
+#' @param mass A matrix (months by traces), such as that returned by 
+#'   [rdf_get_slot()], of mass in tons.
+#' @param flow A matrix (months by traces), such as that returned by 
+#'   [rdf_get_slot()], of flow in acre-ft/month.
 
-#' @return `flowWeightedAvgAnnConc()` returns a vector of yearly data of the 
-#'   flow-weighted average annual concentration. Units will be mg/L.
+#' @return `rwslot_fwaac()` returns a matrix of yearly data of the 
+#'   flow-weighted average annual concentration. Units are mg/L.
 #'   
 #' @examples
 #' \dontrun{
 #' flow <- rdf_get_slot(rdf,'Powell.Outflow')
 #' mass <- rdf_get_slot(rdf,'Powell.Outflow Salt Mass')
 #' # repeat for other traces as necessary:
-#' fwaacT1 <- flowWeightedAvgAnnConc(mass[,1], flow[,1]) 
+#' fwaac <- rwslot_fwaac(mass, flow) 
 #' }
 #' 
 #' @rdname rwslot_aggs
 #' @export
-flowWeightedAvgAnnConc <- function(mass, flow)
+rwslot_fwaac <- function(mass, flow)
 {
-  if(length(mass)%%12 != 0 | length(flow)%%12 != 0)
-    stop('Data passed to flowWeightedAvgAnnConc is not divisible by 12')
+  if (!identical(dim(mass), dim(flow))) {
+    stop("In `rwslot_fwaac()`, the dimensions of `flow` and `mass` must match.")
+  }
+  
+  if (!is_full_monthly(nrow(mass))) {
+    stop("In `rwslot_fwaac()`, `mass` and `flow` are not divisible by 12.")
+  }
+  
+  nyear <- nrow(mass)/12
+  
+  vapply(
+    seq_len(ncol(mass)), 
+    function(x) trace_fwaac(mass[,x], flow[,x]), 
+    FUN.VALUE = numeric(nyear)
+  )
+}
+
+trace_fwaac <- function(mass, flow)
+{
+  if (!is_full_monthly(length(mass)) || !is_full_monthly(length(flow))) {
+    stop('Data passed to `trace_fwaac()` is not divisible by 12')
+  }
   
   # move into a years x months matrix
   mass <- matrix(mass, ncol = 12, byrow = T)
@@ -153,4 +173,11 @@ flowWeightedAvgAnnConc <- function(mass, flow)
   conc <- mass.annAvg/flow.annAvg*735.466642
   
   conc
+}
+
+#' is_full_monthly assumes that data is monthly if it is divisible by 12
+#' @noRd
+is_full_monthly <- function(x)
+{
+  x%%12 == 0
 }
