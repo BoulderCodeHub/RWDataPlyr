@@ -2,7 +2,7 @@
 % Please edit documentation in R/slot_agg_list.R
 \name{slot_agg_list}
 \alias{slot_agg_list}
-\title{A class to control how \code{\link[=getDataForAllScens]{getDataForAllScens()}} aggregates slots}
+\title{A class to control how RiverWare data are aggregated}
 \usage{
 slot_agg_list(x)
 }
@@ -14,9 +14,9 @@ or relative path to a csv file.}
 A  \code{slot_agg_list}  object.
 }
 \description{
-\code{"slot_agg_list"} is a class that contains a set of slots, which rdf file
-they are found in, and a set of keywords that are used to control how
-\code{\link[=getDataForAllScens]{getDataForAllScens()}} aggregates slots.
+\code{"slot_agg_list"} is a class that contains a set of RiverWare slots, which
+rdf file they are found in, and a set of keywords that are used to control
+how \code{\link[=getDataForAllScens]{getDataForAllScens()}} aggregates RiverWare data.
 }
 \details{
 The \code{slot_agg_list} class, contains a list that includes: which rdf file to
@@ -110,8 +110,8 @@ export pre-simulation data.}
 or equal to a \strong{threshold.} Returns 1 if it is less than or equal to
 the \strong{threshold} and 0 otherwise. The water year is defined as October
 through September of the next year. For the first year, only January through
-September are evaluated as RiverWare does not typically export pre-simulation
-data.}
+September are evaluated as RiverWare does not typically export
+pre-simulation data.}
 }
 }
 

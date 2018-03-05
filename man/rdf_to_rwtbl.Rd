@@ -2,7 +2,7 @@
 % Please edit documentation in R/rdf_to_rwtbl.R
 \name{rdf_to_rwtbl}
 \alias{rdf_to_rwtbl}
-\title{Convert rdf to a tibble}
+\title{Convert an rdf to a tibble}
 \usage{
 rdf_to_rwtbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 }
@@ -35,7 +35,7 @@ in the \code{Timestep} column.}
 A tbl_df with additional attributes from the rdf object.
 }
 \description{
-\code{rdf_to_rwtbl()} converts an rdf list to a tibble (data.frame).
+\code{rdf_to_rwtbl()} converts an rdf list to a tibble.
 }
 \details{
 The rdf list is converted to a data frame, and then converted to a

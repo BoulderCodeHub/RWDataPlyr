@@ -1,8 +1,8 @@
-#' A class to control how [getDataForAllScens()] aggregates slots
+#' A class to control how RiverWare data are aggregated
 #' 
-#' `"slot_agg_list"` is a class that contains a set of slots, which rdf file 
-#' they are found in, and a set of keywords that are used to control how 
-#' [getDataForAllScens()] aggregates slots. 
+#' `"slot_agg_list"` is a class that contains a set of RiverWare slots, which 
+#' rdf file they are found in, and a set of keywords that are used to control 
+#' how [getDataForAllScens()] aggregates RiverWare data. 
 #' 
 #' @details 
 #' The `slot_agg_list` class, contains a list that includes: which rdf file to 
@@ -95,8 +95,8 @@
 #'  or equal to a \strong{threshold.} Returns 1 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise. The water year is defined as October 
 #'  through September of the next year. For the first year, only January through 
-#'  September are evaluated as RiverWare does not typically export pre-simulation 
-#'  data.}
+#'  September are evaluated as RiverWare does not typically export 
+#'  pre-simulation data.}
 #' }
 #' 
 #' @param x Either an Nx4 character matrix or a character with an absolute 

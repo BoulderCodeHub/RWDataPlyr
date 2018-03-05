@@ -1,7 +1,7 @@
 
-#' Convert rdf to a tibble
+#' Convert an rdf to a tibble
 #' 
-#' `rdf_to_rwtbl()` converts an rdf list to a tibble (data.frame).
+#' `rdf_to_rwtbl()` converts an rdf list to a tibble.
 #' 
 #' The rdf list is converted to a data frame, and then converted to a 
 #' [tibble::tibble()]. All of the `meta` entries into the rdf list
