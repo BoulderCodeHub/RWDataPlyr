@@ -4,16 +4,50 @@ context('check simple aggregation methods')
 simpMat <- matrix(1:48, ncol = 2)
 pe <- rdf_get_slot(keyRdf, 'Mead.Pool Elevation')[1:36,1:4]
 
-test_that("getMinAnnValue returns corect values", {
-  expect_equal(getMinAnnValue(simpMat), matrix(c(1,13,25,37),ncol=2))
-  expect_equal(getMinAnnValue(pe), rbind(apply(pe[1:12,],2,min), apply(pe[13:24,],2,min), 
-                                         apply(pe[25:36,],2,min)))
+# rwslot_annual_min -------------------
+
+test_that("`rwslot_annual_min()` returns corect values", {
+  expect_equal(rwslot_annual_min(simpMat), matrix(c(1, 13, 25, 37),ncol = 2))
+  expect_equal(
+    rwslot_annual_min(pe), 
+    rbind(
+      apply(pe[1:12,], 2, min), 
+      apply(pe[13:24,], 2, min), 
+      apply(pe[25:36,], 2, min)
+    )
+  )
 })
 
-test_that("getMaxAnnValue returns corect values", {
-  expect_equal(getMaxAnnValue(simpMat), matrix(c(12,24,36,48),ncol=2))
-  expect_equal(getMaxAnnValue(pe), rbind(apply(pe[1:12,],2,max), apply(pe[13:24,],2,max), 
-                                         apply(pe[25:36,],2,max)))
+test_that("`rwslot_annual_min()` matches `getMinAnnValue()`", {
+  expect_identical(
+    rwslot_annual_min(simpMat),
+    expect_warning(getMinAnnValue(simpMat))
+  )
+  expect_identical(
+    rwslot_annual_min(pe),
+    expect_warning(getMinAnnValue(pe))
+  )
+})
+
+# rwslot_annual_max ---------------
+
+test_that("`rwslot_annual_max()` returns corect values", {
+  expect_equal(rwslot_annual_max(simpMat), matrix(c(12, 24, 36, 48),ncol = 2))
+  expect_equal(
+    rwslot_annual_max(pe), 
+    rbind(
+      apply(pe[1:12,], 2, max), 
+      apply(pe[13:24,], 2, max), 
+      apply(pe[25:36,], 2, max)
+    )
+  )
+})
+
+test_that("`rwslot_annual_max()` matches `getMaxAnnValue()`", {
+  expect_identical(
+    rwslot_annual_max(simpMat), expect_warning(getMaxAnnValue(simpMat))
+  )
+  expect_identical(rwslot_annual_max(pe), expect_warning(getMaxAnnValue(pe)))
 })
 
 # rwslot_annual_sum ------------------

@@ -41,7 +41,7 @@ ym_get_wateryear <- function(ym)
 }
 
 #' @export
-#' @noRd
+#' @rdname ym_get_wateryear
 getWYFromYearmon <- function(ym)
 {
   .Deprecated("ym_get_wateryear()")

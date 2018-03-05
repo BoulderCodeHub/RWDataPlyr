@@ -3,7 +3,9 @@
 \name{rwslot_annual_sum}
 \alias{rwslot_annual_sum}
 \alias{sumMonth2Annual}
+\alias{rwslot_annual_min}
 \alias{getMinAnnValue}
+\alias{rwslot_annual_max}
 \alias{getMaxAnnValue}
 \alias{flowWeightedAvgAnnConc}
 \title{Simple aggregation functions for monthly matrix data}
@@ -12,7 +14,11 @@ rwslot_annual_sum(rwslot, multFactor = 1)
 
 sumMonth2Annual(rwslot, multFactor = 1)
 
+rwslot_annual_min(rwslot)
+
 getMinAnnValue(rwslot)
+
+rwslot_annual_max(rwslot)
 
 getMaxAnnValue(rwslot)
 
@@ -37,10 +43,10 @@ Units should be in acre-ft/month.}
 \code{rwslot_annual_sum()} returns the annual sum as a matrix (years by
 traces).
 
-\code{getMinAnnValue()} returns a matrix (years by traces) with the
+\code{rwslot_annual_min()} returns a matrix (years by traces) with the
 maximum annual value for each year and trace.
 
-\code{getMaxAnnValue()} returns a matrix (years by traces) with the
+\code{rwslot_annual_max()} returns a matrix (years by traces) with the
 maximum annual value for each year and trace.
 
 \code{flowWeightedAvgAnnConc()} returns a vector of yearly data of the
@@ -51,9 +57,9 @@ flow-weighted average annual concentration. Units will be mg/L.
 traces), and sums the monthly data into annual data.  Returns a years by
 traces matrix.
 
-\code{getMinAnnValue()} finds the minimum annual value for all years and traces.
+\code{rwslot_annual_min()} finds the minimum annual value for all years and traces.
 
-\code{getMaxAnnValue()} finds the maximum annual value for all years and traces.
+\code{rwslot_annual_max()} finds the maximum annual value for all years and traces.
 
 \code{flowWeightedAvgAnnConc()} calculates the flow-weighted average annual
 concentration. Given mass and flow at the monthly basis, the flow-weighted
@@ -77,10 +83,10 @@ annualTotVal <- rwslot_annual_sum(zz)
 annualTotVal <- rwslot_annual_sum(zz, 0.001) 
 
 pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
-peMax <- getMinAnnValue(pe)
+peMax <- rwslot_annual_min(pe)
 
 pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
-peMax <- getMaxAnnValue(pe)
+peMax <- rwslot_annual_max(pe)
 
 \dontrun{
 flow <- rdf_get_slot(rdf,'Powell.Outflow')

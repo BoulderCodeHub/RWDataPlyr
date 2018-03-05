@@ -82,7 +82,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	# XXX
 	# now summarize in some way
 	if(ann == 'AnnMin'){
-		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
+		slot <- apply(slot, 2, trace_min_ann) # minimum annual value
 		rownames(slot) <- yy
 	} else if(ann == 'EOWY'){
 	  slot <- slot[seq(9, nrow(slot), 12),,drop = FALSE] # 9 is september
@@ -100,14 +100,14 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	  slot <- slot * thresh
 	  rownames(slot) <- yy
 	} else if(ann == 'AnnMax'){
-		slot <- apply(slot, 2, returnMaxAnn) # maximum annual value
+		slot <- apply(slot, 2, trace_max_ann) # maximum annual value
 		slot <- slot * thresh
 		rownames(slot) <- yy
 	} else if(ann == 'AnnualSum'){
 		slot <- rwslot_annual_sum(slot,thresh)
 		rownames(slot) <- yy
 	} else if(ann == 'AnnMinLTE'){
-		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
+		slot <- apply(slot, 2, trace_min_ann) # minimum annual value
 		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'Monthly'){
@@ -118,13 +118,13 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	} else if(ann == 'WYMinLTE'){
 		slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
 		slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
-		slot <- apply(slot, 2, returnMinAnn) # minimum annual value
+		slot <- apply(slot, 2, trace_min_ann) # minimum annual value
 		slot <- (slot <= thresh) * 1 # convert to numeric
 		rownames(slot) <- yy
 	} else if(ann == 'WYMaxLTE'){
 	  slot <- rbind(slot[1,],slot[1,],slot[1,],slot)
 	  slot <- slot[1:(nrow(slot)-3),, drop = FALSE]
-	  slot <- apply(slot, 2, returnMaxAnn) # minimum annual value
+	  slot <- apply(slot, 2, trace_max_ann) # minimum annual value
 	  slot <- (slot <= thresh) * 1 # convert to numeric
 	  rownames(slot) <- yy
 	}	else if(ann == 'EOCYLTE'){

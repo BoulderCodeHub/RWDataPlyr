@@ -49,48 +49,64 @@ sumMonth2Annual <- function(rwslot, multFactor = 1)
   rwslot_annual_sum(rwslot, multFactor)
 }
 
-#' `getMinAnnValue()` finds the minimum annual value for all years and traces.
+#' `rwslot_annual_min()` finds the minimum annual value for all years and traces.
 #' 
 #' @inheritParams rwslot_annual_sum
 #' 
-#' @return `getMinAnnValue()` returns a matrix (years by traces) with the 
+#' @return `rwslot_annual_min()` returns a matrix (years by traces) with the 
 #'   maximum annual value for each year and trace.
 #'   
 #' @examples
 #' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
-#' peMax <- getMinAnnValue(pe)
+#' peMax <- rwslot_annual_min(pe)
 #' 
 #' @rdname rwslot_aggs
 #' @export
-getMinAnnValue <- function(rwslot)
+rwslot_annual_min <- function(rwslot)
 {
-	apply(rwslot, 2, returnMinAnn)
+	apply(rwslot, 2, trace_min_ann)
 }
 
-returnMinAnn <- function(traceVal)
+#' @export
+#' @rdname rwslot_aggs
+getMinAnnValue <- function(rwslot)
+{
+  .Deprecated("rwslot_annual_min()")
+  rwslot_annual_min(rwslot)
+}
+
+trace_min_ann <- function(traceVal)
 {
   tmp <- matrix(traceVal, ncol = 12, byrow = T)
   apply(tmp, 1, min)
 }
 
-#' `getMaxAnnValue()` finds the maximum annual value for all years and traces.
+#' `rwslot_annual_max()` finds the maximum annual value for all years and traces.
 #' 
 #' @inheritParams rwslot_annual_sum
 #' 
-#' @return `getMaxAnnValue()` returns a matrix (years by traces) with the 
+#' @return `rwslot_annual_max()` returns a matrix (years by traces) with the 
 #'   maximum annual value for each year and trace.
 #' @examples
 #' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
-#' peMax <- getMaxAnnValue(pe)
+#' peMax <- rwslot_annual_max(pe)
 #' 
 #' @rdname rwslot_aggs
 #' @export
-getMaxAnnValue <- function(rwslot)
+rwslot_annual_max <- function(rwslot)
 {
-  apply(rwslot, 2, returnMaxAnn)
+  apply(rwslot, 2, trace_max_ann)
 }
 
-returnMaxAnn <- function(traceVal)
+#' @export
+#' @rdname rwslot_aggs
+getMaxAnnValue <- function(rwslot)
+{
+  .Deprecated("rwslot_annual_max()")
+  rwslot_annual_max(rwslot)
+}
+
+trace_max_ann <- function(traceVal)
 {
   tmp <- matrix(traceVal, ncol = 12, byrow = T)
   

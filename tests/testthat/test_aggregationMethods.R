@@ -19,17 +19,17 @@ colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
 
 mEocy <- as.data.frame(mReg[seq(12,nrow(mReg), 12),])
-pMin <- as.data.frame(getMinAnnValue(pReg))
+pMin <- as.data.frame(rwslot_annual_min(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),])
-mMax <- as.data.frame(getMaxAnnValue(mReg))
+mMax <- as.data.frame(rwslot_annual_max(mReg))
 mSum <- as.data.frame(rwslot_annual_sum(mReg))
-p800 <- as.data.frame((getMinAnnValue(pReg) <= 800000) * 1)
+p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),]
-p750 <- as.data.frame((getMinAnnValue(pPad) <= 750000) * 1)
+p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
-p500 <- as.data.frame((getMaxAnnValue(pPad) <= 500000) * 1)
+p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
 
 m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] <= 1050) * 1)
 
@@ -164,17 +164,17 @@ colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
 
 mEocy <- as.data.frame(mReg[seq(12,nrow(mReg), 12),, drop = FALSE])
-pMin <- as.data.frame(getMinAnnValue(pReg))
+pMin <- as.data.frame(rwslot_annual_min(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),, drop = FALSE])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),, drop = FALSE])
-mMax <- as.data.frame(getMaxAnnValue(mReg))
+mMax <- as.data.frame(rwslot_annual_max(mReg))
 mSum <- as.data.frame(rwslot_annual_sum(mReg))
-p800 <- as.data.frame((getMinAnnValue(pReg) <= 800000) * 1)
+p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),,drop = FALSE]
-p750 <- as.data.frame((getMinAnnValue(pPad) <= 750000) * 1)
+p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
-p500 <- as.data.frame((getMaxAnnValue(pPad) <= 500000) * 1)
+p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
 
 m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),, drop = FALSE] <= 1050) * 1)
 

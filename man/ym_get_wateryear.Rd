@@ -2,9 +2,12 @@
 % Please edit documentation in R/yearmon_helpers.R
 \name{ym_get_wateryear}
 \alias{ym_get_wateryear}
+\alias{getWYFromYearmon}
 \title{Get the water year from a year-month (yearmon) value}
 \usage{
 ym_get_wateryear(ym)
+
+getWYFromYearmon(ym)
 }
 \arguments{
 \item{ym}{An object of class \link[zoo:yearmon]{zoo::yearmon}, or something that can be

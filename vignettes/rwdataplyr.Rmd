@@ -59,8 +59,8 @@ pe <- rdf_get_slot(rdf, 'Mead.Pool Elevation')
 ### Manipulation and Aggregation Functions
 To assist in working with the data returned by `rdf_get_slot` several other functions are provided that perform common annualization functions as follows.
 
-1. `getMaxAnnValue` returns a matrix of the annual maximum for each year and trace.
-1. `getMinAnnValue` returns a matrix of the the annual minimum for each year and trace.
+1. `rwslot_annual_max` returns a matrix of the annual maximum for each year and trace.
+1. `rwslot_annual_min` returns a matrix of the the annual minimum for each year and trace.
 1. `rwslot_annual_sum` returns a matrix of the sum of the monthly values for each year and trace. Can optionally scale the values with this function if, for example, an annual volume is desired by summing monthly flow data.
 1. `flowWeightAvgAnnConc` returns a matrix of the annual flow-weighted average annual concentration if given monthly flow and monthly concentrations.
 
@@ -69,10 +69,10 @@ If the first two years of elevations for two traces are:
 pe[1:24,1:2]
 ```
 
-Then, `getMinAnnValue` finds and returns the annual minimum values.
+Then, `rwslot_annual_min` finds and returns the annual minimum values.
 
 ```{r}
-peMin <- getMinAnnValue(pe)
+peMin <- rwslot_annual_min(pe)
 ```
 
 And the annual minimum values in `peMin` are:
