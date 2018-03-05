@@ -48,7 +48,7 @@ Value.}
 
 \item{scenarios}{A character vector of scenarios. This is usually a vector
 of folder names, where each folder name contains one scenario worth of
-data. \code{scenarios} can be named or unamed. The names are used as the
+data. \code{scenarios} can be named or unnamed. The names are used as the
 scenario name in the returned \code{tbl_df}. Scenario names can also be
 specified through the \code{scen_names} argument. If \code{scen_names} is specified,
 \code{scenarios} should not already have names. If \code{scen_names} is not specified
@@ -85,7 +85,7 @@ See the \strong{Directory Structure} section for how to specify \code{scenarios}
 
 \code{rw_scen_aggregate()} aggregates multiple scenarios of data. It processes the
 \link{rwd_agg} object (\code{agg}) for each single scenario, and then binds all of the
-indvidual scenario data together into a single \code{tbl_df}.
+individual scenario data together into a single \code{tbl_df}.
 }
 \section{Directory Structure}{
 
@@ -115,9 +115,9 @@ To get one scenario's data, \code{rdf_aggregate()} can be called with \code{rdf_
 set to "C:/user/crss/CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most".
 (\code{scenario} can optionally be specified to git a scenario name.)
 
-To aggregate multiple scenarios of data togther, \code{rw_scen_aggregate()} should
-be called with \code{scen_dir} set to "C:/user/CRSS/CRSS.Jan2017/Scenario" and
-\code{scenarios} set to
+To aggregate multiple scenarios of data together, \code{rw_scen_aggregate()}
+should be called with \code{scen_dir} set to "C:/user/CRSS/CRSS.Jan2017/Scenario"
+and \code{scenarios} set to
 \code{c("ISM1988_2014,2007Dems,IG,Most", "ISM1988_2014,2007Dems,IG,2002")}.
 (Optionally, \code{scenarios} can be named, or \code{scen_names} specified to use
 scenario names that are different from the above scenario folders.)

@@ -1,7 +1,7 @@
 
 #' Combine RiverWare data aggregators
 #' 
-#' Take a sequence of `rwd_agg` arguements (or vector, matrix, or data.frames) 
+#' Take a sequence of `rwd_agg` arguments (or vector, matrix, or data.frames) 
 #' and combine by rows. If the objects are not `rwd_agg` objects they will be 
 #' combined through the default `rbind()` method, and then verified that they
 #' meet all constraints to be a valid `rwd_agg` object. `cbind()` will fail for

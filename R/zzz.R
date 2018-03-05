@@ -8,3 +8,9 @@
   
   invisible()
 }
+
+custom_words <- function()
+{
+  c("asis", "crss", "CRSS", "csv", "rdf", "rdfs", "RiverWare", "riverware", 
+    "RiverSMART")
+}

@@ -16,7 +16,7 @@
 #'    
 #'    In this case, the `variable` names are automatically constructed from the
 #'    `ObjectSlot` names. The variable names are constructed as the all lower 
-#'    case version of the object_slot name. If the slot name is "Pool Elevatin", 
+#'    case version of the object_slot name. If the slot name is "Pool Elevation", 
 #'    it is shortened to "pe", otherwise the full object and slot name are used. 
 #'    If there are any spaces, they are replaced with underscores.
 #'   
@@ -54,7 +54,7 @@
 #'       year, since it includes 9 months of data, and removing the final water 
 #'       year, since it includes only three months of data. Setting this option 
 #'       to 0 will result in keeping any water year data that has at least one 
-#'       month of data; settting this option to 11, ensures that there must be 
+#'       month of data; setting this option to 11, ensures that there must be 
 #'       a full water year of data for that year to be kept.
 #'   
 #'       This can also be a user specified custom function; see the
@@ -62,7 +62,7 @@
 #'       functions.
 #'     
 #'     - *full month name:* When the full month name is specified, data will 
-#'       be filtered to only include data for that paricular month. To select
+#'       be filtered to only include data for that particular month. To select
 #'       multiple months of data, use a function as described above. If the
 #'       month specified is not found in [month.name], an error will occur.
 #'     

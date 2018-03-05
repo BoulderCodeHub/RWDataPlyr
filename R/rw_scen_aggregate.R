@@ -2,12 +2,12 @@
 #' @details 
 #' `rw_scen_aggregate()` aggregates multiple scenarios of data. It processes the 
 #' [rwd_agg] object (`agg`) for each single scenario, and then binds all of the
-#' indvidual scenario data together into a single `tbl_df`.
+#' individual scenario data together into a single `tbl_df`.
 #' 
 #' @inheritParams rdf_aggregate
 #' @param scenarios A character vector of scenarios. This is usually a vector
 #'   of folder names, where each folder name contains one scenario worth of
-#'   data. `scenarios` can be named or unamed. The names are used as the 
+#'   data. `scenarios` can be named or unnamed. The names are used as the 
 #'   scenario name in the returned `tbl_df`. Scenario names can also be 
 #'   specified through the `scen_names` argument. If `scen_names` is specified, 
 #'   `scenarios` should not already have names. If `scen_names` is not specified
@@ -47,9 +47,9 @@
 #' set to "C:/user/crss/CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most".
 #' (`scenario` can optionally be specified to git a scenario name.)
 #' 
-#' To aggregate multiple scenarios of data togther, `rw_scen_aggregate()` should
-#' be called with `scen_dir` set to "C:/user/CRSS/CRSS.Jan2017/Scenario" and 
-#' `scenarios` set to 
+#' To aggregate multiple scenarios of data together, `rw_scen_aggregate()` 
+#' should be called with `scen_dir` set to "C:/user/CRSS/CRSS.Jan2017/Scenario" 
+#' and `scenarios` set to 
 #' `c("ISM1988_2014,2007Dems,IG,Most", "ISM1988_2014,2007Dems,IG,2002")`. 
 #' (Optionally, `scenarios` can be named, or `scen_names` specified to use 
 #' scenario names that are different from the above scenario folders.)

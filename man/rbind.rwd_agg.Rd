@@ -24,7 +24,7 @@
     names, see the \sQuote{Value} section below.}
 }
 \description{
-Take a sequence of \code{rwd_agg} arguements (or vector, matrix, or data.frames)
+Take a sequence of \code{rwd_agg} arguments (or vector, matrix, or data.frames)
 and combine by rows. If the objects are not \code{rwd_agg} objects they will be
 combined through the default \code{rbind()} method, and then verified that they
 meet all constraints to be a valid \code{rwd_agg} object. \code{cbind()} will fail for

@@ -89,13 +89,13 @@
 #'  the \strong{threshold} and 0 otherwise. This can be used to determine if an 
 #'  entire water year is below a \strong{threshold}. The water year is defined 
 #'  as October through September of the next year. For the first year, only 
-#'  January through September are evaluated as RiveWare does not typically 
+#'  January through September are evaluated as RiverWare does not typically 
 #'  export pre-simulation data.}
 #'  \item{'WYMinLTE'}{Checks to see if the minimum water year value is less than 
 #'  or equal to a \strong{threshold.} Returns 1 if it is less than or equal to 
 #'  the \strong{threshold} and 0 otherwise. The water year is defined as October 
 #'  through September of the next year. For the first year, only January through 
-#'  September are evaluated as RiveWare does not typically export pre-simulation 
+#'  September are evaluated as RiverWare does not typically export pre-simulation 
 #'  data.}
 #' }
 #' 
