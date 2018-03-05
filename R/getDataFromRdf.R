@@ -25,7 +25,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
   ann <- slotsAnnualize[2]
 	thresh <- as.numeric(slotsAnnualize[3])
 	# can use thresh as a scale also.  If it is not specified, then multiply by 1.
-	thresh[is.na(thresh)] = 1 
+	thresh[is.na(thresh)] <- 1 
 	slot <- slotsAnnualize[1]
 
 	if (!(slot %in% rdf_slot_names(rdf))) {
@@ -162,7 +162,7 @@ processSlots <- function(slotsAnnualize, rdf, rdfName, findAllSlots)
 	}
 	
 	
-	colnames(slot) <- 1:ncol(slot)
+	colnames(slot) <- seq_len(ncol(slot))
 
 	if(ann != 'Monthly'){
 		slot <- tidyr::gather(
@@ -292,7 +292,7 @@ getAndProcessAllSlots <- function(scenPath, slotAggList, findAllSlots)
 	zz <- lapply(slotAggList, getSlots, sPath, findAllSlots)
 
 	allRes <- do.call(rbind, lapply(zz, function(X) X))
-	nn = colnames(allRes)
+	nn <- colnames(allRes)
 
 	allRes$Scenario <- rep(sName, nrow(allRes))
 	allRes <- subset(allRes, select=c('Scenario', nn))
@@ -412,9 +412,9 @@ getDataForAllScens <- function(scenFolders, scenNames, slotAggList, scenPath,
     )
   }
   
-	scenPath = file.path(scenPath, scenFolders)
-	scen = cbind(scenPath, scenNames)
-	zz = apply(scen, 1, getAndProcessAllSlots, slotAggList, findAllSlots)
+	scenPath <- file.path(scenPath, scenFolders)
+	scen <- cbind(scenPath, scenNames)
+	zz <- apply(scen, 1, getAndProcessAllSlots, slotAggList, findAllSlots)
 	zz <- do.call(rbind, lapply(zz, function(X) X))
 	
 	write_rw_data(zz, oFile)
@@ -428,9 +428,9 @@ write_rw_data <- function(zz, oFile)
 {
   fExt <- tools::file_ext(oFile)
   if(fExt == 'txt'){
-    data.table::fwrite(zz, file = oFile, row.names = F, sep = '\t')
+    data.table::fwrite(zz, file = oFile, row.names = FALSE, sep = '\t')
   } else if(fExt == 'csv'){
-    data.table::fwrite(zz, oFile, row.names = F, sep = ",")
+    data.table::fwrite(zz, oFile, row.names = FALSE, sep = ",")
   } else if(fExt == 'feather'){
     feather::write_feather(zz, oFile)
   }

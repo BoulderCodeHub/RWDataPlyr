@@ -2,7 +2,7 @@ context("check the apply_summary function")
 library(dplyr)
 
 slot_agg_matrix <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
   stringsAsFactors = FALSE
 ))[1:5,]
 
@@ -96,11 +96,12 @@ test_that("apply_summary works as expected", {
 })
 
 # check errors --------------------------
+mpe <- "Mead.Pool Elevation"
 sam <- data.frame(matrix(c(
-  "KeySlots.rdf", "Mead.Pool Elevation", "cy", "range", "<=", "1000", "peLt1000",
-  "KeySlots.rdf", "Mead.Pool Elevation", "cy", "blah", "<=", "1000", "peLt1000",
-  "KeySlots.rdf", "Mead.Pool Elevation", "cy", "which", "<=", "1000", "peLt1000",
-  "KeySlots.rdf", "Mead.Pool Elevation", "cy", "match", "<=", "1000", "peLt1000"
+  "KeySlots.rdf", mpe, "cy", "range", "<=", "1000", "peLt1000",
+  "KeySlots.rdf", mpe, "cy", "blah", "<=", "1000", "peLt1000",
+  "KeySlots.rdf", mpe, "cy", "which", "<=", "1000", "peLt1000",
+  "KeySlots.rdf", mpe, "cy", "match", "<=", "1000", "peLt1000"
 ), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
 
 colnames(sam) <- c("file", "slot", "period", "summary", "eval", 

@@ -9,6 +9,8 @@ Authors@R: c(
     person("Alan","Butler", ,"rabutler@usbr.gov", c("aut","cre")),
     person("Cameron","Bracken", role = "aut")
     )
+URL: https://github.com/BoulderCodeHub/RWDataPlyr
+BugReports: https://github.com/BoulderCodeHub/RWDataPlyr/issues
 Depends:
     R (>= 3.3.0)
 Imports:

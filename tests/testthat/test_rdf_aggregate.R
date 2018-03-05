@@ -2,7 +2,7 @@ context("test rdf_aggregate()")
 library(dplyr)
 
 ra1 <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
   stringsAsFactors = FALSE
 ))
   

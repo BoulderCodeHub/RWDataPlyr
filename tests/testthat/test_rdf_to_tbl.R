@@ -94,7 +94,11 @@ test_that("scenario options error properly", {
 
 # check the keep_cols option ------------
 rdftbl2 <- rdf_to_rwtbl(keyRdf, keep_cols = TRUE)
-rdftbl3 <- rdf_to_rwtbl(keyRdf, keep_cols = c("ObjectName", "Unit"), scenario = 1)
+rdftbl3 <- rdf_to_rwtbl(
+  keyRdf, 
+  keep_cols = c("ObjectName", "Unit"), 
+  scenario = 1
+)
 test_that("dimensions are as expected with keep_cols", {
   expect_true(nrow(rdftbl2) > 0)
   expect_equal(ncol(rdftbl2), length(reqCols) + 8)

@@ -59,7 +59,7 @@ test_that("`rwtbl_var_to_slot()` errors correctly", {
 })
 
 rwa <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
   stringsAsFactors = FALSE)
 )
 

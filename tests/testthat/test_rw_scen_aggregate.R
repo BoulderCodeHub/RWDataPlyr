@@ -2,7 +2,7 @@ context("test `rw_scen_aggregate()`")
 library(dplyr)
 
 rwa <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
   stringsAsFactors = FALSE
 ))
 
@@ -22,7 +22,7 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
     ),
     fixed = TRUE
   )
-  expect_error(rw_scen_aggregate(scens1, rwa, "~/apath/that/surely/doesnt/exist"))
+  expect_error(rw_scen_aggregate(scens1, rwa, "~/apath/that/doesnt/exist"))
   expect_error(
     rw_scen_aggregate(scens1, rwa, c(".", "~")),
     "`scen_dir` should only have a length of 1.",
@@ -40,7 +40,12 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
   )
   expect_error(rw_scen_aggregate(scens3, rwa, scenPath, errors_are = "zeros"))
   expect_error(
-    rw_scen_aggregate(scens3, rwa, scenPath, file = c("this.csv", "that.feather")),
+    rw_scen_aggregate(
+      scens3, 
+      rwa, 
+      scenPath, 
+      file = c("this.csv", "that.feather")
+    ),
     "In `rw_scen_aggregate()`, `file` should have a length of 1.",
     fixed = TRUE
   )

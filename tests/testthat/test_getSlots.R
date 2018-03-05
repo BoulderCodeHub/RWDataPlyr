@@ -15,7 +15,10 @@ sal <- slot_agg_list(matrix(
 ))[[1]]
 df <- RWDataPlyr:::getSlots(
   sal, 
-  scenPath = system.file("extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", package = "RWDataPlyr"),
+  scenPath = system.file(
+    "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
+    package = "RWDataPlyr"
+  ),
   findAllSlots = FALSE
 )
 
@@ -27,10 +30,13 @@ test_that("data is returned when one slot cannot be found", {
   expect_equal(filter(df, Variable == "no")$Value, -99)
 })
 
-test_that("still get an error when second slot is the one that cannot be found", {
+test_that("still get an error when 2nd slot is the one that cannot be found", {
   expect_error(RWDataPlyr:::getSlots(
     sal, 
-    scenPath = system.file("extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", package = "RWDataPlyr"),
+    scenPath = system.file(
+      "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
+      package = "RWDataPlyr"
+    ),
     findAllSlots = TRUE
   ),
   paste("slot:", "no.Pool Elevation", "not found in rdf:", "KeySlots.rdf"))
@@ -45,7 +51,10 @@ sal <- slot_agg_list(matrix(
 ))[[1]]
 df <- RWDataPlyr:::getSlots(
   sal, 
-  scenPath = system.file("extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", package = "RWDataPlyr"),
+  scenPath = system.file(
+    "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 
+    package = "RWDataPlyr"
+  ),
   findAllSlots = FALSE
 )
 

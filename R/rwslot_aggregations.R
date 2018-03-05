@@ -33,8 +33,8 @@ rwslot_annual_sum <- function(rwslot, multFactor = 1) {
   res <- do.call(
     cbind, 
     lapply(
-      1:ncol(rwslot), 
-      function(xx) apply(matrix(rwslot[,xx],ncol = 12, byrow = T), 1, sum)
+      seq_len(ncol(rwslot)),
+      function(xx) apply(matrix(rwslot[,xx],ncol = 12, byrow = TRUE), 1, sum)
     )
   )
   colnames(res) <- colnames(rwslot)
@@ -77,7 +77,7 @@ getMinAnnValue <- function(rwslot)
 
 trace_min_ann <- function(traceVal)
 {
-  tmp <- matrix(traceVal, ncol = 12, byrow = T)
+  tmp <- matrix(traceVal, ncol = 12, byrow = TRUE)
   apply(tmp, 1, min)
 }
 
@@ -108,7 +108,7 @@ getMaxAnnValue <- function(rwslot)
 
 trace_max_ann <- function(traceVal)
 {
-  tmp <- matrix(traceVal, ncol = 12, byrow = T)
+  tmp <- matrix(traceVal, ncol = 12, byrow = TRUE)
   
   apply(tmp, 1, max)
 }
@@ -164,8 +164,8 @@ trace_fwaac <- function(mass, flow)
   }
   
   # move into a years x months matrix
-  mass <- matrix(mass, ncol = 12, byrow = T)
-  flow <- matrix(flow, ncol = 12, byrow = T)
+  mass <- matrix(mass, ncol = 12, byrow = TRUE)
+  flow <- matrix(flow, ncol = 12, byrow = TRUE)
   
   mass.annAvg <- apply(mass, 1, sum)/12
   flow.annAvg <- apply(flow, 1, sum)/12 # now essentially a volume

@@ -36,7 +36,7 @@
 
 rw_scen_gen_names <- function(dim1, dim2, ..., sep = ",") 
 {
-  scens = expand.grid(dim1, dim2, ...)
+  scens <- expand.grid(dim1, dim2, ...)
   scens <- apply(scens, 1, paste, collapse = sep)
   scens
 }

@@ -24,7 +24,9 @@ as_rwd_agg.data.frame <- function(x, ...)
 as_rwd_agg.list <- function(x, ...)
 {
   if (length(unique(lengths(x))) != 1) {
-    stop("When attempting to coerce a `list` to a `rwd_agg`, all entries must have the same length.")
+    stop(
+      "When attempting to coerce a `list` to a `rwd_agg`, all entries must have the same length."
+    )
   } else {
     as_rwd_agg(as.data.frame(x, stringsAsFactors = FALSE, ...))
   }

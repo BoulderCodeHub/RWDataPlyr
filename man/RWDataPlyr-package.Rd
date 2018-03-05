@@ -11,6 +11,14 @@ A tool to read and manipulate data generated from RiverWare(TM)
 "rdf", "csv", and "nc" format. This package provides an interface to read,
 aggregate, and summarize data from one or more simulations.
 }
+\seealso{
+Useful links:
+\itemize{
+  \item \url{https://github.com/BoulderCodeHub/RWDataPlyr}
+  \item Report bugs at \url{https://github.com/BoulderCodeHub/RWDataPlyr/issues}
+}
+
+}
 \author{
 \strong{Maintainer}: Alan Butler \email{rabutler@usbr.gov}
 

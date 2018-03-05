@@ -27,14 +27,14 @@ create_slot_agg_list <- function(iData)
           "Probably better to stop and pass a matrix to `slot_agg_list()`.",
           call. = FALSE
         )
-        iData <- matrix(iData, ncol = 4, byrow = T)
+        iData <- matrix(iData, ncol = 4, byrow = TRUE)
       } else if (length(iData) %% 5 == 0){
         warning(
           "Attempting to convert `iData` to a N x 5 matrix. Results may be unexpected.\n",
           "Probably better to stop and pass a matrix to `slot_agg_list()`.",
           call. = FALSE
         )
-        iData <- matrix(iData, ncol = 5, byrow = T)
+        iData <- matrix(iData, ncol = 5, byrow = TRUE)
       } else {
         stop(
           "`iData` is not a matrix, nor can it be converted to an Nx4 or Nx5 matrix",
@@ -44,7 +44,7 @@ create_slot_agg_list <- function(iData)
     } else if (!file.exists(iData)) {
       stop(paste(iData,'does not exist.'), call. = FALSE)
     } else {
-      iData <- as.matrix(utils::read.csv(iData,header = F))
+      iData <- as.matrix(utils::read.csv(iData, header = FALSE))
     }
   } else {
     # it is a matrix
@@ -95,7 +95,7 @@ create_slot_agg_list <- function(iData)
   # create one entry for each unique rdf
   rdfs <- levels(as.factor(iData[,1]))
   
-  for (i in 1:length(rdfs)) {
+  for (i in seq_len(length(rdfs))) {
     tmp <- matrix(iData[which(rdfs[i]==iData[,1]),],ncol = dim(iData)[2])
     sl[[i]] <- list()
     sl[[i]]$rdf <- rdfs[i]

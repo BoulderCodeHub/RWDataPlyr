@@ -3,7 +3,7 @@ context("check the apply_period function")
 library(dplyr)
 
 slot_agg_matrix <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"), 
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
   stringsAsFactors = FALSE
 ))[1:5,]
 
@@ -78,7 +78,8 @@ test_that("period_apply works with pre-specified periods", {
 
 # check custom functions -------------------------------
 slot_agg_matrix <- data.frame(matrix(c(
-  "KeySlots.rdf", "Mead.Pool Elevation", "summer", "max", ">=", "1100", "peGt1100",
+  "KeySlots.rdf", "Mead.Pool Elevation", "summer", "max", ">=", "1100", 
+    "peGt1100",
   "KeySlots.rdf", "Powell.Outflow", "djf", "sum", "none", "none", "djrRel"
 ), ncol = 7, byrow = TRUE), stringsAsFactors = FALSE)
 

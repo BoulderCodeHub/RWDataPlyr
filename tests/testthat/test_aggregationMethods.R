@@ -13,7 +13,7 @@ lbShort <- as.data.frame(rdf_get_slot(
   sysRdf, 
   "SummaryOutputData.LBShortageConditions"
 ))
-cNames <- 1:ncol(mReg)
+cNames <- seq_len(ncol(mReg))
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
@@ -26,7 +26,7 @@ mMax <- as.data.frame(rwslot_annual_max(mReg))
 mSum <- as.data.frame(rwslot_annual_sum(mReg))
 p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
-pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),]
+pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[seq_len(nrow(pReg)),]
 p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
 p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
@@ -60,7 +60,8 @@ sal <- slot_agg_list(matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCYLTE", 1050, "meadLt1050",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCYGTE", 1100, "meadGt1100",
   "KeySlots.rdf", "Mead.Pool Elevation", "AnnualRaw", NA, "meadPe2",
-  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw", NA, "lbShort"), 
+  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw",
+    NA, "lbShort"), 
   ncol = 5, byrow = TRUE
 ))
 
@@ -158,7 +159,7 @@ lbShort <- as.data.frame(rdf_get_slot(
   sys, 
   "SummaryOutputData.LBShortageConditions"
 ))
-cNames <- 1:ncol(mReg)
+cNames <- seq_len(ncol(mReg))
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
@@ -171,7 +172,11 @@ mMax <- as.data.frame(rwslot_annual_max(mReg))
 mSum <- as.data.frame(rwslot_annual_sum(mReg))
 p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
-pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),,drop = FALSE]
+pPad <- rbind(
+  pReg[1,], 
+  pReg[1,], 
+  pReg[1,], pReg
+)[seq_len(nrow(pReg)),, drop = FALSE]
 p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
 p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
@@ -192,7 +197,7 @@ zzMonthly <- getDataForAllScens(
 ) %>%
   mutate(monthNum = match(Month, month.name))
 on.exit(file.remove(c("tmp.feather")))
-test_that("processSlots monthly to annual aggregation methods work for rdf with only 1 trace", {
+test_that("processSlots mon to ann agg methods work for rdf with 1 trace", {
   expect_warning(
     zz <- getDataForAllScens(
       scenFolders = stScen, 

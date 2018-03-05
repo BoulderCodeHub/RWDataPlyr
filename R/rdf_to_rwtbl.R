@@ -52,7 +52,8 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
   
   stopifnot(is.logical(add_ym) && !is.na(add_ym) && length(add_ym) == 1)
   
-  # this function only reads in one scenario, so should only have one scenario name
+  # this function only reads in one scenario, so should only have one 
+  # scenario name
   stopifnot(is.null(scenario) || length(scenario) == 1)
   
   # rdf[["meta"]] contains meta data
