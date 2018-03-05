@@ -16,7 +16,9 @@
 * `read.rdf()` now works with rdf files that contain scalar slots (#52)
 * `read.rdf()` now returns an object with an rdf class
 * `read_rdf()`
-
+* switching to snake_case (#76)
+    - xxx = xxx...
+    - For `flowWeightedAvgAnnConc()`, converted this to an internal function, because it is rarely used: `trace_fwaac()`. Then created `rwslot_fwaac()` that is exported and follows the input/output format of `rwslot_annual_min()` and `rwslot_annual_max()`
 
 
 # RWDataPlyr 0.5.0
