@@ -43,7 +43,7 @@ test_that("period_apply works with pre-specified periods", {
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
     filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       # drop the last year off
       filter(Year < max(Year)) %>%
@@ -57,7 +57,7 @@ test_that("period_apply works with pre-specified periods", {
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
     filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       group_by(Year)
   )
@@ -68,7 +68,7 @@ test_that("period_apply works with pre-specified periods", {
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
     filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       # drop first and last years off (they don't have full 12 months of data)
       filter(Year < max(Year), Year > min(Year)) %>%
@@ -107,8 +107,8 @@ djf <<- function()
         "Timestep", 
         .funs = dplyr::funs("ym" = zoo::as.yearmon)
       ) %>%
-      # can use the getWYFromYearmon b/c djf are all in same water year
-      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
+      # can use the ym_get_wateryear b/c djf are all in same water year
+      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = ym_get_wateryear)) %>%
       dplyr::select(-dplyr::one_of("ym"))
   }
   
@@ -137,7 +137,7 @@ test_that("custom functions work for period_apply", {
       filter(ObjectSlot == slot_agg_matrix[2,]$slot, 
              Month %in% djf()$filter_months) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       group_by(Year)
   )

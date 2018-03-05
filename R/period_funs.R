@@ -14,7 +14,7 @@ wy <- function()
         "Timestep", 
         .funs = dplyr::funs("ym" = zoo::as.yearmon)
       ) %>%
-      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = getWYFromYearmon)) %>%
+      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = ym_get_wateryear)) %>%
       dplyr::select(-dplyr::one_of("ym"))
     
     # drop if WY contains less than 6 months of data for the year

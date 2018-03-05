@@ -59,7 +59,7 @@ test_that("apply_eval works as expected", {
     rwtbl %>%
       filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       filter(Year < max(Year)) %>%
       group_by(Year, TraceNumber, ObjectSlot) %>%

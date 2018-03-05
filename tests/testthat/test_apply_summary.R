@@ -55,7 +55,7 @@ test_that("apply_summary works as expected", {
     rwtbl %>%
       filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       # drop the last WY off
       filter(Year < max(Year)) %>%
@@ -72,7 +72,7 @@ test_that("apply_summary works as expected", {
     rwtbl %>%
       filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       group_by(Year, TraceNumber, ObjectSlot) %>%
       summarise(Value = sum(Value))
@@ -86,7 +86,7 @@ test_that("apply_summary works as expected", {
     rwtbl %>%
       filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
-      mutate(Year = getWYFromYearmon(ym)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
       # drop the last WY off
       filter(Year < max(Year), Year > min(Year)) %>%

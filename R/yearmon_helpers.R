@@ -1,9 +1,8 @@
 
-#' Get the water year from a month-year (yearmon) value
+#' Get the water year from a year-month (yearmon) value
 #' 
-#' `getWYFromYearmon()` returns the water year (assumed to be October - 
-#' September) from a [zoo::yearmon] object. October - December of a year, are 
-#' part of the next water year and that is returned.
+#' `ym_get_wateryear()` returns the water year (assumed to be October - 
+#' September) from a [zoo::yearmon] object.
 #' 
 #' If the argument is not already a yearmon object, it will attempt to convert 
 #' it to a [zoo::yearmon]. This may result in unexpected results. For example, 
@@ -19,15 +18,14 @@
 #' @return The water year as a numeric.
 #' 
 #' @examples 
-#' library(zoo)
-#' getWYFromYearmon(as.yearmon(c("Dec 1906", "Oct 1945", "Jul 1955")))
-#' getWYFromYearmon("2000-11")
+#' ym_get_wateryear(zoo::as.yearmon(c("Dec 1906", "Oct 1945", "Jul 1955")))
+#' ym_get_wateryear("2000-11")
 #' 
 #' @export
 
-getWYFromYearmon <- function(ym)
+ym_get_wateryear <- function(ym)
 {
-  if (!(class(ym) == "yearmon")) {
+  if (!methods::is(ym, "yearmon")) {
     warning("ym, is not a yearmon object. attempting to convert to yearmon...")
     ym <- zoo::as.yearmon(ym)
     if (is.na(ym)) 
@@ -35,18 +33,25 @@ getWYFromYearmon <- function(ym)
   }
   
   mm <- as.numeric(format(ym, '%m'))
-  yy <- as.numeric(format(ym, '%Y'))
+  yy <- ym_get_year(ym)
   # if OND then increase year by one for water year, else leave it the same
   yy[mm > 9] <- yy[mm > 9] + 1
   
   yy
 }
 
+#' @export
+#' @noRd
+getWYFromYearmon <- function(ym)
+{
+  .Deprecated("ym_get_wateryear()")
+  ym_get_wateryear(ym)
+}
+
 #' Get the year as a numeric from a yearmon object
 #' 
 #' Could use lubridate::year(), but for now we are not depending on lubridate
 #' @noRd
-
 ym_get_year <- function(ym)
 {
   if (!(class(ym) == "yearmon"))
@@ -57,7 +62,6 @@ ym_get_year <- function(ym)
 
 #' Get the full month name from a yearmon object
 #' @noRd
-
 ym_get_month_str <- function(ym)
 {
   if (!(class(ym) == "yearmon"))
