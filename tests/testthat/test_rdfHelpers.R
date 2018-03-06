@@ -38,7 +38,7 @@ test_that("`rdf_get_slot()` matches `rdfSlotToMatrix()`", {
   expect_identical(
     rdf_get_slot(sysRdf, 'SummaryOutputData.LBShortageConditions'),
     expect_warning(
-      rdf_get_slot(sysRdf, 'SummaryOutputData.LBShortageConditions')
+      rdfSlotToMatrix(sysRdf, 'SummaryOutputData.LBShortageConditions')
     )
   )
 })
