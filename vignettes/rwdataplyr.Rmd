@@ -4,7 +4,7 @@ author: "R. Alan Butler"
 date: "`r Sys.Date()`"
 output: 
   rmarkdown::html_vignette:
-    self_contained: no
+    self_contained: yes
   
 vignette: >
   %\VignetteIndexEntry{rwdataplyr-workflow}
@@ -22,6 +22,8 @@ As of version 0.6.0, the package assumes the following:
 * All data starts in January of one year and goes through December of another year, e.g., January 2014 through December 2060.
 
 ## Background
+
+RiverWare is a generalized river system modeling tool. 
 
 - define scenario
 
