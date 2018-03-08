@@ -44,3 +44,173 @@ When using RiverSMART to simulate multiple scenarios, each with hundreds or thou
 
 As there are multiple ways RiverWare and RiverSMART can generate the data, there are also different workflows that may expedite the analysis process. This vignette documents these different workflows.
 
+## RWDataPlyr Workflows
+
+RiverWare and RiverSMART can create data (rdf, csv, nc) for one or more scenarios, and depending on the analysis different workflows will provide advantages to the user. There are currently three different workflows supported by RWDataPlyr that are presented in the following sections. 
+
+1. Reading and manipulating a single scenario
+    * Fast
+    * Best for inspecting a single slot
+    * If comparing scenarios, must manually repeat for each scenario
+    * Relies on `read_rdf()` and `read_rw_csv()`
+2. Summarizing multiple slots of data from a single scenario
+    * Repeatable; allows user to process many slots at once
+    * Best for producing "polished" analyses of a single scenario
+    * Relies on `rdf_aggregate()` and user specified `rwd_agg` object
+3. Aggregating and summarizing many scenarios
+    * Repeatable; allows user to process many slots for many scenarios at once
+    * Repeats summary of a single scenario on multiple scenarios and combines results together
+    * Relies on `rwscen_aggregate()` and user specified `rwd_agg` object
+    
+**As of v0.6.0, RWDataPlyr can only read rdf and csv files, and the summary and aggregation can only be performed on rdf files.**
+    
+### Reading and Manipulating a Single Scenario
+
+Both rdf and csv files can be read into R using `read_rdf()` and `read_rw_csv()`. 
+
+`read_rdf()` returns an `rdf` object; to be useful, the rdf object must be converted to a `tbl_df` using `rdf_to_rwtbl()` or individual slot data can be obtained using `rdf_get_slot()`. `rdf_get_slot()` creates a timestep by traces matrix for a single slot. Several usefull summary functions are available to summarize a single slot: `rwslot_annual_sum()`, `rwslot_annual_min()`, `rwslot_annual_max()`. A typical workflow to obtain the minimum annual Mead pool elevation might be:
+
+```{r one_scen}
+library(RWDataPlyr)
+library(dplyr)
+rdf <- read_rdf(system.file(
+  "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most/KeySlots.rdf", 
+  package = "RWDataPlyr"
+))
+
+# ensure the slot you want is in the rdf:
+rdf_slot_names(rdf)
+
+# and then get the minimum annual Mead pool elevation
+rdf %>% 
+  rdf_get_slot("Mead.Pool Elevation") %>%
+  rwslot_annual_min()
+```
+
+`read_rw_csv()` returns a `tbl_df` that can easily be maniuplated using the dplyr framework. There are no analagous functions to `rdf_get_slot()` or `rwslot_annual_*()`, but `dplyr::filter()` and `dplyr::summarise()` work well instead.
+
+The fields that are stored in csv files are controlled by the user in RiverWare. Depending on which fields the user specifies in RiverWare and the `keep_cols` options provided by the user, `read_rw_csv(x)` is approximately equal to `rdf_to_rwtbl(read_rdf(y), keep_cols = TRUE)` if `x` is a csv file and `y` is an rdf file that contain the same RiverWare slots.
+
+### Summarizing Multiple Slots of Data From a Single Scenario
+
+To summarize and process multiple slots of data from a single scenario at once, the user can define an RiverWare data aggregator object (`rwd_agg`) and provide that to `rdf_aggregate()`, which returns a `tbl_df` of the summarized data. Slots can be from different rdf files, but it is up to the user to know which slots come from which rdf file.
+
+**As of v0.6.0, the aggregation will only work for rdf files.**
+
+#### rwd_agg
+
+`rwd_agg` objects are data.frames with specific column names and expected values in those columns. The expected column names are `file`, `slot`, `period`, `summary`, `eval`, `t_s`, and `variable` in that order. It is up to the user to specify which rdf file contains each slot. In a general case, the user specifies the `slot` that is found in a specific rdf file (`file`). A `summary` function is applied to a subset `period` of the `slot`, and then compared (`eval`) to a threshold (`t_s`) and saved as the `variable`. In order to specify how each slot should be aggregated, each column should
+ include specific keywords, which are described below. 
+
+* *file:* specifies the rdf file that contains the slot.
+* *slot:* the full RiverWare slot name.
+*  *period:* the period that the slot should be summarized over. This should either be a function name, a full month name (found in `month.name`), or
+   the keyword `"asis"`.
+    - *function name:* Specifying a function name allows for pre-specified or custom functions to group together several months in the *period*. This package provides the following functions: `cy()`, `wy()`, `eocy()`, and `eowy()`. `cy()` indicates the data will be summarized over the calendar year, i.e., January - December, while `wy()` summarizes over the water year, i.e., October - September. `eocy()` selects the end of the calendar year, and `eowy()` selects the end of the water year. When specified in the `slot_agg` object, leave off the parenthesis, i.e., only specify the function name. If `wy()` is specified, the function will remove data for any water years that have less than 7 months of data. This "tolerance" is specified by the `rwdataplyr.wy_month_tol` option, and can be modified by updating this option to another number. For standard monthly data that starts in January and ends in December, this results in keeping the first water year, since it includes 9 months of data, and removing the final water year, since it includes only three months of data. Setting this option to 0 will result in keeping any water year data that has at least one month of data; setting this option to 11, ensures that there must be a full water year of data for that year to be kept.
+    
+        This can also be a user specified custom function; see the *Custom Period Functions* section for details on constructing the custom functions.
+        
+  - *full month name:* When the full month name is specified, data will be filtered to only include data for that particular month. To select multiple months of data, use a function as described above. If the month specified is not found in `month.name`, an error will occur.
+  - *asis:* If the keyword "asis" is specified, the data is returned for its native timestep, i.e, monthly data will return monthly data and annual data will return annual.
+* *summary:* the summary function that should be applied to the period specified as a function name, or `NA`. If the `period` specified is "asis" or returns only one month, e.g., `eocy()`, then the summary should be `NA`. The summary function should only return one value; for that reason, most of the `Summary` S4groupGenerics work. Notably, `range()` will not since it returns two values. There is no reason that a custom function will not work here, but it has not been tested and implemented.
+* *eval:* the comparison operator to use ([S4groupGeneric] - `Compare`). If no comparison is desired, then `NA` should be used. If `eval` is specified the value returned from applying the `summary` to the `period` will be compared to the threshold specified by `t_s`. The results of the comparison are returned as 0 and 1 instead of `TRUE` and `FALSE`.
+* *t_s:* either the threshold to be compared to if `eval` is not `NA` or a value to scale the result by, e.g,. 0.001 to convert from acre-ft to thousand acre-ft.
+* *variable:* the variable name that will be used to identify the results of applying the period, summary, comparison/scaling to. All variable names should be unique.
+
+#### Custom Period Functions
+
+The `period` in a `slot_agg` object that a slot will be summarized over can be a function that is provided by RWDataPlyr, e.g., `wy()` for summarizing over a water year, or it can be a user defined custom function to allow for more complex time aggregations. The custom function should return a list with three elements:
+
+* `fun` - a function that will modify a rwtbl and properly determine the new `Year` based on the custom period. Necessary for more complex periods that might span different calendar years, e.g., water years. This function should modify the `Year` column so that months that should be grouped together have the same year value.
+* `filter_months` - the months that should be grouped together.
+* `group_tbl` - how to group the returned rwtbl; likely either `c("Year")` or `c("Year", "Month")`
+
+For example, a user might want to aggregate all summer months together (June - August). A relatively simple custom function for this would be:
+
+```{r customSummer}
+summer <- function() 
+{
+  list(
+    fun = function(x) x, 
+    filter_months = c("June", "July", "August"), 
+    group_tbl = c("Year")
+  )
+}
+```
+
+The `fun` in the summer example simply returns the orignal data, because it does not need to provide any complex logic for grouping different years together. A more complex example would be summarizing all winter months together (December - February). In this example December from year 0 should be grouped with January and February of year 1 for the winter of year 1 summary. The `dfj()` custom function would be:
+
+```{r customWinter}
+djf <- function()
+{
+  djf_convert <- function(rwtbl)
+  {
+    rwtbl %>%
+      dplyr::mutate_at(
+        "Timestep", 
+        .funs = dplyr::funs("ym" = zoo::as.yearmon)
+      ) %>%
+      # can use the ym_get_wateryear b/c djf are all in same water year
+      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = ym_get_wateryear)) %>%
+      dplyr::select(-dplyr::one_of("ym"))
+  }
+  
+  list(
+    fun = djf_convert, 
+    filter_months = month.name[c(12, 1, 2)], 
+    group_tbl = c("Year")
+  )
+  
+}
+```
+
+In this example, `fun` now includes a function that takes in the original data (and expects) a `Timestep` column. The time step is converted to a `yearmon` object, and then the years are re-assigned based on their water year (since December - February are in the same water year). 
+
+#### `rdf_aggregate()` Example
+
+To summarize multiple slots at once, the first step is to define the `rwd_agg` object. In this example, the following summaries are desired:
+
+* a flag of each occurrence that Mead's minimum annual elevation is below elevation 1,060'
+* the end-of-calendar year Mead elevation
+* the winter release from Powell (sum of December - February) in thousands acre-ft (this uses our custom period function defined in the previous section)
+* the July release from Powell
+* the water year total release from Powell in million acre-ft
+* the shortage flag (already annual no summary required)
+
+For this, we want to create the following table:
+
+| file | slot  | period | summary | eval  | t_s  | variable |
+|: --- | : --- | : ---- | : ----- | : --- | ---: | : ------ |
+| KeySlots.rdf | Mead.Pool Elevation | cy | min | <= | 1060 | meadLt1060 |
+| KeySlots.rdf | Mead.Pool Elevation | eocy | NA | NA | NA | meadEocy |
+| KeySlots.rdf | Powell.Outflow | djf | sum | NA | 0.001 | powellDfjRel |
+| KeySlots.rdf | Powell.Outflow | July | NA | NA | NA | powellJulRel |
+| KeySlots.rdf | Powell.Outflow | wy | sum | NA | 0.000001 | powellWyRel |
+| SystemConditions.rdf | SummaryOutputData.LBShortageConditions | asis | NA | NA | NA | short |
+
+
+Often times, it will be easier to define the table in Excel and then read it in as a csv using `rwd_agg(read.csv(x, stringsAsFactors = FALSE))` but for here, we'll define this directly in R.
+
+```{r rwdAgg}
+rwa1 <- rwd_agg(data.frame(
+  file = c(rep("KeySlots.rdf", 5), "SystemConditions.rdf"),
+  slot = c(
+    rep("Mead.Pool Elevation", 2), 
+    rep("Powell.Outflow", 3), 
+    "SummaryOutputData.LBShortageConditions"
+  ), 
+  period = c("cy", "eocy", "djf", "July", "wy", "asis"),
+  summary = c("min", NA, "sum", NA, "sum", NA),
+  eval = c("<=", rep(NA, 5)),
+  t_s = c(1060, NA, 0.001, NA, 0.000001, NA),
+  variable = c("meadLt1060", "meadEocy", "powellDjfRel", "powellJulRel", 
+               "powellWyRel", "short"),
+  stringsAsFactors = FALSE
+))
+```
+
+### Aggregating and Summarizing Many Scenarios
+
+#### Legacy Workflow
+
+## Utilizing RWDataPlyr within RiverSMART^TM^
