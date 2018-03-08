@@ -136,8 +136,8 @@ new \code{Year}s based on the custom period.
 \code{c("Year", "Month")}
 }
 
-See the XXX vignette for example implementations of both the summer and
-winter custom functions described above.
+See the "RWDataPlyr Workflow" vignette for example implementations of both
+the summer and winter custom functions described above.
 }
 
 \examples{

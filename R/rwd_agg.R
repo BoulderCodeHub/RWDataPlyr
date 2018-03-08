@@ -123,8 +123,8 @@
 #' - `group_tbl` - how to group the returned rwtbl; likely either `c("Year")` or
 #'   `c("Year", "Month")`
 #'   
-#' See the XXX vignette for example implementations of both the summer and 
-#' winter custom functions described above.
+#' See the "RWDataPlyr Workflow" vignette for example implementations of both 
+#' the summer and winter custom functions described above.
 #' 
 #' @param x A data.frame with required column names and valid entries; see 
 #'   *Details* and *Aggregation Specification* sections.
