@@ -46,9 +46,9 @@ will continue, even if a slot cannot be found. If a slot is not found,
 then the function will return \code{-99} for the Trace, and \code{NaN} for Year, and
 Value.}
 
-\item{scenarios}{A character vector of scenarios. This is usually a vector
-of folder names, where each folder name contains one scenario worth of
-data. \code{scenarios} can be named or unnamed. The names are used as the
+\item{scenarios}{A character vector of scenario foders. This is usually a
+vector of folder names, where each folder name contains one scenario worth
+of data. \code{scenarios} can be named or unnamed. The names are used as the
 scenario name in the returned \code{tbl_df}. Scenario names can also be
 specified through the \code{scen_names} argument. If \code{scen_names} is specified,
 \code{scenarios} should not already have names. If \code{scen_names} is not specified

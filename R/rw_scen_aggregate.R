@@ -5,9 +5,9 @@
 #' individual scenario data together into a single `tbl_df`.
 #' 
 #' @inheritParams rdf_aggregate
-#' @param scenarios A character vector of scenarios. This is usually a vector
-#'   of folder names, where each folder name contains one scenario worth of
-#'   data. `scenarios` can be named or unnamed. The names are used as the 
+#' @param scenarios A character vector of scenario foders. This is usually a 
+#'   vector of folder names, where each folder name contains one scenario worth
+#'   of data. `scenarios` can be named or unnamed. The names are used as the 
 #'   scenario name in the returned `tbl_df`. Scenario names can also be 
 #'   specified through the `scen_names` argument. If `scen_names` is specified, 
 #'   `scenarios` should not already have names. If `scen_names` is not specified
