@@ -47,7 +47,7 @@ specifies the \code{slot} that is found in a specific rdf file (\code{file}). A
 compared (\code{eval}) to a threshold (\code{t_s}) and saved as the \code{variable}.
 \itemize{
 \item \emph{file:} specifies the rdf file that contains the slot.
-\item \emph{slot:} the full RiverWare slot name.
+\item \emph{slot:} the full RiverWare slot name, i.e., "Object.Slot".
 \item \emph{period:} the period that the slot should be summarized over. This should
 either be a function name, a full month name (found in \link{month.name}), or
 the keyword "asis".
@@ -89,15 +89,16 @@ or returns only one month, e.g., \code{eocy()}, then the summary should be \code
 The summary function should only return one value; for that reason, most
 of the \code{Summary} \link{S4groupGeneric}s work. Notably, \code{range()} will not
 since it returns two values. There is no reason that a custom function
-will not work here, but it has not been tested and implemented.
-\item \emph{eval:} the comparison operator to use (\link{S4groupGeneric} - \code{Compare}). If
-no comparison is desired, then \code{NA} should be used. If \code{eval} is specified
-the value returned from applying the \code{summary} to the \code{period} will be
-compared to the threshold specified by \code{t_s}. The results of the comparison
-are returned as 0 and 1 instead of \code{TRUE} and \code{FALSE}.
+will not work here, but it has not been tested.
+\item \emph{eval:} the comparison operator to use (see the \code{Compare}
+\link{S4groupGeneric}s). If no comparison is desired, then \code{NA} should be used.
+If \code{eval} is specified the value returned from applying the \code{summary} to
+the \code{period} will be compared to the threshold specified by \code{t_s}. The
+results of the comparison are returned as 0 and 1 instead of \code{TRUE} and
+\code{FALSE}.
 \item \emph{t_s:} either the threshold to be compared to if \code{eval} is not \code{NA} or a
 value to scale the result by, e.g,. 0.001 to convert from acre-ft to
-thousand acre-ft.
+thousand acre-ft. \code{NA} can also be specified to not scale the data.
 \item \emph{variable:} the variable name that will be used to identify the results
 of applying the period, summary, comparison/scaling to. All variable names
 should be unique.

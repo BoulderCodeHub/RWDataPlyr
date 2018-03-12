@@ -31,7 +31,7 @@
 #' 
 #' - *file:* specifies the rdf file that contains the slot.
 #' 
-#' - *slot:* the full RiverWare slot name.
+#' - *slot:* the full RiverWare slot name, i.e., "Object.Slot".
 #' 
 #' - *period:* the period that the slot should be summarized over. This should 
 #'   either be a function name, a full month name (found in [month.name]), or 
@@ -76,17 +76,18 @@
 #'   The summary function should only return one value; for that reason, most
 #'   of the `Summary` [S4groupGeneric]s work. Notably, `range()` will not
 #'   since it returns two values. There is no reason that a custom function
-#'   will not work here, but it has not been tested and implemented. 
+#'   will not work here, but it has not been tested. 
 #'   
-#' - *eval:* the comparison operator to use ([S4groupGeneric] - `Compare`). If
-#'   no comparison is desired, then `NA` should be used. If `eval` is specified
-#'   the value returned from applying the `summary` to the `period` will be 
-#'   compared to the threshold specified by `t_s`. The results of the comparison
-#'   are returned as 0 and 1 instead of `TRUE` and `FALSE`.
+#' - *eval:* the comparison operator to use (see the `Compare` 
+#'   [S4groupGeneric]s). If no comparison is desired, then `NA` should be used. 
+#'   If `eval` is specified the value returned from applying the `summary` to
+#'   the `period` will be compared to the threshold specified by `t_s`. The 
+#'   results of the comparison are returned as 0 and 1 instead of `TRUE` and 
+#'   `FALSE`.
 #'   
 #' - *t_s:* either the threshold to be compared to if `eval` is not `NA` or a 
 #'   value to scale the result by, e.g,. 0.001 to convert from acre-ft to 
-#'   thousand acre-ft. 
+#'   thousand acre-ft. `NA` can also be specified to not scale the data.
 #'   
 #' - *variable:* the variable name that will be used to identify the results
 #'   of applying the period, summary, comparison/scaling to. All variable names
