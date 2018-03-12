@@ -264,7 +264,7 @@ rdf_aggregate(
 `rw_scen_aggregate()` is setup to work with a directory structure typical to a RiverSMART study. RiverSMART manages the output of multiple scenarios by creating unique scenario folders in a "Scenario" directory. The `scen_dir` argument should point to this scenario directory in a typical study setup. For example, if the file system is setup as shown in figure \@ref(fig:dirStruct), `scen_dir` should point to "C:/user/crss/CRSS.Jan2017/Scenario" (or the correct relative path to the same location).
 
 ```{r dirStruct, results="asis",fig.cap="Sample directory structure", echo=FALSE}
-knitr::include_graphics("dir_structure.PNG")
+knitr::include_graphics("dir_structure.png")
 ```
 
 `rw_scen_aggregate()` also needs to know the scenario folders and allows the user to specify scenario names that may differ from the folder name so they are easier to use in R. In this example, the `scenarios` argument would be `c("ISM1988_2014,2007Dems,IG,Most", "ISM1988_2014,2007Dems,IG,2002")`. The scenario names can be specified either through the `scen_names` argument, or by naming the `scenarios` vector. The following will obtain the same results as defined by the earlier `rwd_agg` object for both of these scenarios.
