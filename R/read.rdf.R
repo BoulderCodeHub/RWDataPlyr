@@ -48,7 +48,7 @@ read_rdf_meta <- function(rdf.mat, rdf.obj)
   return(rdf.obj)
 }
 
-read_rdf_run <- function(rdf.mat, rdf.obj, end_col_i)
+read_rdf_run <- function(rdf.mat, rdf.obj)
 {
   this.run <- length(rdf.obj$runs) + 1
   rdf.tmp <- read_rdf_header(rdf.mat,rdf.obj$position,'END_RUN_PREAMBLE')
@@ -91,7 +91,15 @@ read_rdf_run <- function(rdf.mat, rdf.obj, end_col_i)
 
     # Figure out when the END_COLUMN keyword shows up
     #rdf_tmp <- read_rdf_header(rdf.mat, rdf.obj$position, "END_COLUMN")
-    ec_i <- end_col_i[Position(function(x) x > rdf.obj$position, end_col_i)] + 1
+    ec_pos <- Position(function(x) x > rdf.obj$position, rdf.obj$end_col_i) 
+    ec_i <- rdf.obj$end_col_i[ec_pos] + 1
+    
+    # remove the already used indeces so next Position call doesn't have to
+    # search for indeces that are already used
+    rdf.obj$end_col_i <- rdf.obj$end_col_i[
+      (ec_pos + 1):length(rdf.obj$end_col_i)
+    ]
+    
     if (ec_i == rdf.obj$position + 2) {
       # must be a scalar slot
       row_nums <- rdf.obj$position
@@ -167,14 +175,15 @@ read.rdf <- function(iFile)
   rdf.obj$position <- 1 # initialize where to read from
   rdf.obj <- read_rdf_meta(rdf.mat, rdf.obj)
   
-  end_col_i <- which(rdf.mat == "END_COLUMN")
+  rdf.obj$end_col_i <- which(rdf.mat == "END_COLUMN")
   
   # Read each trace/run 
   for (i in 1:as.numeric(rdf.obj$meta$number_of_runs)) {
-    rdf.obj <- read_rdf_run(rdf.mat, rdf.obj, end_col_i)
+    rdf.obj <- read_rdf_run(rdf.mat, rdf.obj)
   }
   
   rdf.obj$position <- NULL # remove position before returning
+  rdf.obj$end_col_i <- NULL
   
   structure(
     rdf.obj,
