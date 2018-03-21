@@ -2,40 +2,50 @@ RWDataPlyr
 =================
 
 
-Contains R package to read and manipulate data from [RiverWare<sup>TM</sup>](http://www.riverware.org) that are saved as rdf (RiverWare data format) files.  
-
 | Release (v0.5.0) | Development      |
 |:----------------:|:----------------:|
 | [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) | [![Travis-CI Build Status](https://travis-ci.org/rabutler/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler/RWDataPlyr) |
 | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/mk0g782sal46ppo2/branch/master?svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/rwdataplyr-rqigq) |
 | [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr) | [![codecov](https://codecov.io/gh/rabutler/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/rabutler/RWDataPlyr)|
 
-
 ## Overview
 
-RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations. It provides functions to gather data from multiple "scenarios", and aggregate the data in some manner. Common aggregation functions, e.g., annual minimum values, are included.  
+RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations in rdf, csv, and nc format. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
 
 ## Installation
 
-Package can be installed from GitHub, and we suggest building the vignette. 
+RWDataPlyr can be installed from GitHub, and we suggest building the vignette. 
 
-```
-if(!require(devtools)){
-	install.packages('devtools')
-	library(devtools)
-}
+```{r, eval=FALSE}
+# install.packages("devtools")
 devtools::install_github('BoulderCodeHub/RWDataPlyr', build_vignettes = TRUE)
 ```
 
 ## Usage
 
-Check out the vignette:
+RWDataPlyr provides at least three worfflows for reading and using RiverWare data:
 
-```
-vignette("rwdataplyr", package = "RWDataPlyr")
+1. Reading and manipulating a single scenario
+    * Fast
+    * Best for inspecting a single slot
+    * If comparing scenarios, must manually repeat for each scenario
+    * Relies on `read_rdf()` and `read_rw_csv()`
+2. Summarizing multiple slots of data from a single scenario
+    * Repeatable; allows user to process many slots at once
+    * Best for producing "polished" analyses of a single scenario
+    * Relies on `rdf_aggregate()` and user specified `rwd_agg` object
+3. Aggregating and summarizing many scenarios
+    * Repeatable; allows user to process many slots for many scenarios at once
+    * Repeats summary of a single scenario on multiple scenarios and combines results together
+    * Relies on `rw_scen_aggregate()` and user specified `rwd_agg` object
+
+Check out the workflow vignette for more details:
+
+```{r, eval = FALSE}
+vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
-## Log:
+## Log
 * 2017-05-26: version 0.5.0 available
 * 2016-11-01: version 0.4.1.1 available. The package is now actually called RWDataPlyr.
 * 2016-10-20: version 0.4.1 available
