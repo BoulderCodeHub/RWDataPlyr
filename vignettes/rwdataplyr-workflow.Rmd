@@ -36,7 +36,7 @@ One of the strengths of RiverWare is its "multiple run" mode, where many unique 
 
 RiverWare stores important data in "slots" on "objects" in the RiverWare model file. Any subset of these data can be output and saved in ASCII text files, known as RiverWare data files, with a .rdf extension; csv files; and/or NetCDF files. When multiple scenarios are run using RiverSMART, these output files are saved in unique scenario folders. RiverSMART can also combine csv output from multiple scenarios into a single csv file to expedite the analysis. This setup is summarized in figure \@ref(fig:rwFlowChart). 
 
-```{r, rwFlowChart, fig.cap="RiverWare and RiverSMART output flow chart. Part A shows a single RiverWare run; part B shows how RiverSMART wraps individual RiverSMART runs to produce output, with those output becoming input to RiverSMART for post-processing. The color of the file extensions correspond the functions that read those file types; yellow indicates that reading NetCDF files is not yet supported by RWDataPlyr.", echo=FALSE}
+```{r, rwFlowChart, fig.cap="RiverWare and RiverSMART output flow chart. Part A shows a single RiverWare run; part B shows how RiverSMART wraps individual RiverSMART runs to produce output, with those output becoming input to RiverSMART for post-processing. The color of the file extensions correspond to the color of the functions that read those file types; yellow indicates that reading NetCDF files is not yet supported by RWDataPlyr.", echo=FALSE}
 knitr::include_graphics("RiverWareFlowChart.png")
 ```
 
@@ -116,9 +116,9 @@ To summarize and process multiple slots of data from a single scenario at once, 
  include specific keywords, which are described below. 
 
 * *file:* specifies the rdf file that contains the slot.
-* *slot:* the full RiverWare slot name, i.e., "Obect.Slot".
+* *slot:* the full RiverWare slot name, i.e., "Object.Slot".
 *  *period:* the period that the slot should be summarized over. This should either be a function name, a full month name (found in `month.name`), or
-   the keyword `"asis"`.
+   the keyword "`asis`".
     - *function name:* Specifying a function name allows for pre-specified or custom functions to group together several months in the *period*. This package provides the following functions: `cy()`, `wy()`, `eocy()`, and `eowy()`. `cy()` indicates the data will be summarized over the calendar year, i.e., January - December, while `wy()` summarizes over the water year, i.e., October - September. `eocy()` selects the end of the calendar year, and `eowy()` selects the end of the water year. When specified in the `slot_agg` object, leave off the parenthesis, i.e., only specify the function name. If `wy()` is specified, the function will remove data for any water years that have less than 7 months of data. This "tolerance" is specified by the `rwdataplyr.wy_month_tol` option, and can be modified by updating this option to another number. For standard monthly data that starts in January and ends in December, this results in keeping the first water year, since it includes 9 months of data, and removing the final water year, since it includes only three months of data. Setting this option to 0 will result in keeping any water year data that has at least one month of data; setting this option to 11, ensures that there must be a full water year of data for that year to be kept.
     
         This can also be a user specified custom function; see the *Custom Period Functions* section for details on constructing the custom functions.
@@ -232,7 +232,7 @@ rwa1 <- rwd_agg(data.frame(
 ))
 ```
 
-After the `rwd_agg` is specified the object is passed to `rdf_aggregate()` along with a few parameters specify where the data are stored, and a tbl_df is returned:
+After the `rwd_agg` is specified the object is passed to `rdf_aggregate()` along with a few parameters specifying where the data are stored, and a tbl_df is returned:
 
 ```{r rdfAgg}
 rdf_aggregate(
@@ -279,7 +279,7 @@ scen_res <- rw_scen_aggregate(
 )
 ```
 
-To compare results from multiple studies, i.e., the different top level CRSS.JanNNNN folders in figure \@ref(fig:dirStruct), `scen_dir` should point to "C:/user/crss" and `scenarios` should be assigned to `c("CRSS.Jan2017/ISM1988_2014,2007Dems,IG,Most", "CRSS.Jan2018/ISM1988_2014,2007Dems,IG,Most")`. 
+To compare results from multiple studies, i.e., the different top level CRSS.JanNNNN folders in figure \@ref(fig:dirStruct), `scen_dir` should point to "C:/user/crss" and `scenarios` should be assigned to `c("CRSS.Jan2017/Scenario/ISM1988_2014,2007Dems,IG,Most", "CRSS.Jan2018/Scenario/ISM1988_2014,2007Dems,IG,Most")`. 
 
 If `scenarios` has a length of one, it will match the results of `rdf_aggregate()` if the `scenario` parameter is used and the same as the `scen_names` parameter in `rw_scen_aggregate()`.
 
