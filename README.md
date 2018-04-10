@@ -2,7 +2,7 @@ RWDataPlyr
 =================
 
 
-| Release (v0.5.0) | Development      |
+| Release (v0.6.0) | Development      |
 |:----------------:|:----------------:|
 | [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) | [![Travis-CI Build Status](https://travis-ci.org/rabutler/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler/RWDataPlyr) |
 | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/mk0g782sal46ppo2/branch/master?svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/rwdataplyr-rqigq) |
@@ -10,7 +10,7 @@ RWDataPlyr
 
 ## Overview
 
-RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations in rdf, csv, and nc format. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
+RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations in rdf, csv, and nc formats and work with those data in a dplyr pipeline. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
 
 ## Installation
 
@@ -46,6 +46,7 @@ vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
 ## Log
+* 2018-04-10: version 0.6.0 available
 * 2017-05-26: version 0.5.0 available
 * 2016-11-01: version 0.4.1.1 available. The package is now actually called RWDataPlyr.
 * 2016-10-20: version 0.4.1 available
