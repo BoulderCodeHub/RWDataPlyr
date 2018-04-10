@@ -28,7 +28,7 @@ rwtbl_slot_names <- function(rwtbl)
          "It does not have an `ObjectSlot` column")
   }
   
-  as.character(levels(as.factor(rwtbl[[varname]])))
+  as.character(unique(rwtbl[[varname]]))
 }
 
 #' Map a variable name to the RiverWare slot name
