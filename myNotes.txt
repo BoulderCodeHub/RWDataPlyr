@@ -1,0 +1,45 @@
+nouns:
+  - rw
+  - rwtbl
+  - rwslot
+  - rw_scen
+  - rdf
+  
+objects:
+  - slot_agg_list
+  - rwd_agg
+  - rdf
+  - Need to add:
+      - rwtbl
+      - agg_rwtbl
+
+
+# read.rdf2 vs read_rdf
+
+fpath <- "C:/alan/CRSS/CRSS.32x/Scenario/VIC_CT,2099,NoDCP,May24MS,IGv25/KeySlots.rdf"
+my_bench <- microbenchmark(
+  "read_rdf" = read_rdf(fpath),
+  times = 20
+)
+
+
+## New Computer
+
+read_rdf(v2) = added fixed = TRUE to strsplit and using new RStudio
+read_rdf(v3) = added single call to `which` and use `Position()` to find first
+  match
+
+      expr      min       lq     mean   median       uq     max neval
+ read.rdf2    1.267439 1.405701 1.532922 1.494721 1.615299 2.13648    20
+ read_rdf    23.995 27.09833 28.59642 28.50726 29.75776 33.81968    20
+read_rdf(v2) 10.70988 11.10502 11.47762 11.49724 11.69881 12.95315    20
+read_rdf(v3) 3.368835 3.421129 3.60164 3.51044 3.713032 4.203365    20
+ 
+## Old Computer
+
+      expr      min       lq    mean   median       uq      max neval
+ read.rdf2 .8427725 .8727014 .909005 .8922349 .9118829 .1123241    20
+  read_rdf 16.02824 16.35165 16.64817 16.49552 16.85825 17.51969    20
+  
+lapply(zz, function(x), if(stringi::stri_detect_fixed(x, ":")) strsplit(x, ":", fixed = TRUE))
+  

@@ -9,7 +9,8 @@ getTraceAvg(rdfXTS, yearType)
 \arguments{
 \item{rdfXTS}{XTS object returned by \code{\link{rdfSlotToXTS}}}
 
-\item{yearType}{String 'CY' or 'WY' denoting a Calendar Year (Jan-1 to Dec-31) or Water Year (Oct-1 to Sep-30)}
+\item{yearType}{String 'CY' or 'WY' denoting a Calendar Year (Jan-1 to
+Dec-31) or Water Year (Oct-1 to Sep-30)}
 }
 \value{
 an XTS object with the selected slot annual average

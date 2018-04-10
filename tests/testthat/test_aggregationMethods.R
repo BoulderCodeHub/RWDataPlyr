@@ -7,33 +7,36 @@ context('check RWDataPlyr:::processSlots aggregation computations')
 # -----------------------------------
 # hand compute values
 # keyRdf exists as data in package
-mReg <- rdfSlotToMatrix(keyRdf, "Mead.Pool Elevation")
-pReg <- rdfSlotToMatrix(keyRdf, "Powell.Pool Elevation")
-lbShort <- as.data.frame(rdfSlotToMatrix(sysRdf, "SummaryOutputData.LBShortageConditions"))
-cNames <- 1:ncol(mReg)
+mReg <- rdf_get_slot(keyRdf, "Mead.Pool Elevation")
+pReg <- rdf_get_slot(keyRdf, "Powell.Outflow")
+lbShort <- as.data.frame(rdf_get_slot(
+  sysRdf, 
+  "SummaryOutputData.LBShortageConditions"
+))
+cNames <- seq_len(ncol(mReg))
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
 
 mEocy <- as.data.frame(mReg[seq(12,nrow(mReg), 12),])
-pMin <- as.data.frame(getMinAnnValue(pReg))
+pMin <- as.data.frame(rwslot_annual_min(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),])
-mMax <- as.data.frame(getMaxAnnValue(mReg))
-mSum <- as.data.frame(sumMonth2Annual(mReg))
-p3575 <- as.data.frame((getMinAnnValue(pReg) <= 3575) * 1)
+mMax <- as.data.frame(rwslot_annual_max(mReg))
+mSum <- as.data.frame(rwslot_annual_sum(mReg))
+p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
-pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),]
-p3525 <- as.data.frame((getMinAnnValue(pPad) <= 3525) * 1)
+pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[seq_len(nrow(pReg)),]
+p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
-p3800 <- as.data.frame((getMaxAnnValue(pPad) <= 3800) * 1)
+p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
 
 m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] <= 1050) * 1)
 
 m1100 <- as.data.frame((mReg[seq(12,nrow(mReg),12),] >= 1100) * 1)
 
 
-filterVarToMatrix <- function(zz, var, scen = "DNF,CT,IG") {
+filterVarToMatrix <- function(zz, var, scen = "ISM1988_2014,2007Dems,IG,Most") {
   zz %>% 
     filter(Variable == var, Scenario == scen) %>%
     select(-Scenario, -Variable) %>%
@@ -43,48 +46,49 @@ filterVarToMatrix <- function(zz, var, scen = "DNF,CT,IG") {
 }
 
 # ---------------------------------------
-# create a sam that tests every one of the agg methods
-sal <- createSlotAggList(matrix(c(
-  "KeySlots.rdf", "Powell.Pool Elevation", "AnnMin", NA, "powellMin",
-  "KeySlots.rdf", "Powell.Pool Elevation", "EOWY", NA, "powellEowy",
+# create a sal that tests every one of the agg methods
+sal <- slot_agg_list(matrix(c(
+  "KeySlots.rdf", "Powell.Outflow", "AnnMin", NA, "powellMin",
+  "KeySlots.rdf", "Powell.Outflow", "EOWY", NA, "powellEowy",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "meadPe",
   "KeySlots.rdf", "Mead.Pool Elevation", "BOCY", NA, "meadBocy",
   "KeySlots.rdf", "Mead.Pool Elevation", "AnnMax", NA, "meadMax",
   "KeySlots.rdf", "Mead.Pool Elevation", "AnnualSum", NA, "meadSum",
-  "KeySlots.rdf", "Powell.Pool Elevation", "AnnMinLTE", 3575, "powellLt3575",
-  "KeySlots.rdf", "Powell.Pool Elevation", "WYMinLTE", 3525, "powellLt3525",
-  "KeySlots.rdf", "Powell.Pool Elevation", "WYMaxLTE", 3800, "powellLt3800",
+  "KeySlots.rdf", "Powell.Outflow", "AnnMinLTE", 800000, "powellLt800",
+  "KeySlots.rdf", "Powell.Outflow", "WYMinLTE", 750000, "powellLt750",
+  "KeySlots.rdf", "Powell.Outflow", "WYMaxLTE", 500000, "powellLt500",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCYLTE", 1050, "meadLt1050",
   "KeySlots.rdf", "Mead.Pool Elevation", "EOCYGTE", 1100, "meadGt1100",
   "KeySlots.rdf", "Mead.Pool Elevation", "AnnualRaw", NA, "meadPe2",
-  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw", NA, "lbShort"), 
+  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw",
+    NA, "lbShort"), 
   ncol = 5, byrow = TRUE
 ))
 
 # for now have to process monthly seperately
-salMonthly <- createSlotAggList(matrix(c(
-  "KeySlots.rdf", "Powell.Pool Elevation", "Monthly", 10, "powellMothly10",
+salMonthly <- slot_agg_list(matrix(c(
+  "KeySlots.rdf", "Powell.Outflow", "Monthly", 10, "powellMothly10",
   "KeySlots.rdf", "Mead.Pool Elevation", "Monthly", .001, "meadMonthly001"),
   ncol = 5, byrow = TRUE
 ))
 
 zzMonthly <- getDataForAllScens(
-  scenFolders = "DNF,CT,IG", 
-  scenNames = "DNF,CT,IG", 
+  scenFolders = "ISM1988_2014,2007Dems,IG,Most", 
+  scenNames = "ISM1988_2014,2007Dems,IG,Most", 
   slotAggList = salMonthly,
   scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
   oFile = "tmp.feather",
   retFile = TRUE
 ) %>%
-  mutate(monthNum = match(Month, month.abb))
+  mutate(monthNum = match(Month, month.name))
 
 # compare the results computed by getDataForAllScen -> processSlots
-# to those computed by hand using rdfSlotToMatrix
+# to those computed by hand using rdf_get_slot
 test_that("processSlots monthly to annual aggregation methods work", {
   expect_warning(
     zz <- getDataForAllScens(
-      scenFolders = "DNF,CT,IG", 
-      scenNames = "DNF,CT,IG", 
+      scenFolders = "ISM1988_2014,2007Dems,IG,Most", 
+      scenNames = "ISM1988_2014,2007Dems,IG,Most", 
       slotAggList = sal, 
       scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
       oFile = "tmp.feather",
@@ -97,17 +101,24 @@ test_that("processSlots monthly to annual aggregation methods work", {
   expect_equal(filterVarToMatrix(zz, "meadBocy"), mBocy)
   expect_equal(filterVarToMatrix(zz, "meadMax"), mMax)
   expect_equal(filterVarToMatrix(zz, "meadSum"), mSum)
-  expect_equal(filterVarToMatrix(zz, "powellLt3575"), p3575)
-  expect_equal(filterVarToMatrix(zz, "powellLt3525"), p3525)
+  expect_equal(filterVarToMatrix(zz, "powellLt800"), p800)
+  expect_equal(filterVarToMatrix(zz, "powellLt750"), p750)
+  expect_equal(filterVarToMatrix(zz, "powellLt500"), p500)
   expect_equal(filterVarToMatrix(zz, "meadLt1050"), m1050)
   expect_equal(filterVarToMatrix(zz, "meadGt1100"), m1100)
   expect_equal(filterVarToMatrix(zz, "powellMin"), pMin)
   expect_equal(filterVarToMatrix(zz, "meadPe2"), mEocy)
-  expect_equal(filterVarToMatrix(zz, "meadPe2"), filterVarToMatrix(zz, "meadPe"))
+  expect_equal(
+    filterVarToMatrix(zz, "meadPe2"), 
+    filterVarToMatrix(zz, "meadPe")
+  )
   expect_equal(filterVarToMatrix(zz, "lbShort"), lbShort)
   expect_equal({
     zzMonthly %>% 
-      filter(Variable == "powellMothly10", Scenario == "DNF,CT,IG") %>%
+      filter(
+        Variable == "powellMothly10", 
+        Scenario == "ISM1988_2014,2007Dems,IG,Most"
+      ) %>%
       select(-Scenario, -Variable, -Month) %>%
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
@@ -116,12 +127,15 @@ test_that("processSlots monthly to annual aggregation methods work", {
   
   expect_equal({
     zzMonthly %>% 
-      filter(Variable == "meadMonthly001", Scenario == "DNF,CT,IG") %>%
+      filter(
+        Variable == "meadMonthly001", 
+        Scenario == "ISM1988_2014,2007Dems,IG,Most"
+      ) %>%
       select(-Scenario, -Variable, -Month) %>%
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
       select(-Year, -monthNum)
-  }, as.data.frame(mReg / 1000))
+  }, as.data.frame(mReg * 0.001))
 })
 
 
@@ -130,28 +144,42 @@ test_that("processSlots monthly to annual aggregation methods work", {
 
 # hand compute values
 # keyRdf exists as data in package
-key <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "KeySlots.rdf", package = "RWDataPlyr"))
-mReg <- rdfSlotToMatrix(key, "Mead.Pool Elevation")
-pReg <- rdfSlotToMatrix(key, "Powell.Pool Elevation")
-sys <- read.rdf2(system.file("extdata/Scenario/T13,CT,IG", "SystemConditions.rdf", package = "RWDataPlyr"))
-lbShort <- as.data.frame(rdfSlotToMatrix(sys, "SummaryOutputData.LBShortageConditions"))
-cNames <- 1:ncol(mReg)
+key <- read.rdf(system.file(
+  "extdata/Scenario/T13,CT,IG", 
+  "KeySlots.rdf", 
+  package = "RWDataPlyr"
+))
+mReg <- rdf_get_slot(key, "Mead.Pool Elevation")
+pReg <- rdf_get_slot(key, "Powell.Outflow")
+sys <- read.rdf(system.file(
+  "extdata/Scenario/T13,CT,IG", 
+  "SystemConditions.rdf", package = "RWDataPlyr"
+))
+lbShort <- as.data.frame(rdf_get_slot(
+  sys, 
+  "SummaryOutputData.LBShortageConditions"
+))
+cNames <- seq_len(ncol(mReg))
 colnames(mReg) <- cNames
 colnames(pReg) <- cNames
 colnames(lbShort) <- cNames
 
 mEocy <- as.data.frame(mReg[seq(12,nrow(mReg), 12),, drop = FALSE])
-pMin <- as.data.frame(getMinAnnValue(pReg))
+pMin <- as.data.frame(rwslot_annual_min(pReg))
 pEowy <- as.data.frame(pReg[seq(9,nrow(pReg),12),, drop = FALSE])
 mBocy <- as.data.frame(mReg[seq(1, nrow(mReg), 12),, drop = FALSE])
-mMax <- as.data.frame(getMaxAnnValue(mReg))
-mSum <- as.data.frame(sumMonth2Annual(mReg))
-p3575 <- as.data.frame((getMinAnnValue(pReg) <= 3575) * 1)
+mMax <- as.data.frame(rwslot_annual_max(mReg))
+mSum <- as.data.frame(rwslot_annual_sum(mReg))
+p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
-pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[1:nrow(pReg),,drop = FALSE]
-p3525 <- as.data.frame((getMinAnnValue(pPad) <= 3525) * 1)
+pPad <- rbind(
+  pReg[1,], 
+  pReg[1,], 
+  pReg[1,], pReg
+)[seq_len(nrow(pReg)),, drop = FALSE]
+p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
-p3800 <- as.data.frame((getMaxAnnValue(pPad) <= 3800) * 1)
+p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
 
 m1050 <- as.data.frame((mReg[seq(12,nrow(mReg),12),, drop = FALSE] <= 1050) * 1)
 
@@ -167,9 +195,9 @@ zzMonthly <- getDataForAllScens(
   oFile = "tmp.feather",
   retFile = TRUE
 ) %>%
-  mutate(monthNum = match(Month, month.abb))
-
-test_that("processSlots monthly to annual aggregation methods work for rdf with only 1 trace", {
+  mutate(monthNum = match(Month, month.name))
+on.exit(file.remove(c("tmp.feather")))
+test_that("processSlots mon to ann agg methods work for rdf with 1 trace", {
   expect_warning(
     zz <- getDataForAllScens(
       scenFolders = stScen, 
@@ -180,19 +208,24 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
       retFile = TRUE
     )
   )
+  on.exit(file.remove("tmp2.feather"), add = TRUE)
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "powellEowy", stScen), pEowy)
   expect_equal(filterVarToMatrix(zz, "meadPe", stScen), mEocy)
   expect_equal(filterVarToMatrix(zz, "meadBocy", stScen), mBocy)
   expect_equal(filterVarToMatrix(zz, "meadMax", stScen), mMax)
   expect_equal(filterVarToMatrix(zz, "meadSum", stScen), mSum)
-  expect_equal(filterVarToMatrix(zz, "powellLt3575", stScen), p3575)
-  expect_equal(filterVarToMatrix(zz, "powellLt3525", stScen), p3525)
+  expect_equal(filterVarToMatrix(zz, "powellLt800", stScen), p800)
+  expect_equal(filterVarToMatrix(zz, "powellLt750", stScen), p750)
+  expect_equal(filterVarToMatrix(zz, "powellLt500", stScen), p500)
   expect_equal(filterVarToMatrix(zz, "meadLt1050", stScen), m1050)
   expect_equal(filterVarToMatrix(zz, "meadGt1100", stScen), m1100)
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "meadPe2", stScen), mEocy)
-  expect_equal(filterVarToMatrix(zz, "meadPe2", stScen), filterVarToMatrix(zz, "meadPe", stScen))
+  expect_equal(
+    filterVarToMatrix(zz, "meadPe2", stScen), 
+    filterVarToMatrix(zz, "meadPe", stScen)
+  )
   expect_equal(filterVarToMatrix(zz, "lbShort", stScen), lbShort)
   expect_equal({
     zzMonthly %>% 
@@ -210,7 +243,6 @@ test_that("processSlots monthly to annual aggregation methods work for rdf with 
       arrange(Year,monthNum) %>%
       spread(Trace, Value) %>%
       select(-Year, -monthNum)
-  }, as.data.frame(mReg / 1000))
+  }, as.data.frame(mReg * 0.001))
 })
 
-on.exit(file.remove(c("tmp.feather","tmp2.feather")))

@@ -3,5 +3,5 @@
 if(getRversion() >= "2.15.1"){
   # global variables necessary because of processSlots()
   fromProcessSlots <- c('Trace','Year','Variable','Value','Month')
-  utils::globalVariables(c(fromProcessSlots))
+  utils::globalVariables(c(fromProcessSlots, "."))
 }
