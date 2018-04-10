@@ -1,36 +1,38 @@
 Package: RWDataPlyr
-Title: Read, manipulate, and plot data from RiverWareTM (riverware.org), that
-    is saved as rdf (RiverWare data format) files
-Version: 0.5.0
-Authors@R: as.person(c(
-    "Alan Butler <r.alan.butler@gmail.com> [aut, cre]",
-    "Cameron Bracken <> [aut]"
-    ))
-Description: Provides a tool to read data generated from RiverWare(TM)
-    (riverware.org) in the form of rdf files into R.  Common aggregation
-    functions, e.g., annual minimum values, are included.  Additionally,
-    creating standard 'long' format data tables with common "scenario"
-    attributes for the Bureau of Reclamation's CRSS results are provided.
-    The get and tag data functions are written to expect "Scenario" based 
-    output, i.e., output that is saved in different scenario folders, such as 
-    those generated using RiverSMART(TM).
+Version: 0.6.0
+Title: Read and manipulate data from RiverWare 
+Description: A tool to read and manipulate data generated from RiverWare(TM) 
+    (riverware.org) simulations. RiverWare and RiverSMART generate data in 
+    "rdf", "csv", and "nc" format. This package provides an interface to read, 
+    aggregate, and summarize data from one or more simulations in a dplyr 
+    pipeline.
+Authors@R: c(
+    person("Alan","Butler", ,"rabutler@usbr.gov", c("aut","cre")),
+    person("Cameron","Bracken", role = "aut")
+    )
+URL: https://github.com/BoulderCodeHub/RWDataPlyr
+BugReports: https://github.com/BoulderCodeHub/RWDataPlyr/issues
 Depends:
     R (>= 3.3.0)
-License: CC0
-LazyData: true
 Imports:
     data.table (>= 1.10.0),
-    reshape2,
+    dplyr (>= 0.7.0),
+    methods,
     stats,
+    tibble,
+    tidyr,
+    tools,
     utils,
     feather,
     xts,
     zoo
 Suggests:
-    dplyr,
+    bookdown,
     knitr,
     rmarkdown,
-    testthat,
-    tidyr
+    testthat
+License: CC0
+LazyData: true
 VignetteBuilder: knitr
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1

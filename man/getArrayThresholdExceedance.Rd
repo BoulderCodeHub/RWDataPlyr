@@ -9,19 +9,22 @@ getArrayThresholdExceedance(rdfXTS, valueIn, comparison)
 \arguments{
 \item{rdfXTS}{XTS object returned by \code{\link{rdfSlotToXTS}}}
 
-\item{valueIn}{Numeric value for the desired threshold to compare the data against}
+\item{valueIn}{Numeric value for the desired threshold to compare the data
+against}
 
-\item{comparison}{String 'GT' or 'LT' for a greater-than or less-than comparison}
+\item{comparison}{String 'GT' or 'LT' for a greater-than or less-than
+comparison}
 }
 \value{
-an XTS object with the frequency in which the array of traces exceed a threshold
+an XTS object with the frequency in which the array of traces exceed
+a threshold
 }
 \description{
 Get values at the input exceedance levels for the entire array by date
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 peLT3575 <- getArrayThresholdExceedance(pe, 3575, 'LT')
 }
 }

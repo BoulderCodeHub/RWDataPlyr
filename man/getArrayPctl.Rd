@@ -9,17 +9,19 @@ getArrayPctl(rdfXTS, pctlLevels)
 \arguments{
 \item{rdfXTS}{Object returned by \code{\link{rdfSlotToXTS}}}
 
-\item{pctlLevels}{Decimal value(s) for the desired exceedance levels with 0.0<value<1.0}
+\item{pctlLevels}{Decimal value(s) for the desired exceedance levels with
+0.0<value<1.0}
 }
 \value{
-an XTS object with the selected slot data at the input exceedance levels
+an XTS object with the selected slot data at the input exceedance
+levels
 }
 \description{
 Get values at the input exceedance levels for the entire array by date
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 pe105090 <- getTraceMax(pe, c(0.1, 0.5, 0.9))
 }
 }
