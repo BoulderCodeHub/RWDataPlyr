@@ -2,3 +2,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^appveyor\.yml$
+^figure$
+^README\.Rmd$
+^README-.*\.png$
+^myNotes\.txt$

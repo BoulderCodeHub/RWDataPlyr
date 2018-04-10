@@ -2,67 +2,90 @@
 % Please edit documentation in R/getDataFromRdf.R
 \name{getDataForAllScens}
 \alias{getDataForAllScens}
-\title{Get data from an rdf file(s) for multiple scenarios and save it as a data table.}
+\title{Get and aggregate data from an rdf file(s)}
 \usage{
 getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile,
-  retFile = FALSE, findAllSlots = TRUE)
+  retFile = NULL, findAllSlots = TRUE)
 }
 \arguments{
-\item{scenFolders}{A string vector containing the folder names (scenarios) that the rdf files
-are saved in.}
+\item{scenFolders}{A string vector containing the folder names (scenarios)
+that the rdf files are saved in.}
 
-\item{scenNames}{A string vector containing the scenario names.  This should be the same length
-as \code{scenFolders}. The scenario names are used as attributes to the data in the "Scenario"
-column.}
+\item{scenNames}{A string vector containing the scenario names.  This should
+be the same length as \code{scenFolders}. The scenario names are used as
+attributes to the data in the \code{Scenario} column.}
 
-\item{slotAggList}{The slot aggregation list. A list containing the slots that will be 
-imported and aggregated, the aggregation method(s) to use, and the rdf files that 
-contain the slots. Either created by calling \code{\link{createSlotAggList}} with a specified
-set of slots, or a list of lists with each entry containing an rdf file and the keyword 
-'all' for the slots, e.g., \code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}, which will
-return all of the slots found in an rdf file. If this option is used, the code will return
-monthly, or annual data, i.e., no aggregation methods will be applied to the data in the rdf
-file.}
+\item{slotAggList}{The slot aggregation list. Either an object of class
+\link{slot_agg_list} or a "special" list with the keyword \code{"all"}. If, it is
+a \link{slot_agg_list}, see that documentation for how to control the
+aggregation methods used in this function. If all of the slots in an
+entire rdf are desired, use a list of lists with each entry containing an
+rdf file and the keyword \code{"all"} for the slots, e.g.,
+\code{list(list(rdf = 'KeySlots.rdf',slots = 'all'))}. If this option is used,
+the function will return raw monthly, or annual data, i.e., no aggregation
+methods will be applied to the data in the rdf file.}
 
-\item{scenPath}{An absolute or relative path to the folder containing \code{scenFolders}.}
+\item{scenPath}{An absolute or relative path to the folder containing
+\code{scenFolders}.}
 
-\item{oFile}{An absolute or relative path with the file name of the location the table will
-be saved to. Valid file types are .csv, .txt, or .feather.}
+\item{oFile}{An absolute or relative path with the file name of the location
+the table will be saved to. Valid file types are .csv, .txt, or .feather.}
 
-\item{retFile}{If \code{TRUE}, the data frame will be saved to \code{oFile} and returned. 
-If \code{FALSE}, the data frame will only be saved to \code{oFile}.}
+\item{retFile}{Deprecated. Data are always returned invisibly.}
 
 \item{findAllSlots}{Boolean; if \code{TRUE} (default), then the function will
-abort if it cannot find a particular slot. If \code{FALSE}, then the function
-will continue, even if a slot cannot be found. If a slot is not found, then the
-function will return \code{-99} for the Trace, Year, and Value.}
+abort if it cannot find a particular slot. If \code{FALSE}, then the
+function will continue, even if a slot cannot be found. If a slot is not
+found, then the function will return \code{-99} for the Trace, Year, and Value.}
 }
 \value{
-If \code{retFile} is \code{TRUE}, a dataframe, otherwise nothing is returned.
+A data.frame.
 }
 \description{
-\code{getDataForAllScens} gets slot data from multiple rdf files and for multiple scenarios.
-The slot data can be aggregated in multiple ways (see \code{\link{createSlotAggList}}). Slot data is then converted to a molten data frame using \code{reshaphe2::melt}
-and saved as a txt file for later use.
+\code{getDataForAllScens()} gets slot data from multiple rdf files and/or multiple
+scenarios, aggregates it, and saves it as a data.frame. The slot data can be
+aggregated in multiple ways (see \link{slot_agg_list}).
 }
 \examples{
 # get a specified set of slots and apply some aggregation method to them
-scenFolders <- c('DNF,CT,IG', 'DNF,CT,IG,Ops1') # get the data from two scenarios
-scenNames <- scenFolders
-# slotAggTable.csv lists the slots to obtain, and the aggregation method to apply to them
-slotAggList <- createSlotAggList(system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr'))
+# get the data from two scenarios
+scenFolders <- c('ISM1988_2014,2007Dems,IG,Most', 
+  'ISM1988_2014,2007Dems,IG,2002') 
+# slotAggTable.csv lists the slots to obtain, and the aggregation method to 
+# apply to them
+slotAggList <- slot_agg_list(
+  system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr')
+)
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
 oFile <- 'tmp.feather'
-retFile <- TRUE # return the data, instead of only save it as a text file
-keyData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+retFile <- TRUE # return the data, instead of only saving it as a text file
+# expect Deprecated warning
+testthat::expect_warning(
+  keyData <- getDataForAllScens(
+    scenFolders, 
+    scenNames = scenFolders, 
+    slotAggList = slotAggList, 
+    scenPath = scenPath, 
+    oFile = oFile
+  )
+)
 
 # get all of the data from the KeySlots rdf file
-scenFolders <- scenNames <- scenNames[1] # only one scenario
+scenFolders <- scenFolders[1] # only one scenario
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 # will return monthly data for all slots in KeySlots.rdf
-allData <- getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile, retFile)
+# expect Deprecated warning
+testthat::expect_warning(
+  allData <- getDataForAllScens(
+    scenFolders, 
+    scenNames = scenFolders, 
+    slotAggList = slotAggList, 
+    scenPath = scenPath, 
+    oFile = oFile
+  )
+)
 
 }
 \seealso{
-\code{\link{createSlotAggList}}
+\code{\link[=slot_agg_list]{slot_agg_list()}}
 }

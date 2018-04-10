@@ -9,18 +9,19 @@ rdfSlotToXTS(rdf, slot)
 \arguments{
 \item{rdf}{list returned by \code{\link{read.rdf}}}
 
-\item{slot}{string of slot name that exists in \code{rdf} that will be converted to a matrix}
+\item{slot}{string of slot name that exists in \code{rdf} that will be
+converted to a matrix}
 }
 \value{
 an XTS object with the selected slot data
 }
 \description{
-\code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and convert 
-the nested slot values over the multiple traces into an XTS array 
+\code{rdfSlotToXTS} Takes a list created by \code{\link{read.rdf}} and
+convert the nested slot values over the multiple traces into an XTS array
 indexing over traces.
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 }
 }
