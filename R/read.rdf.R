@@ -150,7 +150,11 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 #' @return An rdf object.
 #'   
 #' @examples
-#' zz <- read.rdf(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlyr"))
+#' zz <- read.rdf(system.file(
+#'   'extdata/Scenario/ISM1988_2014,2007Dems,IG,Most', 
+#'   "KeySlots.rdf", 
+#'   package = "RWDataPlyr"
+#' ))
 #' 
 #' @export
 

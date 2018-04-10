@@ -20,7 +20,7 @@ Get the annual maximum for each trace
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 peWY <- getTraceMax(pe, 'WY')
 }
 }

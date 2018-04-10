@@ -24,7 +24,7 @@ Get values at the input exceedance levels for the entire array by date
 }
 \examples{
 \dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 peLT3575 <- getArrayThresholdExceedance(pe, 3575, 'LT')
 }
 }

@@ -29,7 +29,7 @@ getCyEndpoints <- function(rdfXTS)
 #' @return an XTS object with the selected slot data
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peJanFeb <- getTraceMonthVal(pe, c(1, 2))
 #' }
 #' 
@@ -55,7 +55,7 @@ getTraceMonthVal <- function(rdfXTS, month)
 #' @return an XTS object with the selected slot annual average
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peWY <- getTraceAvg(pe, 'WY')
 #' }
 
@@ -78,7 +78,7 @@ getTraceAvg <- function(rdfXTS, yearType)
 #' @return an XTS object with the selected slot annual sum
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peWY <- getTraceSum(pe, 'WY')
 #' }
 
@@ -101,7 +101,7 @@ getTraceSum <- function(rdfXTS, yearType)
 #' @return an XTS object with the selected slot annual minimum
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peWY <- getTraceMin(pe, 'WY')
 #' }
 
@@ -124,7 +124,7 @@ getTraceMin <- function(rdfXTS, yearType)
 #' @return an XTS object with the selected slot annual maximum
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peWY <- getTraceMax(pe, 'WY')
 #' }
 
@@ -148,7 +148,7 @@ getTraceMax <- function(rdfXTS, yearType)
 #'   levels
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' pe105090 <- getTraceMax(pe, c(0.1, 0.5, 0.9))
 #' }
 
@@ -176,7 +176,7 @@ getArrayPctl <- function(rdfXTS, pctlLevels)
 #'   a threshold
 #' @examples
 #' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Powell.Pool Elevation')
+#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
 #' peLT3575 <- getArrayThresholdExceedance(pe, 3575, 'LT')
 #' }
 

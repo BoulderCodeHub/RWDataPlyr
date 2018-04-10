@@ -36,6 +36,10 @@ performance benefits as compared to earlier versions of the function.
 }}
 
 \examples{
-zz <- read.rdf(system.file('extdata/Scenario/DNF,CT,IG', "KeySlots.rdf", package = "RWDataPlyr"))
+zz <- read.rdf(system.file(
+  'extdata/Scenario/ISM1988_2014,2007Dems,IG,Most', 
+  "KeySlots.rdf", 
+  package = "RWDataPlyr"
+))
 
 }
