@@ -43,7 +43,7 @@
 
 rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 {
-  stopifnot(methods::is(rdf, "rdf"))
+  stopifnot(is_rdf(rdf))
   
   stopifnot(
     (is.logical(keep_cols) && !is.na(keep_cols) && length(keep_cols == 1)) || 
