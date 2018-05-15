@@ -199,14 +199,13 @@ rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
 
 add_var_drop_objectslot <- function(rwtbl, slot_agg_row)
 {
-  var_map <- slot_agg_row$variable
-  names(var_map) <- slot_agg_row$slot
   tmp_groups <- dplyr::group_vars(rwtbl)
   tmp_groups <- tmp_groups[tmp_groups != "ObjectSlot"]
   
+  rwtbl$Variable <- slot_agg_row$variable
+  
   rwtbl %>%
     dplyr::group_by_at(tmp_groups) %>%
-    dplyr::mutate_at("ObjectSlot", dplyr::funs("Variable" = var_map[.])) %>%
     dplyr::select(-dplyr::matches("ObjectSlot"))
 }
 
