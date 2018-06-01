@@ -249,13 +249,28 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 }
 
 // [[Rcpp::export]]
-int rdf_to_rwtbl_cpp(std::vector<std::string> rdf) {
+DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf) {
 	std::vector< std::vector<std::string> > meta, rwtbl;
 	int num_runs;
+	DataFrame val;
 
 	meta = parse_rdf_meta(rdf);
 	num_runs = get_n_runs(meta);
 	rwtbl = parse_rdf(rdf, num_runs);
 
-	return rwtbl.size();
+	val = DataFrame::create(
+	  _["Timestep"] = rwtbl.at(0), 
+	  _["Year"] = rwtbl.at(2),
+	  _["Month"] = rwtbl.at(3),
+	  _["ObjectName"] = rwtbl.at(4),
+	  _["SlotName"] = rwtbl.at(5),
+	  _["ObjectType"] = rwtbl.at(10),
+	  _["ObjectSlot"] = rwtbl.at(6),
+	  _["Value"] = rwtbl.at(1),
+	  _["Unit"] = rwtbl.at(11),
+	  _["TraceNumber"] = rwtbl.at(7),
+	  _["RulesetFileName"] = rwtbl.at(9),
+	  _["InputDMIName"] = rwtbl.at(8));
+	
+	return val;
 }

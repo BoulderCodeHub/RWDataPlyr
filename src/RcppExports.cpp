@@ -6,7 +6,7 @@
 using namespace Rcpp;
 
 // rdf_to_rwtbl_cpp
-int rdf_to_rwtbl_cpp(std::vector<std::string> rdf);
+DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf);
 RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
