@@ -101,7 +101,9 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 	std::vector< std::vector<std::string> > atts, table, tmp_table;
 	std::vector<std::string> row;
 	std::string line, token;
-	size_t i = 0, num_time_steps, trace;
+	size_t i = 0;
+	int trace;
+	
 	// skip meta section
 	while (rdf.at(i) != "END_PACKAGE_PREAMBLE") {
 		i += 1;
@@ -111,6 +113,7 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 	for (trace = 1; trace <= num_traces; trace++) {
 		std::vector<std::string> timesteps, ym, year, month;
 		std::string slot_set, rule_set;
+		size_t num_time_steps = 0;
 		// read through END_RUN_PREAMBLE and parse value pairs based on ":"
 		while(rdf.at(i) != "END_RUN_PREAMBLE") {
 			line = rdf.at(i);
