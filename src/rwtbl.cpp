@@ -10,19 +10,6 @@
 using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 
-#include <iostream>
-using std::cin;
-using std::endl;
-#include <fstream>
-using std::ifstream;
-#include <vector>
-using std::vector;
-#include <iterator>
-using std::istream_iterator;
-#include <algorithm>
-using std::copy;
-#include <cmath>
-
 std::vector< std::vector<std::string> > parse_rdf_meta(std::vector<std::string> rdf) {
 	std::vector< std::vector<std::string> > meta;
 	std::vector<std::string> row (2);
