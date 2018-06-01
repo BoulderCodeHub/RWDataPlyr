@@ -87,7 +87,7 @@ int get_n_runs(std::vector< std::vector<std::string> > meta) {
 	// find the number_of_runs key word, get its value, and convert that to a size_t/int
 	size_t i = 0;
 	int val;
-	while (meta.at(i).at(0) != "number_of_runs" & i < meta.size()) {
+	while ((meta.at(i).at(0) != "number_of_runs") && (i < meta.size())) {
 		i++;
 	}
 
@@ -255,6 +255,12 @@ DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf) {
 	  _["TraceNumber"] = rwtbl.at(7),
 	  _["RulesetFileName"] = rwtbl.at(9),
 	  _["InputDMIName"] = rwtbl.at(8));
+	
+	val.attr("mrm_config_name") = meta.at(0).at(1);
+	val.attr("owner") = meta.at(1).at(1);
+	val.attr("description") = meta.at(2).at(1);
+	val.attr("create_date") = meta.at(3).at(1);
+	val.attr("n_traces") = meta.at(4).at(1);
 	
 	return val;
 }
