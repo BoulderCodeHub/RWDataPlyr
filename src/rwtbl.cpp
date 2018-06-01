@@ -11,7 +11,6 @@ using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 
 #include <iostream>
-using std::cout;
 using std::cin;
 using std::endl;
 #include <fstream>
@@ -144,7 +143,6 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 		}
 		i += 1; //increment past END_RUN_PREAMBLE
 
-		cout << "timesteps: " << num_time_steps << endl;
 		// read the next time_steps rows and store as variable `timesteps`
 		//    *** is this still correct for scalar slots
 		for (size_t tt = 0; tt < num_time_steps; tt++) {
@@ -202,7 +200,6 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 			tmp_table = build_table(vals, timesteps);
 
 			// ** add in check to make sure tmp_table.at(0) and tmp_table.at(1) are the same size
-			cout << "table size: " << tmp_table.size() << ", " << tmp_table.at(0).size() << ", " << tmp_table.at(1).size() << endl;
 			if (table.size() > 0) {
 				std::string trace_str = std::to_string(trace);
 				for (size_t k = 0; k < tmp_table.at(0).size(); k++) {
