@@ -9,7 +9,8 @@
 A tool to read and manipulate data generated from RiverWare(TM)
 (riverware.org) simulations. RiverWare and RiverSMART generate data in
 "rdf", "csv", and "nc" format. This package provides an interface to read,
-aggregate, and summarize data from one or more simulations.
+aggregate, and summarize data from one or more simulations in a dplyr
+pipeline.
 }
 \seealso{
 Useful links:

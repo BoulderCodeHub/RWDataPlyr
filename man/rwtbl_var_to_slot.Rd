@@ -7,7 +7,7 @@
 rwtbl_var_to_slot(rwtblsmmry, varname)
 }
 \arguments{
-\item{rwtblsmmry}{A tbl_df of summarizes RiverWare data; likely output from
+\item{rwtblsmmry}{A tbl_df of summarized RiverWare data; likely output from
 \code{\link[=rw_scen_aggregate]{rw_scen_aggregate()}}.}
 
 \item{varname}{A vector of variable names to map to slot names.}

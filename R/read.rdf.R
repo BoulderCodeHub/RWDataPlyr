@@ -9,7 +9,7 @@ read_rdf_header <- function(con, pos, end)
     pos <- pos + 1 # advancing line to read
     if(line == end) break
     
-    splitLine <- strsplit(line, ':')[[1]]
+    splitLine <- strsplit(line, ':', fixed = TRUE)[[1]]
     name <- splitLine[1]
     
     if (length(splitLine) > 1) {
@@ -90,12 +90,21 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
     rdf.obj$position <- rdf.tmp$position
 
     # Figure out when the END_COLUMN keyword shows up
-    rdf_tmp <- read_rdf_header(rdf.mat, rdf.obj$position, "END_COLUMN")
-    if (rdf_tmp$position == rdf.obj$position + 2) {
+    #rdf_tmp <- read_rdf_header(rdf.mat, rdf.obj$position, "END_COLUMN")
+    ec_pos <- Position(function(x) x > rdf.obj$position, rdf.obj$end_col_i) 
+    ec_i <- rdf.obj$end_col_i[ec_pos] + 1
+    
+    # remove the already used indeces so next Position call doesn't have to
+    # search for indeces that are already used
+    rdf.obj$end_col_i <- rdf.obj$end_col_i[
+      (ec_pos + 1):length(rdf.obj$end_col_i)
+    ]
+    
+    if (ec_i == rdf.obj$position + 2) {
       # must be a scalar slot
       row_nums <- rdf.obj$position
-    } else if (rdf_tmp$position - rdf.obj$position - 1 == nts) {
-      row_nums <- rdf.obj$position:(rdf_tmp$position - 2)
+    } else if (ec_i - rdf.obj$position - 1 == nts) {
+      row_nums <- rdf.obj$position:(ec_i - 2)
     } else {
       stop(
         "rdf includes an unexpected number of data points.\n",
@@ -165,13 +174,16 @@ read.rdf <- function(iFile)
   
   rdf.obj$position <- 1 # initialize where to read from
   rdf.obj <- read_rdf_meta(rdf.mat, rdf.obj)
-
+  
+  rdf.obj$end_col_i <- which(rdf.mat == "END_COLUMN")
+  
   # Read each trace/run 
   for (i in 1:as.numeric(rdf.obj$meta$number_of_runs)) {
     rdf.obj <- read_rdf_run(rdf.mat, rdf.obj)
   }
   
   rdf.obj$position <- NULL # remove position before returning
+  rdf.obj$end_col_i <- NULL
   
   structure(
     rdf.obj,

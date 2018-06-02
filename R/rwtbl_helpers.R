@@ -28,7 +28,7 @@ rwtbl_slot_names <- function(rwtbl)
          "It does not have an `ObjectSlot` column")
   }
   
-  as.character(levels(as.factor(rwtbl[[varname]])))
+  as.character(unique(rwtbl[[varname]]))
 }
 
 #' Map a variable name to the RiverWare slot name
@@ -37,7 +37,7 @@ rwtbl_slot_names <- function(rwtbl)
 #' create the specified variable name (`varname`). If `varname` is not found in
 #' `rwtblsmmry`, a warning message is posted.
 #' 
-#' @param rwtblsmmry A tbl_df of summarizes RiverWare data; likely output from
+#' @param rwtblsmmry A tbl_df of summarized RiverWare data; likely output from
 #'   [rw_scen_aggregate()].
 #' 
 #' @param varname A vector of variable names to map to slot names.
