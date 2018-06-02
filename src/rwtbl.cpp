@@ -64,8 +64,12 @@ std::vector< std::vector<std::string> > build_table(std::vector<std::string> val
 }
 
 std::vector<std::string> get_year_month(std::string timestep) {
-	std::string year, month;
+	std::string year;
+  int month;
 	std::vector<std::string> ym(2, "-99");
+	std::string months[] = {"January","February","March","April","May","June",
+    "July","August","September","October","November","December"};
+	
 	size_t pos, pos2;
 
 	pos = timestep.find("-");
@@ -74,9 +78,9 @@ std::vector<std::string> get_year_month(std::string timestep) {
 
 		if (pos2 != std::string::npos) {
 			year = timestep.substr(0, 4);
-			month = timestep.substr(pos + 1, pos2 - pos - 1);
+			month = std::stoi(timestep.substr(pos + 1, pos2 - pos - 1));
 			ym.at(0) = year;
-			ym.at(1) = month;
+			ym.at(1) = months[month - 1];
 		}
 	}
 
