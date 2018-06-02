@@ -5,8 +5,8 @@ RWDataPlyr
 | Release (v0.6.0) | Development      |
 |:----------------:|:----------------:|
 | [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) | [![Travis-CI Build Status](https://travis-ci.org/rabutler-usbr/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler-usbr/RWDataPlyr) |
-| [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/mk0g782sal46ppo2/branch/master?svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/rwdataplyr-rqigq) |
-| [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr) | [![codecov](https://codecov.io/gh/rabutler/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/rabutler/RWDataPlyr)|
+| [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/bbb8of7uoxp52far?svg=true)](https://ci.appveyor.com/project/rabutler-usbr/rwdataplyr) |
+| [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr) | [![codecov](https://codecov.io/gh/rabutler-usbr/RWDataPlyr/branch/master/graph/badge.svg)](https://codecov.io/gh/rabutler-usbr/RWDataPlyr)
 
 ## Overview
 
