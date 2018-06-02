@@ -5,6 +5,10 @@ rdf_to_rwtbl_cpp <- function(rdf) {
     .Call('_RWDataPlyr_rdf_to_rwtbl_cpp', PACKAGE = 'RWDataPlyr', rdf)
 }
 
+rdf_to_rwtbl_cpp_old <- function(rdf) {
+    .Call('_RWDataPlyr_rdf_to_rwtbl_cpp_old', PACKAGE = 'RWDataPlyr', rdf)
+}
+
 #' Multiply a number by two
 #' 
 #' @param x A single integer.
