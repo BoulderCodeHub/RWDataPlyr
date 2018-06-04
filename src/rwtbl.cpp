@@ -64,8 +64,12 @@ std::vector< std::vector<std::string> > build_table(std::vector<std::string> val
 }
 
 std::vector<std::string> get_year_month(std::string timestep) {
-	std::string year, month;
+	std::string year;
+  int month;
 	std::vector<std::string> ym(2, "-99");
+	std::string months[] = {"January","February","March","April","May","June",
+    "July","August","September","October","November","December"};
+	
 	size_t pos, pos2;
 
 	pos = timestep.find("-");
@@ -74,9 +78,9 @@ std::vector<std::string> get_year_month(std::string timestep) {
 
 		if (pos2 != std::string::npos) {
 			year = timestep.substr(0, 4);
-			month = timestep.substr(pos + 1, pos2 - pos - 1);
+			month = std::stoi(timestep.substr(pos + 1, pos2 - pos - 1));
 			ym.at(0) = year;
-			ym.at(1) = month;
+			ym.at(1) = months[month - 1];
 		}
 	}
 
@@ -235,35 +239,82 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 	return(table);
 }
 
+
 // [[Rcpp::export]]
-DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf) {
-	std::vector< std::vector<std::string> > meta, rwtbl;
-	int num_runs;
-	DataFrame val;
-
-	meta = parse_rdf_meta(rdf);
-	num_runs = get_n_runs(meta);
-	rwtbl = parse_rdf(rdf, num_runs);
-
-	val = DataFrame::create(
-	  _["Timestep"] = rwtbl.at(0), 
-	  _["Year"] = rwtbl.at(2),
-	  _["Month"] = rwtbl.at(3),
-	  _["ObjectName"] = rwtbl.at(4),
-	  _["SlotName"] = rwtbl.at(5),
-	  _["ObjectType"] = rwtbl.at(10),
-	  _["ObjectSlot"] = rwtbl.at(6),
-	  _["Value"] = rwtbl.at(1),
-	  _["Unit"] = rwtbl.at(11),
-	  _["TraceNumber"] = rwtbl.at(7),
-	  _["RulesetFileName"] = rwtbl.at(9),
-	  _["InputDMIName"] = rwtbl.at(8));
-	
-	val.attr("mrm_config_name") = meta.at(0).at(1);
-	val.attr("owner") = meta.at(1).at(1);
-	val.attr("description") = meta.at(2).at(1);
-	val.attr("create_date") = meta.at(3).at(1);
-	val.attr("n_traces") = meta.at(4).at(1);
-	
-	return val;
+DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf, 
+                           String const scenario = NA_STRING) {
+  std::vector< std::vector<std::string> > meta, rwtbl;
+  int num_runs;
+  DataFrame val;
+  
+  meta = parse_rdf_meta(rdf);
+  num_runs = get_n_runs(meta);
+  rwtbl = parse_rdf(rdf, num_runs);
+  
+  size_t nn = rwtbl.at(0).size();
+  // should maybe compare all the sizes...
+  StringVector v0(nn), v3(nn), v4(nn), v5(nn), v6(nn), v8(nn), v9(nn), v10(nn),
+    v11(nn);
+  NumericVector v1(nn), v2(nn);
+  IntegerVector v7(nn);
+  
+  v0 = rwtbl.at(0);
+  v3 = rwtbl.at(3);
+  v4 = rwtbl.at(4);
+  v5 = rwtbl.at(5);
+  v6 = rwtbl.at(6);
+  v8 = rwtbl.at(8);
+  v9 = rwtbl.at(9);
+  v10 = rwtbl.at(10);
+  v11 = rwtbl.at(11);
+  
+  for (size_t i = 0; i < nn; i++) {
+    v1.at(i) = std::stod(rwtbl.at(1).at(i));
+    v2.at(i) = std::stod(rwtbl.at(2).at(i));
+    v7.at(i) = std::stoi(rwtbl.at(7).at(i));
+  }
+  
+  
+  
+  if (scenario != NA_STRING) {
+    StringVector scen(nn, scenario);
+    val = DataFrame::create(
+      _["Timestep"] = v0, 
+      _["Year"] = v2,
+      _["Month"] = v3,
+      _["ObjectName"] = v4,
+      _["SlotName"] = v5,
+      _["ObjectType"] = v10,
+      _["ObjectSlot"] = v6,
+      _["Value"] = v1,
+      _["Unit"] = v11,
+      _["TraceNumber"] = v7,
+      _["RulesetFileName"] = v9,
+      _["InputDMIName"] = v8,
+      _["Scenario"] = scen,
+      _["stringsAsFactors"] = false );
+  } else {
+    val = DataFrame::create(
+      _["Timestep"] = v0, 
+      _["Year"] = v2,
+      _["Month"] = v3,
+      _["ObjectName"] = v4,
+      _["SlotName"] = v5,
+      _["ObjectType"] = v10,
+      _["ObjectSlot"] = v6,
+      _["Value"] = v1,
+      _["Unit"] = v11,
+      _["TraceNumber"] = v7,
+      _["RulesetFileName"] = v9,
+      _["InputDMIName"] = v8,
+      _["stringsAsFactors"] = false );
+  }
+  
+  val.attr("mrm_config_name") = meta.at(0).at(1);
+  val.attr("owner") = meta.at(1).at(1);
+  val.attr("description") = meta.at(2).at(1);
+  val.attr("create_date") = meta.at(3).at(1);
+  val.attr("n_traces") = meta.at(4).at(1);
+  
+  return val;
 }
