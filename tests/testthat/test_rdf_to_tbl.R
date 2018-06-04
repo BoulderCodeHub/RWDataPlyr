@@ -135,6 +135,9 @@ test_that("keep_cols warnings post correctly", {
     )
   ) 
   expect_true(all(colnames(tmp) %in% c(reqCols, "Year", "Month", "ObjectName")))
+  
+  expect_error(rdf_to_rwtbl(keyRdf, keep_cols = c(FALSE, TRUE)))
+  expect_error(rdf_to_rwtbl(keyRdf, keep_cols = NULL))
 })
 
 

@@ -52,16 +52,7 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 {
   stopifnot(is_rdf(rdf))
   
-  stopifnot(
-    (is.logical(keep_cols) && !is.na(keep_cols) && length(keep_cols == 1)) || 
-    (is.character(keep_cols) && length(keep_cols) > 0)
-  )
-  
-  stopifnot(is.logical(add_ym) && !is.na(add_ym) && length(add_ym) == 1)
-  
-  # this function only reads in one scenario, so should only have one 
-  # scenario name
-  stopifnot(is.null(scenario) || length(scenario) == 1)
+  check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl")
   
   # rdf[["meta"]] contains meta data
   # rdf[["runs"]] will be the length of rdf[[1]]$number_of_runs
@@ -104,12 +95,17 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE, 
                           add_ym = TRUE)
 {
-  rdf_vec <- as.matrix(data.table::fread(
-    file, 
-    sep = '\t', 
-    header = FALSE, 
-    data.table = FALSE
-  ))
+  if (! is.character(file) & length(file) != 1) {
+    stop(
+      "In `rdf_to_rwtbl2()`, `file` should be a single entry character vector,",
+      "  i.e., a file path to one rdf file.",
+      call. = FALSE
+    )
+  }
+  
+  rdf_vec <- read_rdf(file, rdf = FALSE)
+  
+  check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl2")
 
   std_cols <- c("Timestep", "TraceNumber", "ObjectSlot", "Value")
   add_cols <- c("ObjectName", "SlotName", "ObjectType" ,"Unit", 
@@ -119,7 +115,7 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
     if (keep_cols) {
       keep_cols <- c(std_cols, add_cols)
     } else {
-      keep_cols = std_cols
+      keep_cols <- std_cols
     }
   }
   
@@ -255,4 +251,51 @@ rwtbl_get_atts <- function(rwtbl)
     c("mrm_config_name", "owner", "description", "create_date", "n_traces"), 
     names(attributes(rwtbl))
   )]
+}
+
+
+check_rdf_to_rwtbl_args <- function(scenario, keep_cols, add_ym, call_func)
+{
+  if (is.logical(keep_cols)) {
+    if (length(keep_cols) != 1 || is.na(keep_cols)) {
+      stop(
+        "In `", call_func, "`(), if `keep_cols`, is logical, it should have ",
+        "a length of 1, and only be TRUE or FALSE.",
+        call. = FALSE
+      )
+    }
+  } else if (is.character(keep_cols)) {
+    if ( ! (length(keep_cols) > 0)) {
+      stop(
+        "In `", call_func, "`(), if `keep_cols`, is a character, it should ",
+        "have a length of 1 or more.",
+        call. = FALSE
+      )
+    }
+  } else {
+    stop(
+      "In `", call_func, "`(), `keep_cols` should either be a character or ",
+      "boolean.",
+      call. = FALSE
+    )
+  }
+  
+  if (length(add_ym) != 1 || !is.logical(add_ym) || is.na(add_ym)) {
+    stop(
+      "In `", call_func, "`(), `add_ym` should be a length 1 boolean.",
+      call. = FALSE
+    )
+  }
+  
+  # this function only reads in one scenario, so should only have one 
+  # scenario name
+  if (!is.null(scenario)) {
+    if (length(scenario) != 1) {
+      stop(
+        "In `", call_func, "`(), `scenario`, should either be NULL, or have a ",
+        "length of 1.",
+        call. = FALSE
+      )
+    }
+  }
 }
