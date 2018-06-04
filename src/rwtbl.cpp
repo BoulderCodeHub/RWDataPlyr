@@ -239,13 +239,16 @@ std::vector< std::vector<std::string> > parse_rdf(std::vector<std::string> rdf, 
 	return(table);
 }
 
-
 // [[Rcpp::export]]
-DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf, 
-                           String const scenario = NA_STRING) {
+List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
+                      std::vector<std::string> keep_cols,
+                      String const scenario = NA_STRING,
+                      bool add_ym = true) {
   std::vector< std::vector<std::string> > meta, rwtbl;
-  int num_runs;
+  int num_runs, del_col;
   DataFrame val;
+  List val_lst(3);
+  
   
   meta = parse_rdf_meta(rdf);
   num_runs = get_n_runs(meta);
@@ -254,9 +257,10 @@ DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   size_t nn = rwtbl.at(0).size();
   // should maybe compare all the sizes...
   StringVector v0(nn), v3(nn), v4(nn), v5(nn), v6(nn), v8(nn), v9(nn), v10(nn),
-    v11(nn);
+    v11(nn), col_names;
   NumericVector v1(nn), v2(nn);
   IntegerVector v7(nn);
+  std::vector<int> row_names(nn);
   
   v0 = rwtbl.at(0);
   v3 = rwtbl.at(3);
@@ -272,10 +276,11 @@ DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     v1.at(i) = std::stod(rwtbl.at(1).at(i));
     v2.at(i) = std::stod(rwtbl.at(2).at(i));
     v7.at(i) = std::stoi(rwtbl.at(7).at(i));
+    row_names.at(i) = i + 1;
   }
   
   
-  
+  // add in the scenario column if it's specified
   if (scenario != NA_STRING) {
     StringVector scen(nn, scenario);
     val = DataFrame::create(
@@ -310,6 +315,27 @@ DataFrame rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
       _["stringsAsFactors"] = false );
   }
   
+  // remove columns the user does not want
+  if (add_ym) {
+    keep_cols.push_back("Year");
+    keep_cols.push_back("Month");
+  }
+  col_names = val.names();
+  std::vector<std::string>::iterator it;
+  for (int i = 0; i < col_names.size(); i++) {
+    std::string col1 = Rcpp::as<std::string>(col_names.at(i));
+    it = std::find(keep_cols.begin(), keep_cols.end(), col1);
+    
+    if (it == keep_cols.end()) {
+      // column name was not found in keep_cols, so we want to remove it
+      String tmp = col_names.at(i);
+      del_col = val.findName(tmp);
+      val.erase(del_col);
+    }
+  }
+  
+  val.attr("class") = "data.frame";
+  val.attr("row.names") = row_names;
   val.attr("mrm_config_name") = meta.at(0).at(1);
   val.attr("owner") = meta.at(1).at(1);
   val.attr("description") = meta.at(2).at(1);
