@@ -340,7 +340,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   val.attr("owner") = meta.at(1).at(1);
   val.attr("description") = meta.at(2).at(1);
   val.attr("create_date") = meta.at(3).at(1);
-  val.attr("n_traces") = meta.at(4).at(1);
+  val.attr("n_traces") = std::stoi(meta.at(4).at(1));
   
   return val;
 }
