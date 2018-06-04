@@ -283,6 +283,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   // add in the scenario column if it's specified
   if (scenario != NA_STRING) {
     StringVector scen(nn, scenario);
+    keep_cols.push_back("Scenario");
     val = DataFrame::create(
       _["Timestep"] = v0, 
       _["Year"] = v2,
