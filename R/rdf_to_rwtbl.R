@@ -85,6 +85,44 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
   )
 }
 
+#' @export
+rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE, 
+                          add_ym = TRUE)
+{
+  rdf_vec <- as.matrix(data.table::fread(
+    file, 
+    sep = '\t', 
+    header = FALSE, 
+    data.table = FALSE
+  ))
+
+  std_cols <- c("Timestep", "TraceNumber", "ObjectSlot", "Value")
+  add_cols <- c("ObjectName", "SlotName", "ObjectType" ,"Unit", 
+                "RulesetFileName", "InputDMIName")
+  
+  if (is.logical(keep_cols)) {
+    if (keep_cols) {
+      keep_cols <- c(std_cols, add_cols)
+    } else {
+      keep_cols = std_cols
+    }
+  }
+  
+  if (is.null(scenario)) {
+    scenario <- NA_character_
+  }
+  
+  t1 <- rdf_to_rwtbl_cpp(
+    rdf_vec, 
+    scenario = scenario, 
+    keep_cols = keep_cols,
+    add_ym = add_ym
+  ) %>% 
+    tibble::as_tibble()
+  
+  t1
+}
+
 
 #' create a data frame from one of the objects in one trace of the rdf list
 #' 

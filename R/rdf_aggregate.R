@@ -53,7 +53,8 @@ rdf_aggregate <- function(agg,
                           scenario = NULL,
                           keep_cols = FALSE,
                           nans_are = "0",
-                          find_all_slots = TRUE)
+                          find_all_slots = TRUE,
+                          cpp = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
@@ -76,26 +77,46 @@ rdf_aggregate <- function(agg,
   
   rdf_len <- seq_len(length(rdfs))
   
-  rwtblsmmry <- lapply(
-    rdf_len,
-    function(x){
-      # call rwtbl_apply_sam for each unique rdf
-      # seperate sam into one sam for each rdf;
-      # read the rdf, then apply the sam to that rdf
-      
-      rwtbl <- rdf_to_rwtbl(
-        read.rdf(rdf_files[x]), 
-        scenario = scenario, 
-        keep_cols = keep_cols, 
-        add_ym = TRUE
-      ) %>%
-        check_nans(nans_are, rdf_file = rdf_files[x])
-      
-      tmp_sam <- agg[agg$file == rdfs[x],]
-      
-      rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
-    }
-  )
+  if (cpp) {
+    rwtblsmmry <- lapply(
+      rdf_len,
+      function(x) {
+        rwtbl <- rdf_to_rwtbl2(
+          rdf_files[x],
+          scenario = scenario,
+          keep_cols = keep_cols,
+          add_ym = TRUE
+        ) %>%
+          check_nans(nans_are, rdf_file = rdf_files[x])
+       
+        tmp_sam <- agg[agg$file == rdfs[x],]
+        
+        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
+      }
+    )
+  } else {
+  
+    rwtblsmmry <- lapply(
+      rdf_len,
+      function(x){
+        # call rwtbl_apply_sam for each unique rdf
+        # seperate sam into one sam for each rdf;
+        # read the rdf, then apply the sam to that rdf
+        
+        rwtbl <- rdf_to_rwtbl(
+          read.rdf(rdf_files[x]), 
+          scenario = scenario, 
+          keep_cols = keep_cols, 
+          add_ym = TRUE
+        ) %>%
+          check_nans(nans_are, rdf_file = rdf_files[x])
+        
+        tmp_sam <- agg[agg$file == rdfs[x],]
+        
+        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
+      }
+    )
+  }
   
   rwtbl_atts <- lapply(rdf_len, function(x) rwtbl_get_atts(rwtblsmmry[[x]]))
   names(rwtbl_atts) <- rdfs
