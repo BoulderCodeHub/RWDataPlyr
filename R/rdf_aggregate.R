@@ -27,6 +27,8 @@
 #'   will continue, even if a slot cannot be found. If a slot is not found, 
 #'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
 #'   Value.
+#' @param cpp Boolean; if `TRUE` (default), then use [rdf_to_rwtbl2], which 
+#'   relies on C++, otherwise, use original [rdf_to_rwtbl] function. 
 #'   
 #' @examples 
 #' # rdf_aggregate() ----------

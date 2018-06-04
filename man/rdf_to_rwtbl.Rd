@@ -2,16 +2,20 @@
 % Please edit documentation in R/rdf_to_rwtbl.R
 \name{rdf_to_rwtbl}
 \alias{rdf_to_rwtbl}
+\alias{rdf_to_rwtbl2}
 \title{Convert an rdf to a tibble}
 \usage{
 rdf_to_rwtbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
+
+rdf_to_rwtbl2(file, scenario = NA_character_, keep_cols = FALSE,
+  add_ym = TRUE)
 }
 \arguments{
-\item{rdf}{An rdf object (from \code{\link[=read.rdf]{read.rdf()}}).}
+\item{rdf}{An rdf object (from \code{\link[=read_rdf]{read_rdf()}}).}
 
-\item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
-will be added to the tibble as another variable. Typically a string, but it
-is not coerced to a string.}
+\item{scenario}{An optional parameter, that if it is not \code{NULL} or \code{NA}
+(default) will be added to the tibble as another variable. Typically a
+string, but it is not coerced to a string.}
 
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
@@ -30,16 +34,22 @@ found, a warning will post, but all other columns will be returned.
 are added to the returned tibble. If \code{TRUE} (default), they will be added,
 and if \code{FALSE} they will not be added. They are constructed from the dates
 in the \code{Timestep} column.}
+
+\item{file}{The relative or absolute rdf filename.}
 }
 \value{
 A tbl_df with additional attributes from the rdf object.
 }
 \description{
 \code{rdf_to_rwtbl()} converts an rdf list to a tibble.
+
+\code{rdf_to_rwtbl2()} converts an rdf file into a tibble, but is
+faster than \code{rdf_to_rwtbl()} since it uses c++. It also reads the rdf file
+in, while \code{rdf_to_rwtbl()} needs an \code{rdf} object.
 }
 \details{
-The rdf list is converted to a data frame, and then converted to a
-\code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries into the rdf list
+The rdf object is converted to a data frame, and then converted to a
+\code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries in the rdf object
 are stored as attributes in the returned tibble. These attributes are:
 \code{mrm_config_name}, \code{owner}, \code{description}, \code{create_date}, and \code{n_traces}.
 }
@@ -51,7 +61,14 @@ rdftbl <- rdf_to_rwtbl(keyRdf, add_ym = FALSE)
 rdftbl <- rdf_to_rwtbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
 rdftbl <- rdf_to_rwtbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 
+# rdf_to_rwtbl2 wants a file path instead of an rdf object
+rdfPath <- system.file(
+  "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most/KeySlots.rdf", 
+  package = "RWDataPlyr"
+)
+rdftbl <- rdf_to_rwtbl2(rdfPath)
+
 }
 \seealso{
-\code{\link[=read.rdf]{read.rdf()}}
+\code{\link[=read_rdf]{read_rdf()}}
 }

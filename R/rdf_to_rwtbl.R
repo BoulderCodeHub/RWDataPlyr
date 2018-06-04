@@ -3,15 +3,15 @@
 #' 
 #' `rdf_to_rwtbl()` converts an rdf list to a tibble.
 #' 
-#' The rdf list is converted to a data frame, and then converted to a 
-#' [tibble::tibble()]. All of the `meta` entries into the rdf list
+#' The rdf object is converted to a data frame, and then converted to a 
+#' [tibble::tibble()]. All of the `meta` entries in the rdf object
 #' are stored as attributes in the returned tibble. These attributes are:
 #' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
-#' @param rdf An rdf object (from [read.rdf()]).
-#' @param scenario An optional parameter, that if it is not `NULL` (default)
-#'   will be added to the tibble as another variable. Typically a string, but it 
-#'   is not coerced to a string.
+#' @param rdf An rdf object (from [read_rdf()]).
+#' @param scenario An optional parameter, that if it is not `NULL` or `NA` 
+#'   (default) will be added to the tibble as another variable. Typically a 
+#'   string, but it is not coerced to a string.
 #' @param keep_cols Either boolean, or a character vector of column names to 
 #'   keep in the returned tibble. The values of `keep_cols` work as follows:
 #'   * `FALSE` (default) only includes the defaults columns: `Timestep`, 
@@ -37,7 +37,14 @@
 #' rdftbl <- rdf_to_rwtbl(keyRdf, add_ym = FALSE, keep_cols = "Object")
 #' rdftbl <- rdf_to_rwtbl(sysRdf, scenario = "ISM1988_2014,2007Dems,IG,2002")
 #' 
-#' @seealso [read.rdf()]
+#' # rdf_to_rwtbl2 wants a file path instead of an rdf object
+#' rdfPath <- system.file(
+#'   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most/KeySlots.rdf", 
+#'   package = "RWDataPlyr"
+#' )
+#' rdftbl <- rdf_to_rwtbl2(rdfPath)
+#' 
+#' @seealso [read_rdf()]
 #' 
 #' @export
 
@@ -85,6 +92,14 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
   )
 }
 
+#' `rdf_to_rwtbl2()` converts an rdf file into a tibble, but is 
+#' faster than `rdf_to_rwtbl()` since it uses c++. It also reads the rdf file
+#' in, while `rdf_to_rwtbl()` needs an `rdf` object.
+#' 
+#' @param file The relative or absolute rdf filename.
+#'  
+#' @rdname rdf_to_rwtbl
+#' 
 #' @export
 rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE, 
                           add_ym = TRUE)
