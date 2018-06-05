@@ -2,10 +2,10 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 rdf_to_rwtbl_cpp <- function(rdf, keep_cols, scenario = NA_character_, add_ym = TRUE) {
-    .Call('_RWDataPlyr_rdf_to_rwtbl_cpp', PACKAGE = 'RWDataPlyr', rdf, keep_cols, scenario, add_ym)
+    .Call(`_RWDataPlyr_rdf_to_rwtbl_cpp`, rdf, keep_cols, scenario, add_ym)
 }
 
 rdf_to_rwtbl_cpp_old <- function(rdf) {
-    .Call('_RWDataPlyr_rdf_to_rwtbl_cpp_old', PACKAGE = 'RWDataPlyr', rdf)
+    .Call(`_RWDataPlyr_rdf_to_rwtbl_cpp_old`, rdf)
 }
 

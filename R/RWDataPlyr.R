@@ -5,7 +5,7 @@
 #' @importFrom dplyr %>%
 NULL
 
-#' @useDynLib RWDataPlyr
+#' @useDynLib RWDataPlyr, .registration = TRUE
 #'
 #' @importFrom Rcpp sourceCpp
 NULL

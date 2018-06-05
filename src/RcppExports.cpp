@@ -30,14 +30,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-
-static const R_CallMethodDef CallEntries[] = {
-    {"_RWDataPlyr_rdf_to_rwtbl_cpp", (DL_FUNC) &_RWDataPlyr_rdf_to_rwtbl_cpp, 4},
-    {"_RWDataPlyr_rdf_to_rwtbl_cpp_old", (DL_FUNC) &_RWDataPlyr_rdf_to_rwtbl_cpp_old, 1},
-    {NULL, NULL, 0}
-};
-
-RcppExport void R_init_RWDataPlyr(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
-}
