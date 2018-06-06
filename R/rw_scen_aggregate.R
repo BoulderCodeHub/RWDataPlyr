@@ -105,7 +105,8 @@ rw_scen_aggregate <- function(scenarios,
                               keep_cols = FALSE,
                               file = NULL, 
                               scen_names = NULL,
-                              find_all_slots = TRUE)
+                              find_all_slots = TRUE,
+                              cpp = TRUE)
 {
   # check all UI --------------------
   if (!is.rwd_agg(agg)) {
@@ -139,7 +140,8 @@ rw_scen_aggregate <- function(scenarios,
       scenario = names(scenarios)[x],
       keep_cols = keep_cols,
       nans_are = nans_are,
-      find_all_slots = find_all_slots
+      find_all_slots = find_all_slots,
+      cpp = cpp
     )
   })
   rwd_agg <- attr(rwscenagg[[1]], "rwd_agg")

@@ -6,11 +6,11 @@
 \title{Aggregate RiverWare output for one or more scenarios}
 \usage{
 rdf_aggregate(agg, rdf_dir = ".", scenario = NULL, keep_cols = FALSE,
-  nans_are = "0", find_all_slots = TRUE)
+  nans_are = "0", find_all_slots = TRUE, cpp = TRUE)
 
 rw_scen_aggregate(scenarios, agg, scen_dir = ".", nans_are = "0",
   keep_cols = FALSE, file = NULL, scen_names = NULL,
-  find_all_slots = TRUE)
+  find_all_slots = TRUE, cpp = TRUE)
 }
 \arguments{
 \item{agg}{A \link{rwd_agg} object specifying the rdfs, slots, and
@@ -19,9 +19,9 @@ aggregation methods to use.}
 \item{rdf_dir}{The top level directory that contains the rdf files. See
 \strong{Directory Structure}.}
 
-\item{scenario}{An optional parameter, that if it is not \code{NULL} (default)
-will be added to the tibble as another variable. Typically a string, but it
-is not coerced to a string.}
+\item{scenario}{An optional parameter, that if it is not \code{NULL} or \code{NA}
+(default) will be added to the tibble as another variable. Coerced to a
+character if it is not already a character.}
 
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
@@ -45,6 +45,9 @@ abort if it cannot find a particular slot. If \code{FALSE}, then the function
 will continue, even if a slot cannot be found. If a slot is not found,
 then the function will return \code{-99} for the Trace, and \code{NaN} for Year, and
 Value.}
+
+\item{cpp}{Boolean; if \code{TRUE} (default), then use \link{rdf_to_rwtbl2}, which
+relies on C++, otherwise, use original \link{rdf_to_rwtbl} function.}
 
 \item{scenarios}{A character vector of scenario foders. This is usually a
 vector of folder names, where each folder name contains one scenario worth

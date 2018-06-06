@@ -27,6 +27,8 @@
 #'   will continue, even if a slot cannot be found. If a slot is not found, 
 #'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
 #'   Value.
+#' @param cpp Boolean; if `TRUE` (default), then use [rdf_to_rwtbl2], which 
+#'   relies on C++, otherwise, use original [rdf_to_rwtbl] function. 
 #'   
 #' @examples 
 #' # rdf_aggregate() ----------
@@ -53,7 +55,8 @@ rdf_aggregate <- function(agg,
                           scenario = NULL,
                           keep_cols = FALSE,
                           nans_are = "0",
-                          find_all_slots = TRUE)
+                          find_all_slots = TRUE,
+                          cpp = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
@@ -76,26 +79,46 @@ rdf_aggregate <- function(agg,
   
   rdf_len <- seq_len(length(rdfs))
   
-  rwtblsmmry <- lapply(
-    rdf_len,
-    function(x){
-      # call rwtbl_apply_sam for each unique rdf
-      # seperate sam into one sam for each rdf;
-      # read the rdf, then apply the sam to that rdf
-      
-      rwtbl <- rdf_to_rwtbl(
-        read.rdf(rdf_files[x]), 
-        scenario = scenario, 
-        keep_cols = keep_cols, 
-        add_ym = TRUE
-      ) %>%
-        check_nans(nans_are, rdf_file = rdf_files[x])
-      
-      tmp_sam <- agg[agg$file == rdfs[x],]
-      
-      rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
-    }
-  )
+  if (cpp) {
+    rwtblsmmry <- lapply(
+      rdf_len,
+      function(x) {
+        rwtbl <- rdf_to_rwtbl2(
+          rdf_files[x],
+          scenario = scenario,
+          keep_cols = keep_cols,
+          add_ym = TRUE
+        ) %>%
+          check_nans(nans_are, rdf_file = rdf_files[x])
+       
+        tmp_sam <- agg[agg$file == rdfs[x],]
+        
+        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
+      }
+    )
+  } else {
+  
+    rwtblsmmry <- lapply(
+      rdf_len,
+      function(x){
+        # call rwtbl_apply_sam for each unique rdf
+        # seperate sam into one sam for each rdf;
+        # read the rdf, then apply the sam to that rdf
+        
+        rwtbl <- rdf_to_rwtbl(
+          read.rdf(rdf_files[x]), 
+          scenario = scenario, 
+          keep_cols = keep_cols, 
+          add_ym = TRUE
+        ) %>%
+          check_nans(nans_are, rdf_file = rdf_files[x])
+        
+        tmp_sam <- agg[agg$file == rdfs[x],]
+        
+        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
+      }
+    )
+  }
   
   rwtbl_atts <- lapply(rdf_len, function(x) rwtbl_get_atts(rwtblsmmry[[x]]))
   names(rwtbl_atts) <- rdfs
@@ -199,14 +222,13 @@ rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
 
 add_var_drop_objectslot <- function(rwtbl, slot_agg_row)
 {
-  var_map <- slot_agg_row$variable
-  names(var_map) <- slot_agg_row$slot
   tmp_groups <- dplyr::group_vars(rwtbl)
   tmp_groups <- tmp_groups[tmp_groups != "ObjectSlot"]
   
+  rwtbl$Variable <- slot_agg_row$variable
+  
   rwtbl %>%
     dplyr::group_by_at(tmp_groups) %>%
-    dplyr::mutate_at("ObjectSlot", dplyr::funs("Variable" = var_map[.])) %>%
     dplyr::select(-dplyr::matches("ObjectSlot"))
 }
 

@@ -87,3 +87,18 @@ test_that("rdfs with scalar slots read in correctly", {
     )
   }
 })
+
+# check character vector ---------------
+test_that("rdf = FALSE works", {
+  expect_is(
+    r1 <- read_rdf(system.file(
+      'extdata',
+      file.path('Scenario','ISM1988_2014,2007Dems,IG,Most','KeySlots.rdf'),
+      package = 'RWDataPlyr'
+    ), rdf = FALSE),
+    "matrix"
+  )
+  expect_type(r1, "character")
+  expect_equal(ncol(r1), 1)
+  expect_true(nrow(r1) > 1)
+})
