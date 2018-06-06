@@ -69,6 +69,16 @@ rwa <- rwd_agg(read.csv(
   stringsAsFactors = FALSE
 ))
 
+sal <- slot_agg_list(matrix(c(
+  "KeySlots.rdf", "Mead.Pool Elevation", "AnnMinLTE", 1e+03, "peLt1000",
+  "KeySlots.rdf", "Mead.Pool Elevation", "EOCY", NA, "peEocy",
+  "KeySlots.rdf", "Powell.Outflow", "BOCY", NA, "julyRel",
+  "KeySlots.rdf", "Powell.Outflow", "WYMaxLTE", 400000, "pMonthlyGt400k",
+  "KeySlots.rdf", "Powell.Outflow", "AnnualSum", 1e-03, "pwyRel",
+  "SystemConditions.rdf", "SummaryOutputData.LBShortageConditions", "AnnualRaw", NA, "short",
+  "SystemConditions.rdf", "SummaryOutputData.UpperBalancingAbove823", "AnnualRaw", NA, "ueb823"
+), nrow = 7, byrow = TRUE))
+
 scens <- c("ISM1988_2014,2007Dems,IG,Most", "ISM1988_2014,2007Dems,IG,2002")
 
 mb <- microbenchmark::microbenchmark(
