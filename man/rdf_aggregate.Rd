@@ -20,8 +20,8 @@ aggregation methods to use.}
 \strong{Directory Structure}.}
 
 \item{scenario}{An optional parameter, that if it is not \code{NULL} or \code{NA}
-(default) will be added to the tibble as another variable. Typically a
-string, but it is not coerced to a string.}
+(default) will be added to the tibble as another variable. Coerced to a
+character if it is not already a character.}
 
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
