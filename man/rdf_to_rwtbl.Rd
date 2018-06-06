@@ -14,8 +14,8 @@ rdf_to_rwtbl2(file, scenario = NA_character_, keep_cols = FALSE,
 \item{rdf}{An rdf object (from \code{\link[=read_rdf]{read_rdf()}}).}
 
 \item{scenario}{An optional parameter, that if it is not \code{NULL} or \code{NA}
-(default) will be added to the tibble as another variable. Typically a
-string, but it is not coerced to a string.}
+(default) will be added to the tibble as another variable. Coerced to a
+character if it is not already a character.}
 
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
@@ -52,6 +52,9 @@ The rdf object is converted to a data frame, and then converted to a
 \code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries in the rdf object
 are stored as attributes in the returned tibble. These attributes are:
 \code{mrm_config_name}, \code{owner}, \code{description}, \code{create_date}, and \code{n_traces}.
+
+If the rdf contains a scalar slot(s), the scalar slot value(s) will be
+repeated for every timestep.
 }
 \examples{
 rdftbl <- rdf_to_rwtbl(keyRdf)

@@ -8,6 +8,9 @@
 #' are stored as attributes in the returned tibble. These attributes are:
 #' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
+#' If the rdf contains a scalar slot(s), the scalar slot value(s) will be 
+#' repeated for every timestep.
+#' 
 #' @param rdf An rdf object (from [read_rdf()]).
 #' @param scenario An optional parameter, that if it is not `NULL` or `NA` 
 #'   (default) will be added to the tibble as another variable. Coerced to a 

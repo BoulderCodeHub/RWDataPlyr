@@ -59,7 +59,15 @@ std::vector<std::string> parse_line(std::string line) {
 std::vector< std::vector<std::string> > build_table(std::vector<std::string> vals, std::vector<std::string> timesteps) {
 	std::vector < std::vector<std::string> > tmp;
 	tmp.push_back(timesteps);
-	tmp.push_back(vals);
+	
+	if (vals.size() == 1) {
+	  // then its a scalar slot
+	  std::vector<std::string> v2(timesteps.size(), vals.at(0));
+	  tmp.push_back(v2);
+	} else {
+	  tmp.push_back(vals);
+	}
+	
 	return(tmp);
 }
 

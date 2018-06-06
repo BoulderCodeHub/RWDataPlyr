@@ -131,10 +131,16 @@ test_that("methods match for annual rdf", {
 })
 
 # check rwtbl for scalar slots ----------------
-
+context("check rdf_to_rwtbl with scalar rdf files")
 test_that("methods match for scalar slots", {
   xx <- read_rdf("../rdfs/scalar.rdf") %>% rdf_to_rwtbl()
   xx2 <- rdf_to_rwtbl2("../rdfs/scalar.rdf")
+  expect_equal(xx, xx2)
+  xx <- read_rdf("../rdfs/scalar_series.rdf") %>% rdf_to_rwtbl()
+  xx2 <- rdf_to_rwtbl2("../rdfs/scalar_series.rdf")
+  expect_equal(xx, xx2)
+  xx <- read_rdf("../rdfs/series.rdf") %>% rdf_to_rwtbl()
+  xx2 <- rdf_to_rwtbl2("../rdfs/series.rdf")
   expect_equal(xx, xx2)
 })
 
