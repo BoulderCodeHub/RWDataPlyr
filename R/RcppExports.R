@@ -5,7 +5,3 @@ rdf_to_rwtbl_cpp <- function(rdf, keep_cols, scenario = NA_character_, add_ym = 
     .Call(`_RWDataPlyr_rdf_to_rwtbl_cpp`, rdf, keep_cols, scenario, add_ym)
 }
 
-rdf_to_rwtbl_cpp_old <- function(rdf) {
-    .Call(`_RWDataPlyr_rdf_to_rwtbl_cpp_old`, rdf)
-}
-

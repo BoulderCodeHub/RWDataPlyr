@@ -19,14 +19,3 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// rdf_to_rwtbl_cpp_old
-DataFrame rdf_to_rwtbl_cpp_old(std::vector<std::string> rdf);
-RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp_old(SEXP rdfSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< std::vector<std::string> >::type rdf(rdfSEXP);
-    rcpp_result_gen = Rcpp::wrap(rdf_to_rwtbl_cpp_old(rdf));
-    return rcpp_result_gen;
-END_RCPP
-}
