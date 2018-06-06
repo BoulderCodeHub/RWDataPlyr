@@ -10,8 +10,8 @@
 #' 
 #' @param rdf An rdf object (from [read_rdf()]).
 #' @param scenario An optional parameter, that if it is not `NULL` or `NA` 
-#'   (default) will be added to the tibble as another variable. Typically a 
-#'   string, but it is not coerced to a string.
+#'   (default) will be added to the tibble as another variable. Coerced to a 
+#'   character if it is not already a character.
 #' @param keep_cols Either boolean, or a character vector of column names to 
 #'   keep in the returned tibble. The values of `keep_cols` work as follows:
 #'   * `FALSE` (default) only includes the defaults columns: `Timestep`, 
@@ -67,8 +67,11 @@ rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
   if ((is.logical(keep_cols) && !keep_cols) || is.character(keep_cols))
     tbl <- select_rdftbl_cols(tbl, keep_cols)
   
-  if (!is.null(scenario))
+  if (!is.null(scenario)) {
+    if (!is.character(scenario))
+      scenario <- as.character(scenario)
     tbl$Scenario <- scenario
+  }
   
   if (add_ym)
     tbl <- add_ym_to_rdftbl(tbl)
@@ -107,21 +110,35 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
   
   check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl2")
 
-  std_cols <- c("Timestep", "TraceNumber", "ObjectSlot", "Value")
   add_cols <- c("ObjectName", "SlotName", "ObjectType" ,"Unit", 
                 "RulesetFileName", "InputDMIName")
-  
+
   if (is.logical(keep_cols)) {
     if (keep_cols) {
-      keep_cols <- c(std_cols, add_cols)
+      keep_cols <- c(req_rwtbl_cols(), add_cols)
     } else {
       keep_cols <- std_cols
     }
+  } else {
+    # combine keep_cols with the required columns
+    keep_cols <- keep_cols[!(keep_cols %in% req_rwtbl_cols())]
+    keep_cols <- c(req_rwtbl_cols(), keep_cols)
   }
+  
+  # check that keep_cols are all expected column names
+  missing_cols <- keep_cols[!(keep_cols %in% c(req_rwtbl_cols(), add_cols))]
+  if (length(missing_cols) > 0)
+    warning(
+      "The following columns specified by 'keep_cols' were not found in the rwtbl:\n",
+      "    ", toString(missing_cols)
+    )
   
   if (is.null(scenario)) {
     scenario <- NA_character_
   }
+  
+  if (! is.character(scenario))
+    scenario <- as.character(scenario)
   
   t1 <- rdf_to_rwtbl_cpp(
     rdf_vec, 

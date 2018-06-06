@@ -5,6 +5,7 @@
 * `rw_scen_aggregate()` and `rdf_aggregate()` gain `cpp` arguments. If `TRUE`, then `rdf_to_rwtbl2()` is used instead of `rdf_to_rwtbl()`
 * new function: `rdf_to_rwtbl2()`
 * `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE`, it returns an `rdf` object, otherwise it returns a character vector.
+* in `rdf_to_rwtbl()`, `scenario` is coerced into a character
 
 
 # RWDataPlyr 0.6.0
