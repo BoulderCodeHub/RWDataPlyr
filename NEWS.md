@@ -9,6 +9,8 @@
 * deprecating `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
 * improved `read_rdf()` error messages (#86)
 * `rw_scen_aggregate()` will now work with unnamed `scenarios` and `NULL` `scen_names` arguments (#81)
+* `rwslot_*` functions now error if the data passed to them are not regular (January - December or October - September) (#83)
+    - as part of this, the matrix returned by `rdf_get_slot()` now has a `"timespan"` attribute that corresponds to the start and end values of the rdf.
 
 
 # RWDataPlyr 0.6.0

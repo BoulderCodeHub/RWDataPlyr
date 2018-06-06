@@ -64,6 +64,8 @@ rdf_get_slot <- function(rdf, slot)
 	  lapply(1:nn, function(xx) rdf$runs[[xx]]$objects[[slot]]$values)
 	)
 	
+	attr(res, "timespan") <- rdf_get_timespan(rdf)
+	
 	res
 }
 
