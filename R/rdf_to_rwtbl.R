@@ -120,7 +120,7 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
     if (keep_cols) {
       keep_cols <- c(req_rwtbl_cols(), add_cols)
     } else {
-      keep_cols <- std_cols
+      keep_cols <- req_rwtbl_cols()
     }
   } else {
     # combine keep_cols with the required columns
