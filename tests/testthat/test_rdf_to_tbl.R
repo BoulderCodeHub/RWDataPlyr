@@ -74,7 +74,7 @@ test_that("dimensions are as expected with no ym", {
   expect_true(all(colnames(rdftbl3) %in% c(reqCols, "Scenario")))
   expect_type(rdftbl2$Scenario, "character")
   expect_true(all(rdftbl2$Scenario == "DNF,CT"))
-  expect_type(rdftbl3$Scenario, "double")
+  expect_type(rdftbl3$Scenario, "character")
   expect_true(all(rdftbl3$Scenario == 1))
 })
 
