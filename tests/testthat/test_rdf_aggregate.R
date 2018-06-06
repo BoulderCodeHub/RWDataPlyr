@@ -273,3 +273,45 @@ test_that("rdf_aggregate() can handle 1 trace of data", {
     t13pe[seq(12, nrow(t13pe), 12),, drop = FALSE]
   )
 })
+
+# compare the different versions of `rdf_to_tbl()`'s `cpp` parameter ------
+test_that("`cpp` parameters don't change results", {
+  expect_equal(
+    rdf_aggregate(
+      rwd_agg(rdfs = "KeySlots.rdf"),
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE,
+      cpp = TRUE
+    ),
+    rdf_aggregate(
+      rwd_agg(rdfs = "KeySlots.rdf"),
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE,
+      cpp = FALSE
+    )
+  )
+  
+  expect_equal(
+    rdf_aggregate(
+      ra1,
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE,
+      cpp = TRUE
+    ),
+    rdf_aggregate(
+      ra1,
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE,
+      cpp = FALSE
+    )
+  )
+  
+  expect_equal(
+    rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = TRUE),
+    rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE)
+  )
+})
