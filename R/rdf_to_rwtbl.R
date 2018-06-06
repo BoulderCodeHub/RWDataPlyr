@@ -53,6 +53,13 @@
 
 rdf_to_rwtbl <- function(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 {
+  .Deprecated(
+    msg = paste0(
+      "`rdf_to_rwtbl()` is deprecated and will be removed in a future release.\n",
+      "Consider using `rdf_to_rwtbl2()` instead.\n",
+      "See help(\"rdf_to_rwtbl()\"), as it uses different arguments."
+    )
+  )
   stopifnot(is_rdf(rdf))
   
   check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl")

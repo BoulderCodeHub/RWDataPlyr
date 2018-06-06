@@ -6,6 +6,7 @@
 * new function: `rdf_to_rwtbl2()`
 * `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE`, it returns an `rdf` object, otherwise it returns a character vector.
 * in `rdf_to_rwtbl()`, `scenario` is coerced into a character
+* deprecating `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
 
 
 # RWDataPlyr 0.6.0

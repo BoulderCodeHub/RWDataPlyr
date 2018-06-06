@@ -8,8 +8,10 @@ rdf_file <- system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most/KeySlots.rdf", 
   package = "RWDataPlyr"
 )
-rdftbl <- read_rdf(rdf_file) %>%
-  rdf_to_rwtbl()
+rdftbl <- expect_warning(
+  read_rdf(rdf_file) %>%
+    rdf_to_rwtbl()
+)
 rdftbl2 <- rdf_to_rwtbl2(rdf_file)
 
 reqCols <- RWDataPlyr:::req_rwtbl_cols()
@@ -30,7 +32,7 @@ test_that("functions match", {
 })
 
 # check the add_ym options ---------------
-rdftbl3 <- read_rdf(rdf_file) %>% rdf_to_rwtbl(add_ym = FALSE)
+rdftbl3 <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl(add_ym = FALSE))
 rdftbl4 <- rdf_to_rwtbl2(rdf_file, add_ym = FALSE)
 test_that("different versions match", {
   expect_equal(rdftbl3, rdftbl4)
@@ -48,11 +50,16 @@ test_that("invalid add_ym values cause errors", {
 })
 
 # check the scenario option -------------
-rdftbl5 <- read_rdf(rdf_file) %>% rdf_to_rwtbl(scenario = "DNF,CT")
+rdftbl5 <- expect_warning(
+  read_rdf(rdf_file) %>% 
+    rdf_to_rwtbl(scenario = "DNF,CT")
+)
 rdftbl6 <- rdf_to_rwtbl2(rdf_file, scenario = "DNF,CT")
 
-rdftbl7 <- read_rdf(rdf_file) %>% 
-  rdf_to_rwtbl(scenario = 1, add_ym = FALSE)
+rdftbl7 <- expect_warning(
+  read_rdf(rdf_file) %>% 
+    rdf_to_rwtbl(scenario = 1, add_ym = FALSE)
+)
 rdftbl8 <- rdf_to_rwtbl2(rdf_file, scenario = 1, add_ym = FALSE)
 test_that("methods match", {
   expect_equal(rdftbl5, rdftbl6)
@@ -74,11 +81,13 @@ test_that("scenario options error properly", {
 })
 
 # check the keep_cols option ------------
-rdftbl3 <- read_rdf(rdf_file) %>% rdf_to_rwtbl(keep_cols = TRUE)
+rdftbl3 <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl(keep_cols = TRUE))
 rdftbl4 <- rdf_to_rwtbl2(rdf_file, keep_cols = TRUE)
 
-rdftbl5 <- read_rdf(rdf_file) %>%
-  rdf_to_rwtbl(keep_cols = c("ObjectName", "Unit"), scenario = 1)
+rdftbl5 <- expect_warning(
+  read_rdf(rdf_file) %>%
+    rdf_to_rwtbl(keep_cols = c("ObjectName", "Unit"), scenario = 1)
+)
 rdftbl6 <- rdf_to_rwtbl2(
   rdf_file, 
   keep_cols = c("ObjectName", "Unit"), 
@@ -123,7 +132,7 @@ rdf_file <- system.file(
   package = "RWDataPlyr"
 )
 
-rdftbl <- read_rdf(rdf_file) %>% rdf_to_rwtbl()
+rdftbl <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl())
 rdftbl2 <- rdf_to_rwtbl2(rdf_file)
 
 test_that("methods match for annual rdf", {
@@ -133,13 +142,13 @@ test_that("methods match for annual rdf", {
 # check rwtbl for scalar slots ----------------
 context("check rdf_to_rwtbl with scalar rdf files")
 test_that("methods match for scalar slots", {
-  xx <- read_rdf("../rdfs/scalar.rdf") %>% rdf_to_rwtbl()
+  xx <- expect_warning(read_rdf("../rdfs/scalar.rdf") %>% rdf_to_rwtbl())
   xx2 <- rdf_to_rwtbl2("../rdfs/scalar.rdf")
   expect_equal(xx, xx2)
-  xx <- read_rdf("../rdfs/scalar_series.rdf") %>% rdf_to_rwtbl()
+  xx <- expect_warning(read_rdf("../rdfs/scalar_series.rdf") %>% rdf_to_rwtbl())
   xx2 <- rdf_to_rwtbl2("../rdfs/scalar_series.rdf")
   expect_equal(xx, xx2)
-  xx <- read_rdf("../rdfs/series.rdf") %>% rdf_to_rwtbl()
+  xx <- expect_warning(read_rdf("../rdfs/series.rdf") %>% rdf_to_rwtbl())
   xx2 <- rdf_to_rwtbl2("../rdfs/series.rdf")
   expect_equal(xx, xx2)
 })

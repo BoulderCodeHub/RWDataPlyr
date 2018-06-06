@@ -11,8 +11,8 @@ dnfmost_dir <- system.file(
   package = "RWDataPlyr"
 )
 
-keyrwtbl <- rdf_to_rwtbl(keyRdf)
-sysrwtbl <- rdf_to_rwtbl(sysRdf)
+keyrwtbl <- expect_warning(rdf_to_rwtbl(keyRdf))
+sysrwtbl <- expect_warning(rdf_to_rwtbl(sysRdf))
 
 # test rdf_aggregate() structure -------------------------
 test_that("test rdf_aggregate() structure", {
@@ -150,8 +150,10 @@ test_that("'all' keyword gets all data", {
 # check handling NaNs -----------------------------------
 ss <- c("Shortage.ShortageFlag", "Coordinated Operation.ReducedReleaseFlag")
 scenario_dir <- system.file("extdata/Scenario/", package = "RWDataPlyr")
-flags_rdf <- rdf_to_rwtbl(read.rdf(file.path(scenario_dir, "Flags.rdf"))) %>%
-  filter(ObjectSlot %in% ss)
+flags_rdf <- expect_warning(
+  rdf_to_rwtbl(read.rdf(file.path(scenario_dir, "Flags.rdf"))) %>%
+    filter(ObjectSlot %in% ss)
+)
 short_ra <- rwd_agg(data.frame(
   file = "Flags.rdf", 
   slot = ss, 
@@ -284,13 +286,13 @@ test_that("`cpp` parameters don't change results", {
       keep_cols = FALSE,
       cpp = TRUE
     ),
-    rdf_aggregate(
+    expect_warning(rdf_aggregate(
       rwd_agg(rdfs = "KeySlots.rdf"),
       rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE,
       cpp = FALSE
-    )
+    ))
   )
   
   expect_equal(
@@ -301,17 +303,17 @@ test_that("`cpp` parameters don't change results", {
       keep_cols = FALSE,
       cpp = TRUE
     ),
-    rdf_aggregate(
+    expect_warning(rdf_aggregate(
       ra1,
       rdf_dir = dnfmost_dir,
       scenario = "DNFMost",
       keep_cols = FALSE,
       cpp = FALSE
-    )
+    ))
   )
   
   expect_equal(
     rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = TRUE),
-    rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE)
+    expect_warning(rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE))
   )
 })
