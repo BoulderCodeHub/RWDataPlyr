@@ -162,8 +162,7 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 
 read.rdf <- function(iFile, rdf = TRUE)
 {
-  stopifnot(tools::file_ext(iFile) == "rdf")
-  stopifnot(file.exists(iFile))
+  check_rdf_file(iFile)
   
   rdf.obj <- list()
   # read entire file into memory
@@ -210,3 +209,22 @@ read.rdf2 <- function(iFile)
 #' @rdname read.rdf
 #' @export
 read_rdf <- read.rdf
+
+check_rdf_file <- function(file)
+{
+  if (tools::file_ext(file) != "rdf") {
+    stop(
+      file, " does not appear to be an rdf file.",
+      call. = FALSE
+    )
+  }
+  
+  if (!file.exists(file)) {
+    stop(
+      file, " does not exist.",
+      call. = FALSE
+    )
+  }
+  
+  invisible(file)
+}
