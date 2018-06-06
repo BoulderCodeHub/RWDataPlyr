@@ -7,6 +7,8 @@
 * `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE`, it returns an `rdf` object, otherwise it returns a character vector.
 * in `rdf_to_rwtbl()`, `scenario` is coerced into a character
 * deprecating `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
+* improved `read_rdf()` error messages (#86)
+* `rw_scen_aggregate()` will now work with unnamed `scenarios` and `NULL` `scen_names` arguments (#81)
 
 
 # RWDataPlyr 0.6.0

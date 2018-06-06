@@ -177,7 +177,7 @@ get_scen_names <- function(scenarios, scen_names)
     )
   }
   
-  if (is.null(names(scenarios)) && !missing(scen_names)) {
+  if (is.null(names(scenarios)) && !is.null(scen_names)) {
     if (length(scenarios) != length(scen_names)) {
       stop(
         "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
@@ -192,7 +192,7 @@ get_scen_names <- function(scenarios, scen_names)
       repI <- which(names(scenarios) %in% "")
       names(scenarios)[repI] <- scenarios[repI]
     }
-  } else if (is.null(names(scenarios)) && missing(scen_names)) {
+  } else if (is.null(names(scenarios)) && is.null(scen_names)) {
     names(scenarios) <- scenarios
   }
   
