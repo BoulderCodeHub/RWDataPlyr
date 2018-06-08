@@ -178,3 +178,19 @@ test_that("monthly data are equal", {
       select(Value)
   )
 })
+
+context("test the rw_scen_aggregate helpers")
+
+test_that("`get_scen_names()` works with different combinations", {
+  scens <- c("DNF,CT", "DNF,2007Dems")
+  scen_names <- c("scen1", "scen2")
+  scen_named <- scens
+  names(scen_named) <- scen_names
+  s2 <- scens
+  names(s2) <- s2
+  
+  expect_identical(RWDataPlyr:::get_scen_names(scens, scen_names), scen_named)
+  expect_identical(RWDataPlyr:::get_scen_names(scens, NULL), s2)
+  expect_error(RWDataPlyr:::get_scen_names(scen_named, scen_names))
+  expect_identical(RWDataPlyr:::get_scen_names(scen_named, NULL), scen_named)
+})

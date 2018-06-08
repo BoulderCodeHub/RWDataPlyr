@@ -14,3 +14,7 @@ custom_words <- function()
   c("asis", "crss", "CRSS", "csv", "rdf", "rdfs", "RiverWare", "riverware", 
     "RiverSMART")
 }
+
+.onUnload <- function (libpath) {
+  library.dynam.unload("RWDataPlyr", libpath)
+}

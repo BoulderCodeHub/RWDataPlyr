@@ -5,9 +5,9 @@
 #' traces matrix.
 #' 
 #' @param rwslot A matrix (months by traces) such as that returned by 
-#'   [rdf_get_slot()]. Function will error if the number of rows in `rwslot` is 
-#'   not divisible by 12, i.e., the data must be monthly for a full consecutive 
-#'   year.
+#'   [rdf_get_slot()]. Function will error if the `rwslot` does not contain 
+#'   "regular" monthly data, i.e., the data must start in January and end in
+#'   December, or start in October and end in September (water year). 
 #'   
 #' @param multFactor A factor the annual sum will be multiplied by.  Can be used 
 #'   to convert from flow to volume, or to scale all results in another manor.
@@ -29,7 +29,9 @@
 #' @rdname rwslot_aggs
 #' @export
 rwslot_annual_sum <- function(rwslot, multFactor = 1) {
-  # take each column, make it a matrix of years by 
+  # take each column, make it a matrix of years by
+  check_rwslot(rwslot, as.character(sys.call(sys.parent()))[1L])
+  
   res <- do.call(
     cbind, 
     lapply(
@@ -64,7 +66,8 @@ sumMonth2Annual <- function(rwslot, multFactor = 1)
 #' @export
 rwslot_annual_min <- function(rwslot)
 {
-	apply(rwslot, 2, trace_min_ann)
+  check_rwslot(rwslot, as.character(sys.call(sys.parent()))[1L])
+  apply(rwslot, 2, trace_min_ann)
 }
 
 #' @export
@@ -95,6 +98,7 @@ trace_min_ann <- function(traceVal)
 #' @export
 rwslot_annual_max <- function(rwslot)
 {
+  check_rwslot(rwslot, as.character(sys.call(sys.parent()))[1L])
   apply(rwslot, 2, trace_max_ann)
 }
 
@@ -144,9 +148,8 @@ rwslot_fwaac <- function(mass, flow)
     stop("In `rwslot_fwaac()`, the dimensions of `flow` and `mass` must match.")
   }
   
-  if (!is_full_monthly(nrow(mass))) {
-    stop("In `rwslot_fwaac()`, `mass` and `flow` are not divisible by 12.")
-  }
+  check_rwslot(mass, as.character(sys.call(sys.parent()))[1L])
+  check_rwslot(flow, as.character(sys.call(sys.parent()))[1L])
   
   nyear <- nrow(mass)/12
   
@@ -162,7 +165,6 @@ trace_fwaac <- function(mass, flow)
   if (!is_full_monthly(length(mass)) || !is_full_monthly(length(flow))) {
     stop('Data passed to `trace_fwaac()` is not divisible by 12')
   }
-  
   # move into a years x months matrix
   mass <- matrix(mass, ncol = 12, byrow = TRUE)
   flow <- matrix(flow, ncol = 12, byrow = TRUE)
@@ -180,4 +182,39 @@ trace_fwaac <- function(mass, flow)
 is_full_monthly <- function(x)
 {
   x%%12 == 0
+}
+
+#' is_regular_timespan checks to see if it is "regular" monthly data, i.e., 
+#' that it starts in January and ends in December, or starts in October and
+#' ends in September
+#' @param rwslot Matrix from [rdf_get_slot()]
+#' @noRd
+is_regular_timespan <- function(rwslot)
+{
+  ts_months <- ym_get_month_str(zoo::as.yearmon(attr(rwslot,"timespan")))
+  
+  all(ts_months == c("January", "December")) || 
+    all(ts_months == c("October", "September"))
+}
+
+#' Checks that the rwslot timespan is regular monthly data, and erros if it's
+#' not
+#' @noRd
+check_rwslot <- function(rwslot, func)
+{
+  if (!(is.matrix(rwslot) && "timespan" %in% names(attributes(rwslot))))
+    stop(
+      "`", func, "()`, expects a matrix with a 'timespan' attribute.",
+      call. = FALSE
+    )
+  
+  if (!is_regular_timespan(rwslot))
+    stop(
+      "`", func, "()`, expects a regular monthly timespan.\n",
+      "I.e., it should start in January and end in December or start in\n",
+      "October and end in September.",
+      call. = FALSE
+    )
+  
+  invisible(rwslot)
 }

@@ -2,7 +2,7 @@ RWDataPlyr
 =================
 
 
-| Release (v0.6.0) | Development      |
+| Release (v0.6.1) | Development      |
 |:----------------:|:----------------:|
 | [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) | [![Travis-CI Build Status](https://travis-ci.org/rabutler-usbr/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler-usbr/RWDataPlyr) |
 | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/bbb8of7uoxp52far?svg=true)](https://ci.appveyor.com/project/rabutler-usbr/rwdataplyr) |
@@ -46,6 +46,7 @@ vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
 ## Log
+* 2018-06-07: version 0.6.1 available
 * 2018-04-10: version 0.6.0 available
 * 2017-05-26: version 0.5.0 available
 * 2016-11-01: version 0.4.1.1 available. The package is now actually called RWDataPlyr.
