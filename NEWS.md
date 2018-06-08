@@ -12,6 +12,7 @@
 * `rwslot_*` functions now error if the data passed to them are not regular (January - December or October - September) (#83)
     - as part of this, the matrix returned by `rdf_get_slot()` now has a `"timespan"` attribute that corresponds to the start and end values of the rdf.
 * Updated documentation for columns returned by `rdf_aggregate()` and `rw_scen_aggregate()` (#84)
+* `rdf_aggregate()` and `rw_scen_aggregate()` gain a `verbose` parameter (#82)
 
 
 # RWDataPlyr 0.6.0

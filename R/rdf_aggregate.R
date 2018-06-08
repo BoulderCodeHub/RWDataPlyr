@@ -46,6 +46,9 @@
 #' @param cpp Boolean; if `TRUE` (default), then use [rdf_to_rwtbl2], which 
 #'   relies on C++, otherwise, use original [rdf_to_rwtbl] function. 
 #'   
+#' @param verbose Boolean; if `TRUE` (default), then print out status of 
+#'   processing the scenario(s) and the slots in each scenario.
+#'   
 #' @examples 
 #' # rdf_aggregate() ----------
 #' 
@@ -72,7 +75,8 @@ rdf_aggregate <- function(agg,
                           keep_cols = FALSE,
                           nans_are = "0",
                           find_all_slots = TRUE,
-                          cpp = TRUE)
+                          cpp = TRUE,
+                          verbose = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
@@ -94,6 +98,8 @@ rdf_aggregate <- function(agg,
   }
   
   rdf_len <- seq_len(length(rdfs))
+  
+  if (verbose) rdf_agg_msg(agg)
   
   if (cpp) {
     rwtblsmmry <- lapply(
@@ -326,4 +332,21 @@ build_missing_slot_values <- function(slot_agg_row)
     ObjectSlot = slot_agg_row$slot,
     Value = NaN
   )
+}
+
+rdf_agg_msg <- function(agg)
+{
+  rdfs <- unique(agg$file)
+  
+  lapply(seq_len(length(rdfs)), function(x) {
+    rwa2 <- agg[agg$file == rdfs[x],]
+    if("all" %in% rwa2$slot){
+      message("   Processing all slots in ", rdfs[x])
+    } else{
+      slot <- if(nrow(rwa2) == 1) "slot" else "slots"
+      message("   Processing ", nrow(rwa2), " ", slot, " in ", rdfs[x])
+    }
+  })
+  
+  invisible(agg)
 }
