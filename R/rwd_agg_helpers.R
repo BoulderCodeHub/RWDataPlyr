@@ -69,7 +69,7 @@ rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
     )
   }
     
-  write.csv(x, file.path(path, file), row.names = FALSE)
+  utils::write.csv(x, file.path(path, file), row.names = FALSE)
 }
 
 #' Read in a rwd_agg file
@@ -108,5 +108,5 @@ read_rwd_agg <- function(file)
   if (!file.exists(file))
     stop(file, " does not exist.", call. = FALSE)
   
-  rwd_agg(read.csv(file, stringsAsFactors = FALSE))
+  rwd_agg(utils::read.csv(file, stringsAsFactors = FALSE))
 }
