@@ -8,7 +8,6 @@ RWDataPlyr
 | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/bbb8of7uoxp52far?svg=true)](https://ci.appveyor.com/project/rabutler-usbr/rwdataplyr) |
 | [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr) | [![codecov](https://codecov.io/gh/rabutler-usbr/RWDataPlyr/branch/master/graph/badge.svg)](https://codecov.io/gh/rabutler-usbr/RWDataPlyr)
 
-
 ## Overview
 
 RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations in rdf, csv, and nc formats and work with those data in a dplyr pipeline. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
