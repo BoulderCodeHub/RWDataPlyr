@@ -68,7 +68,7 @@ RiverWare and RiverSMART can create data (rdf, csv, nc) for one or more scenario
 
 Both rdf and csv files can be read into R using `read_rdf()` and `read_rw_csv()`. 
 
-`read_rdf()` returns an `rdf` object; to be useful, the rdf object must be converted to a `tbl_df` using `rdf_to_rwtbl()` or individual slot data can be obtained using `rdf_get_slot()`. `rdf_get_slot()` creates a timestep by traces matrix for a single slot. Several useful summary functions are available to summarize a single slot: `rwslot_annual_sum()`, `rwslot_annual_min()`, `rwslot_annual_max()`. A typical workflow to obtain the minimum annual Mead pool elevation from the included sample data might be:
+`read_rdf()` returns an `rdf` object; to be useful, the rdf object must be converted to a `tbl_df` using `rdf_to_rwtbl2()` or individual slot data can be obtained using `rdf_get_slot()`. `rdf_get_slot()` creates a timestep by traces matrix for a single slot. Several useful summary functions are available to summarize a single slot: `rwslot_annual_sum()`, `rwslot_annual_min()`, `rwslot_annual_max()`. A typical workflow to obtain the minimum annual Mead pool elevation from the included sample data might be:
 
 ```{r oneScen}
 library(RWDataPlyr)
@@ -102,7 +102,7 @@ read_rw_csv(system.file(
   as.data.frame()
 ```
 
-The fields that are stored in csv files are controlled by the user in RiverWare. Depending on which fields the user specifies in RiverWare and the `keep_cols` options provided by the user, `read_rw_csv(x)` is approximately equal to `rdf_to_rwtbl(read_rdf(y), keep_cols = TRUE)` if `x` is a csv file and `y` is an rdf file that contain the same RiverWare slots.
+The fields that are stored in csv files are controlled by the user in RiverWare. Depending on which fields the user specifies in RiverWare and the `keep_cols` options provided by the user, `read_rw_csv(x)` is approximately equal to `rdf_to_rwtbl2(read_rdf(y), keep_cols = TRUE)` if `x` is a csv file and `y` is an rdf file that contain the same RiverWare slots.
 
 ### Summarizing Multiple Slots of Data From a Single Scenario
 
