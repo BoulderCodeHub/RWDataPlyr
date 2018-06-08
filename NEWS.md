@@ -1,6 +1,6 @@
 # RWDataPlyr 0.6.1
 
-*Released June 7, 2018*
+*Released June 8, 2018*
 
 ## Minor new features
 
@@ -10,6 +10,8 @@
     - Deprecate `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
     - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatability with C++ and comparsion between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
 * `rdf_aggregate()` and `rw_scen_aggregate()` gain a `verbose` parameter to print out the status of processing multiple scenarios, rdfs, and slots. (#82)
+* A new function (`rwd_agg_template()`) to create a blank template (or with examples: `examples = TRUE`) csv file to use to create `rwd_agg` objects. (#78)
+* A new function (`read_rwd_agg()`) to read in csv files as `rwd_agg` objects. (#70)
 
 ## Bug fixes
 
