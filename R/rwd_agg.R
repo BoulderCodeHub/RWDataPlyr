@@ -4,7 +4,7 @@
 #' `rwd_agg()` creates a RiverWare data aggregator (`rwd_agg`) object, which 
 #' lets users specify how specific RiverWare slots should be aggregated.
 #' 
-#' `rwd_agg` objects can be created in two ways:
+#' `rwd_agg` objects can be created in three ways:
 #' 1. By providing a data.frame, with the following expected columns `file`, 
 #'   `slot`, `period`, `summary`, `eval`, `t_s`, and `variable`. Each row in the
 #'   data.frame should include all of the information for how each individual
@@ -19,6 +19,11 @@
 #'    case version of the object_slot name. If the slot name is "Pool Elevation", 
 #'    it is shortened to "pe", otherwise the full object and slot name are used. 
 #'    If there are any spaces, they are replaced with underscores.
+#'    
+#'  3. By reading in a csv file with [read_rwd_agg()]. This csv file must have 
+#'     the correct column names and meet other requirements described below. To
+#'     ensure it has the correct column names, [rwd_agg_template()] can be used
+#'     to create a blank csv file for the user to fill in. 
 #'   
 #' @section Aggregation Specification:
 #' 
@@ -149,6 +154,8 @@
 #' 
 #' # get all the monthly slots in KeySlots.rdf
 #' rwd_agg(rdfs = "KeySlots.rdf")
+#' 
+#' @seealso [rwd_agg_template()], [read_rwd_agg()]
 #'
 #' @export
 

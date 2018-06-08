@@ -112,8 +112,15 @@ To summarize and process multiple slots of data from a single scenario at once, 
 
 #### rwd_agg
 
-`rwd_agg` objects are data.frames with specific column names and expected values in those columns. The expected column names are `file`, `slot`, `period`, `summary`, `eval`, `t_s`, and `variable` in that order. It is up to the user to specify which rdf file contains each slot. In a general case, the user specifies the `slot` that is found in a specific rdf file (`file`). A `summary` function is applied to a subset `period` of the `slot` data, and then compared (`eval`) to a threshold (`t_s`) and saved as the `variable`. In order to specify how each slot should be aggregated, each column should
- include specific keywords, which are described below. 
+`rwd_agg` objects are data.frames with specific column names and expected values in those columns. The expected column names are `file`, `slot`, `period`, `summary`, `eval`, `t_s`, and `variable` in that order. It is up to the user to specify which rdf file contains each slot. In a general case, the user specifies the `slot` that is found in a specific rdf file (`file`). A `summary` function is applied to a subset `period` of the `slot` data, and then compared (`eval`) to a threshold (`t_s`) and saved as the `variable`. 
+ 
+`rwd_agg` objects can be specified in three ways:
+
+1. By providing a data.frame with the expected column names (see below).
+2. By providing a vector of rdf file names using the `rdfs` parameter. If specified in this manor, all of the slots in each rdf file will be read into a `rwtbl`, but will not be aggregated/summarized.
+3. By reading in a csv file, with the expected column names (see below), using `read_rdf_agg()`. The user may first use `rdf_agg_template()` to create a blank template, to help ensure it has the correct column names.
+
+In order to specify how each slot should be aggregated, each column should include specific keywords, which are described below. 
 
 * *file:* specifies the rdf file that contains the slot.
 * *slot:* the full RiverWare slot name, i.e., "Object.Slot".

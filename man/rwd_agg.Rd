@@ -18,7 +18,7 @@ rwd_agg(x = NULL, rdfs = NULL)
 lets users specify how specific RiverWare slots should be aggregated.
 }
 \details{
-\code{rwd_agg} objects can be created in two ways:
+\code{rwd_agg} objects can be created in three ways:
 \enumerate{
 \item By providing a data.frame, with the following expected columns \code{file},
 \code{slot}, \code{period}, \code{summary}, \code{eval}, \code{t_s}, and \code{variable}. Each row in the
@@ -34,6 +34,10 @@ In this case, the \code{variable} names are automatically constructed from the
 case version of the object_slot name. If the slot name is "Pool Elevation",
 it is shortened to "pe", otherwise the full object and slot name are used.
 If there are any spaces, they are replaced with underscores.
+\item By reading in a csv file with \code{\link[=read_rwd_agg]{read_rwd_agg()}}. This csv file must have
+the correct column names and meet other requirements described below. To
+ensure it has the correct column names, \code{\link[=rwd_agg_template]{rwd_agg_template()}} can be used
+to create a blank csv file for the user to fill in.
 }
 }
 \section{Aggregation Specification}{
@@ -159,4 +163,7 @@ rwd_agg(
 # get all the monthly slots in KeySlots.rdf
 rwd_agg(rdfs = "KeySlots.rdf")
 
+}
+\seealso{
+\code{\link[=rwd_agg_template]{rwd_agg_template()}}, \code{\link[=read_rwd_agg]{read_rwd_agg()}}
 }

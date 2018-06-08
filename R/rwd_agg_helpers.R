@@ -73,17 +73,21 @@ rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
 #' 
 #' `read_rwd_agg()` reads in a csv file and creates a [rwd_agg] object. 
 #' Therefore, if the csv file is not properly formatted to contain the correct
-#' information for a [rwd_agg] object, it will fail.
+#' information for a [rwd_agg] object, it will fail. [rwd_agg_template()] will
+#' create a blank template file for the user to fill in, which has the correct 
+#' headers.
 #' 
 #' @param file The csv file to be read in and converted
 #' 
-#' @examples 
-#' read_rwd_agg(
-#'   System.file(
+#' @examples
+#' read_rwd_agg( 
+#'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
-#'     package = "RWDataPlyr
+#'     package = "RWDataPlyr"
 #'   )
 #' )
+#' 
+#' @seealso [rwd_agg_template()]
 #' 
 #' @export
 
