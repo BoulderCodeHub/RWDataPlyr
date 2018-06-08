@@ -146,11 +146,13 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 #' `read.rdf2()` is deprecated and will be removed in a future release.
 #' 
 #' @param iFile The input rdf file that will be read into R.
+#' @param rdf Boolean; if `TRUE`, then an rdf object is returned. If `FALSE`, 
+#'   then a character vector is returned.
 #' 
-#' @return An rdf object.
+#' @return An rdf object or character vector.
 #'   
 #' @examples
-#' zz <- read.rdf(system.file(
+#' zz <- read_rdf(system.file(
 #'   'extdata/Scenario/ISM1988_2014,2007Dems,IG,Most', 
 #'   "KeySlots.rdf", 
 #'   package = "RWDataPlyr"
@@ -158,10 +160,9 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
 #' 
 #' @export
 
-read.rdf <- function(iFile)
+read.rdf <- function(iFile, rdf = TRUE)
 {
-  stopifnot(tools::file_ext(iFile) == "rdf")
-  stopifnot(file.exists(iFile))
+  check_rdf_file(iFile)
   
   rdf.obj <- list()
   # read entire file into memory
@@ -171,6 +172,10 @@ read.rdf <- function(iFile)
     header = FALSE, 
     data.table = FALSE
   ))
+  
+  if (!rdf) {
+    return(rdf.mat)
+  }
   
   rdf.obj$position <- 1 # initialize where to read from
   rdf.obj <- read_rdf_meta(rdf.mat, rdf.obj)
@@ -198,9 +203,28 @@ read.rdf2 <- function(iFile)
 {
   .Deprecated("read.rdf")
   
-  read.rdf(iFile)
+  read.rdf(iFile, rdf = TRUE)
 }
 
 #' @rdname read.rdf
 #' @export
 read_rdf <- read.rdf
+
+check_rdf_file <- function(file)
+{
+  if (tools::file_ext(file) != "rdf") {
+    stop(
+      file, " does not appear to be an rdf file.",
+      call. = FALSE
+    )
+  }
+  
+  if (!file.exists(file)) {
+    stop(
+      file, " does not exist.",
+      call. = FALSE
+    )
+  }
+  
+  invisible(file)
+}

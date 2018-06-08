@@ -26,9 +26,9 @@ rwslot_fwaac(mass, flow)
 }
 \arguments{
 \item{rwslot}{A matrix (months by traces) such as that returned by
-\code{\link[=rdf_get_slot]{rdf_get_slot()}}. Function will error if the number of rows in \code{rwslot} is
-not divisible by 12, i.e., the data must be monthly for a full consecutive
-year.}
+\code{\link[=rdf_get_slot]{rdf_get_slot()}}. Function will error if the \code{rwslot} does not contain
+"regular" monthly data, i.e., the data must start in January and end in
+December, or start in October and end in September (water year).}
 
 \item{multFactor}{A factor the annual sum will be multiplied by.  Can be used
 to convert from flow to volume, or to scale all results in another manor.}

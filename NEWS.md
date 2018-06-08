@@ -1,3 +1,24 @@
+# RWDataPlyr 0.6.1
+
+*Released June 7, 2018*
+
+## Minor new features
+
+* A new function, `rdf_to_rwtbl2()`, was added to try and improve performance of `rdf_aggregate()`, and `rw_scen_aggregate()`. (#85) These functions were shown to be about 6x - 7x slower than `getDataForAllScens()` for the same aggregation. The new function calls a C++ version that creates the tbl_df, while maintaining the same information as `rdf_to_rwtbl()`. The API for the new function is slighly different; the first argument is now a path to an rdf file, rather than an already read in `rdf` object. Otherwise, the same options are available. The C++ version of `rdf_to_twbl()` is about 20x faster than the R version. However, `rdf_aggregate()`, and `rw_scen_aggregate()` are still about 4x slower than `getDataForAllScens()`, indicating that there is still some necesary work to get closer speeds between the two functions (#90).  As part of this work, the following modifications to other functions were made: 
+    - `rw_scen_aggregate()` and `rdf_aggregate()` gain `cpp` arguments. By default, `rdf_to_rwtbl2()` is used, but `rdf_to_rwtbl()` can be foreced by setting `cpp = FALSE`.
+    - `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE` (default), it returns an `rdf` object, otherwise it returns a character vector.
+    - Deprecate `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
+    - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatability with C++ and comparsion between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
+* `rdf_aggregate()` and `rw_scen_aggregate()` gain a `verbose` parameter to print out the status of processing multiple scenarios, rdfs, and slots. (#82)
+
+## Bug fixes
+
+* Improved `read_rdf()` error messages (#86)
+* `rw_scen_aggregate()` will now work with unnamed `scenarios` and `NULL` `scen_names` arguments. (#81)
+* `rwslot_*` functions now error if the data passed to them are not regular (January - December or October - September) (#83)
+    - As part of this, the matrix returned by `rdf_get_slot()` now has a `"timespan"` attribute that corresponds to the start and end values of the rdf.
+* Updated documentation for columns returned by `rdf_aggregate()` and `rw_scen_aggregate()`. Now it is clear that the `Timestep` columns is not returned. (#84)
+
 # RWDataPlyr 0.6.0
 
 *Released April 10, 2018*

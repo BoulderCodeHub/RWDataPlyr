@@ -27,6 +27,7 @@ mSum <- as.data.frame(rwslot_annual_sum(mReg))
 p800 <- as.data.frame((rwslot_annual_min(pReg) <= 800000) * 1)
 
 pPad <- rbind(pReg[1,], pReg[1,], pReg[1,], pReg)[seq_len(nrow(pReg)),]
+attr(pPad, "timespan") <- c("October 2000", "September 2004")
 p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
 p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
@@ -72,16 +73,17 @@ salMonthly <- slot_agg_list(matrix(c(
   ncol = 5, byrow = TRUE
 ))
 
-zzMonthly <- getDataForAllScens(
-  scenFolders = "ISM1988_2014,2007Dems,IG,Most", 
-  scenNames = "ISM1988_2014,2007Dems,IG,Most", 
-  slotAggList = salMonthly,
-  scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-  oFile = "tmp.feather",
-  retFile = TRUE
-) %>%
-  mutate(monthNum = match(Month, month.name))
-
+zzMonthly <- expect_warning(
+    getDataForAllScens(
+    scenFolders = "ISM1988_2014,2007Dems,IG,Most", 
+    scenNames = "ISM1988_2014,2007Dems,IG,Most", 
+    slotAggList = salMonthly,
+    scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
+    oFile = "tmp.feather",
+    retFile = TRUE
+  ) %>%
+    mutate(monthNum = match(Month, month.name))
+)
 # compare the results computed by getDataForAllScen -> processSlots
 # to those computed by hand using rdf_get_slot
 test_that("processSlots monthly to annual aggregation methods work", {
@@ -177,6 +179,7 @@ pPad <- rbind(
   pReg[1,], 
   pReg[1,], pReg
 )[seq_len(nrow(pReg)),, drop = FALSE]
+attr(pPad, "timespan") <- c("October 2000", "September 2004")
 p750 <- as.data.frame((rwslot_annual_min(pPad) <= 750000) * 1)
 
 p500 <- as.data.frame((rwslot_annual_max(pPad) <= 500000) * 1)
@@ -187,16 +190,18 @@ m1100 <- as.data.frame((mReg[seq(12,nrow(mReg),12),, drop = FALSE] >= 1100) * 1)
 
 stScen <- "T13,CT,IG"
 
-zzMonthly <- getDataForAllScens(
-  scenFolders = stScen, 
-  scenNames = stScen, 
-  slotAggList = salMonthly,
-  scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-  oFile = "tmp.feather",
-  retFile = TRUE
-) %>%
-  mutate(monthNum = match(Month, month.name))
+zzMonthly <- expect_warning(
+  getDataForAllScens(
+    scenFolders = stScen, 
+    scenNames = stScen, 
+    slotAggList = salMonthly,
+    scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
+    oFile = "tmp.feather"
+  ) %>%
+    mutate(monthNum = match(Month, month.name))
+)
 on.exit(file.remove(c("tmp.feather")))
+
 test_that("processSlots mon to ann agg methods work for rdf with 1 trace", {
   expect_warning(
     zz <- getDataForAllScens(
