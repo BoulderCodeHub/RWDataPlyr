@@ -194,7 +194,7 @@ validate_rwd_agg <- function(x)
     x <- as.data.frame(x, stringsAsFactors = FALSE)
   
   cols <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
-  if (ncol(x) != 7 | !all(colnames(x) == cols)) {
+  if (ncol(x) != 7 || !all(colnames(x) == cols)) {
     stop(
       "The `colnames(x)` must be exactly: ", paste(cols, collapse = ", "), 
       call. = FALSE

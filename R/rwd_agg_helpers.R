@@ -42,8 +42,11 @@ rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
   if (tools::file_ext(file) != "csv")
     stop("`rdf_agg_template()` expects `file` to be a .csv file", call. = FALSE)
   
+  if (!dir.exists(path)) 
+    stop(path, " does not exist")
+  
   if (examples) {
-    x <- setNames(data.frame(matrix( 
+    x <- stats::setNames(data.frame(matrix( 
         c("KeySlots.rdf", "Mead.Pool Elevation", "asis", NA, NA, NA, "powellPe", 
         "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "<", 8230000, "pwylt823",
         "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, 0.001, "pjulrel",
@@ -57,7 +60,7 @@ rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
     )
     
   } else {
-    x <- setNames(
+    x <- stats::setNames(
       data.frame(
         matrix(ncol = 7, nrow = 0),
         stringsAsFactors = FALSE
