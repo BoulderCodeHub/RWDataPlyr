@@ -1,6 +1,6 @@
 #' Create a `rwd_agg` template
 #' 
-#' `rwd_agg_template` creates a template csv file to use to create a RiverWare 
+#' `rwd_agg_template()` creates a template csv file to use to create a RiverWare 
 #' data aggregator ([rwd_agg]). 
 #' 
 #' @param file The file name to use for the template
@@ -16,6 +16,8 @@
 #' rwd_agg_template(file = "rwa_keyslots.csv")
 #' 
 #' @seealso [read_rwd_agg()]
+#' 
+#' @export
 
 rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
 {
@@ -67,3 +69,37 @@ rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
   write.csv(x, file.path(path, file), row.names = FALSE)
 }
 
+#' Read in a rwd_agg file
+#' 
+#' `read_rwd_agg()` reads in a csv file and creates a [rwd_agg] object. 
+#' Therefore, if the csv file is not properly formatted to contain the correct
+#' information for a [rwd_agg] object, it will fail.
+#' 
+#' @param file The csv file to be read in and converted
+#' 
+#' @examples 
+#' read_rwd_agg(
+#'   System.file(
+#'     "extdata/rwd_agg_files/passing_aggs.csv", 
+#'     package = "RWDataPlyr
+#'   )
+#' )
+#' 
+#' @export
+
+read_rwd_agg <- function(file)
+{
+  if (length(file) != 1 || 
+      !is.character(file) || 
+      tools::file_ext(file) != "csv") {
+    stop(
+      "`read_rwd_agg()` expects `file` to be a length 1, character, with a .csv extension", 
+      call. = FALSE
+    )
+  }
+  
+  if (!file.exists(file))
+    stop(file, " does not exist.", call. = FALSE)
+  
+  rwd_agg(read.csv(file, stringsAsFactors = FALSE))
+}
