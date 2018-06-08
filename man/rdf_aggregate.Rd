@@ -6,11 +6,11 @@
 \title{Aggregate RiverWare output for one or more scenarios}
 \usage{
 rdf_aggregate(agg, rdf_dir = ".", scenario = NULL, keep_cols = FALSE,
-  nans_are = "0", find_all_slots = TRUE, cpp = TRUE)
+  nans_are = "0", find_all_slots = TRUE, cpp = TRUE, verbose = TRUE)
 
 rw_scen_aggregate(scenarios, agg, scen_dir = ".", nans_are = "0",
   keep_cols = FALSE, file = NULL, scen_names = NULL,
-  find_all_slots = TRUE, cpp = TRUE)
+  find_all_slots = TRUE, cpp = TRUE, verbose = TRUE)
 }
 \arguments{
 \item{agg}{A \link{rwd_agg} object specifying the rdfs, slots, and
@@ -26,7 +26,7 @@ character if it is not already a character.}
 \item{keep_cols}{Either boolean, or a character vector of column names to
 keep in the returned tibble. The values of \code{keep_cols} work as follows:
 \itemize{
-\item \code{FALSE} (default) only includes the defaults columns: \code{Timestep},
+\item \code{FALSE} (default) only includes the defaults columns:
 \code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
 \code{scenario} is specified.
 \item \code{TRUE}, all columns are returned.
@@ -48,6 +48,9 @@ Value.}
 
 \item{cpp}{Boolean; if \code{TRUE} (default), then use \link{rdf_to_rwtbl2}, which
 relies on C++, otherwise, use original \link{rdf_to_rwtbl} function.}
+
+\item{verbose}{Boolean; if \code{TRUE} (default), then print out status of
+processing the scenario(s) and the slots in each scenario.}
 
 \item{scenarios}{A character vector of scenario foders. This is usually a
 vector of folder names, where each folder name contains one scenario worth

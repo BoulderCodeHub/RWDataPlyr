@@ -6,7 +6,7 @@ slot_agg_matrix <- rwd_agg(read.csv(
   stringsAsFactors = FALSE
 ))[1:5,]
 
-rwtbl <- rdf_to_rwtbl(keyRdf)
+rwtbl <- expect_warning(rdf_to_rwtbl(keyRdf))
 
 # check results --------------------------
 test_that("apply_eval works as expected", {

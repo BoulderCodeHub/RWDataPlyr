@@ -106,7 +106,8 @@ rw_scen_aggregate <- function(scenarios,
                               file = NULL, 
                               scen_names = NULL,
                               find_all_slots = TRUE,
-                              cpp = TRUE)
+                              cpp = TRUE,
+                              verbose = TRUE)
 {
   # check all UI --------------------
   if (!is.rwd_agg(agg)) {
@@ -129,10 +130,13 @@ rw_scen_aggregate <- function(scenarios,
 
   scenarios <- get_scen_names(scenarios, scen_names)
   
+  if (verbose) rw_scen_agg_msg(scenarios)
   # aggregate all scenarios -------------
+  
   nScen <- seq_len(length(scenarios))
   
   rwscenagg <- lapply(nScen, function(x) {
+    if (verbose) rw_scen_agg_msg(scenarios, x)
     
     rdf_aggregate(
       agg, 
@@ -141,7 +145,8 @@ rw_scen_aggregate <- function(scenarios,
       keep_cols = keep_cols,
       nans_are = nans_are,
       find_all_slots = find_all_slots,
-      cpp = cpp
+      cpp = cpp,
+      verbose = verbose
     )
   })
   rwd_agg <- attr(rwscenagg[[1]], "rwd_agg")
@@ -177,7 +182,7 @@ get_scen_names <- function(scenarios, scen_names)
     )
   }
   
-  if (is.null(names(scenarios)) && !missing(scen_names)) {
+  if (is.null(names(scenarios)) && !is.null(scen_names)) {
     if (length(scenarios) != length(scen_names)) {
       stop(
         "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
@@ -192,7 +197,7 @@ get_scen_names <- function(scenarios, scen_names)
       repI <- which(names(scenarios) %in% "")
       names(scenarios)[repI] <- scenarios[repI]
     }
-  } else if (is.null(names(scenarios)) && missing(scen_names)) {
+  } else if (is.null(names(scenarios)) && is.null(scen_names)) {
     names(scenarios) <- scenarios
   }
   
@@ -247,4 +252,18 @@ check_rw_agg_file <- function(file)
   }
   
   invisible(file)
+}
+
+rw_scen_agg_msg <- function(scenarios, n = NA_integer_)
+{
+  if (is.na(n)) {
+    scen <- if (length(scenarios) == 1) "scenario" else "scenarios"
+    message("Processing ", length(scenarios), " total ", scen, ".\n",
+            "------------------")
+  } else {
+    message("** Starting scenario ", n, " of ", length(scenarios), ": ", 
+            scenarios[n])
+  }
+  
+  invisible(scenarios)
 }

@@ -16,19 +16,38 @@
 #' 
 #' @param agg A [rwd_agg] object specifying the rdfs, slots, and 
 #'   aggregation methods to use.
+#'   
 #' @param rdf_dir The top level directory that contains the rdf files. See
 #'   **Directory Structure**.
+#'   
+#' @param keep_cols Either boolean, or a character vector of column names to 
+#'   keep in the returned tibble. The values of `keep_cols` work as follows:
+#'   * `FALSE` (default) only includes the defaults columns:  
+#'   `TraceNumber`, `ObjectSlot`, and `Value`. `Scenario` is also returned if 
+#'   `scenario` is specified.
+#'   * `TRUE`, all columns are returned.
+#'   * A character vector, e.g., `c("ObjectName", "Units")`, allows the user to 
+#'   include other columns that are not always required, in addition to the 
+#'   "default" set of columns. If any of the values in `keep_cols` are not 
+#'   found, a warning will post, but all other columns will be returned.
+#'    
 #' @inheritParams rdf_to_rwtbl
+#' 
 #' @param nans_are Either "0" or "error". If "0", then `NaN`s in the rwtbl are
 #'   treated as 0s. If "error", then any `NaN`s will cause an error in this 
 #'   function.
+#'   
 #' @param find_all_slots Boolean; if `TRUE` (default), then the function will 
 #'   abort if it cannot find a particular slot. If `FALSE`, then the function 
 #'   will continue, even if a slot cannot be found. If a slot is not found, 
 #'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
 #'   Value.
+#'   
 #' @param cpp Boolean; if `TRUE` (default), then use [rdf_to_rwtbl2], which 
 #'   relies on C++, otherwise, use original [rdf_to_rwtbl] function. 
+#'   
+#' @param verbose Boolean; if `TRUE` (default), then print out status of 
+#'   processing the scenario(s) and the slots in each scenario.
 #'   
 #' @examples 
 #' # rdf_aggregate() ----------
@@ -56,7 +75,8 @@ rdf_aggregate <- function(agg,
                           keep_cols = FALSE,
                           nans_are = "0",
                           find_all_slots = TRUE,
-                          cpp = TRUE)
+                          cpp = TRUE,
+                          verbose = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
@@ -78,6 +98,8 @@ rdf_aggregate <- function(agg,
   }
   
   rdf_len <- seq_len(length(rdfs))
+  
+  if (verbose) rdf_agg_msg(agg)
   
   if (cpp) {
     rwtblsmmry <- lapply(
@@ -310,4 +332,21 @@ build_missing_slot_values <- function(slot_agg_row)
     ObjectSlot = slot_agg_row$slot,
     Value = NaN
   )
+}
+
+rdf_agg_msg <- function(agg)
+{
+  rdfs <- unique(agg$file)
+  
+  lapply(seq_len(length(rdfs)), function(x) {
+    rwa2 <- agg[agg$file == rdfs[x],]
+    if("all" %in% rwa2$slot){
+      message("   Processing all slots in ", rdfs[x])
+    } else{
+      slot <- if(nrow(rwa2) == 1) "slot" else "slots"
+      message("   Processing ", nrow(rwa2), " ", slot, " in ", rdfs[x])
+    }
+  })
+  
+  invisible(agg)
 }

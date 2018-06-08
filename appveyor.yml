@@ -18,7 +18,7 @@ environment:
   matrix:
   - R_VERSION: release
     R_ARCH: x64
-    PKGTYPE: both
+    PKGTYPE: source
 
   - R_VERSION: oldrel
     RTOOLS_VERSION: 34
@@ -27,9 +27,11 @@ environment:
   - R_VERSION: devel
     R_ARCH: x64
     GCC_PATH: mingw_64
+    PKGTYPE: source
 
   - R_VERSION: devel
     GCC_PATH: mingw_32
+    PKGTYPE: source
 
 build_script:
   - travis-tool.sh install_deps

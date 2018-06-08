@@ -2,7 +2,9 @@ library(RWDataPlyr)
 context('check simple aggregation methods')
 
 simpMat <- matrix(1:48, ncol = 2)
+attr(simpMat, "timespan") <- c("Jan 2000", "Dec 2001")
 pe <- rdf_get_slot(keyRdf, 'Mead.Pool Elevation')[1:36,1:4]
+attr(pe, "timespan") <- c("Jan 2000", "Dec 2002")
 
 # rwslot_annual_min -------------------
 
@@ -98,8 +100,14 @@ test_that("`trace_fwaac()` returns correct Values", {
 
 flow <- cbind(flow, flow)
 flow <- rbind(flow, flow, flow, flow)
+attr(flow, "timespan") <- c("January 2000", "December 2003")
+f2 <- flow[1:40,]
+attr(f2, "timespan") <- c("January 2000", "April 2003")
 saltMass <- cbind(saltMass, saltMass)
 saltMass <- rbind(saltMass, saltMass, saltMass, saltMass)
+attr(saltMass, "timespan") <- c("January 2000", "December 2003")
+s2 <- saltMass[1:40,]
+attr(s2, "timespan") <- c("January 2000", "April 2003")
 
 test_that("`rwslot_fwaac() returns correct values", {
   expect_is(tmp <- rwslot_fwaac(saltMass, flow), "matrix")
@@ -119,8 +127,41 @@ test_that("`rwslot_fwaac() errors correctly", {
     fixed = TRUE
   )
   expect_error(
-    rwslot_fwaac(saltMass[1:40,], flow[1:40,]),
-    "In `rwslot_fwaac()`, `mass` and `flow` are not divisible by 12.", 
+    rwslot_fwaac(s2, f2),
+    paste0(
+      "`eval()`, expects a regular monthly timespan.\n",
+      "I.e., it should start in January and end in December or start in\n",
+      "October and end in September."
+    ), 
     fixed = TRUE
   )
+})
+
+# errors --------------------------------
+
+rdf <- read_rdf("../rdfs/apr_start.rdf")
+p1 <- rdf_get_slot(rdf, "Powell.Outflow")
+m1 <- rdf_get_slot(rdf, "Mead.Pool Elevation")
+e1 <- paste0(
+  "`eval()`, expects a regular monthly timespan.\n",
+  "I.e., it should start in January and end in December or start in\n",
+  "October and end in September."
+)
+
+e2 <- "`eval()`, expects a matrix with a 'timespan' attribute."
+
+test_that("errors for irregular data, or non matrices work", {
+  expect_error(rwslot_annual_max(p1), e1, fixed = TRUE)
+  expect_error(rwslot_annual_min(m1), e1, fixed = TRUE)
+  expect_error(rwslot_annual_sum(p1), e1, fixed = TRUE)
+  
+  p1 <- rdf_get_slot(keyRdf, "Powell.Outflow")
+  attr(p1, "timespan") <- NULL
+  expect_error(rwslot_annual_max(p1), e2, fixed = TRUE)
+  expect_error(rwslot_annual_min(p1), e2, fixed = TRUE)
+  expect_error(rwslot_annual_sum(p1), e2, fixed = TRUE)
+  
+  expect_error(rwslot_annual_max(rdf), e2, fixed = TRUE)
+  expect_error(rwslot_annual_min(rdf), e2, fixed = TRUE)
+  expect_error(rwslot_annual_sum(rdf), e2, fixed = TRUE)
 })
