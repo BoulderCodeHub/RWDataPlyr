@@ -30,6 +30,9 @@ environment:
 
   - R_VERSION: devel
     GCC_PATH: mingw_32
+    
+before_build:
+  - Rscript -e options('install.packages.compile.from.source'='always')
 
 build_script:
   - travis-tool.sh install_deps
