@@ -18,7 +18,7 @@ environment:
   matrix:
   - R_VERSION: release
     R_ARCH: x64
-    PKGTYPE: source
+    PKGTYPE: both
 
   - R_VERSION: oldrel
     RTOOLS_VERSION: 34
@@ -30,11 +30,9 @@ environment:
 
   - R_VERSION: devel
     GCC_PATH: mingw_32
-    
-before_build:
-  - Rscript -e options('install.packages.compile.from.source'='always')
 
 build_script:
+  - Rscript -e options('install.packages.compile.from.source'='always')
   - travis-tool.sh install_deps
 
 test_script:
