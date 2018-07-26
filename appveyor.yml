@@ -32,7 +32,8 @@ environment:
     GCC_PATH: mingw_32
 
 build_script:
-  - Rscript -e options('install.packages.compile.from.source'='always')
+  - Rscript -e if(!file.exists('~/.Rprofile'))(file.create('~/.Rprofile'));write('options(\"install.packages.compile.from.source\"=\\\"always\\\")','~/.Rprofile',append=TRUE)
+  - Rscript -e print(getOption('install.packages.compile.from.source'))
   - travis-tool.sh install_deps
 
 test_script:
