@@ -1,6 +1,6 @@
 Package: RWDataPlyr
 Version: 0.6.1
-Title: Read and manipulate data from RiverWare 
+Title: Read and Manipulate Data from RiverWare 
 Description: A tool to read and manipulate data generated from RiverWare(TM) 
     (riverware.org) simulations. RiverWare and RiverSMART generate data in 
     "rdf", "csv", and "nc" format. This package provides an interface to read, 
