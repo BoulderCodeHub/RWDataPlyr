@@ -6,7 +6,9 @@
 
 ## R CMD check results
 
-There are no notes or errors, except that this is the first CRAN submission of this package.
+0 ERRORs | 0 WARNINGs | 1 NOTE
+
+The only note identifies that this is the first CRAN submission of this package.
 
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
