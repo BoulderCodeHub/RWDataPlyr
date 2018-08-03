@@ -1,0 +1,12 @@
+## Test environments
+* local Windows 10 Enterprise, R 3.4.4, R 3.5.1
+* ubuntu 14.04 (on travis-ci), R 3.5.1, 3.4.4, and R-devel
+* windows (on AppVeyor), R 3.5.1, R 3.4.4, and R-devel
+* win-builder, R-release
+
+## R CMD check results
+
+There are no notes or errors, except that this is the first CRAN submission of this package.
+
+## Downstream dependencies
+There are currently no downstream dependencies for this package.

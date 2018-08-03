@@ -33,6 +33,9 @@ Suggests:
     rmarkdown,
     testthat
 License: CC0
+Copyright: This software is in the public domain because it contains materials
+    that originally came from the U.S. Bureau of Reclamation, an agency of the
+    U.S. Department of Interior.
 LazyData: true
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)

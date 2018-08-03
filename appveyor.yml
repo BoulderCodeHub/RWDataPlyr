@@ -18,7 +18,7 @@ environment:
   matrix:
   - R_VERSION: release
     R_ARCH: x64
-    PKGTYPE: source
+    PKGTYPE: both
 
   - R_VERSION: oldrel
     RTOOLS_VERSION: 34
@@ -27,13 +27,14 @@ environment:
   - R_VERSION: devel
     R_ARCH: x64
     GCC_PATH: mingw_64
-    PKGTYPE: source
 
   - R_VERSION: devel
     GCC_PATH: mingw_32
-    PKGTYPE: source
 
 build_script:
+  - Rscript -e if(!file.exists('~/.Rprofile'))(file.create('~/.Rprofile'));write('options(\"install.packages.compile.from.source\"=\\\"always\\\")','~/.Rprofile',append=TRUE)
+  - Rscript -e print(getOption('install.packages.compile.from.source'))
+  - Rscript -e install.packages('feather',type='source',repos='https://cran.rstudio.com')
   - travis-tool.sh install_deps
 
 test_script:
