@@ -4,7 +4,7 @@
 \name{RWDataPlyr-package}
 \alias{RWDataPlyr}
 \alias{RWDataPlyr-package}
-\title{RWDataPlyr: Read and manipulate data from RiverWare}
+\title{RWDataPlyr: Read and Manipulate Data from RiverWare}
 \description{
 A tool to read and manipulate data generated from RiverWare(TM)
 (riverware.org) simulations. RiverWare and RiverSMART generate data in
