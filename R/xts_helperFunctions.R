@@ -28,11 +28,11 @@ getCyEndpoints <- function(rdfXTS)
 #' @param month Integer month(s) as a single value or a vector with 1<=month<=12
 #' @return an XTS object with the selected slot data
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peJanFeb <- getTraceMonthVal(pe, c(1, 2))
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peJanFeb <- RWDataPlyr:::getTraceMonthVal(pe, c(1, 2))
 #' 
+#' @keywords internal
+
 getTraceMonthVal <- function(rdfXTS, month)
 {
   # CHECK FOR A VALID MONTH
@@ -54,10 +54,10 @@ getTraceMonthVal <- function(rdfXTS, month)
 #'   Dec-31) or Water Year (Oct-1 to Sep-30)
 #' @return an XTS object with the selected slot annual average
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peWY <- getTraceAvg(pe, 'WY')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peWY <- RWDataPlyr:::getTraceAvg(pe, 'WY')
+#' 
+#' @keywords internal
 
 getTraceAvg <- function(rdfXTS, yearType)
 {
@@ -76,11 +76,12 @@ getTraceAvg <- function(rdfXTS, yearType)
 #' @param yearType String 'CY' or 'WY' denoting a Calendar Year (Jan-1 to 
 #'   Dec-31) or Water Year (Oct-1 to Sep-30)
 #' @return an XTS object with the selected slot annual sum
+#' 
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peWY <- getTraceSum(pe, 'WY')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peWY <- RWDataPlyr:::getTraceSum(pe, 'WY')
+#' 
+#' @keywords internal
 
 getTraceSum <- function(rdfXTS, yearType)
 {
@@ -99,11 +100,12 @@ getTraceSum <- function(rdfXTS, yearType)
 #' @param yearType String 'CY' or 'WY' denoting a Calendar Year (Jan-1 to 
 #'   Dec-31) or Water Year (Oct-1 to Sep-30)
 #' @return an XTS object with the selected slot annual minimum
+#' 
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peWY <- getTraceMin(pe, 'WY')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peWY <- RWDataPlyr:::getTraceMin(pe, 'WY')
+#' 
+#' @keywords internal
 
 getTraceMin <- function(rdfXTS, yearType)
 {
@@ -122,11 +124,12 @@ getTraceMin <- function(rdfXTS, yearType)
 #' @param yearType String 'CY' or 'WY' denoting a Calendar Year (Jan-1 to 
 #'   Dec-31) or Water Year (Oct-1 to Sep-30)
 #' @return an XTS object with the selected slot annual maximum
+#' 
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peWY <- getTraceMax(pe, 'WY')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peWY <- RWDataPlyr:::getTraceMax(pe, 'WY')
+#' 
+#' @keywords internal
 
 getTraceMax <- function(rdfXTS, yearType)
 {
@@ -146,11 +149,12 @@ getTraceMax <- function(rdfXTS, yearType)
 #'   0.0<value<1.0
 #' @return an XTS object with the selected slot data at the input exceedance 
 #'   levels
+#'   
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' pe105090 <- getTraceMax(pe, c(0.1, 0.5, 0.9))
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' pe105090 <- RWDataPlyr:::getTraceMax(pe, c(0.1, 0.5, 0.9))
+#' 
+#' @keywords internal
 
 getArrayPctl <- function(rdfXTS, pctlLevels)
 {
@@ -174,11 +178,12 @@ getArrayPctl <- function(rdfXTS, pctlLevels)
 #'   comparison
 #' @return an XTS object with the frequency in which the array of traces exceed 
 #'   a threshold
+#'   
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' peLT3575 <- getArrayThresholdExceedance(pe, 3575, 'LT')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' peLT3575 <- RWDataPlyr:::getArrayThresholdExceedance(pe, 3575, 'LT')
+#' 
+#' @keywords internal
 
 getArrayThresholdExceedance <- function(rdfXTS, valueIn, comparison)
 {

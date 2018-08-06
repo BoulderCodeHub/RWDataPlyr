@@ -88,12 +88,15 @@ peMax <- rwslot_annual_min(pe)
 pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 peMax <- rwslot_annual_max(pe)
 
-\dontrun{
-flow <- rdf_get_slot(rdf,'Powell.Outflow')
-mass <- rdf_get_slot(rdf,'Powell.Outflow Salt Mass')
-# repeat for other traces as necessary:
+flow <- rdf_get_slot(keyRdf,'Powell.Outflow')
+# make up mass, since it's not stored in the example data
+rr <- matrix(
+  rnorm((nrow(flow) * ncol(flow)), mean = 1000, sd = 200), 
+  nrow = nrow(flow), 
+  ncol = ncol(flow)
+)
+mass <- flow / 1000000 * rr^2 - rr + 1500 
 fwaac <- rwslot_fwaac(mass, flow) 
-}
 
 }
 \seealso{

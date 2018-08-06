@@ -19,8 +19,8 @@ an XTS object with the selected slot annual sum
 Get the annual sum for each trace
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-peWY <- getTraceSum(pe, 'WY')
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+peWY <- RWDataPlyr:::getTraceSum(pe, 'WY')
+
 }
-}
+\keyword{internal}

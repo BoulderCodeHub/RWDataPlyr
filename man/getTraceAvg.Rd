@@ -19,8 +19,8 @@ an XTS object with the selected slot annual average
 Get the average annual value for each trace
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-peWY <- getTraceAvg(pe, 'WY')
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+peWY <- RWDataPlyr:::getTraceAvg(pe, 'WY')
+
 }
-}
+\keyword{internal}

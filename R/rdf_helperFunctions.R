@@ -121,9 +121,9 @@ getTimeSpan <- function(rdf)
 #'   converted to a matrix
 #' @return an XTS object with the selected slot data
 #' @examples
-#' \dontrun{
-#' pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-#' }
+#' pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+#' 
+#' @keywords internal
 
 rdfSlotToXTS <- function(rdf, slot)
 {

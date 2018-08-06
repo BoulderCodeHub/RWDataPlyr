@@ -18,9 +18,8 @@ an XTS object with the selected slot data
 Get values that meet a month requirement
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-peJanFeb <- getTraceMonthVal(pe, c(1, 2))
-}
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+peJanFeb <- RWDataPlyr:::getTraceMonthVal(pe, c(1, 2))
 
 }
+\keyword{internal}
