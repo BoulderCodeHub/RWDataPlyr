@@ -10,5 +10,7 @@
 
 The only note identifies that this is the first CRAN submission of this package.
 
+This is the second submission, which addresses comments on quoting software names, and reducing the number of examples that use `\dontrun{}`. 
+
 ## Downstream dependencies
 There are currently no downstream dependencies for this package.
