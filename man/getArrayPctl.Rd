@@ -21,7 +21,7 @@ Get values at the input exceedance levels for the entire array by date
 }
 \examples{
 pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-pe105090 <- RWDataPlyr:::getTraceMax(pe, c(0.1, 0.5, 0.9))
+pe105090 <- RWDataPlyr:::getArrayPctl(pe, c(0.1, 0.5, 0.9))
 
 }
 \keyword{internal}
