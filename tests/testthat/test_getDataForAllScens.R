@@ -9,16 +9,20 @@ slotAggList <- slot_agg_list(system.file(
   package = 'RWDataPlyr'
 ))
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
-oFile <- 'tmp.txt'
+
+oPath <- file.path(tempdir(), "get_data_test")
+dir.create(oPath)
+teardown(unlink(oPath, recursive = TRUE))
+oFile <- file.path(oPath, "tmp.txt")
 
 expect_warning(keyData <- getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.txt"
+  file.path(oPath, "tmp2.txt")
 ))
-on.exit(file.remove("tmp2.txt"), add = TRUE)
+
 
 slotAggList <- list(list(rdf = 'KeySlots.rdf', slots = 'all'))
 # will return monthly data for all slots in KeySlots.rdf
@@ -29,7 +33,6 @@ expect_warning(allData <- getDataForAllScens(
   scenPath, 
   oFile
 ))
-on.exit(file.remove("tmp.txt"), add = TRUE)
 
 expectedSlotNames <- sort(paste(rdf_slot_names(keyRdf),'Monthly','1',sep='_'))
 
@@ -100,20 +103,16 @@ expect_warning(getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp.feather"
+  file.path(oPath, "tmp.feather")
 ))
-
-on.exit(file.remove(c("tmp.feather")), add = TRUE)
 
 expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp.csv"
+  oFile = file.path(oPath, "tmp.csv")
 ))
-
-on.exit(file.remove("tmp.csv"), add = TRUE)
 
 # annual (keyData)
 slotAggList <- slot_agg_list(system.file(
@@ -125,25 +124,41 @@ expect_warning(getDataForAllScens(
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.feather"
+  oFile = file.path(oPath, "tmp2.feather")
 ))
-on.exit(file.remove("tmp2.feather"), add = TRUE)
 
 expect_warning(getDataForAllScens(
   scenFolders, 
   scenNames, 
   slotAggList, 
   scenPath, 
-  "tmp2.csv"
+  oFile = file.path(oPath, "tmp2.csv")
 ))
-on.exit(file.remove("tmp2.csv"), add = TRUE)
 
 test_that("data matches regardless of file extension", {
-  expect_equal(keyData, data.table::fread("tmp2.txt", data.table = FALSE))
-  expect_equal(allData, data.table::fread("tmp.txt", data.table = FALSE))
-  expect_equal(keyData, data.table::fread("tmp2.csv", data.table = FALSE))
-  expect_equal(allData, data.table::fread("tmp.csv", data.table = FALSE))
-  expect_equal(keyData, as.data.frame(feather::read_feather("tmp2.feather")))
-  expect_equal(allData, as.data.frame(feather::read_feather("tmp.feather")))
+  expect_equal(
+    keyData, 
+    data.table::fread(file.path(oPath, "tmp2.txt"), data.table = FALSE)
+  )
+  expect_equal(
+    allData, 
+    data.table::fread(file.path(oPath, "tmp.txt"), data.table = FALSE)
+  )
+  expect_equal(
+    keyData, 
+    data.table::fread(file.path(oPath, "tmp2.csv"), data.table = FALSE)
+  )
+  expect_equal(
+    allData, 
+    data.table::fread(file.path(oPath, "tmp.csv"), data.table = FALSE)
+  )
+  expect_equal(
+    keyData, 
+    as.data.frame(feather::read_feather(file.path(oPath, "tmp2.feather")))
+  )
+  expect_equal(
+    allData, 
+    as.data.frame(feather::read_feather(file.path(oPath, "tmp.feather")))
+  )
 })
 

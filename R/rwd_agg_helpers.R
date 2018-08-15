@@ -10,16 +10,14 @@
 #'   specifying how each slot should be summarized. 
 #'   
 #' @examples 
-#' 
-#' rwd_agg_template()
-#' rwd_agg_template(examples = TRUE)
-#' rwd_agg_template(file = "rwa_keyslots.csv")
+#' rwd_agg_template(file = "rwa_slots.csv", path = tempdir())
+#' rwd_agg_template(file = "rwa_slots.csv", path = tempdir(), examples = TRUE)
 #' 
 #' @seealso [read_rwd_agg()]
 #' 
 #' @export
 
-rwd_agg_template <- function(file = "rwa.csv", path = ".", examples = FALSE)
+rwd_agg_template <- function(file, path = ".", examples = FALSE)
 {
   if (length(file) != 1 || length(path) != 1 || length(examples) != 1)
     stop(

@@ -79,7 +79,6 @@ zzMonthly <- expect_warning(
     scenNames = "ISM1988_2014,2007Dems,IG,Most", 
     slotAggList = salMonthly,
     scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-    oFile = "tmp.feather",
     retFile = TRUE
   ) %>%
     mutate(monthNum = match(Month, month.name))
@@ -93,7 +92,6 @@ test_that("processSlots monthly to annual aggregation methods work", {
       scenNames = "ISM1988_2014,2007Dems,IG,Most", 
       slotAggList = sal, 
       scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-      oFile = "tmp.feather",
       retFile = TRUE
     )
   )
@@ -195,12 +193,10 @@ zzMonthly <- expect_warning(
     scenFolders = stScen, 
     scenNames = stScen, 
     slotAggList = salMonthly,
-    scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-    oFile = "tmp.feather"
+    scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr')
   ) %>%
     mutate(monthNum = match(Month, month.name))
 )
-on.exit(file.remove(c("tmp.feather")))
 
 test_that("processSlots mon to ann agg methods work for rdf with 1 trace", {
   expect_warning(
@@ -209,11 +205,10 @@ test_that("processSlots mon to ann agg methods work for rdf with 1 trace", {
       scenNames = stScen, 
       slotAggList = sal, 
       scenPath = system.file('extdata','Scenario/',package = 'RWDataPlyr'),
-      oFile = "tmp2.feather",
       retFile = TRUE
     )
   )
-  on.exit(file.remove("tmp2.feather"), add = TRUE)
+
   expect_equal(filterVarToMatrix(zz, "powellMin", stScen), pMin)
   expect_equal(filterVarToMatrix(zz, "powellEowy", stScen), pEowy)
   expect_equal(filterVarToMatrix(zz, "meadPe", stScen), mEocy)

@@ -4,8 +4,8 @@
 \alias{getDataForAllScens}
 \title{Get and aggregate data from an rdf file(s)}
 \usage{
-getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath, oFile,
-  retFile = NULL, findAllSlots = TRUE)
+getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath,
+  oFile = NULL, retFile = NULL, findAllSlots = TRUE)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios)
@@ -28,8 +28,9 @@ methods will be applied to the data in the rdf file.}
 \item{scenPath}{An absolute or relative path to the folder containing
 \code{scenFolders}.}
 
-\item{oFile}{An absolute or relative path with the file name of the location
-the table will be saved to. Valid file types are .csv, .txt, or .feather.}
+\item{oFile}{If not \code{NULL}, then an absolute or relative path with the file
+name of the location the table will be saved to. Valid file types are
+.csv, .txt, or .feather.}
 
 \item{retFile}{Deprecated. Data are always returned invisibly.}
 
@@ -39,7 +40,7 @@ function will continue, even if a slot cannot be found. If a slot is not
 found, then the function will return \code{-99} for the Trace, Year, and Value.}
 }
 \value{
-A data.frame.
+A data.frame returned invisibly.
 }
 \description{
 \code{getDataForAllScens()} gets slot data from multiple rdf files and/or multiple
@@ -57,16 +58,13 @@ slotAggList <- slot_agg_list(
   system.file('extdata','SlotAggTable.csv',package = 'RWDataPlyr')
 )
 scenPath <- system.file('extdata','Scenario/',package = 'RWDataPlyr')
-oFile <- 'tmp.feather'
-retFile <- TRUE # return the data, instead of only saving it as a text file
 # expect Deprecated warning
 testthat::expect_warning(
   keyData <- getDataForAllScens(
     scenFolders, 
     scenNames = scenFolders, 
     slotAggList = slotAggList, 
-    scenPath = scenPath, 
-    oFile = oFile
+    scenPath = scenPath
   )
 )
 
@@ -80,8 +78,7 @@ testthat::expect_warning(
     scenFolders, 
     scenNames = scenFolders, 
     slotAggList = slotAggList, 
-    scenPath = scenPath, 
-    oFile = oFile
+    scenPath = scenPath
   )
 )
 

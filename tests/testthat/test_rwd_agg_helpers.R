@@ -9,17 +9,19 @@ good_csv <- system.file(
 
 bad_csv <- system.file("extdata/SlotAggTable.csv", package = "RWDataPlyr")
 
-rwd_agg_template(examples = TRUE)
-rwd_agg_template(file = "tmp.csv", path = "..")
+oPath <- file.path(tempdir(), "rwd_agg_template")
+dir.create(oPath)
 teardown({
-  file.remove("rwa.csv")
-  file.remove("../tmp.csv")
+  unlink(oPath, recursive = TRUE)
 })
+
+rwd_agg_template(file = "rwa.csv", path = oPath, examples = TRUE)
+rwd_agg_template(file = "tmp.csv", path = oPath)
 
 # rwd_agg_template files ---------------
 test_that("`rwd_agg_template()` creates good files", {
-  t1 <- read_rwd_agg("rwa.csv")
-  t2 <- read_rwd_agg("../tmp.csv")
+  t1 <- read_rwd_agg(file.path(oPath, "rwa.csv"))
+  t2 <- read_rwd_agg(file.path(oPath, "tmp.csv"))
   expect_s3_class(t1, "rwd_agg")
   expect_equal(nrow(t1), 5)
   expect_s3_class(t2, "rwd_agg")
@@ -28,6 +30,7 @@ test_that("`rwd_agg_template()` creates good files", {
 
 # rwd_agg_template errors ----------------
 test_that("`rwd_agg_template()` errors correctly", {
+  expect_error(rwd_agg_template())
   expect_error(rwd_agg_template(file = 1))
   expect_error(rwd_agg_template(file = c("this.csv", "that.csv")))
   expect_error(rwd_agg_template(file = "test.txt"))

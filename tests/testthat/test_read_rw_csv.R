@@ -2,14 +2,11 @@ library(dplyr)
 context("check read_rw_csv")
 
 # create an arbitrary csv file to check errors
-td <- tempdir()
-setup({
-  dir.create(td)
-  tf <- tempfile(tmpdir = td, fileext = ".csv")
-  df <- data.frame("something" = 1:12, "other" = month.abb)
-  write.csv(df, file = tf)
-})
-teardown(unlink(td, recursive = TRUE))
+tf <- tempfile(tmpdir = tempdir(), fileext = ".csv")
+df <- data.frame("something" = 1:12, "other" = month.abb)
+write.csv(df, file = tf)
+
+teardown(unlink(tf))
 
 zz <- read_rw_csv(system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most",

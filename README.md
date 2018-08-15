@@ -23,7 +23,7 @@ devtools::install_github('BoulderCodeHub/RWDataPlyr', build_vignettes = TRUE)
 
 ## Usage
 
-RWDataPlyr provides at least three worfflows for reading and using RiverWare data:
+RWDataPlyr provides at least three workflows for reading and using RiverWare data:
 
 1. Reading and manipulating a single scenario
     * Fast
