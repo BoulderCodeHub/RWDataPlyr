@@ -1,10 +1,9 @@
 context("test rdf_aggregate()")
 library(dplyr)
 
-ra1 <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
-  stringsAsFactors = FALSE
-))
+ra1 <- read_rwd_agg(
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
+)
   
 dnfmost_dir <- system.file(
   "extdata/Scenario/ISM1988_2014,2007Dems,IG,Most", 

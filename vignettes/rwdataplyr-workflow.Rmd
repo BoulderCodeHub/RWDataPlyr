@@ -219,7 +219,7 @@ knitr::kable(data.frame(
 ))
 ```
 
-Often times, it will be easier to define the table in Excel and then read it in as a csv using `rwd_agg(read.csv(x, stringsAsFactors = FALSE))` but below shows an example of defining it directly in R. 
+Often times, it will be easier to define the table in Excel and then read it in as a csv using `read_rwd_agg(x)` but below shows an example of defining it directly in R. 
 
 ```{r rwdAgg}
 rwa1 <- rwd_agg(data.frame(

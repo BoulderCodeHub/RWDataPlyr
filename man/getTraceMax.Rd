@@ -19,8 +19,8 @@ an XTS object with the selected slot annual maximum
 Get the annual maximum for each trace
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-peWY <- getTraceMax(pe, 'WY')
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+peWY <- RWDataPlyr:::getTraceMax(pe, 'WY')
+
 }
-}
+\keyword{internal}

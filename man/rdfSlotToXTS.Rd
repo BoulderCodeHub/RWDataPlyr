@@ -21,7 +21,7 @@ convert the nested slot values over the multiple traces into an XTS array
 indexing over traces.
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+
 }
-}
+\keyword{internal}

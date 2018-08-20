@@ -19,8 +19,8 @@ an XTS object with the selected slot annual minimum
 Get the annual minimum for each trace
 }
 \examples{
-\dontrun{
-pe <- rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
-peWY <- getTraceMin(pe, 'WY')
+pe <- RWDataPlyr:::rdfSlotToXTS(keyRdf, 'Mead.Pool Elevation')
+peWY <- RWDataPlyr:::getTraceMin(pe, 'WY')
+
 }
-}
+\keyword{internal}

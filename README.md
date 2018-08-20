@@ -2,11 +2,10 @@ RWDataPlyr
 =================
 
 
-| Release (v0.6.1) | Development      |
-|:----------------:|:----------------:|
-| [![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr) | [![Travis-CI Build Status](https://travis-ci.org/rabutler-usbr/RWDataPlyr.svg?branch=master)](https://travis-ci.org/rabutler-usbr/RWDataPlyr) |
-| [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr) | [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/bbb8of7uoxp52far?svg=true)](https://ci.appveyor.com/project/rabutler-usbr/rwdataplyr) |
-| [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr) | [![codecov](https://codecov.io/gh/rabutler-usbr/RWDataPlyr/branch/master/graph/badge.svg)](https://codecov.io/gh/rabutler-usbr/RWDataPlyr)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/RWDataPlyr)](https://cran.r-project.org/package=RWDataPlyr)
+[![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr)
+[![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr)
 
 ## Overview
 
@@ -14,16 +13,22 @@ RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>T
 
 ## Installation
 
-RWDataPlyr can be installed from GitHub, and we suggest building the vignette. 
+RWDataPlyr can be installed from CRAN:
+
+```{r, eval = FALSE}
+install.packages("RWDataPlyr")
+```
+
+Or the development version can be installed from GitHub:
 
 ```{r, eval=FALSE}
 # install.packages("devtools")
-devtools::install_github('BoulderCodeHub/RWDataPlyr', build_vignettes = TRUE)
+devtools::install_github("BoulderCodeHub/RWDataPlyr")
 ```
 
 ## Usage
 
-RWDataPlyr provides at least three worfflows for reading and using RiverWare data:
+RWDataPlyr provides at least three workflows for reading and using RiverWare data:
 
 1. Reading and manipulating a single scenario
     * Fast
@@ -46,6 +51,7 @@ vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
 ## Log
+* 2018-08-16: version 0.6.2 available (first version available on CRAN)
 * 2018-06-07: version 0.6.1 available
 * 2018-04-10: version 0.6.0 available
 * 2017-05-26: version 0.5.0 available

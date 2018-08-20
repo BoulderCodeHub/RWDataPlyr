@@ -9,3 +9,4 @@
 ^benchmarks\.R$
 ^tmp\.feather$
 ^test\.cpp$
+^cran-comments\.md$

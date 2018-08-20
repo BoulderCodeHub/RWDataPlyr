@@ -4,7 +4,7 @@
 \alias{rwd_agg_template}
 \title{Create a \code{rwd_agg} template}
 \usage{
-rwd_agg_template(file = "rwa.csv", path = ".", examples = FALSE)
+rwd_agg_template(file, path = ".", examples = FALSE)
 }
 \arguments{
 \item{file}{The file name to use for the template}
@@ -20,10 +20,8 @@ specifying how each slot should be summarized.}
 data aggregator (\link{rwd_agg}).
 }
 \examples{
-
-rwd_agg_template()
-rwd_agg_template(examples = TRUE)
-rwd_agg_template(file = "rwa_keyslots.csv")
+rwd_agg_template(file = "rwa_slots.csv", path = tempdir())
+rwd_agg_template(file = "rwa_slots.csv", path = tempdir(), examples = TRUE)
 
 }
 \seealso{

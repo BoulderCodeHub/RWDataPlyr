@@ -100,24 +100,22 @@ sal <- slot_agg_list(system.file(
   "extdata/sat_all_aggs.csv", 
   package = "RWDataPlyr"
 ))
-ra <- rwd_agg(read.csv(
+ra <- read_rwd_agg(
   system.file(
     "extdata/rwd_agg_files/rwd_agg_all_aggs.csv", 
     package = "RWDataPlyr"
-  ),
-  stringsAsFactors = FALSE
-))
+  )
+)
 
 expect_warning(
   t1 <- getDataForAllScens(
     scens1, 
     scenNames, 
     sal, 
-    scenPath, 
-    "tmp.feather"
+    scenPath
   )
 )
-on.exit(file.remove("tmp.feather"))
+
 t2 <- rw_scen_aggregate(scens3, ra, scenPath)
 allVars <- ra$variable
 
@@ -145,11 +143,9 @@ expect_warning(
     scens1, 
     scenNames, 
     list(list(rdf = "KeySlots.rdf", slots = "all")), 
-    scenPath, 
-    "tmp2.feather"
+    scenPath
   )
 )
-on.exit(file.remove("tmp2.feather"), add = TRUE)
 
 t2 <- rw_scen_aggregate(scens3, rwd_agg(rdfs = "KeySlots.rdf"), scenPath)
 
