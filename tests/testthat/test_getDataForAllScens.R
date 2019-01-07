@@ -135,30 +135,30 @@ expect_warning(getDataForAllScens(
   oFile = file.path(oPath, "tmp2.csv")
 ))
 
-test_that("data matches regardless of file extension", {
-  expect_equal(
-    keyData, 
-    data.table::fread(file.path(oPath, "tmp2.txt"), data.table = FALSE)
-  )
-  expect_equal(
-    allData, 
-    data.table::fread(file.path(oPath, "tmp.txt"), data.table = FALSE)
-  )
-  expect_equal(
-    keyData, 
-    data.table::fread(file.path(oPath, "tmp2.csv"), data.table = FALSE)
-  )
-  expect_equal(
-    allData, 
-    data.table::fread(file.path(oPath, "tmp.csv"), data.table = FALSE)
-  )
-  expect_equal(
-    keyData, 
-    as.data.frame(feather::read_feather(file.path(oPath, "tmp2.feather")))
-  )
-  expect_equal(
-    allData, 
-    as.data.frame(feather::read_feather(file.path(oPath, "tmp.feather")))
-  )
-})
+# test_that("data matches regardless of file extension", {
+#   expect_equal(
+#     keyData, 
+#     data.table::fread(file.path(oPath, "tmp2.txt"), data.table = FALSE)
+#   )
+#   expect_equal(
+#     allData, 
+#     data.table::fread(file.path(oPath, "tmp.txt"), data.table = FALSE)
+#   )
+#   expect_equal(
+#     keyData, 
+#     data.table::fread(file.path(oPath, "tmp2.csv"), data.table = FALSE)
+#   )
+#   expect_equal(
+#     allData, 
+#     data.table::fread(file.path(oPath, "tmp.csv"), data.table = FALSE)
+#   )
+#   expect_equal(
+#     keyData, 
+#     as.data.frame(feather::read_feather(file.path(oPath, "tmp2.feather")))
+#   )
+#   expect_equal(
+#     allData, 
+#     as.data.frame(feather::read_feather(file.path(oPath, "tmp.feather")))
+#   )
+# })
 
