@@ -33,8 +33,6 @@ environment:
 
 build_script:
   - Rscript -e if(!file.exists('~/.Rprofile'))(file.create('~/.Rprofile'));write('options(\"install.packages.compile.from.source\"=\\\"always\\\")','~/.Rprofile',append=TRUE)
-  - Rscript -e print(getOption('install.packages.compile.from.source'))
-  - Rscript -e install.packages('feather',type='source',repos='https://cran.rstudio.com')
   - travis-tool.sh install_deps
 
 test_script:
