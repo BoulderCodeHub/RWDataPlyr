@@ -6,6 +6,7 @@
 * Switched all `rwd_agg(read.csv())` calls to `read_rwd_agg()`
 * Updated documentation for the `rwslot_*()` functions.
 * Added additional test for rdf files that are not found when using `rw_scen_aggregate()` (#97)
+* Fixed the variable name assigned to Mead.Pool Elevation inside example `rwd_agg` that is created by `rwd_agg_template(examples = TRUE)`(#94)
 
 # RWDataPlyr 0.6.2
 
