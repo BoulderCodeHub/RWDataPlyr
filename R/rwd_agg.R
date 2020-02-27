@@ -220,8 +220,8 @@ validate_rwd_agg <- function(x)
     stop("All `variable`s should be unique.", call. = FALSE)
   }
   
-  # if period is "asis", then summary must be none
-  check_period_asis(x)
+  # if period is "asis" or "eocy", then summary must be NA
+  check_period_asis_eocy(x)
   
   # checks: if CY or WY, summary NA probably doesn't make sense
   check_period_wy_cy(x)

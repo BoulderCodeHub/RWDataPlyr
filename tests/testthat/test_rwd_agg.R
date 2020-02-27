@@ -52,6 +52,22 @@ test_that("rwd_agg validation fails properly", {
     rwd_agg(df2), 
     "If the `period` is specified as 'asis', then the `summary` must be `NA`."
   )
+  
+  df_bad <- data.frame(
+    file = "KeySlots.rdf",
+    slot = "x.y",
+    period = "eocy",
+    summary = "sum",
+    eval = NA,
+    t_s = NA,
+    variable = "this",
+    stringsAsFactors = FALSE
+  )
+  expect_error(
+    rwd_agg(df_bad),
+    "If the `period` is specified as 'eocy', then the `summary` must be `NA`."
+  )
+  
   df2 <- df
   df2$summary[1] <- NA
   expect_error(
