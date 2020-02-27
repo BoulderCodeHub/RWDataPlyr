@@ -61,13 +61,12 @@ mb <- microbenchmark::microbenchmark(
   times = 50
 )
 
-rwa <- rwd_agg(read.csv(
+rwa <- read_rwd_agg(
   system.file(
     "extdata/rwd_agg_files/passing_aggs.csv", 
     package = "RWDataPlyr"
-  ), 
-  stringsAsFactors = FALSE
-))
+  )
+)
 
 sal <- slot_agg_list(matrix(c(
   "KeySlots.rdf", "Mead.Pool Elevation", "AnnMinLTE", 1e+03, "peLt1000",

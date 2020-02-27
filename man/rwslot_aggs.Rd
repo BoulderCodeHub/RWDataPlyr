@@ -56,17 +56,6 @@ flow-weighted average annual concentration. Units are mg/L.
 \code{rwslot_annual_sum()} takes a matrix containing monthly data (months by
 traces), and sums the monthly data into annual data.  Returns a years by
 traces matrix.
-
-\code{rwslot_annual_min()} finds the minimum annual value for all years and traces.
-
-\code{rwslot_annual_max()} finds the maximum annual value for all years and traces.
-
-\code{rwslot_fwaac()} calculates the flow-weighted average annual
-concentration (fwaac). Given mass and flow at the monthly basis, the
-flow-weighted average annual concentration is computed. \code{mass} and \code{flow}
-should be monthly data. \code{rwslot_fwaac()} expects flow to be in acre-ft/month
-and mass to be in tons; however, there are no checks to ensure this is true.
-Return value will be in mg/L.
 }
 \section{Functions}{
 \itemize{

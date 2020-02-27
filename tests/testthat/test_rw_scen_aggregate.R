@@ -1,10 +1,9 @@
 context("test `rw_scen_aggregate()`")
 library(dplyr)
 
-rwa <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
-  stringsAsFactors = FALSE
-))
+rwa <- read_rwd_agg(
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
+)
 
 scens1 <- c("ISM1988_2014,2007Dems,IG,2002", "ISM1988_2014,2007Dems,IG,Most")
 scens2 <- c(scens1[1], "nonExisting")

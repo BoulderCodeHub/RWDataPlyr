@@ -61,7 +61,7 @@ the third row.
 
 To scale the data by a value less than 1, use decimals rather than fractions,
 as shown in the fourth row. If the Variable Name column was not specified,
-the variable name for the first row would be \code{Mead.Pool Elevation_EOCY_1}
+the variable name for the first row would be \verb{Mead.Pool Elevation_EOCY_1}
 \code{NA} is replaced with a 1 when constructing the variable names.
 
 See the \strong{Aggregation Methods} section for available aggregation methods.

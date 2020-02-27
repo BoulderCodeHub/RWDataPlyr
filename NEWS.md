@@ -2,7 +2,8 @@
 
 *In development*
 
-* Changing test that is expecting a data.frame with factors so that `rwd_agg()` fails. Explicitly stating that strings should be factors to work with R v4.0.0.
+* Changed test that is expecting a data.frame with factors so that `rwd_agg()` fails. Explicitly stating that strings should be factors to work with R v4.0.0.
+* Switched all `rwd_agg(read.csv())` calls to `read_rwd_agg()`
 
 # RWDataPlyr 0.6.2
 

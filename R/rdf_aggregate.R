@@ -57,13 +57,12 @@
 #'   package = "RWDataPlyr"
 #' )
 #' 
-#' rwa <- rwd_agg(read.csv(
+#' rwa <- read_rwd_agg(
 #'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
 #'     package = "RWDataPlyr"
-#'   ), 
-#'  stringsAsFactors = FALSE
-#' ))
+#'   )
+#' )
 #' 
 #' x <- rdf_aggregate(rwa[1,], rdf_dir = rdfPath, scenario = "Most")
 #' 

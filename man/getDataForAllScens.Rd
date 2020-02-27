@@ -4,8 +4,15 @@
 \alias{getDataForAllScens}
 \title{Get and aggregate data from an rdf file(s)}
 \usage{
-getDataForAllScens(scenFolders, scenNames, slotAggList, scenPath,
-  oFile = NULL, retFile = NULL, findAllSlots = TRUE)
+getDataForAllScens(
+  scenFolders,
+  scenNames,
+  slotAggList,
+  scenPath,
+  oFile = NULL,
+  retFile = NULL,
+  findAllSlots = TRUE
+)
 }
 \arguments{
 \item{scenFolders}{A string vector containing the folder names (scenarios)

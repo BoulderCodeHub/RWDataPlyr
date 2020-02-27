@@ -74,13 +74,12 @@
 #' 
 #' scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
 #' 
-#' rwa <- rwd_agg(read.csv(
+#' rwa <- read_rwd_agg(
 #'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
 #'     package = "RWDataPlyr"
-#'   ), 
-#'  stringsAsFactors = FALSE
-#' ))
+#'   )
+#' )
 #' 
 #' x <- rw_scen_aggregate(namedScens, agg = rwa[1,], scen_dir = scenPath)
 #' 
@@ -232,7 +231,7 @@ check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
   }
 }
 
-#' For the out put file, verify it is correctly specified.
+#' For the output file, verify it is correctly specified.
 #' @noRd
 check_rw_agg_file <- function(file)
 {

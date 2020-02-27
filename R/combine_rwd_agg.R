@@ -22,13 +22,12 @@
 #'   stringsAsFactors = FALSE
 #' ))
 #' 
-#' ra2 <- rwd_agg(read.csv(
+#' ra2 <- read_rwd_agg(
 #'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
 #'     package = "RWDataPlyr"
-#'   ), 
-#'   stringsAsFactors = FALSE
-#' ))
+#'   )
+#' )
 #' 
 #' rbind(ra1, ra2)
 #' 
