@@ -5,6 +5,9 @@ rwa <- read_rwd_agg(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
 )
 
+rwa_no_rdf <- rwa[1,]
+rwa_no_rdf$file <- "KeySlot.rdf"
+
 scens1 <- c("ISM1988_2014,2007Dems,IG,2002", "ISM1988_2014,2007Dems,IG,Most")
 scens2 <- c(scens1[1], "nonExisting")
 scens3 <- scens1
@@ -61,6 +64,16 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
   expect_error(
     rw_scen_aggregate(scens1, rwa, scenPath, scen_names = scenNames[1]),
     "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
+    fixed = TRUE
+  )
+  expect_error(
+    rw_scen_aggregate(scens3, rwa_no_rdf, scenPath),
+    paste(
+      "The following rdf files do not exist:",
+      file.path(gsub("/", "\\\\", scenPath), scens3[1] ,"KeySlot.rdf"),
+      file.path(gsub("/", "\\\\", scenPath), scens3[2], "KeySlot.rdf"),
+      sep = "\n"
+    ),
     fixed = TRUE
   )
 })

@@ -5,6 +5,7 @@
 * Changed test that is expecting a data.frame with factors so that `rwd_agg()` fails. Explicitly stating that strings should be factors to work with R v4.0.0.
 * Switched all `rwd_agg(read.csv())` calls to `read_rwd_agg()`
 * Updated documentation for the `rwslot_*()` functions.
+* Added additional test for rdf files that are not found when using `rw_scen_aggregate()` (#97)
 
 # RWDataPlyr 0.6.2
 
