@@ -2,6 +2,8 @@
 
 *In development*
 
+* Changing test that is expecting a data.frame with factors so that `rwd_agg()` fails. Explicitly stating that strings should be factors to work with R v4.0.0.
+
 # RWDataPlyr 0.6.2
 
 *Released August 15, 2018*
@@ -10,7 +12,7 @@
 
 * The `oFile` argument in `getDataForAllScens()` now defaults to `NULL`, so that this function conforms to CRAN policies regarding not writing to the user's home file space by default. This should not cause any backwards compatability issues since all older code will explicitly specify the `oFile` argument.
 * The default `file` argument in `rwd_agg_template()` is now empty, so the user must specify the file explicitly for it to be created, also to conform to the same CRAN policy.
-* Tests, examples, and the vignetter were updated to respect this policy, by only writing to the `tempdir()`, when necessary.
+* Tests, examples, and the vignette were updated to respect this policy, by only writing to the `tempdir()`, when necessary.
 
 # RWDataPlyr 0.6.1
 

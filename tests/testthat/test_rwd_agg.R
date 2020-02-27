@@ -5,10 +5,13 @@ df <- read.csv(system.file(
   package = "RWDataPlyr"
 ), stringsAsFactors = FALSE)
 
-df_fact <- read.csv(system.file(
-  "extdata/rwd_agg_files/passing_aggs.csv", 
-  package = "RWDataPlyr"
-))
+df_fact <- read.csv(
+  system.file(
+    "extdata/rwd_agg_files/passing_aggs.csv", 
+    package = "RWDataPlyr"
+  ),
+  stringsAsFactors = TRUE
+)
 
 # check construction --------------
 test_that("rwd_agg is created properly", {
@@ -139,13 +142,12 @@ df1 <- data.frame(
 )
 ra1 <- rwd_agg(df1)
 
-ra2 <- rwd_agg(read.csv(
+ra2 <- read_rwd_agg(
   system.file(
     "extdata/rwd_agg_files/passing_aggs.csv",
     package = "RWDataPlyr"
-  ),
-  stringsAsFactors = FALSE
-))
+  )
+)
 df2 <- as.data.frame(ra2)
 
 test_that("rbind method works on rwd_agg", {
