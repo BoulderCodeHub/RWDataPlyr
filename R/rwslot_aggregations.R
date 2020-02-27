@@ -1,19 +1,21 @@
 #' Simple aggregation functions for monthly matrix data
 #' 
-#' `rwslot_annual_sum()` takes a matrix containing monthly data (months by 
-#' traces), and sums the monthly data into annual data.  Returns a years by 
-#' traces matrix.
+#' A family of functions that take a matrix containing monthly data (months by 
+#' traces) that has a "timespan" attribute, annualizes the data by summing, or
+#' finding the minimum or maximum monthly values. Returns a years by traces 
+#' matrix. Matrices returned by [rdf_get_slot()] have the timespan attribute 
+#' added to them. 
 #' 
 #' @param rwslot A matrix (months by traces) such as that returned by 
 #'   [rdf_get_slot()]. Function will error if the `rwslot` does not contain 
 #'   "regular" monthly data, i.e., the data must start in January and end in
-#'   December, or start in October and end in September (water year). 
+#'   December, or start in October and end in September (water year), and the 
+#'   `rwslot` must have the timespan attribute. 
 #'   
 #' @param multFactor A factor the annual sum will be multiplied by.  Can be used 
 #'   to convert from flow to volume, or to scale all results in another manor.
 #'   
-#' @return `rwslot_annual_sum()` returns the annual sum as a matrix (years by 
-#'   traces).
+#' @return Other functions: Annual matrix (years x traces)
 #'   
 #' @seealso [rdf_get_slot()]
 #' 
@@ -51,18 +53,13 @@ sumMonth2Annual <- function(rwslot, multFactor = 1)
   rwslot_annual_sum(rwslot, multFactor)
 }
 
-#' `rwslot_annual_min()` finds the minimum annual value for all years and traces.
-#' 
-#' @inheritParams rwslot_annual_sum
-#' 
-#' @return `rwslot_annual_min()` returns a matrix (years by traces) with the 
-#'   maximum annual value for each year and trace.
+#' @describeIn rwslot_aggs finds the minimum annual value 
+#'   for all years and traces.
 #'   
 #' @examples
 #' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 #' peMax <- rwslot_annual_min(pe)
 #' 
-#' @rdname rwslot_aggs
 #' @export
 rwslot_annual_min <- function(rwslot)
 {
@@ -71,7 +68,7 @@ rwslot_annual_min <- function(rwslot)
 }
 
 #' @export
-#' @rdname rwslot_aggs
+#' @describeIn rwslot_aggs Deprecated version of `rwslot_annual_min()`.
 getMinAnnValue <- function(rwslot)
 {
   .Deprecated("rwslot_annual_min()")
@@ -84,17 +81,13 @@ trace_min_ann <- function(traceVal)
   apply(tmp, 1, min)
 }
 
-#' `rwslot_annual_max()` finds the maximum annual value for all years and traces.
+#' @describeIn rwslot_aggs finds the maximum annual value for all years and 
+#'   traces.
 #' 
-#' @inheritParams rwslot_annual_sum
-#' 
-#' @return `rwslot_annual_max()` returns a matrix (years by traces) with the 
-#'   maximum annual value for each year and trace.
 #' @examples
 #' pe <- rdf_get_slot(keyRdf,'Mead.Pool Elevation')
 #' peMax <- rwslot_annual_max(pe)
 #' 
-#' @rdname rwslot_aggs
 #' @export
 rwslot_annual_max <- function(rwslot)
 {
@@ -103,7 +96,7 @@ rwslot_annual_max <- function(rwslot)
 }
 
 #' @export
-#' @rdname rwslot_aggs
+#' @describeIn rwslot_aggs Deprecated version of `rwslot_annual_max()`.
 getMaxAnnValue <- function(rwslot)
 {
   .Deprecated("rwslot_annual_max()")
@@ -117,7 +110,7 @@ trace_max_ann <- function(traceVal)
   apply(tmp, 1, max)
 }
 
-#' `rwslot_fwaac()` calculates the flow-weighted average annual 
+#' @describeIn rwslot_aggs calculates the flow-weighted average annual 
 #' concentration (fwaac). Given mass and flow at the monthly basis, the 
 #' flow-weighted average annual concentration is computed. `mass` and `flow` 
 #' should be monthly data. `rwslot_fwaac()` expects flow to be in acre-ft/month 
@@ -129,8 +122,7 @@ trace_max_ann <- function(traceVal)
 #' @param flow A matrix (months by traces), such as that returned by 
 #'   [rdf_get_slot()], of flow in acre-ft/month.
 
-#' @return `rwslot_fwaac()` returns a matrix of yearly data of the 
-#'   flow-weighted average annual concentration. Units are mg/L.
+#' @return `rwslot_fwaac()`: Annual matrix (years x traces). Units are mg/L.
 #'   
 #' @examples
 #' flow <- rdf_get_slot(keyRdf,'Powell.Outflow')
@@ -143,7 +135,6 @@ trace_max_ann <- function(traceVal)
 #' mass <- flow / 1000000 * rr^2 - rr + 1500 
 #' fwaac <- rwslot_fwaac(mass, flow) 
 #' 
-#' @rdname rwslot_aggs
 #' @export
 rwslot_fwaac <- function(mass, flow)
 {
