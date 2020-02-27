@@ -316,3 +316,19 @@ test_that("`cpp` parameters don't change results", {
     expect_warning(rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE))
   )
 })
+
+# rdf_dir ----------------
+test_that("fails if rdf_dir is not valid", {
+  expect_error(
+    rdf_aggregate(ra1, "will/not/exist"), 
+    "`rdf_dir` is not a valid directory"
+  )
+  expect_error(
+    rdf_aggregate(ra1, file.path(trace13_dir, "KeySlots.rdf")), 
+    "`rdf_dir` is not a valid directory"
+  )
+  expect_error(
+    rdf_aggregate(ra1, file.path(trace13_dir, "weird.txt")), 
+    "`rdf_dir` is not a valid directory"
+  )
+})

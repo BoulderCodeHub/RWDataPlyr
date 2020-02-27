@@ -82,6 +82,10 @@ rdf_aggregate <- function(agg,
   
   nans_are <- match.arg(nans_are, choices = c("0", "error"))
   
+  # check that rdf_dir is a valid directory
+  if (!dir.exists(rdf_dir))
+    stop("`rdf_dir` is not a valid directory")
+  
   # get unique rdf files
   rdfs <- unique(agg$file)
   rdf_files <- file.path(rdf_dir, rdfs)

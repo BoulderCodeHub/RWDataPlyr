@@ -8,6 +8,7 @@
 * Added additional test for rdf files that are not found when using `rw_scen_aggregate()` (#97)
 * Fixed the variable name assigned to Mead.Pool Elevation inside example `rwd_agg` that is created by `rwd_agg_template(examples = TRUE)`(#94)
 * When aggregating slots, if the specified period is eocy, then the summary must be NA (#101)
+* Now check directory exists before checking individual files exist in `rdf_aggregate()` (#108)
 
 # RWDataPlyr 0.6.2
 
