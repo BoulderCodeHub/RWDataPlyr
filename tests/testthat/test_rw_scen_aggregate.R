@@ -19,8 +19,9 @@ scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
 test_that("`rw_scen_aggregate()` arguments verify correctly", {
   expect_error(
     rw_scen_aggregate(scens2, rwa, scenPath),
-    paste0("The following scenario directories do not exist:\n",
-           file.path(normalizePath(scenPath), "nonExisting")
+    paste0(
+      "The following scenario directories do not exist:\n",
+      normalizePath(file.path(scenPath, "nonExisting"), mustWork = FALSE)
     ),
     fixed = TRUE
   )
@@ -70,8 +71,14 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
     rw_scen_aggregate(scens3, rwa_no_rdf, scenPath),
     paste(
       "The following rdf files do not exist:",
-      file.path(gsub("/", "\\\\", scenPath), scens3[1] ,"KeySlot.rdf"),
-      file.path(gsub("/", "\\\\", scenPath), scens3[2], "KeySlot.rdf"),
+      normalizePath(
+        file.path(scenPath, scens3[1] ,"KeySlot.rdf"), 
+        mustWork = FALSE
+      ),
+      normalizePath(
+        file.path(scenPath, scens3[2], "KeySlot.rdf"), 
+        mustWork = FALSE
+      ),
       sep = "\n"
     ),
     fixed = TRUE
