@@ -1,14 +1,22 @@
-# RWDataPlyr 0.6.2.9000
+# RWDataPlyr 0.6.3
 
-*In development*
+*Releases February 28, 2020*
+
+## Bug Fixes
+
+* Added additional test for rdf files that are not found when using `rw_scen_aggregate()` (#97)
+* Fixed the variable name assigned to Mead.Pool Elevation inside example `rwd_agg` that is created by `rwd_agg_template(examples = TRUE)`(#94)
+* When aggregating slots, if the specified period is "eocy"", then the summary must be `NA` (#101)
+* Now check directory exists before checking individual files exist in `rdf_aggregate()` (#108)
+
+## Documentation
+
+* Updated documentation for the `rwslot_*()` functions
+
+## Under the Hood Changes
 
 * Changed test that is expecting a data.frame with factors so that `rwd_agg()` fails. Explicitly stating that strings should be factors to work with R v4.0.0.
 * Switched all `rwd_agg(read.csv())` calls to `read_rwd_agg()`
-* Updated documentation for the `rwslot_*()` functions
-* Added additional test for rdf files that are not found when using `rw_scen_aggregate()` (#97)
-* Fixed the variable name assigned to Mead.Pool Elevation inside example `rwd_agg` that is created by `rwd_agg_template(examples = TRUE)`(#94)
-* When aggregating slots, if the specified period is eocy, then the summary must be NA (#101)
-* Now check directory exists before checking individual files exist in `rdf_aggregate()` (#108)
 
 # RWDataPlyr 0.6.2
 
