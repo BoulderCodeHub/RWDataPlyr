@@ -86,15 +86,23 @@ check_period_filter <- function(period_filter, period)
   }
 }
 
-#' If the period is "asis", then summary should be NA
+#' If the period is "asis" or eocy, then summary should be NA
 #' @noRd
 
-check_period_asis <- function(rwd_agg)
+check_period_asis_eocy <- function(rwd_agg)
 {
   r2 <- rwd_agg[rwd_agg$period == "asis",]
   if (nrow(r2) > 0 && nrow(r2[!is.na(r2$summary),]) > 0) {
     stop(
       "If the `period` is specified as 'asis', then the `summary` must be `NA`.",
+      call. = FALSE
+    )
+  }
+  
+  r2 <- rwd_agg[rwd_agg$period == "eocy",]
+  if (nrow(r2) > 0 && nrow(r2[!is.na(r2$summary),]) > 0) {
+    stop(
+      "If the `period` is specified as 'eocy', then the `summary` must be `NA`.",
       call. = FALSE
     )
   }

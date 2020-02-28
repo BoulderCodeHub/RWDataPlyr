@@ -39,7 +39,8 @@ wy <- function()
 
 is_custom_period_fun <- function(x)
 {
+
   is.list(x) && length(x) == 3 && 
-    names(x) == c("fun", "filter_months", "group_tbl") &&
+    all(names(x) %in% c("fun", "filter_months", "group_tbl")) &&
     is.function(x$fun) && all(x$filter_months %in% month.name)
 }

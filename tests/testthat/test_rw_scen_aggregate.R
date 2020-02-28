@@ -1,10 +1,12 @@
 context("test `rw_scen_aggregate()`")
 library(dplyr)
 
-rwa <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
-  stringsAsFactors = FALSE
-))
+rwa <- read_rwd_agg(
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
+)
+
+rwa_no_rdf <- rwa[1,]
+rwa_no_rdf$file <- "KeySlot.rdf"
 
 scens1 <- c("ISM1988_2014,2007Dems,IG,2002", "ISM1988_2014,2007Dems,IG,Most")
 scens2 <- c(scens1[1], "nonExisting")
@@ -17,8 +19,9 @@ scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
 test_that("`rw_scen_aggregate()` arguments verify correctly", {
   expect_error(
     rw_scen_aggregate(scens2, rwa, scenPath),
-    paste0("The following scenario directories do not exist:\n",
-           file.path(normalizePath(scenPath), "nonExisting")
+    paste0(
+      "The following scenario directories do not exist:\n",
+      normalizePath(file.path(scenPath, "nonExisting"), mustWork = FALSE)
     ),
     fixed = TRUE
   )
@@ -62,6 +65,22 @@ test_that("`rw_scen_aggregate()` arguments verify correctly", {
   expect_error(
     rw_scen_aggregate(scens1, rwa, scenPath, scen_names = scenNames[1]),
     "In `rw_scen_aggregate()`, `scenarios` and `scen_names` must have the same length.",
+    fixed = TRUE
+  )
+  expect_error(
+    rw_scen_aggregate(scens3, rwa_no_rdf, scenPath),
+    paste(
+      "The following rdf files do not exist:",
+      normalizePath(
+        file.path(scenPath, scens3[1] ,"KeySlot.rdf"), 
+        mustWork = FALSE
+      ),
+      normalizePath(
+        file.path(scenPath, scens3[2], "KeySlot.rdf"), 
+        mustWork = FALSE
+      ),
+      sep = "\n"
+    ),
     fixed = TRUE
   )
 })

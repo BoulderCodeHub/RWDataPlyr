@@ -28,7 +28,8 @@ rwslot_fwaac(mass, flow)
 \item{rwslot}{A matrix (months by traces) such as that returned by
 \code{\link[=rdf_get_slot]{rdf_get_slot()}}. Function will error if the \code{rwslot} does not contain
 "regular" monthly data, i.e., the data must start in January and end in
-December, or start in October and end in September (water year).}
+December, or start in October and end in September (water year), and the
+\code{rwslot} must have the timespan attribute.}
 
 \item{multFactor}{A factor the annual sum will be multiplied by.  Can be used
 to convert from flow to volume, or to scale all results in another manor.}
@@ -40,37 +41,37 @@ to convert from flow to volume, or to scale all results in another manor.}
 \code{\link[=rdf_get_slot]{rdf_get_slot()}}, of flow in acre-ft/month.}
 }
 \value{
-\code{rwslot_annual_sum()} returns the annual sum as a matrix (years by
-traces).
+Other functions: Annual matrix (years x traces)
 
-\code{rwslot_annual_min()} returns a matrix (years by traces) with the
-maximum annual value for each year and trace.
-
-\code{rwslot_annual_max()} returns a matrix (years by traces) with the
-maximum annual value for each year and trace.
-
-\code{rwslot_fwaac()} returns a matrix of yearly data of the
-flow-weighted average annual concentration. Units are mg/L.
+\code{rwslot_fwaac()}: Annual matrix (years x traces). Units are mg/L.
 }
 \description{
-\code{rwslot_annual_sum()} takes a matrix containing monthly data (months by
-traces), and sums the monthly data into annual data.  Returns a years by
-traces matrix.
+A family of functions that take a matrix containing monthly data (months by
+traces) that has a "timespan" attribute, annualizes the data by summing, or
+finding the minimum or maximum monthly values. Returns a years by traces
+matrix. Matrices returned by \code{\link[=rdf_get_slot]{rdf_get_slot()}} have the timespan attribute
+added to them.
+}
+\section{Functions}{
+\itemize{
+\item \code{sumMonth2Annual}: Deprecated version of \code{rwslot_annual_sum()}.
 
-\code{rwslot_annual_min()} finds the minimum annual value for all years and traces.
+\item \code{rwslot_annual_min}: finds the minimum annual value
+for all years and traces.
 
-\code{rwslot_annual_max()} finds the maximum annual value for all years and traces.
+\item \code{getMinAnnValue}: Deprecated version of \code{rwslot_annual_min()}.
 
-\code{rwslot_fwaac()} calculates the flow-weighted average annual
+\item \code{rwslot_annual_max}: finds the maximum annual value for all years and
+traces.
+
+\item \code{getMaxAnnValue}: Deprecated version of \code{rwslot_annual_max()}.
+
+\item \code{rwslot_fwaac}: calculates the flow-weighted average annual
 concentration (fwaac). Given mass and flow at the monthly basis, the
 flow-weighted average annual concentration is computed. \code{mass} and \code{flow}
 should be monthly data. \code{rwslot_fwaac()} expects flow to be in acre-ft/month
 and mass to be in tons; however, there are no checks to ensure this is true.
 Return value will be in mg/L.
-}
-\section{Functions}{
-\itemize{
-\item \code{sumMonth2Annual}: Deprecated version of \code{rwslot_annual_sum()}.
 }}
 
 \examples{

@@ -5,10 +5,13 @@ df <- read.csv(system.file(
   package = "RWDataPlyr"
 ), stringsAsFactors = FALSE)
 
-df_fact <- read.csv(system.file(
-  "extdata/rwd_agg_files/passing_aggs.csv", 
-  package = "RWDataPlyr"
-))
+df_fact <- read.csv(
+  system.file(
+    "extdata/rwd_agg_files/passing_aggs.csv", 
+    package = "RWDataPlyr"
+  ),
+  stringsAsFactors = TRUE
+)
 
 # check construction --------------
 test_that("rwd_agg is created properly", {
@@ -49,6 +52,22 @@ test_that("rwd_agg validation fails properly", {
     rwd_agg(df2), 
     "If the `period` is specified as 'asis', then the `summary` must be `NA`."
   )
+  
+  df_bad <- data.frame(
+    file = "KeySlots.rdf",
+    slot = "x.y",
+    period = "eocy",
+    summary = "sum",
+    eval = NA,
+    t_s = NA,
+    variable = "this",
+    stringsAsFactors = FALSE
+  )
+  expect_error(
+    rwd_agg(df_bad),
+    "If the `period` is specified as 'eocy', then the `summary` must be `NA`."
+  )
+  
   df2 <- df
   df2$summary[1] <- NA
   expect_error(
@@ -139,13 +158,12 @@ df1 <- data.frame(
 )
 ra1 <- rwd_agg(df1)
 
-ra2 <- rwd_agg(read.csv(
+ra2 <- read_rwd_agg(
   system.file(
     "extdata/rwd_agg_files/passing_aggs.csv",
     package = "RWDataPlyr"
-  ),
-  stringsAsFactors = FALSE
-))
+  )
+)
 df2 <- as.data.frame(ra2)
 
 test_that("rbind method works on rwd_agg", {

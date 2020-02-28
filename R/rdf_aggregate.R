@@ -57,13 +57,12 @@
 #'   package = "RWDataPlyr"
 #' )
 #' 
-#' rwa <- rwd_agg(read.csv(
+#' rwa <- read_rwd_agg(
 #'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
 #'     package = "RWDataPlyr"
-#'   ), 
-#'  stringsAsFactors = FALSE
-#' ))
+#'   )
+#' )
 #' 
 #' x <- rdf_aggregate(rwa[1,], rdf_dir = rdfPath, scenario = "Most")
 #' 
@@ -82,6 +81,10 @@ rdf_aggregate <- function(agg,
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
   
   nans_are <- match.arg(nans_are, choices = c("0", "error"))
+  
+  # check that rdf_dir is a valid directory
+  if (!dir.exists(rdf_dir))
+    stop("`rdf_dir` is not a valid directory")
   
   # get unique rdf files
   rdfs <- unique(agg$file)

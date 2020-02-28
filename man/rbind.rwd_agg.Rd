@@ -14,7 +14,7 @@
     arguments.  Other \R objects may be coerced as appropriate, or S4
     methods may be used: see sections \sQuote{Details} and
     \sQuote{Value}.  (For the \code{"data.frame"} method of \code{cbind}
-    these can be further arguments to \code{\link{data.frame}} such as
+    these can be further arguments to \code{\link[base]{data.frame}} such as
     \code{stringsAsFactors}.)}
 
 \item{deparse.level}{integer controlling the construction of labels in
@@ -43,13 +43,12 @@ ra1 <- rwd_agg(data.frame(
   stringsAsFactors = FALSE
 ))
 
-ra2 <- rwd_agg(read.csv(
+ra2 <- read_rwd_agg(
   system.file(
     "extdata/rwd_agg_files/passing_aggs.csv", 
     package = "RWDataPlyr"
-  ), 
-  stringsAsFactors = FALSE
-))
+  )
+)
 
 rbind(ra1, ra2)
 

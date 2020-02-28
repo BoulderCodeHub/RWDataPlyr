@@ -7,8 +7,7 @@
 \usage{
 rdf_to_rwtbl(rdf, scenario = NULL, keep_cols = FALSE, add_ym = TRUE)
 
-rdf_to_rwtbl2(file, scenario = NA_character_, keep_cols = FALSE,
-  add_ym = TRUE)
+rdf_to_rwtbl2(file, scenario = NA_character_, keep_cols = FALSE, add_ym = TRUE)
 }
 \arguments{
 \item{rdf}{An rdf object (from \code{\link[=read_rdf]{read_rdf()}}).}
@@ -42,10 +41,6 @@ A tbl_df with additional attributes from the rdf object.
 }
 \description{
 \code{rdf_to_rwtbl()} converts an rdf list to a tibble.
-
-\code{rdf_to_rwtbl2()} converts an rdf file into a tibble, but is
-faster than \code{rdf_to_rwtbl()} since it uses c++. It also reads the rdf file
-in, while \code{rdf_to_rwtbl()} needs an \code{rdf} object.
 }
 \details{
 The rdf object is converted to a data frame, and then converted to a

@@ -18,12 +18,12 @@ A tibble (data frame) containing the data in the csv.
 file does not contain column names that RiverWare always uses (see Details),
 then it assumes that the CSV file was not created from RiverWare and throws
 an error. It also removes spaces from the column names, and adjusts the
-\code{Object.Slot} and \code{Slot Value} columns to be \code{ObjectSlot} and \code{Value},
+\code{Object.Slot} and \verb{Slot Value} columns to be \code{ObjectSlot} and \code{Value},
 respectively.
 }
 \details{
-The required column names are: \code{Run Number}, \code{Trace Number}, \code{Object.Slot},
-\code{Timestep}, \code{Slot Value}. See the CSV output section of the
+The required column names are: \verb{Run Number}, \verb{Trace Number}, \code{Object.Slot},
+\code{Timestep}, \verb{Slot Value}. See the CSV output section of the
 \href{http://www.riverware.org/PDF/RiverWare/documentation/MRM.pdf}{RiverWare documentation}
 for more information on the other optional column names.
 

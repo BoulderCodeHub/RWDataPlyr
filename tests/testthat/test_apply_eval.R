@@ -1,10 +1,9 @@
 context("check the apply_eval function")
 library(dplyr)
 
-slot_agg_matrix <- rwd_agg(read.csv(
-  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr"),
-  stringsAsFactors = FALSE
-))[1:5,]
+slot_agg_matrix <- read_rwd_agg(
+  system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
+)[1:5,]
 
 rwtbl <- expect_warning(rdf_to_rwtbl(keyRdf))
 

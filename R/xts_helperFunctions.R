@@ -36,11 +36,10 @@ getCyEndpoints <- function(rdfXTS)
 getTraceMonthVal <- function(rdfXTS, month)
 {
   # CHECK FOR A VALID MONTH
-  if (month <= 0 || month > 12)
-    stop(paste(
+  if (any(month <= 0) || any(month > 12))
+    stop(paste0(
       month, 
-      " is not a valid month. Use a month from 1 to 12", 
-      sep=""
+      " is not a valid month. Use a month from 1 to 12"
     ))
   # GET VALUES OF EACH TRACE BY MONTH INDEX
   outXTS <- rdfXTS[xts::.indexmon(rdfXTS) %in% (month - 1)]

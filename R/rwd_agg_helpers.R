@@ -45,7 +45,7 @@ rwd_agg_template <- function(file, path = ".", examples = FALSE)
   
   if (examples) {
     x <- stats::setNames(data.frame(matrix( 
-        c("KeySlots.rdf", "Mead.Pool Elevation", "asis", NA, NA, NA, "powellPe", 
+        c("KeySlots.rdf", "Mead.Pool Elevation", "asis", NA, NA, NA, "meadPe", 
         "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "<", 8230000, "pwylt823",
         "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, 0.001, "pjulrel",
         "KeySlots.rdf", "Powell.Outflow", "wy", "min", NA, NA, "pminrel",

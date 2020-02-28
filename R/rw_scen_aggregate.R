@@ -74,13 +74,12 @@
 #' 
 #' scenPath <- system.file("extdata/Scenario", package = "RWDataPlyr")
 #' 
-#' rwa <- rwd_agg(read.csv(
+#' rwa <- read_rwd_agg(
 #'   system.file(
 #'     "extdata/rwd_agg_files/passing_aggs.csv", 
 #'     package = "RWDataPlyr"
-#'   ), 
-#'  stringsAsFactors = FALSE
-#' ))
+#'   )
+#' )
 #' 
 #' x <- rw_scen_aggregate(namedScens, agg = rwa[1,], scen_dir = scenPath)
 #' 
@@ -210,7 +209,7 @@ get_scen_names <- function(scenarios, scen_names)
 check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
 {
   # check all scenario paths
-  scen_paths <- file.path(scen_dir, scenarios)
+  scen_paths <- normalizePath(file.path(scen_dir, scenarios), mustWork = FALSE)
   if (! all(dir.exists(scen_paths))) {
     stop(
       "The following scenario directories do not exist:\n",
@@ -221,7 +220,7 @@ check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
   
   # check that all rdfs exist
   rdfs <- expand.grid(scen_paths, unique(agg$file))
-  rdfs <- apply(rdfs, 1, paste, collapse = "/")
+  rdfs <- normalizePath(apply(rdfs, 1, paste, collapse = "/"), mustWork = FALSE)
   rdfs_exist <- file.exists(rdfs)
   if (!all(rdfs_exist)) {
     stop(
@@ -232,7 +231,7 @@ check_scen_rdf_paths <- function(scenarios, scen_dir, agg)
   }
 }
 
-#' For the out put file, verify it is correctly specified.
+#' For the output file, verify it is correctly specified.
 #' @noRd
 check_rw_agg_file <- function(file)
 {
