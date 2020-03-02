@@ -24,7 +24,7 @@ respectively.
 \details{
 The required column names are: \verb{Run Number}, \verb{Trace Number}, \code{Object.Slot},
 \code{Timestep}, \verb{Slot Value}. See the CSV output section of the
-\href{http://www.riverware.org/PDF/RiverWare/documentation/MRM.pdf}{RiverWare documentation}
+\href{http://www.riverware.org/HelpSystem/index.html#page/SolutionApproaches/Solutions_MRM.4.5.html#ww477402}{RiverWare documentation}
 for more information on the other optional column names.
 
 This function uses \code{\link[data.table:fread]{data.table::fread()}} to read in

@@ -10,7 +10,7 @@
 #' 
 #' The required column names are: `Run Number`, `Trace Number`, `Object.Slot`, 
 #' `Timestep`, `Slot Value`. See the CSV output section of the 
-#' [RiverWare documentation](http://www.riverware.org/PDF/RiverWare/documentation/MRM.pdf)
+#' [RiverWare documentation](http://www.riverware.org/HelpSystem/index.html#page/SolutionApproaches/Solutions_MRM.4.5.html#ww477402)
 #' for more information on the other optional column names.
 #' 
 #' This function uses [data.table::fread()] to read in 
