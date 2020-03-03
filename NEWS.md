@@ -38,7 +38,7 @@
     - `rw_scen_aggregate()` and `rdf_aggregate()` gain `cpp` arguments. By default, `rdf_to_rwtbl2()` is used, but `rdf_to_rwtbl()` can be forced by setting `cpp = FALSE`.
     - `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE` (default), it returns an `rdf` object, otherwise it returns a character vector.
     - Deprecate `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
-    - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatability with C++ and comparison between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
+    - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatibility with C++ and comparison between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
 * `rdf_aggregate()` and `rw_scen_aggregate()` gain a `verbose` parameter to print out the status of processing multiple scenarios, rdfs, and slots. (#82)
 * A new function (`rwd_agg_template()`) to create a blank template (or with examples: `examples = TRUE`) csv file to use to create `rwd_agg` objects. (#78)
 * A new function (`read_rwd_agg()`) to read in csv files as `rwd_agg` objects. (#70)
