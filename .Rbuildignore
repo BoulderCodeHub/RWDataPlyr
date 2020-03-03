@@ -10,3 +10,4 @@
 ^tmp\.feather$
 ^test\.cpp$
 ^cran-comments\.md$
+^CRAN-RELEASE$
