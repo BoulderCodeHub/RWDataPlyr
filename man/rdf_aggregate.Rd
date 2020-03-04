@@ -69,7 +69,7 @@ relies on C++, otherwise, use original \link{rdf_to_rwtbl} function.}
 \item{verbose}{Boolean; if \code{TRUE} (default), then print out status of
 processing the scenario(s) and the slots in each scenario.}
 
-\item{scenarios}{A character vector of scenario foders. This is usually a
+\item{scenarios}{A character vector of scenario folders. This is usually a
 vector of folder names, where each folder name contains one scenario worth
 of data. \code{scenarios} can be named or unnamed. The names are used as the
 scenario name in the returned \code{tbl_df}. Scenario names can also be

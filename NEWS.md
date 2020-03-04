@@ -24,7 +24,7 @@
 
 ## Minor Changes
 
-* The `oFile` argument in `getDataForAllScens()` now defaults to `NULL`, so that this function conforms to CRAN policies regarding not writing to the user's home file space by default. This should not cause any backwards compatability issues since all older code will explicitly specify the `oFile` argument.
+* The `oFile` argument in `getDataForAllScens()` now defaults to `NULL`, so that this function conforms to CRAN policies regarding not writing to the user's home file space by default. This should not cause any backwards compatibility issues since all older code will explicitly specify the `oFile` argument.
 * The default `file` argument in `rwd_agg_template()` is now empty, so the user must specify the file explicitly for it to be created, also to conform to the same CRAN policy.
 * Tests, examples, and the vignette were updated to respect this policy, by only writing to the `tempdir()`, when necessary.
 
@@ -34,11 +34,11 @@
 
 ## Minor new features
 
-* A new function, `rdf_to_rwtbl2()`, was added to try and improve performance of `rdf_aggregate()`, and `rw_scen_aggregate()`. (#85) These functions were shown to be about 6x - 7x slower than `getDataForAllScens()` for the same aggregation. The new function calls a C++ version that creates the tbl_df, while maintaining the same information as `rdf_to_rwtbl()`. The API for the new function is slighly different; the first argument is now a path to an rdf file, rather than an already read in `rdf` object. Otherwise, the same options are available. The C++ version of `rdf_to_twbl()` is about 20x faster than the R version. However, `rdf_aggregate()`, and `rw_scen_aggregate()` are still about 4x slower than `getDataForAllScens()`, indicating that there is still some necesary work to get closer speeds between the two functions (#90).  As part of this work, the following modifications to other functions were made: 
-    - `rw_scen_aggregate()` and `rdf_aggregate()` gain `cpp` arguments. By default, `rdf_to_rwtbl2()` is used, but `rdf_to_rwtbl()` can be foreced by setting `cpp = FALSE`.
+* A new function, `rdf_to_rwtbl2()`, was added to try and improve performance of `rdf_aggregate()`, and `rw_scen_aggregate()`. (#85) These functions were shown to be about 6x - 7x slower than `getDataForAllScens()` for the same aggregation. The new function calls a C++ version that creates the tbl_df, while maintaining the same information as `rdf_to_rwtbl()`. The API for the new function is slightly different; the first argument is now a path to an rdf file, rather than an already read in `rdf` object. Otherwise, the same options are available. The C++ version of `rdf_to_twbl()` is about 20x faster than the R version. However, `rdf_aggregate()`, and `rw_scen_aggregate()` are still about 4x slower than `getDataForAllScens()`, indicating that there is still some necessary work to get closer speeds between the two functions (#90).  As part of this work, the following modifications to other functions were made: 
+    - `rw_scen_aggregate()` and `rdf_aggregate()` gain `cpp` arguments. By default, `rdf_to_rwtbl2()` is used, but `rdf_to_rwtbl()` can be forced by setting `cpp = FALSE`.
     - `read_rdf()` and `read.rdf()` gained an `rdf` argument. If `TRUE` (default), it returns an `rdf` object, otherwise it returns a character vector.
     - Deprecate `rdf_to_rwtbl()` in favor of `rdf_to_rwtbl2()`
-    - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatability with C++ and comparsion between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
+    - In `rdf_to_rwtbl()`, `scenario` is coerced into a character. Typically this is a character, but it was previously left as numeric if specified as a numeric. For easier compatibility with C++ and comparison between `rdf_to_rwtbl()` and `rdf_to_rwtbl2()`, it's now always a character. 
 * `rdf_aggregate()` and `rw_scen_aggregate()` gain a `verbose` parameter to print out the status of processing multiple scenarios, rdfs, and slots. (#82)
 * A new function (`rwd_agg_template()`) to create a blank template (or with examples: `examples = TRUE`) csv file to use to create `rwd_agg` objects. (#78)
 * A new function (`read_rwd_agg()`) to read in csv files as `rwd_agg` objects. (#70)
@@ -60,10 +60,10 @@ RWDataPlyr v0.6.0 includes a major revamping of how scenarios are processed and 
 ## Major new features
 
 * New functions `rw_scen_aggregate()` and `rdf_aggregate()` added to upgrade existing `getDataForAllScens()` function, which processes multiple scenarios at a time. (#51)
-    - These two functions rely on the new `rwd_agg` class, which upgrades the exising "slot aggregation list". The advantage of the new class is a much more flexible way to summarize and aggregate RiverWare slots. (#68)
+    - These two functions rely on the new `rwd_agg` class, which upgrades the existing "slot aggregation list". The advantage of the new class is a much more flexible way to summarize and aggregate RiverWare slots. (#68)
         - This class includes methods for `rbind()`, `cbind()`, `as`, and `is`.
     - Helper functions to print all slots that exist in the tibble (`rwtbl_slot_names()`), get the original scenario folders (`rwtbl_get_scen_folder()`), and get RiverWare slots names from the saved variable name (`rwtbl_var_to_slot()`) were added. (#50)
- * `getDataForAllScens()` now always returns data invisibly, so the `retFile` arguement is deprecated. This function is also deprecated in favor of `rw_scen_aggregate()` and/or `rdf_aggregate()`. (#66)
+ * `getDataForAllScens()` now always returns data invisibly, so the `retFile` argument is deprecated. This function is also deprecated in favor of `rw_scen_aggregate()` and/or `rdf_aggregate()`. (#66)
  * Formalized the list returned by `createSlotAggList()` as a `slot_agg_list` class. Created applicable constructor, which deprecates `createSlotAggList()`. Includes `print()`, `summary()` and `is.`/`is_` methods and functions. (#67)
     - Added check in creation to ensure all variables are unique (if specified) (#64, #62)
     - However, `slot_agg_list` objects work with the deprecated `getDataForAllScens()`, so `rwd_agg` objects are preferable. 
@@ -115,7 +115,7 @@ RWDataPlyr v0.6.0 includes a major revamping of how scenarios are processed and 
 
 * Better error messages in `createSlotAggList()` (#45)
 * Improved the error message if an invalid aggregation method is passed to `processSlots()` (#42)
-* Ensure that `getDataForAllScens()` (and interal function `processSlots()`) work with rdf files that only include one trace of data (#40)
+* Ensure that `getDataForAllScens()` (and internal function `processSlots()`) work with rdf files that only include one trace of data (#40)
 * `getDataForAllScens()` through `processSlots()` now returns the same type/class for `Year` and `Variable` columns for both annual and monthly data. `Yea`r is a numeric and `Variable` is always a character. **This could affect code that does not read the data frame back in and assumes that Variable is a factor. (#54)**
 
 ## Under-the-hood improvements
