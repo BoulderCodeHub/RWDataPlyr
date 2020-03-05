@@ -1,11 +1,13 @@
 RWDataPlyr
 =================
 
-
+<!-- badges: start -->
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/RWDataPlyr)](https://cran.r-project.org/package=RWDataPlyr)
-[![Travis-CI Build Status](https://travis-ci.org/BoulderCodeHub/RWDataPlyr.svg?branch=master)](https://travis-ci.org/BoulderCodeHub/RWDataPlyr)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/BoulderCodeHub/RWDataPlyr?branch=master&svg=true)](https://ci.appveyor.com/project/BoulderCodeHub/RWDataPlyr)
+
+[![R build status](https://github.com/BoulderCodeHub/RWDataPlyr/workflows/R-CMD-check/badge.svg)](https://github.com/BoulderCodeHub/RWDataPlyr/actions)
+
 [![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr)
+<!-- badges: end -->
 
 ## Overview
 

@@ -10,4 +10,7 @@
 ^tmp\.feather$
 ^test\.cpp$
 ^cran-comments\.md$
+^codecov\.yml$
+^\.github/workflows/R-CMD-check\.yaml$
+^\.github/workflows/pr-commands\.yaml$
 ^CRAN-RELEASE$
