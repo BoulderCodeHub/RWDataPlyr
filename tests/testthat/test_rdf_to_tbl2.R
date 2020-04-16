@@ -1,7 +1,4 @@
-library(RWDataPlyr)
 library(dplyr)
-
-context("ensure rdf_to_rwotbl2() matches rdf_to_rwtbl()")
 
 # check the default call -----------------
 rdf_file <- system.file(
@@ -13,6 +10,8 @@ rdftbl <- expect_warning(
     rdf_to_rwtbl()
 )
 rdftbl2 <- rdf_to_rwtbl2(rdf_file)
+# need to make sure columns are both in the same order
+rdftbl2 <- select_at(rdftbl2, colnames(rdftbl))
 
 reqCols <- RWDataPlyr:::req_rwtbl_cols()
 exp_atts <- c("mrm_config_name", "owner", "description", "create_date", 
@@ -27,13 +26,14 @@ test_that("attributes are as expected and match the rdf", {
   expect_true(all(exp_atts %in% names(attributes(rdftbl2))))
 })
 
-test_that("functions match", {
+test_that("function results match", {
   expect_equal(rdftbl, rdftbl2)
 })
 
 # check the add_ym options ---------------
 rdftbl3 <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl(add_ym = FALSE))
-rdftbl4 <- rdf_to_rwtbl2(rdf_file, add_ym = FALSE)
+rdftbl4 <- rdf_to_rwtbl2(rdf_file, add_ym = FALSE) %>% 
+  select_at(colnames(rdftbl3))
 test_that("different versions match", {
   expect_equal(rdftbl3, rdftbl4)
 })
@@ -54,13 +54,15 @@ rdftbl5 <- expect_warning(
   read_rdf(rdf_file) %>% 
     rdf_to_rwtbl(scenario = "DNF,CT")
 )
-rdftbl6 <- rdf_to_rwtbl2(rdf_file, scenario = "DNF,CT")
+rdftbl6 <- rdf_to_rwtbl2(rdf_file, scenario = "DNF,CT") %>%
+  select_at(colnames(rdftbl5))
 
 rdftbl7 <- expect_warning(
   read_rdf(rdf_file) %>% 
     rdf_to_rwtbl(scenario = 1, add_ym = FALSE)
 )
-rdftbl8 <- rdf_to_rwtbl2(rdf_file, scenario = 1, add_ym = FALSE)
+rdftbl8 <- rdf_to_rwtbl2(rdf_file, scenario = 1, add_ym = FALSE) %>%
+  select_at(colnames(rdftbl7))
 test_that("methods match", {
   expect_equal(rdftbl5, rdftbl6)
   expect_equal(rdftbl7, rdftbl8)
@@ -82,7 +84,8 @@ test_that("scenario options error properly", {
 
 # check the keep_cols option ------------
 rdftbl3 <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl(keep_cols = TRUE))
-rdftbl4 <- rdf_to_rwtbl2(rdf_file, keep_cols = TRUE)
+rdftbl4 <- rdf_to_rwtbl2(rdf_file, keep_cols = TRUE) %>%
+  select_at(colnames(rdftbl3))
 
 rdftbl5 <- expect_warning(
   read_rdf(rdf_file) %>%
@@ -92,7 +95,8 @@ rdftbl6 <- rdf_to_rwtbl2(
   rdf_file, 
   keep_cols = c("ObjectName", "Unit"), 
   scenario = 1
-)
+) %>% 
+  select_at(colnames(rdftbl5))
 
 test_that("methods match", {
   expect_equal(rdftbl3, rdftbl4)
@@ -133,7 +137,7 @@ rdf_file <- system.file(
 )
 
 rdftbl <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl())
-rdftbl2 <- rdf_to_rwtbl2(rdf_file)
+rdftbl2 <- rdf_to_rwtbl2(rdf_file) %>% select_at(colnames(rdftbl))
 
 test_that("methods match for annual rdf", {
   expect_equal(rdftbl, rdftbl2)
@@ -143,13 +147,13 @@ test_that("methods match for annual rdf", {
 context("check rdf_to_rwtbl with scalar rdf files")
 test_that("methods match for scalar slots", {
   xx <- expect_warning(read_rdf("../rdfs/scalar.rdf") %>% rdf_to_rwtbl())
-  xx2 <- rdf_to_rwtbl2("../rdfs/scalar.rdf")
+  xx2 <- rdf_to_rwtbl2("../rdfs/scalar.rdf") %>% select_at(colnames(xx))
   expect_equal(xx, xx2)
   xx <- expect_warning(read_rdf("../rdfs/scalar_series.rdf") %>% rdf_to_rwtbl())
-  xx2 <- rdf_to_rwtbl2("../rdfs/scalar_series.rdf")
+  xx2 <- rdf_to_rwtbl2("../rdfs/scalar_series.rdf") %>% select_at(colnames(xx))
   expect_equal(xx, xx2)
   xx <- expect_warning(read_rdf("../rdfs/series.rdf") %>% rdf_to_rwtbl())
-  xx2 <- rdf_to_rwtbl2("../rdfs/series.rdf")
+  xx2 <- rdf_to_rwtbl2("../rdfs/series.rdf") %>% select_at(colnames(xx))
   expect_equal(xx, xx2)
 })
 

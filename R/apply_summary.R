@@ -7,7 +7,7 @@
 
 apply_summary <- function(rwtbl, slot_agg_row)
 {
-  if (is.null(dplyr::groups(rwtbl)))
+  if (length(dplyr::groups(rwtbl)) == 0 || is.null(dplyr::groups(rwtbl)))
     stop("rwtbl should already have groups when `apply_summary()` is called")
   
   # slot_agg_row should either be NA, or a string for an existing "summary" 
