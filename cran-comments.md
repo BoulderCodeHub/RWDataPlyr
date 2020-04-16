@@ -7,6 +7,7 @@ Submitted to work with upcoming dplyr v1.0.0.
 * ubuntu 16.04 (GitHub Actions), R 3.5 and 3.6.3
 * windows (GitHub Actions), R 3.5, R 3.6.3, and R-devel
 * MacOS-latest (GitHub Actions), R 3.6.3 and R-devel
+* R-hub - 4 defaults
 
 ## R CMD check results
 
