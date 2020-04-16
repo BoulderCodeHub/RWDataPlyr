@@ -32,3 +32,5 @@ inst/doc
 # files created by tests
 tests/testthat/tmp.txt
 tmp.feather
+doc
+Meta
