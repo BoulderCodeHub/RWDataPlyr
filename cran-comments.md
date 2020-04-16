@@ -1,10 +1,12 @@
-# RWDataPlyr v0.6.3 Submission 
+# RWDataPlyr v0.6.4 Submission 
+
+Submitted to work with upcoming dplyr v1.0.0.
 
 ## Test environments
-* local Windows 10 Enterprise, R 3.6.2
-* ubuntu 14.04 (on travis-ci), R 3.5, 3.6.2, and R-devel
-* windows (on AppVeyor), R 3.5, R 3.6.2, and R-devel
-* win-builder, R-release
+* local Windows 10 Enterprise, R 3.6.3
+* ubuntu 16.04 (GitHub Actions), R 3.5 and 3.6.3
+* windows (GitHub Actions), R 3.5, R 3.6.3, and R-devel
+* MacOS-latest (GitHub Actions), R 3.6.3 and R-devel
 
 ## R CMD check results
 

@@ -1,3 +1,7 @@
+## Releasing
+
+devtools::revdep("RWDataPlyr") - ensure there are no reverse dependencies
+
 nouns:
   - rw
   - rwtbl
