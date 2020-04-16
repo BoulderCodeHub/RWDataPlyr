@@ -1,4 +1,3 @@
-context("test rdf_aggregate()")
 library(dplyr)
 
 ra1 <- read_rwd_agg(
@@ -139,10 +138,12 @@ test_that("'all' keyword gets all data", {
   
   # compare the two data, they should be the same
   expect_equal(
-    tmp %>% arrange(Year, Month, TraceNumber, Scenario, Variable),
-    tmp2 %>% 
+    tmp %>% ungroup() %>% arrange(Year, Month, TraceNumber, Scenario, Variable),
+    tmp2 %>%
+      ungroup() %>%
       filter(Variable %in% c("powell_outflow", "mead_pe")) %>%
-      arrange(Year, Month, TraceNumber, Scenario, Variable)
+      arrange(Year, Month, TraceNumber, Scenario, Variable) %>%
+      select_at(colnames(tmp))
   )
 })
 
@@ -311,10 +312,10 @@ test_that("`cpp` parameters don't change results", {
     ))
   )
   
-  expect_equal(
-    rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = TRUE),
-    expect_warning(rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE))
-  )
+  t1 <- rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = TRUE)  %>% ungroup()
+  t2 <-  expect_warning(rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE))
+  t2 <- select_at(t2, colnames(t1)) %>% ungroup()
+  expect_equal(t1, t2)
 })
 
 # rdf_dir ----------------

@@ -20,9 +20,7 @@ apply_eval <- function(rwtbl, slot_agg_row)
     rwtbl <- rwtbl %>%
       dplyr::mutate_at(
         "Value", 
-        dplyr::funs(
-          "Value" = as.numeric(eval(parse(text = paste(., eval_fun, t_s))))
-        )
+        list(~as.numeric(eval(parse(text = paste(., eval_fun, t_s)))))
       )
   }
   

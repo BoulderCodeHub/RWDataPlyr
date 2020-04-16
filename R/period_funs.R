@@ -12,10 +12,9 @@ wy <- function()
     tmp <- rwtbl %>%
       dplyr::mutate_at(
         "Timestep", 
-        .funs = dplyr::funs("ym" = zoo::as.yearmon)
+        .funs = list("Year" = zoo::as.yearmon)
       ) %>%
-      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = ym_get_wateryear)) %>%
-      dplyr::select(-dplyr::one_of("ym"))
+      dplyr::mutate_at("Year", .funs = list(ym_get_wateryear))
     
     # drop if WY contains less than 6 months of data for the year
     cols <- names(tmp)

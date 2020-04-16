@@ -20,7 +20,8 @@ test_that("apply_eval works as expected", {
       mutate(Value = as.numeric(Value <= 1000))
   )
   
-  expect_equal(
+  # first method drops attributes, so only test equivalence
+  expect_equivalent(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[2,]) %>%
       RWDataPlyr:::apply_summary(slot_agg_matrix[2,]) %>%
       RWDataPlyr:::apply_eval(slot_agg_matrix[2,]),

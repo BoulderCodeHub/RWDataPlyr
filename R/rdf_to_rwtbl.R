@@ -265,10 +265,10 @@ add_ym_to_rdftbl <- function(tbl)
 {
   other_cols <- colnames(tbl)[colnames(tbl) != "Timestep"]
   tbl <- tbl %>%
-    dplyr::mutate_at("Timestep", dplyr::funs("ym" = zoo::as.yearmon)) %>%
+    dplyr::mutate_at("Timestep", list("ym" = zoo::as.yearmon)) %>%
     dplyr::mutate_at(
       "ym", 
-      dplyr::funs("Year" = ym_get_year, "Month" = ym_get_month_str)) %>%
+      list("Year" = ym_get_year, "Month" = ym_get_month_str)) %>%
     dplyr::select_at(c("Timestep", "Year", "Month", other_cols))
 }
 

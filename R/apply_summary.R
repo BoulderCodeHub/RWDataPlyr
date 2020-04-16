@@ -7,7 +7,7 @@
 
 apply_summary <- function(rwtbl, slot_agg_row)
 {
-  if (is.null(dplyr::groups(rwtbl)))
+  if (length(dplyr::groups(rwtbl)) == 0 || is.null(dplyr::groups(rwtbl)))
     stop("rwtbl should already have groups when `apply_summary()` is called")
   
   # slot_agg_row should either be NA, or a string for an existing "summary" 
@@ -55,8 +55,7 @@ summary_summarise <- function(rwtbl, sam_summary)
 
   check_summary_function(smry_fun, sam_summary)
   
-  rwtbl %>%
-    dplyr::summarise_at("Value", .funs = dplyr::funs("Value" = smry_fun(.)))
+  dplyr::summarise_at(rwtbl, "Value", .funs = list(~smry_fun(.)))
 }
 
 #' Checks that the summary function `sam_summary` meets other 

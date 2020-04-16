@@ -21,7 +21,8 @@ test_that("apply_summary works as expected", {
       summarise(Value = min(Value))
   )
   
-  expect_equal(
+  # data are the same, but attributes are not preserved in first method
+  expect_equivalent(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[2,]) %>%
       RWDataPlyr:::apply_summary(slot_agg_matrix[2,]),
     rwtbl %>%
