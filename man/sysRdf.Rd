@@ -4,8 +4,10 @@
 \name{sysRdf}
 \alias{sysRdf}
 \title{Example rdf file with annual data.}
-\format{A multi level list. \code{sysRdf$meta} provides a description
-of the RiverWare run used to generate this data.}
+\format{
+A multi level list. \code{sysRdf$meta} provides a description
+of the RiverWare run used to generate this data.
+}
 \source{
 Bureau of Reclamation, 2016
 }

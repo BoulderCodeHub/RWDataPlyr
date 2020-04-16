@@ -40,6 +40,6 @@ Copyright: This software is in the public domain because it contains materials
 LazyData: true
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 LinkingTo: Rcpp

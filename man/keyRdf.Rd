@@ -4,8 +4,10 @@
 \name{keyRdf}
 \alias{keyRdf}
 \title{Example rdf file with monthly data.}
-\format{A multi level list. \code{keyRdf$meta} provides a description
-of the RiverWare run used to generate this data.}
+\format{
+A multi level list. \code{keyRdf$meta} provides a description
+of the RiverWare run used to generate this data.
+}
 \source{
 Bureau of Reclamation, 2016
 }
