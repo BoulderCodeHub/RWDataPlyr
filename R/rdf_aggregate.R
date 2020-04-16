@@ -268,7 +268,7 @@ add_month_to_annual <- function(rwtbl)
   dec_fun <- function(x) "December"
   if (!"Month" %in% cols){
     rwtbl <- rwtbl %>%
-      dplyr::mutate_at("Year", dplyr::funs("Month" = dec_fun)) %>%
+      dplyr::mutate_at("Year", list("Month" = dec_fun)) %>%
       dplyr::select_at(c("Year", "Month", cols[cols != "Year"]))
   }
   rwtbl

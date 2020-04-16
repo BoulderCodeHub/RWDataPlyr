@@ -55,8 +55,7 @@ summary_summarise <- function(rwtbl, sam_summary)
 
   check_summary_function(smry_fun, sam_summary)
   
-  rwtbl %>%
-    dplyr::summarise_at("Value", .funs = dplyr::funs("Value" = smry_fun(.)))
+  dplyr::summarise_at(rwtbl, "Value", .funs = list(~smry_fun(.)))
 }
 
 #' Checks that the summary function `sam_summary` meets other 

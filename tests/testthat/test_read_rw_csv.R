@@ -42,13 +42,13 @@ test_that("rw csv is formatted properly", {
       select(-Timestep) %>% 
       rename_at(
         .vars = 1:(ncol(zz)-1), 
-        .funs = funs(paste0("X", match(., colnames(zz))))
+        .funs = list(~paste0("X", match(., colnames(zz))))
       ),
     xx %>% 
       select(-Timestep) %>%
       rename_at(
         .vars = 1:(ncol(xx) - 1), 
-        .funs = funs(paste0("X", match(., colnames(xx))))
+        .funs = list(~paste0("X", match(., colnames(xx))))
       )
   )
 })

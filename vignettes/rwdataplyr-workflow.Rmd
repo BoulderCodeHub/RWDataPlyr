@@ -167,11 +167,10 @@ djf <- function()
     rwtbl %>%
       dplyr::mutate_at(
         "Timestep", 
-        .funs = dplyr::funs("ym" = zoo::as.yearmon)
+        .funs = list("Year" = zoo::as.yearmon)
       ) %>%
       # can use the ym_get_wateryear b/c djf are all in same water year
-      dplyr::mutate_at("ym", .funs = dplyr::funs("Year" = ym_get_wateryear)) %>%
-      dplyr::select(-dplyr::one_of("ym"))
+      dplyr::mutate_at("Year", list(ym_get_wateryear)) 
   }
   
   list(
