@@ -55,6 +55,23 @@ read_rdf_run <- function(rdf.mat, rdf.obj)
   rdf.obj$runs[[this.run]] <- rdf.tmp$data
   rdf.obj$position <- rdf.tmp$position
   
+  # Check if trace is specified in the file
+  if ("trace" %in% names(rdf.obj$runs[[this.run]])) {
+    trace_num <- rdf.obj$runs[[this.run]][["trace"]]
+    
+    # If we find an existing item with this index, warn and use a unique index
+    if (trace_num %in% names(rdf.obj$runs)) {
+      warning(paste0("Duplicate trace number found: ", trace_num, 
+                     ". Using sequential numbering instead."))
+    } else {
+      # Use the actual trace number as the name of the list element
+      names(rdf.obj$runs)[this.run] <- trace_num
+    }
+  } else {
+    # If no trace number was found, assign the current index
+    rdf.obj$runs[[this.run]]$trace <- as.character(this.run)
+  }
+  
   #time steps
   nts <- as.integer(rdf.obj$runs[[this.run]]$time_steps)
   #for non-mrm files
@@ -182,9 +199,19 @@ read.rdf <- function(iFile, rdf = TRUE)
   
   rdf.obj$end_col_i <- which(rdf.mat == "END_COLUMN")
   
-  # Read each trace/run 
-  for (i in 1:as.numeric(rdf.obj$meta$number_of_runs)) {
+  # Read each trace/run using the expected number of runs
+  expected_runs <- as.numeric(rdf.obj$meta$number_of_runs)
+  
+  # Initialize runs list
+  rdf.obj$runs <- list()
+  
+  # Counter for runs actually processed
+  runs_processed <- 0
+  
+  # Continue reading until we've processed all expected runs or reached end of file
+  while (runs_processed < expected_runs && rdf.obj$position < nrow(rdf.mat)) {
     rdf.obj <- read_rdf_run(rdf.mat, rdf.obj)
+    runs_processed <- runs_processed + 1
   }
   
   rdf.obj$position <- NULL # remove position before returning

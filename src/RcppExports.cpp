@@ -5,6 +5,11 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rdf_to_rwtbl_cpp
 List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, std::vector<std::string> keep_cols, String const scenario, bool add_ym);
 RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP, SEXP keep_colsSEXP, SEXP scenarioSEXP, SEXP add_ymSEXP) {
