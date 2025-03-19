@@ -54,7 +54,7 @@ getWYFromYearmon <- function(ym)
 #' @noRd
 ym_get_year <- function(ym)
 {
-  if (!(class(ym) == "yearmon"))
+  if (!inherits(ym, "yearmon"))
     stop("ym in ym_get_year(ym) is not a yearmon object.")
   
   as.numeric(format(ym, "%Y"))
@@ -64,7 +64,7 @@ ym_get_year <- function(ym)
 #' @noRd
 ym_get_month_str <- function(ym)
 {
-  if (!(class(ym) == "yearmon"))
+  if (!inherits(ym, "yearmon"))
     stop("ym in ym_get_month_str(ym) is not a yearmon object.")
   
   format(ym, "%B")
