@@ -121,7 +121,7 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
   check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl2")
 
   add_cols <- c("ObjectName", "SlotName", "ObjectType" ,"Unit", 
-                "RulesetFileName", "InputDMIName")
+                "RulesetFileName", "InputDMIName", "Scale")
 
   if (is.logical(keep_cols)) {
     if (keep_cols) {
