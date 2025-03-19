@@ -44,6 +44,13 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with: 
+          cache: true
+          extra-packages: any::testthat, any::covr, any::rcmdcheck
+          needs: check
+          
+      - name: Run R CMD Check 
+        uses: r-lib/actions/check-r-package@v2
+        with:
           upload-snapshots: true
 
       - name: Test coverage
