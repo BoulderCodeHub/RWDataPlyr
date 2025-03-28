@@ -121,7 +121,6 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     } 
   }
   ++i; // Skip END_RUN_PREAMBLE
-  
   // if still -999, then not set by run preamble meta data, so need to set it
   if (trace_number == -999) {
     trace_number = trace_count;
@@ -168,12 +167,24 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     }
     ++i; // Skip END_SLOT_PREAMBLE
     
+    size_t val_counter = 0;
     while (rdf[i] != "END_SLOT") {
       row = parse_line(rdf[i]);
+      
       if (row[0] == "units") units = row[1];
       else if (row[0] == "scale") scale = std::stod(row[1]);
-      else if (rdf[i] != "END_COLUMN") vals.push_back(std::stod(rdf[i]));
+      else if (rdf[i] != "END_COLUMN") {
+        vals.push_back(std::stod(rdf[i]));
+        val_counter++;
+      }
       ++i;
+    }
+    
+    if (val_counter != num_time_steps) {
+      // must be a scalar slot; so need to copy the value for all timesteps
+      for (size_t j = 1; j < num_time_steps; j++) {
+        vals.push_back(vals.back());
+      }
     }
     // done with one slot
     
@@ -232,7 +243,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   std::vector<std::string> slot_set_vec(n_per_trace, slot_set);
   std::vector<std::string> rule_set_vec(n_per_trace, rule_set);
   std::vector<int> trace_vec(n_per_trace, trace_number);
-
+  
   if (!big) {
     // allocate all of the vectors for remaining traces
     // these already have data for one full trace
@@ -311,13 +322,23 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
           else if (row[0] == "object_type") object_type = row[1];
         }
         ++i; // Skip END_SLOT_PREAMBLE
-        
+        size_t val_counter = 0;
         while (rdf[i] != "END_SLOT") {
           row = parse_line(rdf[i]);
           if (row[0] == "units") units = row[1];
           else if (row[0] == "scale") scale = std::stod(row[1]);
-          else if (rdf[i] != "END_COLUMN") vals.push_back(std::stod(rdf[i]));
+          else if (rdf[i] != "END_COLUMN") {
+            vals.push_back(std::stod(rdf[i]));
+            val_counter++;
+          }
           ++i;
+        }
+        
+        if (val_counter != num_time_steps) {
+          // must be a scalar slot; so need to copy the value for all timesteps
+          for (size_t j = 1; j < num_time_steps; j++) {
+            vals.push_back(vals.back());
+          }
         }
         // done with one slot
         
@@ -361,7 +382,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   std::vector<std::string> col_names = {
     "Timestep","Year", "Month", "Value",
     "ObjectName", "SlotName", "ObjectSlot",
-    "TraceNumber", "SlotSet", "RuleSet",
+    "TraceNumber", "InputDMIName", "RulesetFileName",
     "ObjectType", "Unit", "Scale"
   };
   
@@ -411,10 +432,10 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   if (std::find(final_col_names.begin(), final_col_names.end(), "TraceNumber") != final_col_names.end()) {
     filtered_rwtbl[j++] = trace_vec;
   }
-  if (std::find(final_col_names.begin(), final_col_names.end(), "SlotSet") != final_col_names.end()) {
+  if (std::find(final_col_names.begin(), final_col_names.end(), "InputDMIName") != final_col_names.end()) {
     filtered_rwtbl[j++] = slot_set_vec;
   }
-  if (std::find(final_col_names.begin(), final_col_names.end(), "RuleSet") != final_col_names.end()) {
+  if (std::find(final_col_names.begin(), final_col_names.end(), "RulesetFileName") != final_col_names.end()) {
     filtered_rwtbl[j++] = rule_set_vec;
   }
   if (std::find(final_col_names.begin(), final_col_names.end(), "ObjectType") != final_col_names.end()) {
@@ -432,7 +453,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   
   // Apply attributes to the data frame
   filtered_rwtbl.attr("names") = wrap(final_col_names);
-  filtered_rwtbl.attr("stringsAsFactors") = false;
+  //filtered_rwtbl.attr("stringsAsFactors") = false;
   filtered_rwtbl.attr("class") = "data.frame";
   IntegerVector row_names(total_rows);
   std::iota(row_names.begin(), row_names.end(), 1);

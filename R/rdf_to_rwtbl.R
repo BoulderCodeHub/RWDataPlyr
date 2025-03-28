@@ -158,6 +158,9 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
   ) %>% 
     tibble::as_tibble()
   
+  # remove the last_i attribute as it's only needed for processing big rdfs
+  attr(t1, 'last_i') <- NULL
+  
   t1
 }
 
