@@ -3,34 +3,12 @@
 // Author      : Alan Butler
 // Version     :
 // Copyright   : CC0
-// Description : Optimized version (thanks Chat GPT)
+// Description : 
 //============================================================================
 
 #include <Rcpp.h>
 using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
-
-#ifdef _WIN32
-#include <windows.h>
-#include <psapi.h>
-
-void print_memory_usage(const std::string& message) {
-  PROCESS_MEMORY_COUNTERS memInfo;
-  GetProcessMemoryInfo(GetCurrentProcess(), &memInfo, sizeof(memInfo));
-  std::cout << message << " - Memory usage: " << memInfo.WorkingSetSize / 1024 << " KB" << std::endl;
-}
-
-void print_available_memory(const std::string& message) {
-  MEMORYSTATUSEX memStatus;
-  memStatus.dwLength = sizeof(memStatus);
-  if (GlobalMemoryStatusEx(&memStatus)) {
-    std::cout << message << " - Available memory: " << memStatus.ullAvailPhys / 1024 / 1024 << " MB" << std::endl;
-  } else {
-    std::cerr << "Error retrieving available memory." << std::endl;
-  }
-}
-
-#endif
 
 // parse RDF metadata
 std::vector<std::vector<std::string>> parse_rdf_meta(const std::vector<std::string>& rdf) {
@@ -106,19 +84,16 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
                       bool add_ym = true,
                       bool big = false,
                       size_t row_index = 0,
-                      int trace_start = 0) {
-  print_available_memory("very beginning");
+                      int last_trace = 0) {
   auto meta = parse_rdf_meta(rdf);
   int num_runs = get_n_runs(meta);
-
+  
   size_t i = 0; // index into the rdf lines
-  int trace_count = trace_start;
-  int row_point = 0;
+  int trace_count = last_trace;
   
   while (rdf[i] != "END_PACKAGE_PREAMBLE") ++i;
   ++i; // Skip END_PACKAGE_PREAMBLE
-  
-  if (row_index != 0) {
+  if (row_index > 0) {
     i = row_index;
   }
   
@@ -130,7 +105,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   std::string slot_set, rule_set;
   size_t num_time_steps = 0;
   int trace_number = -999; // initialize to -999 
-
+  
   // read the run preamble
   while (rdf[i] != "END_RUN_PREAMBLE") {
     std::vector<std::string> row = parse_line(rdf[i++]);
@@ -146,6 +121,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     } 
   }
   ++i; // Skip END_RUN_PREAMBLE
+  
   // if still -999, then not set by run preamble meta data, so need to set it
   if (trace_number == -999) {
     trace_number = trace_count;
@@ -153,7 +129,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   
   // now start reading the timesteps
   timesteps.reserve(num_time_steps);
-
+  
   for (size_t j = 0; j < num_time_steps; ++j) {
     timesteps.push_back(rdf[i]);
     ++i;
@@ -215,15 +191,11 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     ++i; // Skip END_SLOT
   }
   ++i; // Skip END_RUN
-
-  std::cout << "C" << std::endl;
-  print_available_memory("after 1 full trace");
+  
+  
   // Done reading one full trace ********************************
-  
-  
-    // now a bunch of computations to pre-allocate vectors for all the different
-    // attributes and their values
-    
+  // now a bunch of computations to pre-allocate vectors for all the different
+  // attributes and their values
   size_t n_per_trace = vals.size();
   size_t total_rows;
   if (big) {
@@ -232,8 +204,6 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     total_rows = n_per_trace * num_runs;
   }
   
-  std::cout << "n_per_trace: " << n_per_trace << std::endl;
-  std::cout << "total_rows: " << total_rows << std::endl;
   
   if (n_per_trace != n_slots * num_time_steps)
     throw std::runtime_error("Something happened and the total values != to num slots * num time steps for trace 1");
@@ -244,7 +214,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   for (size_t j = 0; j < n_slots; ++j) {
     timesteps_vec.insert(timesteps_vec.end(), timesteps.begin(), timesteps.end());
   } 
-  print_available_memory("after copy/paste timesteps_vec");
+  
   // and now duplicate year and month for every slot too (if needed)
   std::vector<std::string> month_vec;
   std::vector<int> year_vec;
@@ -257,46 +227,32 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
       month_vec.insert(month_vec.end(), month.begin(), month.end());
     }
   }
-  print_available_memory("after building ym");
-    
+  
   // these three slots have constant value for full trace so need vector versions
   std::vector<std::string> slot_set_vec(n_per_trace, slot_set);
-  print_available_memory("after slot_set_vec");
   std::vector<std::string> rule_set_vec(n_per_trace, rule_set);
-  print_available_memory("after rule_set_vec");
   std::vector<int> trace_vec(n_per_trace, trace_number);
-  print_available_memory("after trace_vec");
-  
+
   if (!big) {
     // allocate all of the vectors for remaining traces
     // these already have data for one full trace
-    obj_vec.reserve(total_rows);
-    print_available_memory("after obj_vec");
-    slot_vec.reserve(total_rows);
-    print_available_memory("after slot_vec");
-    obj_slot_vec.reserve(total_rows);
-    print_available_memory("after obj_slot_vec");
+    obj_vec.reserve(total_rows - n_per_trace);
+    slot_vec.reserve(total_rows - n_per_trace);
+    obj_slot_vec.reserve(total_rows - n_per_trace);
+    obj_type_vec.reserve(total_rows - n_per_trace);
+    units_vec.reserve(total_rows - n_per_trace);
+    scale_vec.reserve(total_rows - n_per_trace);
+    vals.reserve(total_rows - n_per_trace);
     
-    obj_type_vec.reserve(total_rows);
-    
-    print_available_memory("after obj_type_vec");
-    units_vec.reserve(total_rows);
-    print_available_memory("after units_vec");
-    scale_vec.reserve(total_rows);
-    print_available_memory("after scale_vec");
-    vals.reserve(total_rows);
-    print_available_memory("after vals");
-    
-    slot_set_vec.reserve(total_rows);
-    print_available_memory("after slot_set_vec2");
-    rule_set_vec.reserve(total_rows);
-    print_available_memory("after rule_set_vec2");
-    trace_vec.reserve(total_rows);
-    print_available_memory("after trace_vec2");
+    // these three slots have constant value for full trace so need vector versions
+    slot_set_vec.reserve(total_rows - n_per_trace);
+    rule_set_vec.reserve(total_rows - n_per_trace);
+    trace_vec.reserve(total_rows - n_per_trace);
     
     // **********************************
     // now loop through all remaining traces, process data, and add them to the 
     // correct vectors
+    
     while (trace_count < num_runs) {
       ++trace_count;
       trace_number = -999; // initialize to -999 
@@ -400,14 +356,6 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
     }
   }
   
-  std::cout << "B: " << rdf[i] << std::endl;
-  
-  if (i == rdf.size()) {
-    row_point = -999  ;
-  } else {
-    row_point = i;
-  }
-  
   // now construct and return the table
   
   std::vector<std::string> col_names = {
@@ -478,6 +426,9 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   if (std::find(final_col_names.begin(), final_col_names.end(), "Scale") != final_col_names.end()) {
     filtered_rwtbl[j++] = scale_vec;
   }
+  if (std::find(final_col_names.begin(), final_col_names.end(), "Scenario") != final_col_names.end()) {
+    filtered_rwtbl[j++] = scenario_vec;
+  }
   
   // Apply attributes to the data frame
   filtered_rwtbl.attr("names") = wrap(final_col_names);
@@ -493,7 +444,7 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   filtered_rwtbl.attr("description") = meta.at(2).at(1);
   filtered_rwtbl.attr("create_date") = meta.at(3).at(1);
   filtered_rwtbl.attr("n_traces") = std::stoi(meta.at(4).at(1));
-  filtered_rwtbl.attr("row_pointer") = row_point;
+  filtered_rwtbl.attr("last_i") = (i == rdf.size()) ? static_cast<int>(-999) : static_cast<int>(i + 1);
   
   return filtered_rwtbl;
 }

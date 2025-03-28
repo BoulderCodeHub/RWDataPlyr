@@ -11,8 +11,8 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
 // rdf_to_rwtbl_cpp
-List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, std::vector<std::string> keep_cols, String const scenario, bool add_ym, bool big, size_t row_index, int trace_start);
-RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP, SEXP keep_colsSEXP, SEXP scenarioSEXP, SEXP add_ymSEXP, SEXP bigSEXP, SEXP row_indexSEXP, SEXP trace_startSEXP) {
+List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, std::vector<std::string> keep_cols, String const scenario, bool add_ym, bool big, size_t row_index, int last_trace);
+RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP, SEXP keep_colsSEXP, SEXP scenarioSEXP, SEXP add_ymSEXP, SEXP bigSEXP, SEXP row_indexSEXP, SEXP last_traceSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -22,8 +22,8 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< bool >::type add_ym(add_ymSEXP);
     Rcpp::traits::input_parameter< bool >::type big(bigSEXP);
     Rcpp::traits::input_parameter< size_t >::type row_index(row_indexSEXP);
-    Rcpp::traits::input_parameter< int >::type trace_start(trace_startSEXP);
-    rcpp_result_gen = Rcpp::wrap(rdf_to_rwtbl_cpp(rdf, keep_cols, scenario, add_ym, big, row_index, trace_start));
+    Rcpp::traits::input_parameter< int >::type last_trace(last_traceSEXP);
+    rcpp_result_gen = Rcpp::wrap(rdf_to_rwtbl_cpp(rdf, keep_cols, scenario, add_ym, big, row_index, last_trace));
     return rcpp_result_gen;
 END_RCPP
 }
