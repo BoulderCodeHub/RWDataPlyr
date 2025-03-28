@@ -77,6 +77,40 @@ int get_n_runs(const std::vector<std::vector<std::string>>& meta) {
   return 0; // This line will never be reached
 }
 
+// Function: rdf_to_rwtbl_cpp
+// Description: Processes the RDF data and outputs a table (data frame) with 
+// specified columns. 
+//
+// Parameters:
+//   rdf         - A vector of strings containing RDF data. This should be the 
+//                 the "raw" rdf file. 
+//   keep_cols   - A vector of strings specifying the column names to retain 
+//                 from the RDF data.
+//   scenario    - A string representing the scenario name. Defaults to 
+//                 NA_STRING if not provided, and otherwise is added to every
+//                 row in the data frame.
+//   add_ym      - A boolean flag indicating whether to add Year/Month data as
+//                 separate columns. Defaults to TRUE.
+//   big         - A boolean flag indicating whether the rdf file is "big". If
+//                 this is true, then this function will only parse one trace of
+//                 data before returning it to R. It will set the "last_i"
+//                 attribute on the data frame so that the function can be 
+//                 called again and pickup parsing the next trace of data. 
+//   row_index   - An integer specifying the index of where to start processing
+//                 the rdf file. Defaults to 0, and otherwise starts processing
+//                 at this row. Used for "big" rdfs to start processing where 
+//                 the function left off the previous call. 
+//   last_trace  - An integer representing the last trace number. Defaults to 0.
+//                 used to keep the count of trace number when processing a 
+//                 "big" rdf.
+//
+// Returns:
+//   A List formatted as an R data.frame containing the processed data. It will 
+//   have between 4 and 14 columns depending on whether the user wants only the
+//   required columns or all columns. The data.frame also has 6 custom 
+//   attributes set that are expected by the R code. 
+//
+
 // [[Rcpp::export]]
 List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, 
                       std::vector<std::string> keep_cols, 
