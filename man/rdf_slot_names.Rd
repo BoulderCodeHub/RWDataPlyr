@@ -21,9 +21,9 @@ an rdf object.
 }
 \section{Functions}{
 \itemize{
-\item \code{getSlotsInRdf}: Deprecated version of \code{rdf_slot_names()}
-}}
+\item \code{getSlotsInRdf()}: Deprecated version of \code{rdf_slot_names()}
 
+}}
 \examples{
 rdf_slot_names(keyRdf)
 

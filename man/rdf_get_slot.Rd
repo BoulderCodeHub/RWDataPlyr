@@ -23,9 +23,9 @@ rows indexing through time and columns indexing over traces.
 }
 \section{Functions}{
 \itemize{
-\item \code{rdfSlotToMatrix}: Deprecated version of \code{rdf_get_slot()}
-}}
+\item \code{rdfSlotToMatrix()}: Deprecated version of \code{rdf_get_slot()}
 
+}}
 \examples{
 pe <- rdf_get_slot(keyRdf, "Mead.Pool Elevation")
 
