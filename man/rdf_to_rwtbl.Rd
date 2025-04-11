@@ -23,7 +23,7 @@ keep in the returned tibble. The values of \code{keep_cols} work as follows:
 \code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
 \code{scenario} is specified.
 \item \code{TRUE}, all columns are returned (see Details).
-\item A character vector, e.g., \code{c("ObjectName", "Units")}, allows the user to
+\item A character vector, e.g., \code{c("ObjectName", "Unit")}, allows the user to
 include other columns that are not always required, in addition to the
 "default" set of columns. If any of the values in \code{keep_cols} are not
 found, a warning will post, but all other columns will be returned.
