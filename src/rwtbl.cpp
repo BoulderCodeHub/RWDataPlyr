@@ -7,6 +7,8 @@
 //============================================================================
 
 #include <Rcpp.h>
+#include <algorithm>
+
 using namespace Rcpp;
 // [[Rcpp::plugins(cpp11)]]
 
@@ -91,11 +93,6 @@ int get_n_runs(const std::vector<std::vector<std::string>>& meta) {
 //                 row in the data frame.
 //   add_ym      - A boolean flag indicating whether to add Year/Month data as
 //                 separate columns. Defaults to TRUE.
-//   big         - A boolean flag indicating whether the rdf file is "big". If
-//                 this is true, then this function will only parse one trace of
-//                 data before returning it to R. It will set the "last_i"
-//                 attribute on the data frame so that the function can be 
-//                 called again and pickup parsing the next trace of data. 
 //   row_index   - An integer specifying the index of where to start processing
 //                 the rdf file. Defaults to 0, and otherwise starts processing
 //                 at this row. Used for "big" rdfs to start processing where 
@@ -103,6 +100,9 @@ int get_n_runs(const std::vector<std::vector<std::string>>& meta) {
 //   last_trace  - An integer representing the last trace number. Defaults to 0.
 //                 used to keep the count of trace number when processing a 
 //                 "big" rdf.
+//   n_trace_parse - An integer representing the number of traces to parse. If
+//                   -999 (or <0) then it will process all traces. Otherwise 
+//                   the specified number of traces (or remaining) are parsed.
 //
 // Returns:
 //   A List formatted as an R data.frame containing the processed data. It will 
@@ -116,14 +116,30 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
                       std::vector<std::string> keep_cols, 
                       String const scenario = NA_STRING, 
                       bool add_ym = true,
-                      bool big = false,
                       size_t row_index = 0,
-                      int last_trace = 0) {
+                      int last_trace = 0,
+                      int n_trace_parse = -999) {
   auto meta = parse_rdf_meta(rdf);
   int num_runs = get_n_runs(meta);
   
   size_t i = 0; // index into the rdf lines
+  size_t while_count = 0;
+  size_t n_slots = 0;
   int trace_count = last_trace;
+  int end_trace, traces_to_parse;
+  size_t n_per_trace = 0, total_rows = 0;
+  std::vector<std::string> timesteps_vec, month_vec, slot_set_vec, rule_set_vec,
+  row, obj_vec, slot_vec, obj_slot_vec, obj_type_vec, units_vec, scenario_vec;
+  std::vector<int> year_vec, trace_vec;
+  std::vector<double> vals, scale_vec;
+  
+  if (n_trace_parse < 0) {
+    // parse all the traces
+    end_trace = num_runs;
+  } else {
+    end_trace = std::min(last_trace + n_trace_parse, num_runs);
+  }
+  traces_to_parse = end_trace - last_trace;
   
   while (rdf[i] != "END_PACKAGE_PREAMBLE") ++i;
   ++i; // Skip END_PACKAGE_PREAMBLE
@@ -134,281 +150,161 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   // ***********************************
   // parse trace 1 - this will be used to determine how big 
   // ***********************************
-  ++trace_count;
-  std::vector<std::string> timesteps;
-  std::string slot_set, rule_set;
-  size_t num_time_steps = 0;
-  int trace_number = -999; // initialize to -999 
-  
-  // read the run preamble
-  while (rdf[i] != "END_RUN_PREAMBLE") {
-    std::vector<std::string> row = parse_line(rdf[i++]);
+  while (trace_count < end_trace) {
     
-    if (row[0] == "time_steps") {
-      num_time_steps = std::stoul(row[1]);
-    } else if (row[0] == "slot_set") {
-      slot_set = row[1];
-    } else if (row[0] == "rule_set") {
-      rule_set = row[1];
-    } else if (row[0] == "trace_num" || row[0] == "trace") {
-      trace_number = std::stoi(row[1]);
-    } 
-  }
-  ++i; // Skip END_RUN_PREAMBLE
-  // if still -999, then not set by run preamble meta data, so need to set it
-  if (trace_number == -999) {
-    trace_number = trace_count;
-  }
-  
-  // now start reading the timesteps
-  timesteps.reserve(num_time_steps);
-  
-  for (size_t j = 0; j < num_time_steps; ++j) {
-    timesteps.push_back(rdf[i]);
-    ++i;
-  }
-  
-  std::vector<std::string> month;
-  std::vector<int> year;
-  if (add_ym) {
+    ++trace_count;
+    ++while_count;
+    std::vector<std::string> timesteps;
+    std::string slot_set, rule_set;
+    size_t num_time_steps = 0;
+    int trace_number = -999; // initialize to -999 
+    n_slots = 0;
     
-    year.reserve(num_time_steps);
-    month.reserve(num_time_steps);
+    // read the run preamble
+    while (rdf[i] != "END_RUN_PREAMBLE") {
+      row = parse_line(rdf[i++]);
+      
+      if (row[0] == "time_steps") {
+        num_time_steps = std::stoul(row[1]);
+      } else if (row[0] == "slot_set") {
+        slot_set = row[1];
+      } else if (row[0] == "rule_set") {
+        rule_set = row[1];
+      } else if (row[0] == "trace_num" || row[0] == "trace") {
+        trace_number = std::stoi(row[1]);
+      } 
+    }
+    ++i; // Skip END_RUN_PREAMBLE
+    // if still -999, then not set by run preamble meta data, so need to set it
+    if (trace_number == -999) {
+      trace_number = trace_count;
+    }
+    
+    // now start reading the timesteps
+    timesteps.reserve(num_time_steps);
     
     for (size_t j = 0; j < num_time_steps; ++j) {
-      auto ym = get_year_month(timesteps[j]);
-      year.push_back(std::stoi(ym[0]));
-      month.push_back(ym[1]);
-    }
-  }
-  // have all the time steps
-  
-  // start parsing the slots and slot preambles
-  std::vector<std::string> row, obj_vec, slot_vec, obj_slot_vec, obj_type_vec, units_vec;
-  std::vector<double> vals, scale_vec;
-  size_t n_slots = 0;
-  
-  while (rdf[i] != "END_RUN") {
-    std::string obj, slot, obj_slot, object_type, units;
-    double scale;
-    ++n_slots;
-    
-    while (rdf[i] != "END_SLOT_PREAMBLE") {
-      row = parse_line(rdf[i++]);
-      if (row[0] == "object_name") obj = row[1];
-      else if (row[0] == "slot_name") slot = row[1];
-      else if (row[0] == "object_type") object_type = row[1];
-    }
-    ++i; // Skip END_SLOT_PREAMBLE
-    
-    size_t val_counter = 0;
-    while (rdf[i] != "END_SLOT") {
-      row = parse_line(rdf[i]);
-      
-      if (row[0] == "units") units = row[1];
-      else if (row[0] == "scale") scale = std::stod(row[1]);
-      else if (rdf[i] != "END_COLUMN") {
-        vals.push_back(std::stod(rdf[i]));
-        val_counter++;
-      }
+      timesteps.push_back(rdf[i]);
       ++i;
     }
     
-    if (val_counter != num_time_steps) {
-      // must be a scalar slot; so need to copy the value for all timesteps
-      for (size_t j = 1; j < num_time_steps; j++) {
-        vals.push_back(vals.back());
-      }
-    }
-    // done with one slot
-    
-    obj_slot = obj + "." + slot;
-    
-    // fill/copy the attributes for this slot
-    for (size_t k = 0; k < num_time_steps; ++k) {
-      obj_vec.push_back(obj);
-      slot_vec.push_back(slot);
-      obj_slot_vec.push_back(obj_slot);
-      obj_type_vec.push_back(object_type);
-      units_vec.push_back(units);
-      scale_vec.push_back(scale);
-    }
-    ++i; // Skip END_SLOT
-  }
-  ++i; // Skip END_RUN
-  
-  
-  // Done reading one full trace ********************************
-  // now a bunch of computations to pre-allocate vectors for all the different
-  // attributes and their values
-  size_t n_per_trace = vals.size();
-  size_t total_rows;
-  if (big) {
-    total_rows = n_per_trace;
-  } else {
-    total_rows = n_per_trace * num_runs;
-  }
-  
-  
-  if (n_per_trace != n_slots * num_time_steps)
-    throw std::runtime_error("Something happened and the total values != to num slots * num time steps for trace 1");
-  
-  //  need to take timesteps and duplicate for every slot
-  std::vector<std::string> timesteps_vec;
-  timesteps_vec.reserve(total_rows);
-  for (size_t j = 0; j < n_slots; ++j) {
-    timesteps_vec.insert(timesteps_vec.end(), timesteps.begin(), timesteps.end());
-  } 
-  
-  // and now duplicate year and month for every slot too (if needed)
-  std::vector<std::string> month_vec;
-  std::vector<int> year_vec;
-  if (add_ym) {
-    year_vec.reserve(total_rows);
-    month_vec.reserve(total_rows);
-    
-    for (size_t j = 0; j < n_slots; ++j) {
-      year_vec.insert(year_vec.end(), year.begin(), year.end());
-      month_vec.insert(month_vec.end(), month.begin(), month.end());
-    }
-  }
-  
-  // these three slots have constant value for full trace so need vector versions
-  std::vector<std::string> slot_set_vec(n_per_trace, slot_set);
-  std::vector<std::string> rule_set_vec(n_per_trace, rule_set);
-  std::vector<int> trace_vec(n_per_trace, trace_number);
-  
-  if (!big) {
-    // allocate all of the vectors for remaining traces
-    // these already have data for one full trace
-    obj_vec.reserve(total_rows - n_per_trace);
-    slot_vec.reserve(total_rows - n_per_trace);
-    obj_slot_vec.reserve(total_rows - n_per_trace);
-    obj_type_vec.reserve(total_rows - n_per_trace);
-    units_vec.reserve(total_rows - n_per_trace);
-    scale_vec.reserve(total_rows - n_per_trace);
-    vals.reserve(total_rows - n_per_trace);
-    
-    // these three slots have constant value for full trace so need vector versions
-    slot_set_vec.reserve(total_rows - n_per_trace);
-    rule_set_vec.reserve(total_rows - n_per_trace);
-    trace_vec.reserve(total_rows - n_per_trace);
-    
-    // **********************************
-    // now loop through all remaining traces, process data, and add them to the 
-    // correct vectors
-    
-    while (trace_count < num_runs) {
-      ++trace_count;
-      trace_number = -999; // initialize to -999 
+    std::vector<std::string> month;
+    std::vector<int> year;
+    if (add_ym) {
       
-      // read the run preamble
-      while (rdf[i] != "END_RUN_PREAMBLE") {
-        row = parse_line(rdf[i++]);
-        
-        if (row[0] == "time_steps") {
-          num_time_steps = std::stoi(row[1]);
-        } else if (row[0] == "slot_set") {
-          slot_set = row[1];
-        } else if (row[0] == "rule_set") {
-          rule_set = row[1];
-        } else if (row[0] == "trace_num" || row[0] == "trace") {
-          trace_number = std::stoi(row[1]);
-        } 
-      }
-      ++i; // Skip END_RUN_PREAMBLE
-      
-      // if still -999, then not set by run preamble meta data, so need to set it
-      if (trace_number == -999) {
-        trace_number = trace_count;
-      }
-      
-      // now start reading the timesteps
-      timesteps.clear();
+      year.reserve(num_time_steps);
+      month.reserve(num_time_steps);
       
       for (size_t j = 0; j < num_time_steps; ++j) {
-        timesteps.push_back(rdf[i]);
+        auto ym = get_year_month(timesteps[j]);
+        year.push_back(std::stoi(ym[0]));
+        month.push_back(ym[1]);
+      }
+    }
+    // have all the time steps
+    
+    while (rdf[i] != "END_RUN") {
+      std::string obj, slot, obj_slot, object_type, units;
+      double scale;
+      ++n_slots;
+      
+      while (rdf[i] != "END_SLOT_PREAMBLE") {
+        row = parse_line(rdf[i++]);
+        if (row[0] == "object_name") obj = row[1];
+        else if (row[0] == "slot_name") slot = row[1];
+        else if (row[0] == "object_type") object_type = row[1];
+      }
+      ++i; // Skip END_SLOT_PREAMBLE
+      
+      size_t val_counter = 0;
+      while (rdf[i] != "END_SLOT") {
+        row = parse_line(rdf[i]);
+        
+        if (row[0] == "units") units = row[1];
+        else if (row[0] == "scale") scale = std::stod(row[1]);
+        else if (rdf[i] != "END_COLUMN") {
+          vals.push_back(std::stod(rdf[i]));
+          val_counter++;
+        }
         ++i;
       }
       
+      if (val_counter != num_time_steps) {
+        // must be a scalar slot; so need to copy the value for all timesteps
+        for (size_t j = 1; j < num_time_steps; j++) {
+          vals.push_back(vals.back());
+        }
+      }
+      // done with one slot
+      
+      obj_slot = obj + "." + slot;
+      
+      // fill/copy the attributes for this slot
+      for (size_t k = 0; k < num_time_steps; ++k) {
+        obj_vec.push_back(obj);
+        slot_vec.push_back(slot);
+        obj_slot_vec.push_back(obj_slot);
+        obj_type_vec.push_back(object_type);
+        units_vec.push_back(units);
+        scale_vec.push_back(scale);
+      }
+      ++i; // Skip END_SLOT
+    }
+    ++i; // Skip END_RUN
+    
+    // Done reading one full trace ********************************
+    // now a bunch of computations to pre-allocate vectors for all the different
+    // attributes and their values
+    
+    if (while_count == 1) {
+      n_per_trace = vals.size();
+      total_rows = n_per_trace * traces_to_parse;
+      
+      //std::cout << "n_per_trace: " << n_per_trace << std::endl;
+      //std::cout << "total_rows: " << total_rows << std::endl;
+      
+      if (n_per_trace != n_slots * num_time_steps)
+        throw std::runtime_error("Something happened and the total values != to num slots * num time steps for trace 1");
+      
+      timesteps_vec.reserve(total_rows);
       if (add_ym) {
-        year.clear();
-        month.clear();
-        
-        for (size_t j = 0; j < num_time_steps; ++j) {
-          auto ym = get_year_month(timesteps[j]);
-          year.push_back(std::stoi(ym[0]));
-          month.push_back(ym[1]);
-        }
+        year_vec.reserve(total_rows);
+        month_vec.reserve(total_rows);
       }
-      // have all the time steps
       
-      // start parsing the slots and slot preambles
+      // these three slots have constant value for full trace so need vector versions
+      slot_set_vec.reserve(total_rows);
+      rule_set_vec.reserve(total_rows);
+      trace_vec.reserve(total_rows);
       
-      while (rdf[i] != "END_RUN") {
-        std::string obj, slot, obj_slot, object_type, units;
-        double scale;
-        
-        while (rdf[i] != "END_SLOT_PREAMBLE") {
-          row = parse_line(rdf[i++]);
-          if (row[0] == "object_name") obj = row[1];
-          else if (row[0] == "slot_name") slot = row[1];
-          else if (row[0] == "object_type") object_type = row[1];
-        }
-        ++i; // Skip END_SLOT_PREAMBLE
-        size_t val_counter = 0;
-        while (rdf[i] != "END_SLOT") {
-          row = parse_line(rdf[i]);
-          if (row[0] == "units") units = row[1];
-          else if (row[0] == "scale") scale = std::stod(row[1]);
-          else if (rdf[i] != "END_COLUMN") {
-            vals.push_back(std::stod(rdf[i]));
-            val_counter++;
-          }
-          ++i;
-        }
-        
-        if (val_counter != num_time_steps) {
-          // must be a scalar slot; so need to copy the value for all timesteps
-          for (size_t j = 1; j < num_time_steps; j++) {
-            vals.push_back(vals.back());
-          }
-        }
-        // done with one slot
-        
-        obj_slot = obj + "." + slot;
-        
-        // fill/copy the attributes for this slot
-        for (size_t k = 0; k < num_time_steps; ++k) {
-          obj_vec.push_back(obj);
-          slot_vec.push_back(slot);
-          obj_slot_vec.push_back(obj_slot);
-          obj_type_vec.push_back(object_type);
-          units_vec.push_back(units);
-          scale_vec.push_back(scale);
-        }
-        ++i; // Skip END_SLOT
-      }
-      ++i; // Skip END_RUN
+      // reserve the remaining vectors
+      obj_vec.reserve(total_rows);
+      slot_vec.reserve(total_rows);
+      obj_slot_vec.reserve(total_rows);
+      obj_type_vec.reserve(total_rows);
+      units_vec.reserve(total_rows);
+      scale_vec.reserve(total_rows);
+      vals.reserve(total_rows);
       
-      // copy over time steps, year, month, slot_set, rule_set, trace_number
-      for (size_t j = 0; j < n_slots; ++j) {
-        timesteps_vec.insert(timesteps_vec.end(), timesteps.begin(), timesteps.end());
-      } 
+    }
+    //std::cout << "timesteps_vec.available space " << timesteps_vec.capacity() - timesteps_vec.size() << std::endl;
+    //  need to take timesteps and duplicate for every slot
+    for (size_t j = 0; j < n_slots; ++j) {
+      
+      timesteps_vec.insert(timesteps_vec.end(), timesteps.begin(), timesteps.end());
       
       // and now duplicate year and month for every slot too (if needed)
       if (add_ym) {
-        for (size_t j = 0; j < n_slots; ++j) {
-          year_vec.insert(year_vec.end(), year.begin(), year.end());
-          month_vec.insert(month_vec.end(), month.begin(), month.end());
-        }
+        year_vec.insert(year_vec.end(), year.begin(), year.end());
+        month_vec.insert(month_vec.end(), month.begin(), month.end());
       }
-      
-      std::fill_n(std::back_inserter(slot_set_vec), n_per_trace, slot_set);
-      std::fill_n(std::back_inserter(rule_set_vec), n_per_trace, rule_set);
-      std::fill_n(std::back_inserter(trace_vec), n_per_trace, trace_number);
-      
     }
+    //std::cout << "timesteps_vec.available space2 " << timesteps_vec.capacity() - timesteps_vec.size() << std::endl;
+    // these have same value for all variables and timesteps
+    std::fill_n(std::back_inserter(slot_set_vec), n_per_trace, slot_set);
+    std::fill_n(std::back_inserter(rule_set_vec), n_per_trace, rule_set);
+    std::fill_n(std::back_inserter(trace_vec), n_per_trace, trace_number);
+    
   }
   
   // now construct and return the table
@@ -421,7 +317,6 @@ List rdf_to_rwtbl_cpp(std::vector<std::string> rdf,
   };
   
   // Conditionally add the 'Scenario' column if provided
-  std::vector<std::string> scenario_vec;
   if (scenario != NA_STRING) {
     col_names.push_back("Scenario");
     keep_cols.push_back("Scenario");

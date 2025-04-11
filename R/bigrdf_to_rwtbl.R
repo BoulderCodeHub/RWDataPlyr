@@ -4,7 +4,7 @@
 # if user confirms? could see benchmark and its use of ggbehive as example
 
 bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE, 
-                          add_ym = TRUE)
+                          add_ym = TRUE, status = TRUE, n_trace_per_chunk = 20)
 {
   if (! is.character(file) & length(file) != 1) {
     stop(
@@ -51,32 +51,52 @@ bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE,
   row_i <- 0
   trace_num <- 0
   
-  res <- list()
-  
   pq_path <- normalizePath(tempfile('bigrdf_'), winslash = '/', mustWork = FALSE)
   dir.create(pq_path)
-  print(paste("creating\n", pq_path))
+  cat("creating\n", pq_path, '\n')
+  
+  tmp <- list()
   
   while (row_i >= 0) {
-    tmp <- RWDataPlyr:::rdf_to_rwtbl_cpp(
+    if (status) {
+      cat('Trace: ', trace_num + 1, '\n')  
+    }
+    
+    tmp <- rdf_to_rwtbl_cpp(
       rdf_vec, 
       keep_cols = keep_cols, 
       scenario = scenario, 
       add_ym = add_ym, 
-      big = TRUE, 
       row_index = row_i,
-      last_trace = trace_num
+      last_trace = trace_num,
+      n_trace_parse = n_trace_per_chunk
     )
     
     row_i <- attr(tmp, 'last_i', exact = TRUE)
     attr(tmp, 'last_i') <- NULL
     
-    trace_num <- tmp$TraceNumber[1]
+    trace_num <- tail(tmp$TraceNumber, 1)
     
     tmp %>%
       dplyr::group_by(.data[['TraceNumber']]) %>%
       arrow::write_dataset(path = pq_path, format = "parquet")
+      
   }
   
-  arrow::open_dataset(pq_path)
+  ds <- arrow::open_dataset(pq_path)
+  attr(ds, 'base_dir') <- pq_path
+  ds
+}
+
+#' @export
+# TODO: add option to remove the unique folder, e.g., bigrdf_[alphanumeric]
+bigrdf_move <- function(x, path)
+{
+  ifolder <- attr(x, 'base_dir', exact = TRUE)
+  # TODO: add error if this attr doesn't exist
+  # TODO: check that path exists
+  
+  file.copy(ifolder, path, recursive = TRUE)
+  
+  invisible(x)
 }
