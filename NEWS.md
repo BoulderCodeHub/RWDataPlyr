@@ -1,4 +1,4 @@
-# RWDataPlyr 0.6.4.9000 (dev version)
+# RWDataPlyr 0.6.4.9xxx (dev version)
 
 * Updated `rdf_to_rwtbl2()` and `read_rdf()` to not assume trace numbers start at 1 (#116)
 
