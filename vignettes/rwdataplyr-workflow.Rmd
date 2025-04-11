@@ -118,7 +118,7 @@ To summarize and process multiple slots of data from a single scenario at once, 
 
 1. By providing a data.frame with the expected column names (see below).
 2. By providing a vector of rdf file names using the `rdfs` parameter. If specified in this manor, all of the slots in each rdf file will be read into a `rwtbl`, but will not be aggregated/summarized.
-3. By reading in a csv file, with the expected column names (see below), using `read_rdf_agg()`. The user may first use `rdf_agg_template()` to create a blank template, to help ensure it has the correct column names.
+3. By reading in a csv file, with the expected column names (see below), using `read_rdf_agg()`. The user may first use `rwd_agg_template()` to create a blank template, to help ensure it has the correct column names.
 
 In order to specify how each slot should be aggregated, each column should include specific keywords, which are described below. 
 
