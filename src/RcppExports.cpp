@@ -5,9 +5,14 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
 // rdf_to_rwtbl_cpp
-List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, std::vector<std::string> keep_cols, String const scenario, bool add_ym);
-RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP, SEXP keep_colsSEXP, SEXP scenarioSEXP, SEXP add_ymSEXP) {
+List rdf_to_rwtbl_cpp(std::vector<std::string> rdf, std::vector<std::string> keep_cols, String const scenario, bool add_ym, size_t row_index, int last_trace, int n_trace_parse);
+RcppExport SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP rdfSEXP, SEXP keep_colsSEXP, SEXP scenarioSEXP, SEXP add_ymSEXP, SEXP row_indexSEXP, SEXP last_traceSEXP, SEXP n_trace_parseSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -15,7 +20,10 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< std::vector<std::string> >::type keep_cols(keep_colsSEXP);
     Rcpp::traits::input_parameter< String const >::type scenario(scenarioSEXP);
     Rcpp::traits::input_parameter< bool >::type add_ym(add_ymSEXP);
-    rcpp_result_gen = Rcpp::wrap(rdf_to_rwtbl_cpp(rdf, keep_cols, scenario, add_ym));
+    Rcpp::traits::input_parameter< size_t >::type row_index(row_indexSEXP);
+    Rcpp::traits::input_parameter< int >::type last_trace(last_traceSEXP);
+    Rcpp::traits::input_parameter< int >::type n_trace_parse(n_trace_parseSEXP);
+    rcpp_result_gen = Rcpp::wrap(rdf_to_rwtbl_cpp(rdf, keep_cols, scenario, add_ym, row_index, last_trace, n_trace_parse));
     return rcpp_result_gen;
 END_RCPP
 }

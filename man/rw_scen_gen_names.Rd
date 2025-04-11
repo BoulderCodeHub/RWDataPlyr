@@ -43,9 +43,9 @@ this function if there is only one dimension.
 }
 \section{Functions}{
 \itemize{
-\item \code{makeAllScenNames}: Deprecated version of \code{rw_scen_gen_names()}
-}}
+\item \code{makeAllScenNames()}: Deprecated version of \code{rw_scen_gen_names()}
 
+}}
 \examples{
 rw_scen_gen_names("DNF", "CT", c("IG", "NA"), c("MTOM", "24-MS"))
 rw_scen_gen_names("DNF", "CT", c("IG", "NA"), sep = "_")

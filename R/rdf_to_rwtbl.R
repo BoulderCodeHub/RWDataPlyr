@@ -121,7 +121,7 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
   check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl2")
 
   add_cols <- c("ObjectName", "SlotName", "ObjectType" ,"Unit", 
-                "RulesetFileName", "InputDMIName")
+                "RulesetFileName", "InputDMIName", "Scale")
 
   if (is.logical(keep_cols)) {
     if (keep_cols) {
@@ -157,6 +157,9 @@ rdf_to_rwtbl2 <- function(file, scenario = NA_character_, keep_cols = FALSE,
     add_ym = add_ym
   ) %>% 
     tibble::as_tibble()
+  
+  # remove the last_i attribute as it's only needed for processing big rdfs
+  attr(t1, 'last_i') <- NULL
   
   t1
 }
@@ -197,7 +200,7 @@ rdf_object_to_tbl <- function(rdfObject, timeSteps)
 
 rdf_trace_to_tbl <- function(rdfTrace, traceNum) 
 {
-  trace <- as.integer(rdfTrace$idx_sequential)
+  trace <- as.integer(rdfTrace$trace)
   timeSteps <- rdfTrace$times
   ruleSet <- rdfTrace$rule_set
   slotSet <- rdfTrace$slot_set # the input DMI on the input tab
@@ -213,7 +216,7 @@ rdf_trace_to_tbl <- function(rdfTrace, traceNum)
     lapply(rdfTrace$objects, rdf_object_to_tbl, timeSteps = timeSteps)
   ) %>%
     dplyr::mutate(
-      TraceNumber = traceNum, 
+      TraceNumber = trace, 
       RulesetFileName = ruleSet, 
       InputDMIName = slotSet
     ) %>%

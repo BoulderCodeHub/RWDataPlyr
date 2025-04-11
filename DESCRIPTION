@@ -1,5 +1,5 @@
 Package: RWDataPlyr
-Version: 0.6.4
+Version: 0.6.4.9000
 Title: Read and Manipulate Data from 'RiverWare' 
 Description: A tool to read and manipulate data generated from 'RiverWare'(TM) 
     <http://www.riverware.org/> simulations. 'RiverWare' and 'RiverSMART' 
@@ -13,8 +13,9 @@ Authors@R: c(
 URL: https://github.com/BoulderCodeHub/RWDataPlyr
 BugReports: https://github.com/BoulderCodeHub/RWDataPlyr/issues
 Depends:
-    R (>= 3.3.0)
+    R (>= 3.5)
 Imports:
+    arrow,
     data.table (>= 1.10.0),
     dplyr (>= 0.7.0),
     methods,
@@ -32,7 +33,8 @@ Suggests:
     knitr,
     rmarkdown,
     testthat,
-    covr
+    covr,
+    stringi
 License: CC0
 Copyright: This software is in the public domain because it contains materials
     that originally came from the U.S. Bureau of Reclamation, an agency of the
@@ -40,6 +42,6 @@ Copyright: This software is in the public domain because it contains materials
 LazyData: true
 VignetteBuilder: knitr
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.3.2
 Encoding: UTF-8
 LinkingTo: Rcpp

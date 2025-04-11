@@ -25,7 +25,7 @@ If the argument is not already a yearmon object, it will attempt to convert
 it to a \link[zoo:yearmon]{zoo::yearmon}. This may result in unexpected results. For example,
 the string \code{"12-1-1906"} can be converted to a \link[zoo:yearmon]{zoo::yearmon}, however, it
 will not convert to \code{"Dec 1906"} as you might desire. It will convert to
-\code{"Jan 0012"} since it is not a format expected by \code{\link[zoo:as.yearmon]{zoo::as.yearmon()}}.
+\code{"Jan 0012"} since it is not a format expected by \code{\link[zoo:yearmon]{zoo::as.yearmon()}}.
 Therefore, a warning is posted when the function attempts to convert to
 \link[zoo:yearmon]{zoo::yearmon}, and it is safer to ensure \code{ym} is already a \link[zoo:yearmon]{zoo::yearmon}.
 }

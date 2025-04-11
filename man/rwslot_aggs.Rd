@@ -54,26 +54,26 @@ added to them.
 }
 \section{Functions}{
 \itemize{
-\item \code{sumMonth2Annual}: Deprecated version of \code{rwslot_annual_sum()}.
+\item \code{sumMonth2Annual()}: Deprecated version of \code{rwslot_annual_sum()}.
 
-\item \code{rwslot_annual_min}: finds the minimum annual value
+\item \code{rwslot_annual_min()}: finds the minimum annual value
 for all years and traces.
 
-\item \code{getMinAnnValue}: Deprecated version of \code{rwslot_annual_min()}.
+\item \code{getMinAnnValue()}: Deprecated version of \code{rwslot_annual_min()}.
 
-\item \code{rwslot_annual_max}: finds the maximum annual value for all years and
+\item \code{rwslot_annual_max()}: finds the maximum annual value for all years and
 traces.
 
-\item \code{getMaxAnnValue}: Deprecated version of \code{rwslot_annual_max()}.
+\item \code{getMaxAnnValue()}: Deprecated version of \code{rwslot_annual_max()}.
 
-\item \code{rwslot_fwaac}: calculates the flow-weighted average annual
+\item \code{rwslot_fwaac()}: calculates the flow-weighted average annual
 concentration (fwaac). Given mass and flow at the monthly basis, the
 flow-weighted average annual concentration is computed. \code{mass} and \code{flow}
 should be monthly data. \code{rwslot_fwaac()} expects flow to be in acre-ft/month
 and mass to be in tons; however, there are no checks to ensure this is true.
 Return value will be in mg/L.
-}}
 
+}}
 \examples{
 zz <- rdf_get_slot(keyRdf, 'Powell.Outflow')
 

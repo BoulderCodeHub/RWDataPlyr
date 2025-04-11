@@ -30,6 +30,15 @@ test_that("function results match", {
   expect_equal(rdftbl, rdftbl2)
 })
 
+test_that("trace number starts at correct value", {
+  expect_equal(min(rdftbl$TraceNumber), 1)
+  # this rdf starts with trace 2 instead of 1
+  tmp <- rdf_to_rwtbl2("../rdfs/starts_trace_2.rdf")
+  tmp2 <- expect_warning(rdf_to_rwtbl(read_rdf("../rdfs/starts_trace_2.rdf")))
+  expect_equal(min(tmp$TraceNumber), 2)
+  expect_equal(range(tmp2$TraceNumber), range(tmp$TraceNumber))
+})
+
 # check the add_ym options ---------------
 rdftbl3 <- expect_warning(read_rdf(rdf_file) %>% rdf_to_rwtbl(add_ym = FALSE))
 rdftbl4 <- rdf_to_rwtbl2(rdf_file, add_ym = FALSE) %>% 

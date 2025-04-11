@@ -19,16 +19,18 @@ jobs:
       fail-fast: false
       matrix:
         config:
-          - {os: windows-latest, r: 'release'}
-          - {os: windows-latest, r: 'oldrel-1'}
-          - {os: windows-latest, r: 'oldrel-2'}
           - {os: windows-latest, r: 'oldrel-3'}
+          - {os: windows-latest, r: 'oldrel-2'}
+          - {os: windows-latest, r: 'oldrel-1'}
+          - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
           - {os: macOS-latest, r: 'release'}
           - {os: macOS-latest, r: 'devel'}
           - {os: macOS-latest, r: 'oldrel-1'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'oldrel-1'}
+          - {os: ubuntu-latest, r: 'devl'}
+
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -45,12 +47,14 @@ jobs:
           r-version: ${{ matrix.config.r }}
 
       - uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          extra-packages: any::rcmdcheck
-          needs: check
-
-      - uses: r-lib/actions/check-r-package@v2
         with: 
+          cache: true
+          extra-packages: any::testthat, any::covr, any::rcmdcheck
+          needs: check
+          
+      - name: Run R CMD Check 
+        uses: r-lib/actions/check-r-package@v2
+        with:
           upload-snapshots: true
 
       - name: Test coverage
