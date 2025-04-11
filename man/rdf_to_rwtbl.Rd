@@ -22,7 +22,7 @@ keep in the returned tibble. The values of \code{keep_cols} work as follows:
 \item \code{FALSE} (default) only includes the defaults columns: \code{Timestep},
 \code{TraceNumber}, \code{ObjectSlot}, and \code{Value}. \code{Scenario} is also returned if
 \code{scenario} is specified.
-\item \code{TRUE}, all columns are returned.
+\item \code{TRUE}, all columns are returned (see Details).
 \item A character vector, e.g., \code{c("ObjectName", "Units")}, allows the user to
 include other columns that are not always required, in addition to the
 "default" set of columns. If any of the values in \code{keep_cols} are not
@@ -47,6 +47,24 @@ The rdf object is converted to a data frame, and then converted to a
 \code{\link[tibble:tibble]{tibble::tibble()}}. All of the \code{meta} entries in the rdf object
 are stored as attributes in the returned tibble. These attributes are:
 \code{mrm_config_name}, \code{owner}, \code{description}, \code{create_date}, and \code{n_traces}.
+
+All possible columns, depending on the specific values passed to \code{scenario},
+\code{keep_cols}, and \code{add_ym} are:
+\itemize{
+\item TimeStep
+\item Year
+\item Month
+\item Value
+\item ObjectName
+\item SlotName
+\item ObjectSlot
+\item TraceNumber
+\item InputDMIName
+\item RulesetFileName
+\item ObjectType
+\item Unit
+\item Scale
+}
 
 If the rdf contains a scalar slot(s), the scalar slot value(s) will be
 repeated for every timestep.

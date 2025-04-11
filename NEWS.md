@@ -1,6 +1,8 @@
 # RWDataPlyr 0.6.4.9xxx (dev version)
 
 * Updated `rdf_to_rwtbl2()` and `read_rdf()` to not assume trace numbers start at 1 (#116)
+* Added `bigrdf_to_rwtbl()` and `bigrdf_move()`
+* "Scale" is now a valid column when creating rwtbl in `rdf_to_rwtbl()`, `rdf_aggregate()`, and `rwscen_aggregate()` (#117)
 
 # RWDataPlyr 0.6.4
 

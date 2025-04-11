@@ -50,7 +50,8 @@ keep in the returned tibble. The values of \code{keep_cols} work as follows:
 \item A character vector, e.g., \code{c("ObjectName", "Units")}, allows the user to
 include other columns that are not always required, in addition to the
 "default" set of columns. If any of the values in \code{keep_cols} are not
-found, a warning will post, but all other columns will be returned.
+found, a warning will post, but all other columns will be returned. See
+\code{\link[=rdf_to_rwtbl]{rdf_to_rwtbl()}} for all the possible columns.
 }}
 
 \item{nans_are}{Either "0" or "error". If "0", then \code{NaN}s in the rwtbl are
