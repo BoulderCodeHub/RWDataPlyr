@@ -7,7 +7,8 @@ Description: A tool to read and manipulate data generated from 'RiverWare'(TM)
     interface to read, aggregate, and summarize data from one or more 
     simulations in a 'dplyr' pipeline.
 Authors@R: c(
-    person("Alan","Butler", ,"rabutler@usbr.gov", c("aut","cre")),
+    person(given = "Alan",family = "Butler", email = "rabutler@usbr.gov", 
+    role = c("aut","cre"), comment = c(ORCID = "0000-0002-8625-6386")),
     person("Cameron","Bracken", role = "aut")
     )
 URL: https://github.com/BoulderCodeHub/RWDataPlyr
