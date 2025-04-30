@@ -47,7 +47,7 @@ test_that("rwd_agg validation fails properly", {
   )
   expect_error(rwd_agg(df[c(1:5,1),]), "All `variable`s should be unique.")
   df2 <- df
-  df2$summary[4] <- "max"
+  df2$summary[5] <- "max"
   expect_error(
     rwd_agg(df2), 
     "If the `period` is specified as 'asis', then the `summary` must be `NA`."
@@ -81,7 +81,7 @@ test_that("rwd_agg validation fails properly", {
     paste0(
       "'%%' is not a valid `eval` value.\n",
       "The `eval` column in the slot agg matrix should either be\n",
-      "`NA` or one of the 'Compare' S4 group generics. See ?S4groupGeneric."
+      "`NA`, one of the 'Compare' S4 group generics (See ?S4groupGeneric) or:[], [), (], ()."
     ),
     fixed = TRUE
   )

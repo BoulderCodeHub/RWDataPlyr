@@ -76,9 +76,6 @@ check_eval_and_t_s <- function(slot_agg_row)
   # if eval is the custom between operators, then it should be number-number
   
   t_s <- slot_agg_row$t_s
-  # TODO: add in a strsplit(.,'-') to handle the 2 numbers for the between 
-  # operator only. Probably have it check if it is one of the between operators
-  # first
   
   if (eval_col %in% btwn_evals) {
     t_s <- tryCatch(
@@ -87,7 +84,7 @@ check_eval_and_t_s <- function(slot_agg_row)
       warning = function(c) NaN
     )
     
-    if (is.nan(t_s) | length(t_s) != 2) {
+    if (any(is.nan(t_s)) | length(t_s) != 2) {
       stop(
         "'", slot_agg_row$t_s, "' is not a valid `t_s` value.\n",
         "For between operators for the eval column, i.e., [], [), (], or (),\n",
@@ -105,7 +102,7 @@ check_eval_and_t_s <- function(slot_agg_row)
     }
   }
   
-  if (is.nan(t_s))
+  if (any(is.nan(t_s)))
     stop(
       "'", slot_agg_row$t_s, "' is not a valid `t_s` value.\n",
       "The `t_s` column in the slot agg matrix should either be\n",
@@ -113,7 +110,7 @@ check_eval_and_t_s <- function(slot_agg_row)
       call. = FALSE
     )
   
-  if (!is.na(eval_col) & is.na(t_s))
+  if (!any(is.na(eval_col)) & any(is.na(t_s)))
     stop("When the `eval` column is a comparison function, the `t_s` column\n",
          "must be a numerical value.", call. = FALSE)
   
