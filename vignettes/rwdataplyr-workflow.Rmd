@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-The RWDataPlyr package provides an interface to read, aggregate, and summarize data from one or more [RiverWare^TM^](http://riverware.org) simulations and then work with those data in a dplyr pipeline. As RiverWare (and RiverSMART) produce data in multiple formats, and these data can be combined using RiverSMART in multiple ways, there are several different workflows that may make sense depending on the goals of the analysis. This vignette provides details on the different workflows that are covered by v0.6.0 of RWDataPlyr.
+The RWDataPlyr package provides an interface to read, aggregate, and summarize data from one or more [RiverWare^TM^](https://riverware.org) simulations and then work with those data in a dplyr pipeline. As RiverWare (and RiverSMART) produce data in multiple formats, and these data can be combined using RiverSMART in multiple ways, there are several different workflows that may make sense depending on the goals of the analysis. This vignette provides details on the different workflows that are covered by v0.6.0 of RWDataPlyr.
 
 As of version 0.6.0, the package assumes the following:
 
@@ -30,7 +30,7 @@ As of version 0.6.0, the package assumes the following:
 
 ## Background
 
-[RiverWare^TM^](http://riverware.org) is a generalized river system modeling tool that represents physical processes and basin features, while allowing for complex reservoir operation policies to be expressed in rule-based logic. RiverWare is widely used across the U.S. by the Bureau of Reclamation, Tennessee Valley Authority, and U.S. Army Corps to assist their water management missions, and has applications worldwide, e.g., the Nile Basin.  
+[RiverWare^TM^](https://riverware.org) is a generalized river system modeling tool that represents physical processes and basin features, while allowing for complex reservoir operation policies to be expressed in rule-based logic. RiverWare is widely used across the U.S. by the Bureau of Reclamation, Tennessee Valley Authority, and U.S. Army Corps to assist their water management missions, and has applications worldwide, e.g., the Nile Basin.  
 
 One of the strengths of RiverWare is its "multiple run" mode, where many unique realizations, or traces, of hypothetical operations can be simulated with different input assumptions, e.g., hydrology. Multiple traces can be grouped together to form a single scenario, and it is often desirable to compare multiple scenarios together to understand how changes in assumptions affect model results. The RiverSMART tool is a wrapper to RiverWare (and other tools) that helps in the simulation and analysis of multiple scenarios. 
 
@@ -297,4 +297,4 @@ If `scenarios` has a length of one, it will match the results of `rdf_aggregate(
 
 ## Utilizing RWDataPlyr within RiverSMART
 
-RiverSMART includes a [plugin](http://riverware.org/RiverSmart/RiverSmartSoftwareSuiteHelp.html#R_Plugin) that allows R scripts to be executed from RiverSMART for post-processing scenario(s). The exact configuration of the script and the RiverSMART R plugin is beyond the scope of this vignette, but a user can pass scenario folders and names to `rw_scen_aggregate()` from within RiverSMART, thus streamlining the post-processing steps. 
+RiverSMART includes a [plugin](https://riverware.org/RiverSmart/RiverSmartSoftwareSuiteHelp.html#R_Plugin) that allows R scripts to be executed from RiverSMART for post-processing scenario(s). The exact configuration of the script and the RiverSMART R plugin is beyond the scope of this vignette, but a user can pass scenario folders and names to `rw_scen_aggregate()` from within RiverSMART, thus streamlining the post-processing steps. 
