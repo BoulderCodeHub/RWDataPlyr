@@ -1,4 +1,4 @@
-# RWDataPlyr 0.6.4.9000 (dev version)
+# RWDataPlyr 0.6.5
 
 * Changed C++ specification to not specify C++11, and to be generic instead. Fixes CRAN notes.
 * Changed link to RiverWare documentation in `read_rw_csv()` help files to be compatible with Linux (no #). Fixes CRAN notes.
