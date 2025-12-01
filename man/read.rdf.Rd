@@ -35,9 +35,9 @@ performance benefits as compared to earlier versions of the function.
 }
 \section{Functions}{
 \itemize{
-\item \code{read.rdf2}: Deprecated version of \code{read.rdf()}
-}}
+\item \code{read.rdf2()}: Deprecated version of \code{read.rdf()}
 
+}}
 \examples{
 zz <- read_rdf(system.file(
   'extdata/Scenario/ISM1988_2014,2007Dems,IG,Most', 

@@ -109,7 +109,9 @@ should be unique.
 }
 
 For example, to determine if the minimum water year elevation at Lake Powell
-is below elevation 3550 feet, the following would be specified:\preformatted{data.frame(
+is below elevation 3550 feet, the following would be specified:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{data.frame(
   file = "KeySlots.rdf",
   slot = "Powell.Pool Elevation",
   period = "wy",
@@ -119,7 +121,7 @@ is below elevation 3550 feet, the following would be specified:\preformatted{dat
   variable = "powellLt3550",
   stringsAsFactors = FALSE
 )
-}
+}\if{html}{\out{</div>}}
 }
 
 \section{Custom Period Functions}{
