@@ -297,4 +297,4 @@ If `scenarios` has a length of one, it will match the results of `rdf_aggregate(
 
 ## Utilizing RWDataPlyr within RiverSMART
 
-RiverSMART includes a [plugin](https://riverware.org/RiverSmart/RiverSmartSoftwareSuiteHelp.html#R_Plugin) that allows R scripts to be executed from RiverSMART for post-processing scenario(s). The exact configuration of the script and the RiverSMART R plugin is beyond the scope of this vignette, but a user can pass scenario folders and names to `rw_scen_aggregate()` from within RiverSMART, thus streamlining the post-processing steps. 
+RiverSMART includes a plugin that allows R scripts to be executed from RiverSMART for post-processing scenario(s). The exact configuration of the script and the RiverSMART R plugin is beyond the scope of this vignette, but a user can pass scenario folders and names to `rw_scen_aggregate()` from within RiverSMART, thus streamlining the post-processing steps. 
