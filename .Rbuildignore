@@ -16,3 +16,5 @@
 ^CRAN-RELEASE$
 ^doc$
 ^Meta$
+^revdep$
+^CRAN-SUBMISSION$
