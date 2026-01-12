@@ -11,8 +11,7 @@
 ^test\.cpp$
 ^cran-comments\.md$
 ^codecov\.yml$
-^\.github/workflows/R-CMD-check\.yaml$
-^\.github/workflows/pr-commands\.yaml$
+^\.github$
 ^CRAN-RELEASE$
 ^doc$
 ^Meta$
