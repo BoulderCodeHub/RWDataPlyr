@@ -1,3 +1,9 @@
+# RWDataPlyr 0.6.6
+
+*Release January 12, 2026*
+
+* Fixed C++ specification again, to pass R-devel on CRAN
+
 # RWDataPlyr 0.6.5
 
 *Release December 1, 2025*
