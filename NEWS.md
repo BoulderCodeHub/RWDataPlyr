@@ -1,4 +1,4 @@
-# RWDataPlyr 0.6.5.9000 (development version)
+# RWDataPlyr 0.6.6.9000 (development version)
 
 * big-rdf stuff
 
