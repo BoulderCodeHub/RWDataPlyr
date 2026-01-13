@@ -53,6 +53,7 @@ vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
 ## Log
+* 2025-12-01: version 0.6.5 available
 * 2020-04-17: version 0.6.4 available
 * 2020-03-03: version 0.6.3 available
 * 2018-08-16: version 0.6.2 available (first version available on CRAN)
