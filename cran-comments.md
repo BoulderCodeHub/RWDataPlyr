@@ -1,6 +1,7 @@
-# RWDataPlyr v0.6.5 Submission 
+# RWDataPlyr v0.6.6 Submission 
 
-Submitted to fix CRAN notes.
+Submitted to fix CRAN warnings. Added R-Hub tests of Fedora to hopefully catch 
+these in the future.
 
 ## Test environments
 
@@ -9,11 +10,9 @@ Submitted to fix CRAN notes.
 * windows-latest (GitHub Actions), devel, release, oldrel-1, oldrel-2
 * MacOS-latest (GitHub Actions), release
 * WinBuilder (devtools::check_win_devel()), devel
+* R-Hub Fedora with gcc13, gcc14, and gcc-asan
 
-0 errors, 0 warnings, 1 notes on all test environments
-Note was about tested version (0.6.4.9000) including large version number, which
-has been adjusted in submitted version (0.6.5)
-
+0 errors, 0 warnings, 0 notes on all test environments
 
 ## Downstream dependencies
 

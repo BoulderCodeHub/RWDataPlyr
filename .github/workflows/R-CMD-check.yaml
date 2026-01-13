@@ -3,11 +3,11 @@ on:
   push:
     branches:
       - master
-      - cran-fix
+      - cran-fix2
   pull_request:
     branches:
       - master
-      - cran-fix
+      - cran-fix2
 
 name: R-CMD-check
 
