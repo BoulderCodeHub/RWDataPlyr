@@ -1,6 +1,10 @@
 # RWDataPlyr 0.6.6.9000 (development version)
 
-* big-rdf stuff
+* Added `bigrdf_to_rwtbl()` and `bigrdf_move()`
+* "Scale" is now a valid column when creating rwtbl in `rdf_to_rwtbl()`, `rdf_aggregate()`, and `rwscen_aggregate()` (#117)
+* Fixed error in RWDataPlyr Workflow vignette; now correctly references `rwd_agg_template()` (#115)
+* Fixed typo in `rw_scen_aggregate()` and `rdf_to_rwtbl()` documentation. "Unit" is a valid column; "Units" is not valid. (#114)
+* Updated call to `xts::period.apply()` to specify `FUN = colMeans` per updates to xts (#118)
 
 # RWDataPlyr 0.6.6
 
@@ -15,11 +19,6 @@
 * Changed C++ specification to not specify C++11, and to be generic instead. Fixes CRAN notes.
 * Changed link to RiverWare documentation in `read_rw_csv()` help files to be compatible with Linux (no #). Fixes CRAN notes.
 * Updated `rdf_to_rwtbl2()` and `read_rdf()` to not assume trace numbers start at 1 (#116)
-* Added `bigrdf_to_rwtbl()` and `bigrdf_move()`
-* "Scale" is now a valid column when creating rwtbl in `rdf_to_rwtbl()`, `rdf_aggregate()`, and `rwscen_aggregate()` (#117)
-* Fixed error in RWDataPlyr Workflow vignette; now correctly references `rwd_agg_template()` (#115)
-* Fixed typo in `rw_scen_aggregate()` and `rdf_to_rwtbl()` documentation. "Unit" is a valid column; "Units" is not valid. (#114)
-* Updated call to `xts::period.apply()` to specify `FUN = colMeans` per updates to xts (#118)
 
 # RWDataPlyr 0.6.4
 
