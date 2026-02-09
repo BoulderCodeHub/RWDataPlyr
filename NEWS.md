@@ -1,5 +1,19 @@
-# RWDataPlyr 0.6.4.9xxx (dev version)
+# RWDataPlyr 0.6.6.9000 (development version)
 
+* big-rdf stuff
+
+# RWDataPlyr 0.6.6
+
+*Release January 12, 2026*
+
+* Fixed C++ specification again, to pass R-devel on CRAN
+
+# RWDataPlyr 0.6.5
+
+*Release December 1, 2025*
+
+* Changed C++ specification to not specify C++11, and to be generic instead. Fixes CRAN notes.
+* Changed link to RiverWare documentation in `read_rw_csv()` help files to be compatible with Linux (no #). Fixes CRAN notes.
 * Updated `rdf_to_rwtbl2()` and `read_rdf()` to not assume trace numbers start at 1 (#116)
 * Added `bigrdf_to_rwtbl()` and `bigrdf_move()`
 * "Scale" is now a valid column when creating rwtbl in `rdf_to_rwtbl()`, `rdf_aggregate()`, and `rwscen_aggregate()` (#117)

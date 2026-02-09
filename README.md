@@ -6,12 +6,12 @@ RWDataPlyr
 
 [![R build status](https://github.com/BoulderCodeHub/RWDataPlyr/workflows/R-CMD-check/badge.svg)](https://github.com/BoulderCodeHub/RWDataPlyr/actions)
 
-[![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr)
+[![codecov](https://codecov.io/gh/BoulderCodeHub/RWDataPlyr/branch/master/graphs/badge.svg)](https://app.codecov.io/gh/BoulderCodeHub/RWDataPlyr)
 <!-- badges: end -->
 
 ## Overview
 
-RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](http://www.riverware.org) simulations in rdf, csv, and nc formats and work with those data in a dplyr pipeline. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
+RWDataPlyr is a tool to read and manipulate data generated from [RiverWare<sup>TM</sup>](https://www.riverware.org) simulations in rdf, csv, and nc formats and work with those data in a dplyr pipeline. It provides functions to gather,  aggregate, and summarize data from multiple RiverWare simulations, i.e., scenarios.
 
 ## Installation
 
@@ -53,6 +53,7 @@ vignette("rwdataplyr-workflow", package = "RWDataPlyr")
 ```
 
 ## Log
+* 2025-12-01: version 0.6.5 available
 * 2020-04-17: version 0.6.4 available
 * 2020-03-03: version 0.6.3 available
 * 2018-08-16: version 0.6.2 available (first version available on CRAN)
