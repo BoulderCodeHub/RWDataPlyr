@@ -3,7 +3,7 @@ library(dplyr)
 
 slot_agg_matrix <- read_rwd_agg(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
-)[1:5,]
+)[1:7,]
 
 rwtbl <- expect_warning(rdf_to_rwtbl(keyRdf))
 
@@ -29,7 +29,6 @@ test_that("apply_eval works as expected", {
       filter(Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
       select(-Timestep, -Month) %>%
       group_by(Year, TraceNumber)
-    
   )
   
   expect_equal(
@@ -37,27 +36,38 @@ test_that("apply_eval works as expected", {
       RWDataPlyr:::apply_summary(slot_agg_matrix[3,]) %>%
       RWDataPlyr:::apply_eval(slot_agg_matrix[3,]),
     rwtbl %>%
-      filter(Month %in% "July", ObjectSlot == slot_agg_matrix[3,]$slot) %>%
-      group_by(Year, TraceNumber) %>%
-      select(-Timestep, -Month)
+      filter(ObjectSlot == slot_agg_matrix[3,]$slot) %>%
+      group_by(Year, TraceNumber, ObjectSlot) %>%
+      summarise(Value = min(Value)) %>%
+      mutate(Value = as.numeric(Value >= 1000 & Value <= 1050))
   )
   
   expect_equal(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[4,]) %>%
       RWDataPlyr:::apply_summary(slot_agg_matrix[4,]) %>%
       RWDataPlyr:::apply_eval(slot_agg_matrix[4,]),
-    filter(rwtbl, ObjectSlot == slot_agg_matrix[4,]$slot) %>%
+    rwtbl %>%
+      filter(Month %in% "July", ObjectSlot == slot_agg_matrix[4,]$slot) %>%
+      group_by(Year, TraceNumber) %>%
+      select(-Timestep, -Month)
+  )
+  
+  expect_equal(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]) %>%
+      RWDataPlyr:::apply_summary(slot_agg_matrix[5,]) %>%
+      RWDataPlyr:::apply_eval(slot_agg_matrix[5,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
       group_by(Year, Month, TraceNumber) %>%
       select(-Timestep) %>%
       mutate(Value = as.numeric(as.numeric(Value > 400000)))
   )
   
   expect_identical(
-    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]) %>%
-      RWDataPlyr:::apply_summary(slot_agg_matrix[5,]) %>%
-      RWDataPlyr:::apply_eval(slot_agg_matrix[5,]),
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[6,]) %>%
+      RWDataPlyr:::apply_summary(slot_agg_matrix[6,]) %>%
+      RWDataPlyr:::apply_eval(slot_agg_matrix[6,]),
     rwtbl %>%
-      filter(ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      filter(ObjectSlot == slot_agg_matrix[6,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
@@ -65,6 +75,21 @@ test_that("apply_eval works as expected", {
       group_by(Year, TraceNumber, ObjectSlot) %>%
       summarise(Value = sum(Value)) %>%
       mutate(Value = Value * 0.001)
+  )
+  
+  expect_equal(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[7,]) %>%
+      RWDataPlyr:::apply_summary(slot_agg_matrix[7,]) %>%
+      RWDataPlyr:::apply_eval(slot_agg_matrix[7,]),
+    rwtbl %>%
+      filter(ObjectSlot == slot_agg_matrix[7,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
+      select(-ym) %>%
+      filter(Year < max(Year)) %>%
+      group_by(Year, TraceNumber, ObjectSlot) %>%
+      summarise(Value = sum(Value)) %>%
+      mutate(Value = as.numeric(Value > 8230000 & Value < 9000000))
   )
 })
 
@@ -97,7 +122,7 @@ test_that("apply_eval errors properly", {
     paste0(
       "'sum' is not a valid `eval` value.\n",
       "The `eval` column in the slot agg matrix should either be\n",
-      "`NA` or one of the 'Compare' S4 group generics. See ?S4groupGeneric."
+      "`NA`, one of the 'Compare' S4 group generics (See ?S4groupGeneric) or:[], [), (], ()."
     ),
     fixed = TRUE
   )

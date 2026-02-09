@@ -8,6 +8,22 @@
 #' are stored as attributes in the returned tibble. These attributes are:
 #' `mrm_config_name`, `owner`, `description`, `create_date`, and `n_traces`.
 #' 
+#' All possible columns, depending on the specific values passed to `scenario`,
+#' `keep_cols`, and `add_ym` are: 
+#' - TimeStep
+#' - Year
+#' - Month
+#' - Value
+#' - ObjectName
+#' - SlotName
+#' - ObjectSlot
+#' - TraceNumber
+#' - InputDMIName
+#' - RulesetFileName
+#' - ObjectType
+#' - Unit
+#' - Scale
+#' 
 #' If the rdf contains a scalar slot(s), the scalar slot value(s) will be 
 #' repeated for every timestep.
 #' 
@@ -20,8 +36,8 @@
 #'   * `FALSE` (default) only includes the defaults columns: `Timestep`, 
 #'   `TraceNumber`, `ObjectSlot`, and `Value`. `Scenario` is also returned if 
 #'   `scenario` is specified.
-#'   * `TRUE`, all columns are returned.
-#'   * A character vector, e.g., `c("ObjectName", "Units")`, allows the user to 
+#'   * `TRUE`, all columns are returned (see Details).
+#'   * A character vector, e.g., `c("ObjectName", "Unit")`, allows the user to 
 #'   include other columns that are not always required, in addition to the 
 #'   "default" set of columns. If any of the values in `keep_cols` are not 
 #'   found, a warning will post, but all other columns will be returned. 
