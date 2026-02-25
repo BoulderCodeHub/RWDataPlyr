@@ -32,7 +32,7 @@ knitr::opts_chunk$set(
 
 `bigrdf_to_rwtbl()` returns a connection to the parquet file, but not the data itself. This might take ~5 minutes to run. It will process 20 traces at a time, and will report out as it starts each chunk of 20 traces. 
 
-```{r setup}
+```{r setup, eval = FALSE}
 library(RWDataPlyr)
 library(dplyr)
 library(stringr)
@@ -44,7 +44,7 @@ zz
 
 Then, you can work with the data in a typical dplyr pipeline, and move it into memory when it is smaller. Use *`collect()`* to move it into memory.  
 
-```{r summarise}
+```{r summarise, eval = FALSE}
 # get the annual depletion requested for each user
 df <- zz |> 
   filter(str_ends(ObjectSlot, '\\.Depletion Requested')) |>
