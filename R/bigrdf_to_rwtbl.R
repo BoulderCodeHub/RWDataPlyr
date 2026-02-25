@@ -1,8 +1,30 @@
+#' Convert a 'big' rdf file into a tibble-like object.
+#' 
+#' @description
+#' `bigrdf_to_rwtbl()` converts an rdf into a tibble-like object. 'Big' rdf 
+#' files can cause memory issues when processing them, and keeping them stored
+#' entirely in memory as tibbles. `bigrdf_to_rwtbl()` processes the rdf files
+#' in chunks, specified as the number of traces per chunk (`n_trace_per_chunk`),
+#' and saves the data as a temporary [arrow::FileSystemDataset], where each
+#' trace is saved as a single parquet file. This ensures there are no memory 
+#' issues when processing the rdf file. 
+#' 
+#' Users can then save the `FileSystemDataSet` using `bigrdf_save()`, and/or 
+#' work with it from its temporary location in a tidyverse pipeline. Using 
+#' [dplyr::collect()] will return a tibble in memory. 
+#' 
+#' @inheritParams rdf_to_rwtbl2
+#' 
+#' @param status If `TRUE`, print out information on status of processing the 
+#' rdf. 
+#' 
+#' @param n_trace_per_chunk How many traces to process at a time. It is faster
+#' to process more traces at a time, but you are more likely to run into 
+#' memory issues. It will be dependent on the overall structure of the rdf in 
+#' terms of number of variables and timesteps and will be up to the user to 
+#' determine an appropriate value in terms of speed vs. memory. 
+#' 
 #' @export
-
-# TODO: make arrow only suggested and check here if it's insalled? Then install
-# if user confirms? could see benchmark and its use of ggbehive as example
-
 bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE, 
                           add_ym = TRUE, status = TRUE, n_trace_per_chunk = 20)
 {
@@ -13,7 +35,7 @@ bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE,
       call. = FALSE
     )
   }
-  
+
   rdf_vec <- read_rdf(file, rdf = FALSE)
   
   check_rdf_to_rwtbl_args(scenario, keep_cols, add_ym, "rdf_to_rwtbl2")
@@ -51,11 +73,16 @@ bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE,
   row_i <- 0
   trace_num <- 0
   
-  pq_path <- normalizePath(tempfile('bigrdf_'), winslash = '/', mustWork = FALSE)
+  pq_path <- normalizePath(
+    tempfile(paste0(tools::file_path_sans_ext(basename(file)),'_')), 
+    winslash = '/', 
+    mustWork = FALSE)
+  
   dir.create(pq_path)
   cat("creating\n", pq_path, '\n')
   
   tmp <- list()
+  part_count <- 0
   
   while (row_i >= 0) {
     if (status) {
@@ -77,26 +104,62 @@ bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE,
     
     trace_num <- tail(tmp$TraceNumber, 1)
     
+    # TODO: consider changing this to be grouped by variable, but would have to
+    # write custom write out code so that part-0, part-1... work for the 
+    # different groups of traces, e.g., folders would be Vaariable=x.y, 
+    # Variable = x.y2 ... and then there woulwd be part-0.parquet for first 
+    # parsing of traces, part-1.parquet for next, etc. This cannot be done
+    # by defaults of write_dataset()
     tmp %>%
       dplyr::group_by(.data[['TraceNumber']]) %>%
-      arrow::write_dataset(path = pq_path, format = "parquet")
-      
+      arrow::write_dataset(
+        path = pq_path, 
+        format = "parquet"
+      )
+    
+    part_count <- part_count + 1
   }
   
   ds <- arrow::open_dataset(pq_path)
   attr(ds, 'base_dir') <- pq_path
   ds
 }
-
+#' @rdname bigrdf_to_rwtbl
+#' 
+#' @param x Object returned by `bigrdf_to_rwtbl()`
+#' 
+#' @param path The file path where the user wants the bigrdf saved.
+#' 
+#' @param remove_uid In the temporary storage, a unique ID is included in the
+#' FileSystemDataSet folder name. If this is `TRUE`, that UID is removed when
+#' saving the data to `path`.
+#' 
 #' @export
-# TODO: add option to remove the unique folder, e.g., bigrdf_[alphanumeric]
-bigrdf_move <- function(x, path)
+bigrdf_save <- function(x, path, remove_uid = FALSE)
 {
   ifolder <- attr(x, 'base_dir', exact = TRUE)
-  # TODO: add error if this attr doesn't exist
-  # TODO: check that path exists
+  
+  if (is.null(ifolder)) {
+    stop(
+      "x does not have required attribute that is set by `bigrdf_to_rwtbl()`"
+    )
+  }
+  
+  if (!dir.exists(path)) {
+    stop(path, " does not already exist.")
+  }
   
   file.copy(ifolder, path, recursive = TRUE)
   
-  invisible(x)
+  folder_orig <- basename(ifolder)
+  new_path <- file.path(path, folder_orig)
+  
+  if (remove_uid) {
+    folder_new <- sub("_[a-zA-Z0-9]+$", "", folder_orig)
+    
+    file.rename(new_path, file.path(path, folder_new))
+    new_path <- file.path(path, folder_new)
+  }
+  
+  invisible(arrow::open_dataset(new_path))
 }
