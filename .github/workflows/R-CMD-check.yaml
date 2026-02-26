@@ -2,12 +2,12 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - master
-      - cran-fix2
+      - '**'
   pull_request:
     branches:
-      - master
-      - cran-fix2
+      - main
+  schedule:
+    - cron: '0 12 15 * *'
 
 name: R-CMD-check
 
