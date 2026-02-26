@@ -7,6 +7,7 @@
 * Updated call to `xts::period.apply()` to specify `FUN = colMeans` per updates to xts (#118)
 * Added new 'between' eval operators to `rwd_agg`s. (#113)
 * Replaced all dplyr `*_at` functions with NSE equivalents that use `.data[[]]`
+* rwtbl_slot_names() is now a generic
 
 # RWDataPlyr 0.6.6
 

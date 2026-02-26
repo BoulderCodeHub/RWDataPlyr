@@ -4,7 +4,7 @@
 \alias{rwtbl_slot_names}
 \title{List the slot names in a tbl_df}
 \usage{
-rwtbl_slot_names(rwtbl)
+rwtbl_slot_names(rwtbl, ...)
 }
 \arguments{
 \item{rwtbl}{A \code{tbl_df} object with RiverWare output. Must contain the

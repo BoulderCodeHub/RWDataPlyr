@@ -19,16 +19,43 @@
 #' rwtbl_slot_names(rwtbl)
 #' 
 #' @export
-rwtbl_slot_names <- function(rwtbl)
+
+rwtbl_slot_names <- function(rwtbl, ...) {
+  UseMethod("rwtbl_slot_names")
+}
+
+#' @export
+rwtbl_slot_names.data.frame <- function(rwtbl)
 {
   if ("ObjectSlot" %in% names(rwtbl)) {
     varname <- "ObjectSlot"
   } else {
-    stop("Invalid `tbl_df` passed to `rdftbl_slot_names()`.\n",
+    stop("Invalid `tbl_df` passed to `rwtbl_slot_names()`.\n",
          "It does not have an `ObjectSlot` column")
   }
   
   as.character(unique(rwtbl[[varname]]))
+}
+
+#' @export
+rwtbl_slot_names.FileSystemDataset <- function(rwtbl)
+{
+  if ("ObjectSlot" %in% names(rwtbl)) {
+    varname <- "ObjectSlot"
+  } else {
+    stop("Invalid `FileSystemDataSet` passed to `rwtbl_slot_names()`.\n",
+         "It does not have an `ObjectSlot` column")
+  }
+  
+  slot_names <- dplyr::distinct(rwtbl, .data[["ObjectSlot"]]) |>
+    dplyr::collect()
+  
+  as.character(slot_names[["ObjectSlot"]])
+}
+
+#' @export
+rwtbl_slot_names.default <- function(x, ...) {
+  stop("rwtbl_slot_names is not defined for class ", class(x))
 }
 
 #' Map a variable name to the RiverWare slot name
