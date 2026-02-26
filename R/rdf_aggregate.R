@@ -254,7 +254,7 @@ add_var_drop_objectslot <- function(rwtbl, slot_agg_row)
   rwtbl$Variable <- slot_agg_row$variable
   
   rwtbl %>%
-    dplyr::group_by_at(tmp_groups) %>%
+    dplyr::group_by(dplyr::across(dplyr::all_of(tmp_groups))) %>%
     dplyr::select(-dplyr::matches("ObjectSlot"))
 }
 
@@ -266,11 +266,11 @@ add_var_drop_objectslot <- function(rwtbl, slot_agg_row)
 add_month_to_annual <- function(rwtbl)
 {
   cols <- colnames(rwtbl)
-  dec_fun <- function(x) "December"
+
   if (!"Month" %in% cols){
     rwtbl <- rwtbl %>%
-      dplyr::mutate_at("Year", list("Month" = dec_fun)) %>%
-      dplyr::select_at(c("Year", "Month", cols[cols != "Year"]))
+      dplyr::mutate("Month" := "December") %>%
+      dplyr::select(dplyr::all_of(c("Year", "Month", cols[cols != "Year"])))
   }
   rwtbl
 }
@@ -289,7 +289,7 @@ check_nans <- function(rwtbl, nans_are, rdf_file)
   if (any(is.nan(rwtbl$Value))) {
     if (nans_are == "error") {
       slots <- rwtbl %>%
-        dplyr::filter_at("Value", dplyr::all_vars(is.nan(.)))
+        dplyr::filter(is.nan(.data[["Value"]]))
       
       slots <- unique(slots$ObjectSlot)
       nSlots <- length(slots)
@@ -311,7 +311,7 @@ check_nans <- function(rwtbl, nans_are, rdf_file)
     } else {
       # convert any NaNs to 0
       rwtbl <- rwtbl %>%
-        dplyr::mutate_at("Value", nan_to_zero)
+        dplyr::mutate(dplyr::across(dplyr::all_of("Value"), nan_to_zero))
     }
   }
   

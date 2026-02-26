@@ -8,10 +8,9 @@ apply_period <- function(rwtbl, slot_agg_row)
   # check that it has Year and Month columns
   
   # filter based on slot
-  rwtbl <- dplyr::filter_at(
+  rwtbl <- dplyr::filter(
     rwtbl, 
-    "ObjectSlot", 
-    dplyr::any_vars(. == slot_agg_row$slot)
+    .data[["ObjectSlot"]] == slot_agg_row$slot
   ) %>%
     # filter and group for period
     period_filter_group(period = slot_agg_row$period)
@@ -47,19 +46,18 @@ period_filter_group <- function(rwtbl, period)
   
   if (period == "asis") {
     rwtbl <- rwtbl %>%
-      dplyr::group_by_at(c("Year", "Month"))
+      dplyr::group_by(dplyr::across(dplyr::all_of(c("Year", "Month"))))
   } else if (is_custom_period_fun(period_filter)) {
     # list(fun = wy_convert, filter_months = month.name, group_tbl = c("Year"))
     rwtbl <- period_filter$fun(rwtbl) %>%
-      dplyr::filter_at(
-        "Month", 
-        dplyr::any_vars(. %in% period_filter$filter_months)
+      dplyr::filter(
+        .data[["Month"]] %in% period_filter$filter_months
       ) %>%
-      dplyr::group_by_at(period_filter$group_tbl)
+      dplyr::group_by(dplyr::across(dplyr::all_of(period_filter$group_tbl)))
   } else {
     rwtbl <- rwtbl %>%
-      dplyr::filter_at("Month", dplyr::any_vars(. %in% period_filter)) %>%
-      dplyr::group_by_at("Year")
+      dplyr::filter(.data[["Month"]] %in% period_filter) %>%
+      dplyr::group_by(dplyr::across(dplyr::all_of("Year")))
   }
   
   rwtbl

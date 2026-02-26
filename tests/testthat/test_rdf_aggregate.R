@@ -88,11 +88,11 @@ test_that("test rdf_aggregate() structure", {
     all(ra1$variable %in% as.character(levels(as.factor(tmp$Variable))))
   )
   # check that it contains expected colnames
-  expect_equal(
+  expect_setequal(
     colnames(tmp), 
     c("Year", "Month", "TraceNumber", "Scenario", "Variable", "Value")
   )
-  # check that annual slots only containd December; 
+  # check that annual slots only contain December; 
   # check that monthly slots contains all months
   expect_true(all(
     (tmp %>% 

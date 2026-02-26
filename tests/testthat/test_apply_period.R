@@ -119,13 +119,10 @@ djf <<- function()
 {
   djf_convert <- function(rwtbl)
   {
-    rwtbl %>%
-      dplyr::mutate_at(
-        "Timestep", 
-        .funs = list("Year" = zoo::as.yearmon)
-      ) %>%
-      # can use the ym_get_wateryear b/c djf are all in same water year
-      dplyr::mutate_at("Year", .funs = list(ym_get_wateryear))
+    dplyr::mutate(
+      rwtbl, 
+      "Year" := ym_get_wateryear(zoo::as.yearmon(.data[["Timestep"]]))
+    ) 
   }
   
   list(

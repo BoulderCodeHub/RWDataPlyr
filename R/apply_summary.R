@@ -18,7 +18,10 @@ apply_summary <- function(rwtbl, slot_agg_row)
   cur_groups <- dplyr::group_vars(rwtbl)
   cols <- colnames(rwtbl)
   cols <- cols[!(cols %in% c("Timestep", "Year", "Month", "Value"))]
-  rwtbl <- dplyr::group_by_at(rwtbl, c(cur_groups, cols))
+  rwtbl <- dplyr::group_by(
+    rwtbl, 
+    dplyr::across(dplyr::all_of(c(cur_groups, cols)))
+  )
   
   if (!is.na(slot_agg_row$summary)){
     rwtbl <- summary_summarise(rwtbl, slot_agg_row$summary)
@@ -30,7 +33,9 @@ apply_summary <- function(rwtbl, slot_agg_row)
     
     rwtbl <- dplyr::select(rwtbl, -dplyr::one_of(drop_cols)) %>%
       # drop the last grouping variable to match output if you do summarise
-      dplyr::group_by_at(c(cur_groups, utils::head(cols, -1)))
+      dplyr::group_by(
+        dplyr::across(dplyr::all_of(c(cur_groups, utils::head(cols, -1))))
+      )
   }
   
   rwtbl
@@ -55,7 +60,7 @@ summary_summarise <- function(rwtbl, sam_summary)
 
   check_summary_function(smry_fun, sam_summary)
   
-  dplyr::summarise_at(rwtbl, "Value", .funs = list(~smry_fun(.)))
+  dplyr::summarise(rwtbl, Value = smry_fun(.data[["Value"]]))
 }
 
 #' Checks that the summary function `sam_summary` meets other 

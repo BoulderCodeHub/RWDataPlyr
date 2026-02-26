@@ -20,9 +20,11 @@ apply_eval <- function(rwtbl, slot_agg_row)
   if (!is.na(eval_fun) & !is.na(t_s)) {
     if (eval_fun %in% c(methods::getGroupMembers("Compare"), "*")) {
       rwtbl <- rwtbl %>%
-        dplyr::mutate_at(
-          "Value", 
-          list(~as.numeric(eval(parse(text = paste(., eval_fun, t_s)))))
+        dplyr::mutate(
+          dplyr::across(
+            dplyr::all_of("Value"),
+            ~as.numeric(eval(parse(text = paste(., eval_fun, t_s))))
+          )
         )
     } else {
       # it is one of the between operators: [], [), (], ()
@@ -35,11 +37,13 @@ apply_eval <- function(rwtbl, slot_agg_row)
       o2 <- if_else(o2 == "]", "<=", "<")
       
       rwtbl <- rwtbl %>%
-        dplyr::mutate_at(
-          "Value", 
-          list(~as.numeric(eval(parse(
-            text = paste(., o1, num1, '&', ., o2, num2)
-          ))))
+        dplyr::mutate(
+          dplyr::across(
+            dplyr::all_of("Value"),
+            ~as.numeric(eval(parse(
+              text = paste(., o1, num1, '&', ., o2, num2)
+            )))
+          )
         )
     }
   }

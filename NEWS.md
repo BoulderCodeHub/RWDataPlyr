@@ -6,6 +6,7 @@
 * Fixed typo in `rw_scen_aggregate()` and `rdf_to_rwtbl()` documentation. "Unit" is a valid column; "Units" is not valid. (#114)
 * Updated call to `xts::period.apply()` to specify `FUN = colMeans` per updates to xts (#118)
 * Added new 'between' eval operators to `rwd_agg`s. (#113)
+* Replaced all dplyr `*_at` functions with NSE equivalents that use `.data[[]]`
 
 # RWDataPlyr 0.6.6
 

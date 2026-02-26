@@ -236,7 +236,7 @@ rdf_trace_to_tbl <- function(rdfTrace, traceNum)
       RulesetFileName = ruleSet, 
       InputDMIName = slotSet
     ) %>%
-    dplyr::mutate_at(.vars = "Timestep", .funs = as.character)
+    dplyr::mutate("Timestep" := as.character(.data[["Timestep"]]))
   
   tbl
 }
@@ -284,11 +284,12 @@ add_ym_to_rdftbl <- function(tbl)
 {
   other_cols <- colnames(tbl)[colnames(tbl) != "Timestep"]
   tbl <- tbl %>%
-    dplyr::mutate_at("Timestep", list("ym" = zoo::as.yearmon)) %>%
-    dplyr::mutate_at(
-      "ym", 
-      list("Year" = ym_get_year, "Month" = ym_get_month_str)) %>%
-    dplyr::select_at(c("Timestep", "Year", "Month", other_cols))
+    dplyr::mutate("ym" := zoo::as.yearmon(.data[["Timestep"]])) %>%
+    dplyr::mutate(
+      "Year" := ym_get_year(.data[["ym"]]),
+      "Month" := ym_get_month_str(.data[["ym"]])
+    ) %>%
+    dplyr::select(dplyr::all_of(c("Timestep", "Year", "Month", other_cols)))
 }
 
 rwtbl_get_atts <- function(rwtbl)
