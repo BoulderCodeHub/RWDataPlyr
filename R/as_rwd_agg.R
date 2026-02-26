@@ -40,7 +40,7 @@ as_rwd_agg.matrix <- function(x, ...)
     apply(x[,seq_len(ncol(x))], 2, as.character), 
     stringsAsFactors = FALSE
   )
-  x$t_s <- as.numeric(x$t_s)
+  #x$t_s <- as.numeric(x$t_s)
   as_rwd_agg(as.data.frame(x, stringsAsFactors = FALSE, ...))
 }
 

@@ -1,4 +1,5 @@
 on:
+  workflow_dispatch:
   push:
     branches:
       - '**'
@@ -20,19 +21,23 @@ jobs:
       fail-fast: false
       matrix:
         config:
+          - {os: windows-latest, r: 'oldrel-3'}
           - {os: windows-latest, r: 'oldrel-2'}
           - {os: windows-latest, r: 'oldrel-1'}
           - {os: windows-latest, r: 'release'}
           - {os: windows-latest, r: 'devel'}
           - {os: macOS-latest, r: 'release'}
+          - {os: macOS-latest, r: 'devel'}
+          - {os: macOS-latest, r: 'oldrel-1'}
           - {os: ubuntu-latest, r: 'oldrel-1'}
           - {os: ubuntu-latest, r: 'oldrel-2'}
           - {os: ubuntu-latest, r: 'oldrel-3'}
           - {os: ubuntu-latest, r: 'release'}
           - {os: ubuntu-latest, r: 'devel'}
-
+          
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       CRAN: ${{ matrix.config.cran }}
 
     steps:

@@ -95,14 +95,17 @@ of the \code{Summary} \link{S4groupGeneric}s work. Notably, \code{range()} will 
 since it returns two values. There is no reason that a custom function
 will not work here, but it has not been tested.
 \item \emph{eval:} the comparison operator to use (see the \code{Compare}
-\link{S4groupGeneric}s). If no comparison is desired, then \code{NA} should be used.
+\link{S4groupGeneric}s or between operators that are described more below).
+If no comparison is desired, then \code{NA} should be used.
 If \code{eval} is specified the value returned from applying the \code{summary} to
 the \code{period} will be compared to the threshold specified by \code{t_s}. The
 results of the comparison are returned as 0 and 1 instead of \code{TRUE} and
 \code{FALSE}.
 \item \emph{t_s:} either the threshold to be compared to if \code{eval} is not \code{NA} or a
 value to scale the result by, e.g,. 0.001 to convert from acre-ft to
-thousand acre-ft. \code{NA} can also be specified to not scale the data.
+thousand acre-ft. \code{NA} can also be specified to not scale the data. If a
+between operator is used for \code{eval}, then it should be two numbers
+separated by a hyphen, e.g., 200-250.
 \item \emph{variable:} the variable name that will be used to identify the results
 of applying the period, summary, comparison/scaling to. All variable names
 should be unique.
@@ -147,6 +150,19 @@ See the "RWDataPlyr Workflow" vignette for example implementations of both
 the summer and winter custom functions described above.
 }
 
+\section{Between Operators}{
+
+In addition to the \code{Compare} \link{S4groupGeneric}s, the \code{eval} parameter can
+also be one of \verb{()}, \verb{[)}, \verb{(]}, or \verb{[]} to determine if a slot's value is
+between two numbers, as specified in the \code{t_s} parameter. In this
+specification, \verb{()} are used for \code{>} and \code{<}, while \verb{[]} are used for \code{>=}
+and \code{<=}, respectively. For example, if \code{eval} is \verb{(]}, and \code{t_s} is
+\code{200-250}, the aggregation will check to see if the slot's value is \code{>} 200
+and \code{<=} 250.
+
+[)\verb{, }(]: R:)\%60,\%20\%60(
+}
+
 \examples{
 # determine if Powell's minimum water year elevation is < 3550'
 rwd_agg(
@@ -158,6 +174,20 @@ rwd_agg(
     eval = "<",
     t_s = 3550,
     variable = "powellLt3550",
+    stringsAsFactors = FALSE
+  )
+)
+
+# determine if Mead's December elevation is above 1050 and <= 1075
+rwd_agg(
+  data.frame(
+    file = "KeySlots.rdf",
+    slot = "Mead.Pool Elevation",
+    period = "December",
+    summary = NA,
+    eval = "(]",
+    t_s = "1050-1075",
+    variable = "mead_btwn_1050_1075",
     stringsAsFactors = FALSE
   )
 )

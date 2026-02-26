@@ -13,10 +13,10 @@
 */
   
 /* .Call calls */
-extern SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _RWDataPlyr_rdf_to_rwtbl_cpp(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-  {"_RWDataPlyr_rdf_to_rwtbl_cpp",     (DL_FUNC) &_RWDataPlyr_rdf_to_rwtbl_cpp,     4},
+  {"_RWDataPlyr_rdf_to_rwtbl_cpp",     (DL_FUNC) &_RWDataPlyr_rdf_to_rwtbl_cpp,     7},
   {NULL, NULL, 0}
 };
 

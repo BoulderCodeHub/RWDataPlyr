@@ -1,0 +1,76 @@
+---
+title: "Working with 'big' rdfs" 
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{big-rdf}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Problem
+
+- 'Big' rdfs cannot be parsed by `rdf_to_rwtbl2()` nor by `rdf_aggregate()` or by `rw_scen_aggregate()`, which both rely on `rdf_to_rwtbl2()`.
+- The underlying memory issue is with the underlying C++ code, even though R-studio shows that there is enough memory on the laptop.
+- Storing the data in the "long" format, with many string/character columns that are repeated for every row is memory intensive, but useful for the analysis and plotting we do.
+  - Example: The 600 MB AZWU.rdf file for a 400 trace run takes up about 15 GB in memory
+
+## Solution
+
+- `bigrdf_to_rwtbl()` works similarly to `rdf_to_rwtbl2()` creating the same 'long' data frame, but does not store it in memory
+- It relies on parquet files as they do not have to store all data in memory, and batch parse the rdf files
+- The parquet files can be used in a standard dplyr pipeline, and then 'collected' into memory when they get to be a manageable size
+
+
+## Example
+
+`bigrdf_to_rwtbl()` returns a connection to the parquet file, but not the data itself. This might take ~5 minutes to run. It will process 20 traces at a time, and will report out as it starts each chunk of 20 traces. 
+
+```{r setup, eval = FALSE}
+library(RWDataPlyr)
+library(dplyr)
+library(stringr)
+rdf_path <- "//manoa.colorado.edu/bor/Shared/P26/Dec202024_NA_CCS_FA_Final_Runs/2016Dems,CRMMS_Trace12,ICSon,SuperEnsembleV3,CCS.9087.mdl,CCS.9047.rls/AZWU.rdf"
+
+zz <- bigrdf_to_rwtbl(rdf_path, scenario = 'CCS', n_trace_per_chunk = 20)
+zz
+```
+
+Then, you can work with the data in a typical dplyr pipeline, and move it into memory when it is smaller. Use *`collect()`* to move it into memory.  
+
+```{r summarise, eval = FALSE}
+# get the annual depletion requested for each user
+df <- zz |> 
+  filter(str_ends(ObjectSlot, '\\.Depletion Requested')) |>
+  group_by(Scenario, ObjectSlot, Year) |>
+  summarise(Value = sum(Value)) |>
+  collect()
+```
+
+Now `df` is a reasonable size (.1 MB) to keep in memory and use as you normally would. 
+
+## Details
+
+- It is faster to work with data in memory than with the parquet connection, but only if you have enough memory. So, the goal should be to reduce the size and then move it into memory. 
+  - You could run `collect(zz)`, but this will take ~14 GB of free memory
+- The `n_trace_per_chunk` variable controls how many traces are parsed on each call to the C++ code. 
+  - Increasing this will likely result in faster evaluation, but also takes more memory
+  - Decreasing this will likely result in slower evaluation, but take less memory
+  - If you get the out of memory error, try making this smaller; if you're working with a smaller rdf file, you can probably increase this. Setting it to a negative value will have it process all traces (but then you should probably use `rdf_to_rwtbl2()`).
+- The parquet data is stored in a temp directory, e.g.,  C:/Users/RAButler/AppData/Local/Temp/1/RtmpElIuIn/bigrdf_55b05e956495. This is a requirement of CRAN. It also means that if you run this and R is closed/reset, it will delete the parquet data. 
+  - So, if you want to save these data someplace, you can use `bigrdf_move(df, 'path/to/move/to')`
+  - Then you can use `arrow::open_dataset('path/to/move/to')` to reconnect to these data in the future
+- `rdf_to_rwtbl2()` is faster than `bigrdf_to_rwtbl()`, so for smaller rdf files that's probably still the preferred method for getting the data into R
+
+## Next Steps
+
+If this seems to help/work, then `rdf_aggregate()` and `rwscen_aggregate()` will be enhanced to also be able to work with 'big' rdfs.
+  
+  
+  

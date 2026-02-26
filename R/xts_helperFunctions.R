@@ -65,7 +65,7 @@ getTraceAvg <- function(rdfXTS, yearType)
   else
     ep <- getCyEndpoints(rdfXTS)
   # GET CY ANNUAL AVERAGE BY TRACE 
-  outXTS <- xts::period.apply(rdfXTS, ep, mean)
+  outXTS <- xts::period.apply(rdfXTS, ep, FUN = colMeans)
   return(outXTS)
 }
 

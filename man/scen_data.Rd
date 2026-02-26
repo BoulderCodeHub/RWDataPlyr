@@ -5,7 +5,7 @@
 \alias{scen_data}
 \title{Example aggregated scenario data}
 \format{
-An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 720 rows and 6 columns.
+An object of class \code{grouped_df} (inherits from \code{tbl_df}, \code{tbl}, \code{data.frame}) with 800 rows and 6 columns.
 }
 \usage{
 scen_data

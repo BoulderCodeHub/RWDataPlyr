@@ -2,8 +2,8 @@
 
 devtools::revdep("RWDataPlyr") - ensure there are no reverse dependencies
 devtools::check_rub() - to check on rhub
-devtools::check_win_devel() - win-builder
-devtools::check_win_release() - win-builder
+devtools::check_win_devel() - win-builder R-devel
+devtools::check_win_release() - win-builder R-release
 
 devtools::release()
 

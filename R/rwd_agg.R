@@ -84,7 +84,8 @@
 #'   will not work here, but it has not been tested. 
 #'   
 #' - *eval:* the comparison operator to use (see the `Compare` 
-#'   [S4groupGeneric]s). If no comparison is desired, then `NA` should be used. 
+#'   [S4groupGeneric]s or between operators that are described more below). 
+#'   If no comparison is desired, then `NA` should be used. 
 #'   If `eval` is specified the value returned from applying the `summary` to
 #'   the `period` will be compared to the threshold specified by `t_s`. The 
 #'   results of the comparison are returned as 0 and 1 instead of `TRUE` and 
@@ -92,7 +93,9 @@
 #'   
 #' - *t_s:* either the threshold to be compared to if `eval` is not `NA` or a 
 #'   value to scale the result by, e.g,. 0.001 to convert from acre-ft to 
-#'   thousand acre-ft. `NA` can also be specified to not scale the data.
+#'   thousand acre-ft. `NA` can also be specified to not scale the data. If a 
+#'   between operator is used for `eval`, then it should be two numbers
+#'   separated by a hyphen, e.g., 200-250.
 #'   
 #' - *variable:* the variable name that will be used to identify the results
 #'   of applying the period, summary, comparison/scaling to. All variable names
@@ -132,6 +135,16 @@
 #' See the "RWDataPlyr Workflow" vignette for example implementations of both 
 #' the summer and winter custom functions described above.
 #' 
+#' @section Between Operators:
+#' In addition to the `Compare` [S4groupGeneric]s, the `eval` parameter can 
+#' also be one of `()`, `[)`, `(]`, or `[]` to determine if a slot's value is 
+#' between two numbers, as specified in the `t_s` parameter. In this 
+#' specification, `()` are used for `>` and `<`, while `[]` are used for `>=` 
+#' and `<=`, respectively. For example, if `eval` is `(]`, and `t_s` is 
+#' `200-250`, the aggregation will check to see if the slot's value is `>` 200
+#' and `<=` 250.  
+#' 
+#' 
 #' @param x A data.frame with required column names and valid entries; see 
 #'   *Details* and *Aggregation Specification* sections.
 #' @param rdfs A vector of rdf names; see *Details* and 
@@ -148,6 +161,20 @@
 #'     eval = "<",
 #'     t_s = 3550,
 #'     variable = "powellLt3550",
+#'     stringsAsFactors = FALSE
+#'   )
+#' )
+#' 
+#' # determine if Mead's December elevation is above 1050 and <= 1075
+#' rwd_agg(
+#'   data.frame(
+#'     file = "KeySlots.rdf",
+#'     slot = "Mead.Pool Elevation",
+#'     period = "December",
+#'     summary = NA,
+#'     eval = "(]",
+#'     t_s = "1050-1075",
+#'     variable = "mead_btwn_1050_1075",
 #'     stringsAsFactors = FALSE
 #'   )
 #' )

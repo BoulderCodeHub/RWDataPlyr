@@ -4,7 +4,7 @@ library(dplyr)
 
 slot_agg_matrix <- read_rwd_agg(
   system.file("extdata/rwd_agg_files/passing_aggs.csv", package = "RWDataPlyr")
-)[1:5,]
+)[1:7,]
 
 rwtbl <- expect_warning(rdf_to_rwtbl(keyRdf))
 
@@ -28,19 +28,36 @@ test_that("period_apply works with pre-specified periods", {
       filter(Month %in% "December", ObjectSlot == slot_agg_matrix[2,]$slot) %>%
       group_by(Year)
   )
+  
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[3,]),
-    filter(rwtbl, Month %in% "July", ObjectSlot == slot_agg_matrix[3,]$slot) %>%
-      group_by(Year)
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[3,]$slot) %>% group_by(Year)
   )
+  
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[4,]),
-    filter(rwtbl, ObjectSlot == slot_agg_matrix[4,]$slot) %>%
-      group_by(Year, Month)
+    filter(rwtbl, Month %in% "July", ObjectSlot == slot_agg_matrix[4,]$slot) %>%
+      group_by(Year)
   )
   expect_identical(
     RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
     filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+      group_by(Year, Month)
+  )
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[6,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[6,]$slot) %>%
+      mutate(ym = zoo::as.yearmon(Timestep)) %>%
+      mutate(Year = ym_get_wateryear(ym)) %>%
+      select(-ym) %>%
+      # drop the last year off
+      filter(Year < max(Year)) %>%
+      group_by(Year)
+  )
+  
+  expect_identical(
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[7,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[6,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
@@ -53,8 +70,8 @@ test_that("period_apply works with pre-specified periods", {
   # don't filter any off
   options(rwdataplyr.wy_month_tol = 0)
   expect_identical(
-    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
-    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[6,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[6,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
@@ -64,8 +81,8 @@ test_that("period_apply works with pre-specified periods", {
   # filter off first and last WY since they aren't full
   options(rwdataplyr.wy_month_tol = 11)
   expect_identical(
-    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[5,]),
-    filter(rwtbl, ObjectSlot == slot_agg_matrix[5,]$slot) %>%
+    RWDataPlyr:::apply_period(rwtbl, slot_agg_matrix[6,]),
+    filter(rwtbl, ObjectSlot == slot_agg_matrix[6,]$slot) %>%
       mutate(ym = zoo::as.yearmon(Timestep)) %>%
       mutate(Year = ym_get_wateryear(ym)) %>%
       select(-ym) %>%
