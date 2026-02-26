@@ -46,7 +46,7 @@ test_that("`rwd_agg_template()` errors correctly", {
 
 test_that("`read_rwd_agg()` works", {
   expect_s3_class(t1 <- read_rwd_agg(good_csv), "rwd_agg")
-  expect_equal(nrow(t1), 7)
+  expect_equal(nrow(t1), 9)
   expect_error(read_rwd_agg(bad_csv))
   expect_error(read_rwd_agg(c("this.csv", "that.csv")))
   expect_error(read_rwd_agg("doesnotexist.csv"))
