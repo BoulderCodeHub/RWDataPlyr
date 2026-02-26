@@ -18,3 +18,4 @@
 ^revdep$
 ^CRAN-SUBMISSION$
 ^data-raw$
+^benchmarking$
