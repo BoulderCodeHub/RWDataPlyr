@@ -12,6 +12,7 @@ apply_period <- function(rwtbl, slot_agg_row)
     rwtbl, 
     .data[["ObjectSlot"]] == slot_agg_row$slot
   ) %>%
+    dplyr::collect() %>% # necessary for arrow filesystem objects
     # filter and group for period
     period_filter_group(period = slot_agg_row$period)
   

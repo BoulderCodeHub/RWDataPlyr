@@ -120,8 +120,7 @@ rdf_aggregate <- function(agg,
         scenario = scenario,
         keep_cols = keep_cols,
         add_ym = TRUE
-      ) #%>%
-        #check_nans(nans_are, rdf_file = rdf_files[x])
+      )
      
       tmp_sam <- agg[agg$file == rdfs[x],]
       
@@ -213,7 +212,6 @@ rwtbl_apply_sar <- function(rwtbl, slot_agg_row, nans_are)
   
   if (slot_agg_row$slot %in% rwtbl_slot_names(rwtbl)) {
   zz <- apply_period(rwtbl, slot_agg_row) %>%
-    dplyr::collect() %>% # necessary for arrow filesystem objects
     check_nans(nans_are, rdf_file = slot_agg_row$file) %>%
     apply_summary(slot_agg_row) %>%
     apply_eval(slot_agg_row) %>%
