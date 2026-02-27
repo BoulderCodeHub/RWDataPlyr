@@ -8,6 +8,7 @@
 * Added new 'between' eval operators to `rwd_agg`s. (#113)
 * Replaced all dplyr `*_at` functions with NSE equivalents that use `.data[[]]`
 * rwtbl_slot_names() is now a generic
+* Deprecated the `cpp` parameter in `rw_scen_aggregate()` and `rdf_aggregate()`
 
 # RWDataPlyr 0.6.6
 

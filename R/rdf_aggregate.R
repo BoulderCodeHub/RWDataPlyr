@@ -44,8 +44,8 @@
 #'   then the function will return `-99` for the Trace, and `NaN` for Year, and 
 #'   Value.
 #'   
-#' @param cpp Boolean; if `TRUE` (default), then use [rdf_to_rwtbl2], which 
-#'   relies on C++, otherwise, use original [rdf_to_rwtbl] function. 
+#' @param cpp Deprecated. It no longer has any effect, and will be removed in a
+#'   future release. 
 #'   
 #' @param verbose Boolean; if `TRUE` (default), then print out status of 
 #'   processing the scenario(s) and the slots in each scenario.
@@ -75,11 +75,18 @@ rdf_aggregate <- function(agg,
                           keep_cols = FALSE,
                           nans_are = "0",
                           find_all_slots = TRUE,
-                          cpp = TRUE,
+                          cpp = NULL,
                           verbose = TRUE)
 {
   if (!is_rwd_agg(agg))
     stop("`agg` passed to `rdf_aggregate()` is not a `rwd_agg`")
+  
+  if (!is.null(cpp)) {
+    warning(
+      "`cpp` parameter has been deprecated and will be removed in a future release. ",
+      "It no longer has any effect and can be removed from your call."
+    )
+  }
   
   nans_are <- match.arg(nans_are, choices = c("0", "error"))
   
@@ -105,46 +112,22 @@ rdf_aggregate <- function(agg,
   
   if (verbose) rdf_agg_msg(agg)
   
-  if (cpp) {
-    rwtblsmmry <- lapply(
-      rdf_len,
-      function(x) {
-        rwtbl <- rdf_to_rwtbl2(
-          rdf_files[x],
-          scenario = scenario,
-          keep_cols = keep_cols,
-          add_ym = TRUE
-        ) #%>%
-          #check_nans(nans_are, rdf_file = rdf_files[x])
-       
-        tmp_sam <- agg[agg$file == rdfs[x],]
-        
-        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots, nans_are)
-      }
-    )
-  } else {
-  
-    rwtblsmmry <- lapply(
-      rdf_len,
-      function(x){
-        # call rwtbl_apply_sam for each unique rdf
-        # seperate sam into one sam for each rdf;
-        # read the rdf, then apply the sam to that rdf
-        
-        rwtbl <- rdf_to_rwtbl(
-          read.rdf(rdf_files[x]), 
-          scenario = scenario, 
-          keep_cols = keep_cols, 
-          add_ym = TRUE
-        ) %>%
-          check_nans(nans_are, rdf_file = rdf_files[x])
-        
-        tmp_sam <- agg[agg$file == rdfs[x],]
-        
-        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
-      }
-    )
-  }
+  rwtblsmmry <- lapply(
+    rdf_len,
+    function(x) {
+      rwtbl <- rdf_to_rwtbl2(
+        rdf_files[x],
+        scenario = scenario,
+        keep_cols = keep_cols,
+        add_ym = TRUE
+      ) #%>%
+        #check_nans(nans_are, rdf_file = rdf_files[x])
+     
+      tmp_sam <- agg[agg$file == rdfs[x],]
+      
+      rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots, nans_are)
+    }
+  )
   
   rwtbl_atts <- lapply(rdf_len, function(x) rwtbl_get_atts(rwtblsmmry[[x]]))
   names(rwtbl_atts) <- rdfs

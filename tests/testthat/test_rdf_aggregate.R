@@ -278,7 +278,10 @@ test_that("rdf_aggregate() can handle 1 trace of data", {
 
 # compare the different versions of `rdf_to_tbl()`'s `cpp` parameter ------
 test_that("`cpp` parameters don't change results", {
-  expect_equal(
+  # `cpp` has been deprecated, so expect a warning, but results should still 
+  # match. 
+  
+  expect_warning(expect_equal(
     rdf_aggregate(
       rwd_agg(rdfs = "KeySlots.rdf"),
       rdf_dir = dnfmost_dir,
@@ -293,9 +296,9 @@ test_that("`cpp` parameters don't change results", {
       keep_cols = FALSE,
       cpp = FALSE
     ))
-  )
+  ))
   
-  expect_equal(
+  expect_warning(expect_equal(
     rdf_aggregate(
       ra1,
       rdf_dir = dnfmost_dir,
@@ -310,12 +313,8 @@ test_that("`cpp` parameters don't change results", {
       keep_cols = FALSE,
       cpp = FALSE
     ))
-  )
+  ))
   
-  t1 <- rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = TRUE)  %>% ungroup()
-  t2 <-  expect_warning(rdf_aggregate(ra1, rdf_dir = trace13_dir, cpp = FALSE))
-  t2 <- select_at(t2, colnames(t1)) %>% ungroup()
-  expect_equal(t1, t2)
 })
 
 # rdf_dir ----------------

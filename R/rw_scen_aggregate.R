@@ -105,12 +105,19 @@ rw_scen_aggregate <- function(scenarios,
                               file = NULL, 
                               scen_names = NULL,
                               find_all_slots = TRUE,
-                              cpp = TRUE,
+                              cpp = NULL,
                               verbose = TRUE)
 {
   # check all UI --------------------
   if (!is.rwd_agg(agg)) {
     stop("In `rw_scen_aggregate()`, `agg` must be a `rwd_agg` object.")
+  }
+  
+  if (!is.null(cpp)) {
+    warning(
+      "`cpp` parameter has been deprecated and will be removed in a future release. ",
+      "It no longer has any effect and can be removed from your call."
+    )
   }
   
   if (length(scen_dir) != 1) {
@@ -144,7 +151,7 @@ rw_scen_aggregate <- function(scenarios,
       keep_cols = keep_cols,
       nans_are = nans_are,
       find_all_slots = find_all_slots,
-      cpp = cpp,
+      cpp = NULL,
       verbose = verbose
     )
   })

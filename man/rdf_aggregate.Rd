@@ -12,7 +12,7 @@ rdf_aggregate(
   keep_cols = FALSE,
   nans_are = "0",
   find_all_slots = TRUE,
-  cpp = TRUE,
+  cpp = NULL,
   verbose = TRUE
 )
 
@@ -25,7 +25,7 @@ rw_scen_aggregate(
   file = NULL,
   scen_names = NULL,
   find_all_slots = TRUE,
-  cpp = TRUE,
+  cpp = NULL,
   verbose = TRUE
 )
 }
@@ -64,8 +64,8 @@ will continue, even if a slot cannot be found. If a slot is not found,
 then the function will return \code{-99} for the Trace, and \code{NaN} for Year, and
 Value.}
 
-\item{cpp}{Boolean; if \code{TRUE} (default), then use \link{rdf_to_rwtbl2}, which
-relies on C++, otherwise, use original \link{rdf_to_rwtbl} function.}
+\item{cpp}{Deprecated. It no longer has any effect, and will be removed in a
+future release.}
 
 \item{verbose}{Boolean; if \code{TRUE} (default), then print out status of
 processing the scenario(s) and the slots in each scenario.}
