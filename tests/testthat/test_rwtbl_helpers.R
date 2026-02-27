@@ -21,7 +21,7 @@ rwa <- as.rwd_agg(read.csv(
 
 test_that("`rwtbl_slot_names()` fails for other data frames", {
   errMsg <- paste0(
-    "Invalid `tbl_df` passed to `rdftbl_slot_names()`.\n",
+    "Invalid `tbl_df` passed to `rwtbl_slot_names()`.\n",
     "It does not have an `ObjectSlot` column"
   )
   expect_error(rwtbl_slot_names(mtcars), errMsg, fixed = TRUE)
