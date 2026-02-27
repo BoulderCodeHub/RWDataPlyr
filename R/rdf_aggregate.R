@@ -114,12 +114,12 @@ rdf_aggregate <- function(agg,
           scenario = scenario,
           keep_cols = keep_cols,
           add_ym = TRUE
-        ) %>%
-          check_nans(nans_are, rdf_file = rdf_files[x])
+        ) #%>%
+          #check_nans(nans_are, rdf_file = rdf_files[x])
        
         tmp_sam <- agg[agg$file == rdfs[x],]
         
-        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots)
+        rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots, nans_are)
       }
     )
   } else {
@@ -174,7 +174,7 @@ rdf_aggregate <- function(agg,
 #' Apply all of the operations from a rwd_agg to a single rdf file
 #' @noRd
 
-rwtbl_apply_sam <- function(rwtbl, agg, find_all_slots)
+rwtbl_apply_sam <- function(rwtbl, agg, find_all_slots, nans_are)
 {
   # if rwd_agg uses the "all" keyword, need to construct the full rwd_agg
   # need to determine if only the all key word exists, or if there is one 
@@ -211,7 +211,7 @@ rwtbl_apply_sam <- function(rwtbl, agg, find_all_slots)
   sam_rows <- seq_len(nrow(agg))
   rwtblsmmry <- lapply(
     sam_rows, 
-    function(x) rwtbl_apply_sar(rwtbl, agg[x,])
+    function(x) rwtbl_apply_sar(rwtbl, agg[x,], nans_are)
   )
   
   rwtblsmmry <- dplyr::bind_rows(rwtblsmmry)
@@ -223,18 +223,20 @@ rwtbl_apply_sam <- function(rwtbl, agg, find_all_slots)
 
 #' Apply a single row's aggregation (sar) from an rwd_agg object
 #' @noRd
-rwtbl_apply_sar <- function(rwtbl, slot_agg_row)
+rwtbl_apply_sar <- function(rwtbl, slot_agg_row, nans_are)
 {
   # if the slot cannot be found, return -99, and NaN, NaN, since if we have 
   # gotten here, `find_all_slots`, must be `FALSE`
   
   if (slot_agg_row$slot %in% rwtbl_slot_names(rwtbl)) {
   zz <- apply_period(rwtbl, slot_agg_row) %>%
+    dplyr::collect() %>% # necessary for arrow filesystem objects
+    check_nans(nans_are, rdf_file = slot_agg_row$file) %>%
     apply_summary(slot_agg_row) %>%
     apply_eval(slot_agg_row) %>%
     add_month_to_annual() %>%
     add_var_drop_objectslot(slot_agg_row)
-  } else{
+  } else {
     zz <- build_missing_slot_values(slot_agg_row) %>%
       add_month_to_annual() %>%
       add_var_drop_objectslot(slot_agg_row)
