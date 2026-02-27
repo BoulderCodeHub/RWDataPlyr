@@ -102,7 +102,7 @@ bigrdf_to_rwtbl <- function(file, scenario = NA_character_, keep_cols = FALSE,
     row_i <- attr(tmp, 'last_i', exact = TRUE)
     attr(tmp, 'last_i') <- NULL
     
-    trace_num <- tail(tmp$TraceNumber, 1)
+    trace_num <- utils::tail(tmp$TraceNumber, 1)
     
     # TODO: consider changing this to be grouped by variable, but would have to
     # write custom write out code so that part-0, part-1... work for the 

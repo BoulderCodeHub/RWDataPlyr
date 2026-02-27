@@ -11,6 +11,8 @@
 #' 
 #' @param rwtbl A `tbl_df` object with RiverWare output. Must contain the 
 #'   `ObjectSlot` column.
+#'   
+#' @param ... Other arguments passed to the method.
 #' 
 #' @seealso [rdf_to_rwtbl()], [read_rw_csv()]
 #' 
@@ -25,7 +27,7 @@ rwtbl_slot_names <- function(rwtbl, ...) {
 }
 
 #' @export
-rwtbl_slot_names.data.frame <- function(rwtbl)
+rwtbl_slot_names.data.frame <- function(rwtbl, ...)
 {
   if ("ObjectSlot" %in% names(rwtbl)) {
     varname <- "ObjectSlot"
@@ -38,7 +40,7 @@ rwtbl_slot_names.data.frame <- function(rwtbl)
 }
 
 #' @export
-rwtbl_slot_names.FileSystemDataset <- function(rwtbl)
+rwtbl_slot_names.FileSystemDataset <- function(rwtbl, ...)
 {
   if ("ObjectSlot" %in% names(rwtbl)) {
     varname <- "ObjectSlot"

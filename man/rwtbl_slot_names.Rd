@@ -9,6 +9,8 @@ rwtbl_slot_names(rwtbl, ...)
 \arguments{
 \item{rwtbl}{A \code{tbl_df} object with RiverWare output. Must contain the
 \code{ObjectSlot} column.}
+
+\item{...}{Other arguments passed to the method.}
 }
 \description{
 \code{rwtbl_slot_names()} lists all of the slot names found in a \code{tbl_df} object

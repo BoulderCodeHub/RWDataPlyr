@@ -306,8 +306,8 @@ check_rwd_agg_big_col <- function(x)
   # make sure that big is the same for all repeat values of rdf
   inconsistent <- x %>%
     dplyr::group_by(.data[['file']]) %>%
-    dplyr::summarise(n_unique_big = dplyr::n_distinct(.data[["big"]])) %>%
-    dplyr::filter(n_unique_big > 1)
+    dplyr::summarise("n_unique_big" = dplyr::n_distinct(.data[["big"]])) %>%
+    dplyr::filter(.data[["n_unique_big"]] > 1)
   
   if (nrow(inconsistent) > 0) {
     stop(
