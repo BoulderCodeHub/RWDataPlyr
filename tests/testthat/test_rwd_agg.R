@@ -16,8 +16,8 @@ df_fact <- read.csv(
 # check construction --------------
 test_that("rwd_agg is created properly", {
   expect_s3_class(tmp <- rwd_agg(df), c("rwd_agg", "data.frame"))
-  expect_equal(dim(tmp), dim(df))
-  expect_equal(colnames(tmp), colnames(df))
+  expect_equal(dim(tmp), dim(df) + c(0, 1))
+  expect_equal(c(colnames(df), "big"), colnames(tmp))
   expect_true(is_rwd_agg(tmp))
   expect_identical(is_rwd_agg(tmp), is.rwd_agg(tmp))
   # check the other creation method
@@ -25,8 +25,8 @@ test_that("rwd_agg is created properly", {
     tmp <- rwd_agg(rdfs = c("this.rdf", "that.rdf")), 
     c("rwd_agg", "data.frame")
   )
-  expect_equal(dim(tmp), c(2, 7))
-  expect_equal(colnames(tmp), colnames(df))
+  expect_equal(dim(tmp), c(2, 8))
+  expect_equal(colnames(tmp), c(colnames(df), "big"))
   expect_true(is_rwd_agg(tmp))
   expect_identical(is_rwd_agg(tmp), is.rwd_agg(tmp))
 })
@@ -113,6 +113,17 @@ test_that("rwd_agg validation fails properly", {
     "When creating a `rwd_agg`, specify either `x` or `rdfs`, not both.",
     fixed = TRUE
   )
+  
+  df2 <- cbind(df, rep(F, nrow(df)))
+  colnames(df2)[8] <- "big"
+  expect_equal(rwd_agg(df), rwd_agg(df2))
+  df2e <- df2
+  df2e$big[1] <- TRUE
+  expect_error(rwd_agg(df2e))
+  df2e$big <- rep("this", nrow(df2e))
+  expect_error(rwd_agg(df23))
+  df2e$big <- rep(45, nrow(df2e))
+  expect_error(rwd_agg(df2e))
 })
 
 context("check the as.rwd_agg methods")
@@ -154,6 +165,7 @@ df1 <- data.frame(
   eval = "<",
   t_s = 3550,
   variable = "powellLt3550",
+  big = FALSE,
   stringsAsFactors = FALSE
 )
 ra1 <- rwd_agg(df1)
@@ -168,7 +180,7 @@ df2 <- as.data.frame(ra2)
 
 test_that("rbind method works on rwd_agg", {
   expect_s3_class(tmp <- rbind(ra1, ra2), c("rwd_agg", "data.frame"))
-  expect_equal(dim(tmp), c(nrow(ra1) + nrow(ra2), 7))
+  expect_equal(dim(tmp), c(nrow(ra1) + nrow(ra2), 8))
   expect_true(all(tmp$variable %in% c(ra1$variable, ra2$variable)))
   expect_identical(tmp, as_rwd_agg(rbind(df1, df2)))
 })

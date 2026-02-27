@@ -21,10 +21,10 @@ lets users specify how specific RiverWare slots should be aggregated.
 \code{rwd_agg} objects can be created in three ways:
 \enumerate{
 \item By providing a data.frame, with the following expected columns \code{file},
-\code{slot}, \code{period}, \code{summary}, \code{eval}, \code{t_s}, and \code{variable}. Each row in the
-data.frame should include all of the information for how each individual
-slot will be aggregated. See the \emph{Aggregation Specification} section below
-for details on how to specify each column.
+\code{slot}, \code{period}, \code{summary}, \code{eval}, \code{t_s}, \code{variable}, and \code{big}. Each row
+in the data.frame should include all of the information for how each
+individual slot will be aggregated. See the \emph{Aggregation Specification}
+section below for details on how to specify each column.
 \item By providing a vector of rdf files. If specified in this manor, all of the
 slots in each rdf file will be read in to a \code{rwtbl}, but will not be
 aggregated/summarized.
@@ -48,7 +48,10 @@ include specific keywords, which are described below. It is up to the user
 to specify which rdf file contains each slot. In a general case, the user
 specifies the \code{slot} that is found in a specific rdf file (\code{file}). A
 \code{summary} function is applied to a subset \code{period} of the \code{slot}, and then
-compared (\code{eval}) to a threshold (\code{t_s}) and saved as the \code{variable}.
+compared (\code{eval}) to a threshold (\code{t_s}) and saved as the \code{variable}. The
+\code{big} columns specifies whether the rdf should be considered too big to
+parse entirely in memory. If \code{TRUE}, \code{\link[=bigrdf_to_rwtbl]{bigrdf_to_rwtbl()}} is used instead
+of \code{\link[=rdf_to_rwtbl2]{rdf_to_rwtbl2()}}.
 \itemize{
 \item \emph{file:} specifies the rdf file that contains the slot.
 \item \emph{slot:} the full RiverWare slot name, i.e., "Object.Slot".
@@ -109,6 +112,11 @@ separated by a hyphen, e.g., 200-250.
 \item \emph{variable:} the variable name that will be used to identify the results
 of applying the period, summary, comparison/scaling to. All variable names
 should be unique.
+\item \emph{big:} \code{TRUE} or \code{FALSE}. If \code{TRUE}, then use \code{\link[=bigrdf_to_rwtbl]{bigrdf_to_rwtbl()}} for
+reading in the rdf file. For a single rdf file, an error will occur if
+this column is not the same for all rows with that rdf file name. For
+backwards compatibility, this column is optional. If it is not specified,
+a message posts, and it is assumed to not be a big rdf file, i.e., \code{FALSE}.
 }
 
 For example, to determine if the minimum water year elevation at Lake Powell
@@ -122,6 +130,7 @@ is below elevation 3550 feet, the following would be specified:
   eval = "<",
   t_s = 3550,
   variable = "powellLt3550",
+  big = FALSE,
   stringsAsFactors = FALSE
 )
 }\if{html}{\out{</div>}}
@@ -174,11 +183,13 @@ rwd_agg(
     eval = "<",
     t_s = 3550,
     variable = "powellLt3550",
+    big = FALSE,
     stringsAsFactors = FALSE
   )
 )
 
-# determine if Mead's December elevation is above 1050 and <= 1075
+# determine if Mead's December elevation is above 1050 and <= 1075 and this
+# rdf file is "big"
 rwd_agg(
   data.frame(
     file = "KeySlots.rdf",
@@ -188,6 +199,7 @@ rwd_agg(
     eval = "(]",
     t_s = "1050-1075",
     variable = "mead_btwn_1050_1075",
+    big = TRUE,
     stringsAsFactors = FALSE
   )
 )

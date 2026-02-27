@@ -9,6 +9,7 @@
 * Replaced all dplyr `*_at` functions with NSE equivalents that use `.data[[]]`
 * rwtbl_slot_names() is now a generic
 * Deprecated the `cpp` parameter in `rw_scen_aggregate()` and `rdf_aggregate()`
+* `rwd_agg` now includes a `big` column/paramter. 
 
 # RWDataPlyr 0.6.6
 

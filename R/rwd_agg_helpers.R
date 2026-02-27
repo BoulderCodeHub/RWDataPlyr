@@ -45,25 +45,25 @@ rwd_agg_template <- function(file, path = ".", examples = FALSE)
   
   if (examples) {
     x <- stats::setNames(data.frame(matrix( 
-        c("KeySlots.rdf", "Mead.Pool Elevation", "asis", NA, NA, NA, "meadPe", 
-        "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "<", 8230000, "pwylt823",
-        "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, 0.001, "pjulrel",
-        "KeySlots.rdf", "Powell.Outflow", "wy", "min", NA, NA, "pminrel",
-        "KeySlots.rdf", "Powell.Outflow", "djf", "max", ">=", 600000, "pwinmax"
+        c("KeySlots.rdf", "Mead.Pool Elevation", "asis", NA, NA, NA, "meadPe", F,
+        "KeySlots.rdf", "Powell.Outflow", "wy", "sum", "<", 8230000, "pwylt823", F,
+        "KeySlots.rdf", "Powell.Outflow", "July", NA, NA, 0.001, "pjulrel", F,
+        "KeySlots.rdf", "Powell.Outflow", "wy", "min", NA, NA, "pminrel", F,
+        "KeySlots.rdf", "Powell.Outflow", "djf", "max", ">=", 600000, "pwinmax",F
         ),
         nrow = 5, 
         byrow = TRUE
       )), 
-      c("file", "slot", "period", "summary" , "eval", "t_s", "variable")
+      c("file", "slot", "period", "summary" , "eval", "t_s", "variable", "big")
     )
     
   } else {
     x <- stats::setNames(
       data.frame(
-        matrix(ncol = 7, nrow = 0),
+        matrix(ncol = 8, nrow = 0),
         stringsAsFactors = FALSE
       ), 
-      c("file", "slot", "period", "summary" , "eval", "t_s", "variable")
+      c("file", "slot", "period", "summary" , "eval", "t_s", "variable", "big")
     )
   }
     

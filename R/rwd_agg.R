@@ -6,10 +6,10 @@
 #' 
 #' `rwd_agg` objects can be created in three ways:
 #' 1. By providing a data.frame, with the following expected columns `file`, 
-#'   `slot`, `period`, `summary`, `eval`, `t_s`, and `variable`. Each row in the
-#'   data.frame should include all of the information for how each individual
-#'   slot will be aggregated. See the *Aggregation Specification* section below
-#'   for details on how to specify each column. 
+#'   `slot`, `period`, `summary`, `eval`, `t_s`, `variable`, and `big`. Each row 
+#'   in the data.frame should include all of the information for how each 
+#'   individual slot will be aggregated. See the *Aggregation Specification* 
+#'   section below for details on how to specify each column. 
 #' 2. By providing a vector of rdf files. If specified in this manor, all of the
 #'    slots in each rdf file will be read in to a `rwtbl`, but will not be 
 #'    aggregated/summarized.
@@ -32,7 +32,10 @@
 #' to specify which rdf file contains each slot. In a general case, the user
 #' specifies the `slot` that is found in a specific rdf file (`file`). A 
 #' `summary` function is applied to a subset `period` of the `slot`, and then
-#' compared (`eval`) to a threshold (`t_s`) and saved as the `variable`.
+#' compared (`eval`) to a threshold (`t_s`) and saved as the `variable`. The 
+#' `big` columns specifies whether the rdf should be considered too big to 
+#' parse entirely in memory. If `TRUE`, [bigrdf_to_rwtbl()] is used instead
+#' of [rdf_to_rwtbl2()].
 #' 
 #' - *file:* specifies the rdf file that contains the slot.
 #' 
@@ -100,6 +103,12 @@
 #' - *variable:* the variable name that will be used to identify the results
 #'   of applying the period, summary, comparison/scaling to. All variable names
 #'   should be unique.
+#'  
+#' - *big:* `TRUE` or `FALSE`. If `TRUE`, then use [bigrdf_to_rwtbl()] for 
+#'   reading in the rdf file. For a single rdf file, an error will occur if 
+#'   this column is not the same for all rows with that rdf file name. For 
+#'   backwards compatibility, this column is optional. If it is not specified,
+#'   a message posts, and it is assumed to not be a big rdf file, i.e., `FALSE`.
 #' 
 #' For example, to determine if the minimum water year elevation at Lake Powell
 #' is below elevation 3550 feet, the following would be specified:
@@ -112,6 +121,7 @@
 #'   eval = "<",
 #'   t_s = 3550,
 #'   variable = "powellLt3550",
+#'   big = FALSE,
 #'   stringsAsFactors = FALSE
 #' )
 #' ```
@@ -161,11 +171,13 @@
 #'     eval = "<",
 #'     t_s = 3550,
 #'     variable = "powellLt3550",
+#'     big = FALSE,
 #'     stringsAsFactors = FALSE
 #'   )
 #' )
 #' 
-#' # determine if Mead's December elevation is above 1050 and <= 1075
+#' # determine if Mead's December elevation is above 1050 and <= 1075 and this
+#' # rdf file is "big"
 #' rwd_agg(
 #'   data.frame(
 #'     file = "KeySlots.rdf",
@@ -175,6 +187,7 @@
 #'     eval = "(]",
 #'     t_s = "1050-1075",
 #'     variable = "mead_btwn_1050_1075",
+#'     big = TRUE,
 #'     stringsAsFactors = FALSE
 #'   )
 #' )
@@ -202,6 +215,7 @@ rwd_agg <- function(x = NULL, rdfs = NULL)
       "eval" = NA,
       "t_s" = NA,
       "variable" = NA,
+      "big" = FALSE,
       stringsAsFactors = FALSE
     )
   }
@@ -220,13 +234,33 @@ validate_rwd_agg <- function(x)
   if (!is.data.frame(x))
     x <- as.data.frame(x, stringsAsFactors = FALSE)
   
-  cols <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
-  if (ncol(x) != 7 || !all(colnames(x) == cols)) {
-    stop(
-      "The `colnames(x)` must be exactly: ", paste(cols, collapse = ", "), 
-      call. = FALSE
-    )
+  req_cols <- c("file", "slot", "period", "summary", "eval", "t_s", "variable")
+  
+  if (ncol(x) == 7) {
+    if (!all(colnames(x) == req_cols)) {
+      stop(
+        "The `colnames(x)` must be exactly: ", paste(req_cols, collapse = ", "),
+        "with an optional column named 'big'.",
+        call. = FALSE
+      )
+    }
+    
+    message("'big' column was not specified, so assuming not a big rdf.")
+    x[['big']] <- FALSE
+    
+  } else if (ncol(x) == 8) {
+    if (!all(colnames(x) == c(req_cols, "big"))) {
+      stop(
+        "The `colnames(x)` must be exactly: ", paste(req_cols, collapse = ", "),
+        "with an optional column named 'big'.",
+        call. = FALSE
+      )
+    }
+  } else {
+    stop("To create an rwd_agg there must be 7 or 8 column. See ?rwd_agg.")
   }
+  
+  
   
   # all columns should not be factors
   if ("factor" %in% simplify2array(lapply(1:7, function(cc) class(x[[cc]])))) {
@@ -256,7 +290,33 @@ validate_rwd_agg <- function(x)
   # check the eval and t_s columns
   lapply(seq_len(nrow(x)), function(rr) check_eval_and_t_s(x[rr,]))
   
+  # check that the big column is boolean and does have different values for the
+  # same rdf
+  check_rwd_agg_big_col(x)
+  
   x
+}
+
+check_rwd_agg_big_col <- function(x) 
+{
+  if (!all(is.logical(x[['big']]))) {
+    stop("All values in the 'big', column must be TRUE or FALSE.")
+  }
+  
+  # make sure that big is the same for all repeat values of rdf
+  inconsistent <- x %>%
+    dplyr::group_by(.data[['file']]) %>%
+    dplyr::summarise(n_unique_big = dplyr::n_distinct(.data[["big"]])) %>%
+    dplyr::filter(n_unique_big > 1)
+  
+  if (nrow(inconsistent) > 0) {
+    stop(
+      "The following rdf files have inconsistent `big` values:\n",
+      paste(inconsistent$file, collapse = "\n")
+    )
+  }
+  
+  invisible(x)
 }
 
 #' Returns all of the file extensions that rwd_agg and the aggregate functions
