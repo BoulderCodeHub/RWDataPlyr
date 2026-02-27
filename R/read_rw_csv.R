@@ -63,10 +63,10 @@ read_rw_csv <- function(file) {
   tibble::as_tibble(zz)
 }
 
-#' convert the timestep in the rw csv from mm-dd-yy hh:mm:ss to yyyy-m-dd 
-#' hh:mm:ss format. It does not modify the dplyr::mutate("Timestep" := convert_rw_csv_ts(.data[["Timestep"]]))hh:mm at all, but expect there to 
-#' be some hh:mm
-#' 
+# convert the timestep in the rw csv from mm-dd-yy hh:mm:ss to yyyy-m-dd 
+# hh:mm:ss format. It does not modify the dplyr::mutate("Timestep" := convert_rw_csv_ts(.data[["Timestep"]]))hh:mm at all, but expect there to 
+# be some hh:mm
+# 
 #' @noRd
 
 convert_rw_csv_ts <- function(ts)
