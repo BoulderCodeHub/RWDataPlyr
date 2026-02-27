@@ -98,6 +98,7 @@ rdf_aggregate <- function(agg,
   rdfs <- unique(agg$file)
   rdf_files <- file.path(rdf_dir, rdfs)
   rdfs_exist <- file.exists(rdf_files)
+  big_rdf <- agg$big[match(rdfs, agg$file)]
   
   # verify rdfs exist
   if (!any(rdfs_exist)) {
@@ -115,13 +116,21 @@ rdf_aggregate <- function(agg,
   rwtblsmmry <- lapply(
     rdf_len,
     function(x) {
-      rwtbl <- rdf_to_rwtbl2(
-        rdf_files[x],
-        scenario = scenario,
-        keep_cols = keep_cols,
-        add_ym = TRUE
-      )
-     
+      if (big_rdf[x]) {
+        rwtbl <- bigrdf_to_rwtbl(
+          rdf_files[x],
+          scenario = scenario,
+          keep_cols = keep_cols,
+          add_ym = TRUE
+        )
+      } else {
+        rwtbl <- rdf_to_rwtbl2(
+          rdf_files[x],
+          scenario = scenario,
+          keep_cols = keep_cols,
+          add_ym = TRUE
+        )
+      }
       tmp_sam <- agg[agg$file == rdfs[x],]
       
       rwtbl_apply_sam(rwtbl, tmp_sam, find_all_slots, nans_are)

@@ -332,3 +332,32 @@ test_that("fails if rdf_dir is not valid", {
     "`rdf_dir` is not a valid directory"
   )
 })
+
+# works the same with bigrdf and rdfs ----------------------------
+ra2 <- ra1
+ra2$big <- TRUE
+test_that("rdf_aggregate() works same using big rdf and rdf", {
+  expect_identical(
+    t1 <- rdf_aggregate(
+      ra1,
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE
+    ) %>% ungroup() %>%
+      select(Year, Month, TraceNumber, Scenario, Variable, Value) %>%
+      arrange(Year, Month, TraceNumber, Scenario, Variable),
+    t2 <- rdf_aggregate(
+      ra2,
+      rdf_dir = dnfmost_dir,
+      scenario = "DNFMost",
+      keep_cols = FALSE,
+    ) %>% ungroup() %>%
+      select(Year, Month, TraceNumber, Scenario, Variable, Value) %>%
+      arrange(Year, Month, TraceNumber, Scenario, Variable)
+  )
+  
+  # TODO: check 'all' parameter
+  
+  # TODO: check mix of big and not big rdfs
+})
+
