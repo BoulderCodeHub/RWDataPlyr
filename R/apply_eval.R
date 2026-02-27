@@ -33,8 +33,8 @@ apply_eval <- function(rwtbl, slot_agg_row)
       num2 <- as.numeric(vals[2])
       o1 <- substr(eval_fun, 1, 1)
       o2 <- substr(eval_fun, 2, 2)
-      o1 <- if_else(o1 == "[", ">=", ">")
-      o2 <- if_else(o2 == "]", "<=", "<")
+      o1 <- dplyr::if_else(o1 == "[", ">=", ">")
+      o2 <- dplyr::if_else(o2 == "]", "<=", "<")
       
       rwtbl <- rwtbl %>%
         dplyr::mutate(
