@@ -15,12 +15,20 @@ apply_summary <- function(rwtbl, slot_agg_row)
   
   # should group by all columns, except Timestep and Value;
   # only group by month if it is already a grouping variable
+  group_order <- c(
+    "Month", "Year", "ObjectName", "SlotName", "TraceNumber","ObjectSlot", 
+    "InputDMIName", "RulesetFileName", "ObjectType", "Unit", "Scale", "Scenario"
+  )
+  
   cur_groups <- dplyr::group_vars(rwtbl)
   cols <- colnames(rwtbl)
   cols <- cols[!(cols %in% c("Timestep", "Year", "Month", "Value"))]
+  group_cols <- c(cur_groups, cols)
+  # order the grouping cols
+  group_cols <- group_cols[order(match(group_cols, group_order))]
   rwtbl <- dplyr::group_by(
     rwtbl, 
-    dplyr::across(dplyr::all_of(c(cur_groups, cols)))
+    dplyr::across(dplyr::all_of(group_cols))
   )
   
   if (!is.na(slot_agg_row$summary)){
