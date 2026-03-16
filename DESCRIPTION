@@ -32,8 +32,9 @@ Imports:
 Suggests:
     bookdown,
     knitr,
+    R6,
     rmarkdown,
-    testthat,
+    testthat (>= 3.2.0),
     covr,
     stringi
 License: CC0
