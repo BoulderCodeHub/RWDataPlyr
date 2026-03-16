@@ -34,7 +34,7 @@ Suggests:
     knitr,
     R6,
     rmarkdown,
-    testthat (>= 3.2.0),
+    testthat (>= 3.3.0),
     covr,
     stringi
 License: CC0
