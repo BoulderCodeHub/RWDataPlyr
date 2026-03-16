@@ -32,7 +32,6 @@ Imports:
 Suggests:
     bookdown,
     knitr,
-    R6,
     rmarkdown,
     testthat (>= 3.3.0),
     covr,
